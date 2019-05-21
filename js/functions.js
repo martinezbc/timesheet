@@ -158,6 +158,13 @@ $(window).ready(function () {
         limitCharacters($(this).attr("id"), 4);
     });
     
+    $("#EmpID").keyup(function () {
+        if (isNaN($(this).val())) {
+            openPopUp("<p>Employee ID can only contains numbers.</p>");
+            $("#EmpID").val("");
+        }
+    });
+    
 });
 
 "use strict";
