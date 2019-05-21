@@ -494,16 +494,19 @@ function toggleDay(x) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
         $("#prev").text(fullday[x - 1]);
+        $("#today").text(fullday[x]);
         $("#next").text(fullday[x + 1]);
     } else if (x === 0) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
         $("#prev").text("");
+        $("#today").text(fullday[x]);
         $("#next").text(fullday[x + 1]);
     } else if (x === 6) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
         $("#prev").text(fullday[x - 1]);
+        $("#today").text(fullday[x]);
         $("#next").text("");
     }
     togglePupilCounts(days[x]);
