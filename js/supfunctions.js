@@ -321,6 +321,8 @@ function completeTimesheetSup() {
         return;
     }
     showHideModal("validateModalSup", "block");
+    $(".dropdown-content").css("display", "none");
+    $("#EmpInitialsSup").focus();
 }
 
 function openTimesheetSup() {

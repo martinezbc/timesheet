@@ -769,7 +769,9 @@ function completeTimesheet() {
     if (bln === false) {
         return;
     }
-    showHideModal("validateModal", "block");    
+    showHideModal("validateModal", "block");
+    $(".dropdown-content").hide();
+    $("#EmpInitials").focus();
 }
 
 function limitCharacters(refID, num) {
