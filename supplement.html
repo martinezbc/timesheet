@@ -318,26 +318,6 @@
             pdf.setFillColor(255, 255, 255);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-
-            x = getStorage("LRRoute1");
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            hOffset += 45;
-            pdf.setFontSize(9);
-            x = getStorage("MonLR1Ct");
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 29;
-            x = getStorage("TueLR1Ct");
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 29;
-            x = getStorage("WedLR1Ct");
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 29;
-            x = getStorage("ThuLR1Ct");
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 29;
-            x = getStorage("FriLR1Ct");
-            pdf.text(hOffset, vOffset, x);
             
             vOffset += 15;
             hOffset = margin;
