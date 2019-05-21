@@ -25,7 +25,7 @@
     <div class="header">
         <h1 class="header__title">TRANSPORTATION SUPPLEMENT REPORT</h1>
         <div id="navbarmodal" class="dropdown"><!--navmodal-->
-            <span class="fas fa-bars dropbtn" onclick="myFunction();"></span>
+            <span class="fas fa-bars dropbtn" id="nav2btn" onclick="myFunction();" ontouchstart="myFunction();"></span>
             <div class="dropdown-content" id="nav2dropdown">
                <div class="row" onclick="completeTimesheetSup();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
                <div class="row" onclick="location.href='index.html';"><span class="fas fa-home"></span>&nbsp;Home</div>
@@ -1064,14 +1064,16 @@
 
         // Close the dropdown if the user clicks outside of it
         window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
+            if (event.target.id !== 'nav2btn') {
+                if ($("#nav2dropdown").hasClass('show')) {
+                    $("#nav2dropdown").removeClass('show');
+                }
+            }
+        }
+        window.ontouchstart = function(event) {
+            if (event.target.id !== 'nav2btn') {
+                if ($("#nav2dropdown").hasClass('show')) {
+                    $("#nav2dropdown").removeClass('show');
                 }
             }
         }
