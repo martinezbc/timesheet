@@ -67,14 +67,14 @@ $(window).ready(function () {
 
     $("#closeTime").click(function () {
         $("#" + activeID).prop("disabled", false);
-        $("#timeModal").css("display", "none");
+        showHideModal("timeModal", "none");
     });
 
     $("#goTime").click(function () {
         var x = $(this).attr("id"),
             timeText = $("#hours").text() + ":" + $("#minutes").text() + " " + $("#meridiem").text();
         $("#" + activeID).val(timeText).prop("disabled", false);
-        $("#timeModal").css("display", "none");
+        showHideModal("timeModal", "none");
         $("#" + activeID).trigger("change");
     });
 
@@ -93,16 +93,16 @@ $(window).ready(function () {
         ftText = ftText.substr(0, 35);
         $("#" + activeID).val(ftText).prop("disabled", false);
         setStorage(activeID, ftText);
-        $("#ftModal").css("display", "none");
+        showHideModal("ftModal", "none");
     });
 
     $("#closeFT").click(function () {
         $("#" + activeID).prop("disabled", false);
-        $("#ftModal").css("display", "none");
+        showHideModal("ftModal", "none");
     });
 
     $("#endVarious").click(function () {
-        $("#variousModal").css("display", "none");
+        showHideModal("variousModal", "none");
     });
 
     $(".ow").click(function () {
@@ -118,7 +118,6 @@ $(window).ready(function () {
     })
 
     $("#clear").click(function () {
-        $(".navmodal").css("display", "none");
         openPopUp('<p>You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
     });
 
@@ -151,11 +150,14 @@ $(window).ready(function () {
         copyRoutine($(this).attr("id"));
     });
     
-    $(window).click(function () {
-        if (!$(event.target).closest("span.fas.fa-bars").length) {
-            $(".navmodal").css("display", "none");
-        }
+    $("#EmpID").keyup(function () {
+        limitCharacters("EmpID", 6);
     });
+    
+    $("#Veh1, #Veh2, #Veh3, #Veh4").keyup(function () {
+        limitCharacters($(this).attr("id"), 4);
+    });
+    
 });
 
 "use strict";
@@ -211,15 +213,6 @@ function loadLocalStorage(optVal) {
         loadSupData();
         checkOWFTSupVal();
         checkOJTDataSup();
-    }
-}
-
-//Open nav bar when span is clicked
-function openNavBar() {
-    if ($(".navmodal").css("display") === "block") {
-        $(".navmodal").css("display", "none");
-    } else if ($(".navmodal").css("display") === "none") {
-        $(".navmodal").css("display", "block");
     }
 }
 
@@ -571,8 +564,7 @@ function timeSelectors(x) {
 
 //Open supplement page in another tab
 function openSupplement() {
-    $(".navmodal").css("display", "none");
-    window.open("index2.html");
+    window.open("index2.html", "_self");
 }
 
 //Clear local storage and reload page
@@ -642,13 +634,13 @@ function openTimeSelector(refID, optVal) {
         $("#minutes" + optVal).text(mins);
         $("#meridiem" + optVal).text(mer);
     }
-    $("#timeModal" + optVal).css("display", "block");
+    showHideModal("timeModal" + optVal, "block");
 }
 
 // Field trip Modal
 function openFTSelector(refVal, optVal) {
     optVal = optVal || "";
-    $("#ftModal" + optVal).css("display", "block");
+    showHideModal("ftModal" + optVal, "block");
     activeID = refVal;
     $("#ftselector" + optVal).val("");
     $("#fttype" + optVal).val("");
@@ -658,7 +650,7 @@ function openPopUp(msgVal, optVal) {
     optVal = optVal || "";
     $("#varDiv" + optVal).nextAll("p").remove();
     $(msgVal).insertAfter("#varDiv" + optVal);
-    $("#variousModal" + optVal).css("display", "block");
+    showHideModal("variousModal" + optVal, "block");
 }
 
 //Copy routine for regular work hours
@@ -672,7 +664,7 @@ function copyRoutine(refID) {
 }
 
 function runCopyRoutine() {
-    $("#variousModal").css("display", "none");
+    showHideModal("variousModal", "none");
     var j = 0,
         k = 0,
         bln = false,
@@ -702,7 +694,7 @@ function runCopyRoutine() {
 }
 
 function runPupilCopyRoutine() {
-    $("#variousModal").css("display", "none");
+    showHideModal("variousModal", "none");
     var i = 0,
         k = 0,
         bln = false;
@@ -767,28 +759,36 @@ function spanToggleTextVal(refID) {
     return bln;
 }
 
+function showHideModal(refID, strStyle) {
+    $("#" + refID).css("display", strStyle);
+}
+
 //******************VALIDATION AND COMPLETION******************//
 function completeTimesheet() {
-    $(".navmodal").css("display", "none");
     var bln = runValidations();
     if (bln === false) {
         return;
     }
-    var y = '<p>VALIDATION SUCCESSFUL</p><p><label for="initial">Initial Below:<br><input type="text" id="initial"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet()";></span></p><p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>';
-    openPopUp(y);
-    $("#initial").val("");
-    setStorage("EmpInitials", "");
+    showHideModal("validateModal", "block");    
+}
+
+function limitCharacters(refID, num) {
+    var refVal = $("#" + refID).val();
+    if ($("#" + refID).val().length > num) {
+        openPopUp("<p>Limit " + num + " characters.</p>","");
+        $("#" + refID).val(refVal.substr(0, num));
+    }
 }
 
 function openTimesheet() {
     var emp = "";
-    emp = $("#initial").val();
+    emp = $("#EmpInitials").val();
     emp = emp.toUpperCase();
     setStorage("EmpInitials", emp);
 
-    $("#variousModal").css("display", "none");
+    showHideModal("validateModal", "none");
     if (emp !== "") {
-        window.open("Timesheet.html");
+        window.open("Timesheet.html", "_self");
     }
 }
 
@@ -847,7 +847,7 @@ function testEmpData(optVal) {
     }
     
     //Check vehicle1
-    if ($("Veh1").val() === "") {
+    if ($("#Veh1").val() === "") {
         val = val + "<p>&bull;Assigned vehicle not entered.</p>";
     }
 

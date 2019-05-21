@@ -320,10 +320,7 @@ function completeTimesheetSup() {
     if (bln === false) {
         return;
     }
-    var y = '<p>VALIDATION SUCCESSFUL</p><p>I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p><p><label for="initial">Initial Below:<br><input type="text" id="EmpInitialsSup"></label><span class="close fas fa-check-circle fa-lg" id="goConfirmSup" style="color:green;" onclick="openTimesheetSup()";></span></p>';
-    openPopUp(y, "Sup");
-    $("#EmpInitialsSup").val("");
-    setStorage("EmpInitialsSup", "");
+    showHideModal("validateModalSup", "block");
 }
 
 function openTimesheetSup() {
@@ -332,9 +329,9 @@ function openTimesheetSup() {
     emp = emp.toUpperCase();
     setStorage("EmpInitialsSup", emp);
 
-    $("#variousModalSup").css("display", "none");
+    showHideModal("variousModalSup", "none");
     if (emp !== "") {
-        window.open("supplement.html");
+        window.open("supplement.html", "_self");
     }
 }
 

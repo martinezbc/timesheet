@@ -20,12 +20,21 @@
     <script src="js/calculation.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/supfunctions.js"></script>
-    <script src="js/jspdf.debug.js"></script>
-    <script src="https://raw.githubusercontent.com/MrRio/jsPDF/master/dist/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <iframe style="width:100%;height:100%"></iframe>
+    <div class="header">
+        <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
+        <div id="navbarmodal" class="dropdown"><!--navmodal-->
+            <span class="fas fa-bars dropbtn"></span>
+            <div class="dropdown-content">
+                <div class="row" onclick="downloadTSSup();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
+               <div class="row" onclick="location.href='index2.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
+            </div>
+        </div>
+    </div>
+    <iframe style="width:100%;height:100%" top="56px"></iframe>
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
@@ -79,8 +88,12 @@
             return x.replace("AM","").replace("PM","")
         }
         
-        $(document).ready(function() {
-            var pdf = jsPDF("p", "pt", "letter"),
+        var pdf = "";
+        var string = "";
+        var fileName = "";
+        
+        function createTimesheetSup() {
+            pdf = jsPDF("p", "pt", "letter"),
                 margin = 20,
                 vOffset = 0,
                 hOffset = 0,
@@ -2090,22 +2103,28 @@
             if (getStorage("EmpMI") !== "") {
                 n = n + getStorage("EmpMI");
             }
-            x = x + n;
+            fileName = x + n;
 
             pdf.setProperties({
-                title: x,
+                title: fileName,
                 subject: "Weekly Report",
                 author: "Brittany Martinez",
                 keywords: "",
                 creator: "FCPS Transportation"
             });
 
-            var string = pdf.output("datauristring");
-
+            string = pdf.output("datauristring");
+        }
+        
+        $(document).ready(function() {
+            createTimesheetSup(); 
             $("iframe").attr("src", string);
-
-            pdf.save(x + "_Supplement.pdf");
         });
+        
+        function downloadTSSup() {
+            createTimesheetSup();
+            pdf.save(fileName + "_Supplement.pdf");
+        }
     </script>
 
 </body>
