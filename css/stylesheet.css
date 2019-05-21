@@ -108,7 +108,13 @@ select {
     z-index: 1000;
 }
 
+table {
+    text-align: center;
+}
 
+tr > td:nth-child(1) {
+    text-align: left;
+}
 
 input[type="text"]:disabled, input[type="number"]:disabled {
     background-color: white;
@@ -241,7 +247,7 @@ input[type=checkbox], input[type=radio] {
     width: 265px;
 }
 
-div p {
+div p, table {
     font-size: 14px;
     font-weight: bold;
     padding-top: 2px;
@@ -583,4 +589,18 @@ span {
 .copyfont {
     font-size: 10px;
     padding-top: 0;
+}
+
+.fullframe {
+    position: absolute;
+    width: 100%;
+    border: none;
+    top: 58px;
+    height: 100%;
+}
+
+.col25 {
+    width: 25%;
+    margin: 0;
+    padding: 0;
 }

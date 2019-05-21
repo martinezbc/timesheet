@@ -790,7 +790,7 @@ function openTimesheet() {
 
     showHideModal("validateModal", "none");
     if (emp !== "") {
-        window.open("Timesheet.html", "_self");
+        window.open("timesheet.html", "_self");
     }
 }
 
