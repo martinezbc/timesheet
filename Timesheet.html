@@ -29,8 +29,8 @@
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
         <div id="navbarmodal" class="dropdown">
             <!--navmodal-->
-            <span class="fas fa-bars dropbtn" onclick="openNavBar();"></span>
-            <div class="dropdown-content">
+            <span class="fas fa-bars dropbtn" onclick="myFunction();"></span>
+            <div class="dropdown-content" id="tsdropdown">
                 <div class="row" onclick="downloadTS();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
                 <div class="row" onclick="location.href='index.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
             </div>
@@ -460,6 +460,27 @@
                     createTimesheet();
                     pdf.save(fileName + ".pdf");
                 }
+    </script>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("tsdropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
 
 </body></html>

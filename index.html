@@ -25,11 +25,11 @@
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
         <div id="navbarmodal" class="dropdown">
-            <span class="fas fa-bars dropbtn"></span>
-            <div class="dropdown-content">
-               <div class="row" onclick="completeTimesheet();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
-               <div class="row" onclick="openSupplement()"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
-               <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+            <span class="fas fa-bars dropbtn" onclick="myFunction()"></span>
+            <div class="dropdown-content" id="navdropdown">
+                <div class="row" onclick="completeTimesheet();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                <div class="row" onclick="openSupplement()"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
+                <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
             </div>
         </div>
     </div>
@@ -2812,9 +2812,32 @@
     <div id="validateModal" class="modal" style="padding-top: 15%;">
         <div class="modal-content" style="width: 500px;">
             <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;" onclick="showHideModal('validateModal', 'none');"></span>
-            <p>VALIDATION SUCCESSFUL</p><p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials" onkeypress="limitCharacters('EmpInitials', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet()";></span></p><p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
+            <p>VALIDATION SUCCESSFUL</p>
+            <p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials" onkeypress="limitCharacters('EmpInitials', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet()" ;></span></p>
+            <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("navdropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
