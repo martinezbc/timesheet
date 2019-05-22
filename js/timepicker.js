@@ -7,7 +7,7 @@ function clearTimeField (fieldID) {
         clearTimeFieldSup(fieldID);
         return;
     }
-    if (num === "13" || num === "14") {
+    if (num === "14" || num === "15") {
         $("#" + day + "LeaveSelect" + num).val("");
         setStorage(day + "LeaveSelect" + num, "");
         $("#" + day + "Time" + num + "E").val("").trigger("change");
@@ -33,7 +33,7 @@ function clearOtherField (fieldID) {
         clearOtherFieldSup(fieldID);
         return;
     }
-    if (num === "11" || num === "12") {
+    if (num === "11" || num === "12" || num === "13") {
         $("#" + day + "To" + num).val("");
         setStorage(day + "To" + num, "");
         $("#" + day + "From" + num).val("");

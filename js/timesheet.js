@@ -1702,12 +1702,12 @@ function createTimesheet() {
     var leave = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
     j = 0;
     for (i = 0; i < 5; i++) {
-        if (getStorage(daysm[i] + "Time13") !== "") {
-            leave[j] = daysm[i] + "Time13";
-            j++;
-        }
         if (getStorage(daysm[i] + "Time14") !== "") {
             leave[j] = daysm[i] + "Time14";
+            j++;
+        }
+        if (getStorage(daysm[i] + "Time15") !== "") {
+            leave[j] = daysm[i] + "Time15";
             j++;
         }
         if (getStorage(daysm[i] + "LeaveAD") === "1") {
@@ -2805,6 +2805,10 @@ function createTimesheet() {
         }
         if (getStorage(days[i] + "Time12") !== "") {
             fieldTrip[j] = days[i] + "Time12";
+            j++;
+        }
+        if (getStorage(days[i] + "Time13") !== "") {
+            fieldTrip[j] = days[i] + "Time13";
             j++;
         }
     }

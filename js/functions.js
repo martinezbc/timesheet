@@ -69,6 +69,10 @@ $(window).ready(function () {
         $("#" + activeID).prop("disabled", false);
         showHideModal("timeModal", "none");
     });
+    
+    $("#endValidate").click(function () {
+        showHideModal('validateModal', 'none');
+    })
 
     $("#goTime").click(function () {
         var x = $(this).attr("id"),
@@ -178,7 +182,7 @@ var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRou
 
 //UPDATES POPUP WINDOW
 function changesMade() {
-    //openPopUp("<p>UPDATES 5/10/19</p><p>&bull;MENU - Menu bar at the top has changed. Click 3 lines to open menu.</p>");
+    openPopUp("<p>UPDATES 5/22/19</p><p>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
 }
 
 //Initial function to load after window loads
@@ -386,11 +390,11 @@ function isADLeaveChecked(day) {
 
 //Check if AM or PM leave is entered 
 function isAMLeaveEntered(day) {
-    return (getStorage(day + "Time13") === "") ? false : true;
+    return (getStorage(day + "Time14") === "") ? false : true;
 }
 
 function isPMLeaveEntered(day) {
-    return (getStorage(day + "Time14") === "") ? false : true;
+    return (getStorage(day + "Time15") === "") ? false : true;
 }
 
 function checkDailyLeave() {
@@ -617,6 +621,9 @@ function countFieldTrips(refID) {
         if (getStorage(days[i] + "Time12S") !== "") {
             j++;
         }
+        if (getStorage(days[i] + "Time13S") !== "") {
+            j++;
+        }
     }
     //Result of j value
     if (j > 4) {
@@ -735,7 +742,7 @@ function runPupilCopyRoutine() {
 function spanToggleTextVal(refID) {
     var day = refID.substr(0, 3),
         num = refID.substr(9),
-        leaveArray = ["LeaveSelectAD", "LeaveSelect13", "LeaveSelect14", "Time13", "Time14"],
+        leaveArray = ["LeaveSelectAD", "LeaveSelect14", "LeaveSelect15", "Time14", "Time15"],
         otherArray = ["Select", "Desc", "Time"],
         tripArray = ["To", "From", "Voucher", "Time"],
         i = 0,
@@ -777,7 +784,6 @@ function completeTimesheet() {
         return;
     }
     showHideModal("validateModal", "block");
-    $(".dropdown-content").hide();
     $("#EmpInitials").focus();
 }
 
@@ -870,8 +876,8 @@ function testFieldTrip() {
     //Check field trips
     for (var i = 0; i < 7; i++) {
         x = "#" + days[i];
-        for (var j = 11; j < 13; j++) {
-            if ($(x + "Time11") === "") { //Time is blank
+        for (var j = 11; j < 14; j++) {
+            if ($(x + "Time" + j) === "") { //Time is blank
                 if ($(x + "Voucher" + j) !== "" || $(x + "From" + j) !== "" || $(x + "To" + j) !== "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
                 }
@@ -922,7 +928,7 @@ function testLeave() {
 
     for (var i = 2; i < 7; i++) {
         x = "#" + days[i];
-        for (var j = 13; j < 15; j++) {
+        for (var j = 14; j < 16; j++) {
             if ($(x + "Time" + j) !== "") {
                 if ($(x + "LeaveSelect" + j) === "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
@@ -1130,7 +1136,7 @@ function setLocalStorage(refID) {
         setStorage(refID, y);
     }
 
-    if (refID.indexOf("Time13") > 0 || refID.indexOf("Time14") > 0) {
+    if (refID.indexOf("Time14") > 0 || refID.indexOf("Time15") > 0) {
         checkDailyLeave();
     }
 

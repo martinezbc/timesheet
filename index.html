@@ -513,6 +513,36 @@
                     <div class="col10"><span class="fas fa-times" id="SatClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="SatSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row SatLV SatSpanFT13">
+                    <div class="col90">
+                        <label for="SatLift13"><input type="checkbox" id="SatLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="SatVoucher13" id="SatVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="SatBanFT13"></span></div>
+                </div>
+                <div class="row SatLV SatSpanFT13">
+                    <input name="SatFrom13" id="SatFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SatLV SatSpanFT13">
+                    <input name="SatTo13" id="SatTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SatLV SatSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="SatTime13S" id="SatTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SatTime13E" id="SatTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SatTime13" id="SatTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="SatClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Sunday" class="card hide">
             <div class="row">
@@ -728,6 +758,36 @@
                     <div class="col10"><span class="fas fa-times" id="SunClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="SunSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row SunLV SunSpanFT13">
+                    <div class="col90">
+                        <label for="SunLift13"><input type="checkbox" id="SunLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="SunVoucher13" id="SunVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="SunBanFT13"></span></div>
+                </div>
+                <div class="row SunLV SunSpanFT13">
+                    <input name="SunFrom13" id="SunFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SunLV SunSpanFT13">
+                    <input name="SunTo13" id="SunTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SunLV SunSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="SunTime13S" id="SunTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SunTime13E" id="SunTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SunTime13" id="SunTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="SunClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Monday" class="card hide">
             <div class="row">
@@ -782,28 +842,6 @@
                 <div class="row MonLV MonSpanLV">
                     <div class="col80">
                         <p>Morning
-                            <select id="MonLeaveSelect13">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
-                    </div>
-                    <div class="col20"><span class="fas fa-times" id="MonClearLV13"></span></div>
-                </div>
-                <div class="row MonLV MonSpanLV">
-                    <input name="MonTime13S" id="MonTime13S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime13E" id="MonTime13E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime13" id="MonTime13" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row MonSpanLV"><span class="bar"></span></div>
-                <div class="row MonLV MonSpanLV">
-                    <div class="col80">
-                        <p>Afternoon
                             <select id="MonLeaveSelect14">
                                 <option value="">--Select Leave--</option>
                                 <option value="SICK-IND">Sick-Indv</option>
@@ -821,6 +859,28 @@
                     <input name="MonTime14S" id="MonTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="MonTime14E" id="MonTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="MonTime14" id="MonTime14" type="text" class="total-time nofocus" disabled>
+                </div>
+                <div class="row MonSpanLV"><span class="bar"></span></div>
+                <div class="row MonLV MonSpanLV">
+                    <div class="col80">
+                        <p>Afternoon
+                            <select id="MonLeaveSelect15">
+                                <option value="">--Select Leave--</option>
+                                <option value="SICK-IND">Sick-Indv</option>
+                                <option value="SICK-FAM">Sick-Family</option>
+                                <option value="SICK-PER">Personal</option>
+                                <option value="LWOP">LWOP</option>
+                                <option value="CIVIL">Civil</option>
+                                <option value="SICK-FMLA">FMLA</option>
+                                <option value="SICK-INJ">Injury</option>
+                            </select></p>
+                    </div>
+                    <div class="col20"><span class="fas fa-times" id="MonClearLV15"></span></div>
+                </div>
+                <div class="row MonLV MonSpanLV">
+                    <input name="MonTime15S" id="MonTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="MonTime15E" id="MonTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="MonTime15" id="MonTime15" type="text" class="total-time nofocus" disabled>
                 </div>
             </div>
             <hr>
@@ -1129,6 +1189,36 @@
                     <div class="col10"><span class="fas fa-times" id="MonClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="MonSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row MonLV MonSpanFT13">
+                    <div class="col90">
+                        <label for="MonLift13"><input type="checkbox" id="MonLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="MonVoucher13" id="MonVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="MonBanFT13"></span></div>
+                </div>
+                <div class="row MonLV MonSpanFT13">
+                    <input name="MonFrom13" id="MonFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row MonLV MonSpanFT13">
+                    <input name="MonTo13" id="MonTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row MonLV MonSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="MonTime13S" id="MonTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="MonTime13E" id="MonTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="MonTime13" id="MonTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="MonClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Tuesday" class="card hide">
             <div class="row">
@@ -1183,29 +1273,6 @@
                 <div class="row TueLV TueSpanLV">
                     <div class="category col80">
                         <p>Morning
-                            <select id="TueLeaveSelect13">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
-                    </div>
-                    <div class="col20"><span class="fas fa-times" id="TueClearLV13"></span>
-                    </div>
-                </div>
-                <div class="row TueLV TueSpanLV">
-                    <input name="TueTime13S" id="TueTime13S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="TueTime13E" id="TueTime13E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="TueTime13" id="TueTime13" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row TueSpanLV"><span class="bar"></span></div>
-                <div class="row TueLV TueSpanLV">
-                    <div class="category col80">
-                        <p>Afternoon
                             <select id="TueLeaveSelect14">
                                 <option value="">--Select Leave--</option>
                                 <option value="SICK-IND">Sick-Indv</option>
@@ -1217,12 +1284,35 @@
                                 <option value="SICK-INJ">Injury</option>
                             </select></p>
                     </div>
-                    <div class="col20"><span class="fas fa-times" id="TueClearLV14"></span></div>
+                    <div class="col20"><span class="fas fa-times" id="TueClearLV14"></span>
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanLV">
                     <input name="TueTime14S" id="TueTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="TueTime14E" id="TueTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="TueTime14" id="TueTime14" type="text" class="total-time nofocus" disabled>
+                </div>
+                <div class="row TueSpanLV"><span class="bar"></span></div>
+                <div class="row TueLV TueSpanLV">
+                    <div class="category col80">
+                        <p>Afternoon
+                            <select id="TueLeaveSelect15">
+                                <option value="">--Select Leave--</option>
+                                <option value="SICK-IND">Sick-Indv</option>
+                                <option value="SICK-FAM">Sick-Family</option>
+                                <option value="SICK-PER">Personal</option>
+                                <option value="LWOP">LWOP</option>
+                                <option value="CIVIL">Civil</option>
+                                <option value="SICK-FMLA">FMLA</option>
+                                <option value="SICK-INJ">Injury</option>
+                            </select></p>
+                    </div>
+                    <div class="col20"><span class="fas fa-times" id="TueClearLV15"></span></div>
+                </div>
+                <div class="row TueLV TueSpanLV">
+                    <input name="TueTime15S" id="TueTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="TueTime15E" id="TueTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="TueTime15" id="TueTime15" type="text" class="total-time nofocus" disabled>
                 </div>
             </div>
             <hr>
@@ -1531,6 +1621,36 @@
                     <div class="col10"><span class="fas fa-times" id="TueClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="TueSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row TueLV TueSpanFT13">
+                    <div class="col90">
+                        <label for="TueLift13"><input type="checkbox" id="TueLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="TueVoucher13" id="TueVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="TueBanFT13"></span></div>
+                </div>
+                <div class="row TueLV TueSpanFT13">
+                    <input name="TueFrom13" id="TueFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row TueLV TueSpanFT13">
+                    <input name="TueTo13" id="TueTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row TueLV TueSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="TueTime13S" id="TueTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="TueTime13E" id="TueTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="TueTime13" id="TueTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="TueClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Wednesday" class="card hide">
             <div class="row">
@@ -1585,28 +1705,6 @@
                 <div class="row WedLV WedSpanLV">
                     <div class="col80">
                         <p>Morning
-                            <select id="WedLeaveSelect13">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
-                    </div>
-                    <div class="col20"><span class="fas fa-times" id="WedClearLV13"></span></div>
-                </div>
-                <div class="row WedLV WedSpanLV">
-                    <input name="WedTime13S" id="WedTime13S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime13E" id="WedTime13E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime13" id="WedTime13" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row WedSpanLV"><span class="bar"></span></div>
-                <div class="row WedLV WedSpanLV">
-                    <div class="col80">
-                        <p>Afternoon
                             <select id="WedLeaveSelect14">
                                 <option value="">--Select Leave--</option>
                                 <option value="SICK-IND">Sick-Indv</option>
@@ -1624,6 +1722,28 @@
                     <input name="WedTime14S" id="WedTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="WedTime14E" id="WedTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="WedTime14" id="WedTime14" type="text" class="total-time nofocus" disabled>
+                </div>
+                <div class="row WedSpanLV"><span class="bar"></span></div>
+                <div class="row WedLV WedSpanLV">
+                    <div class="col80">
+                        <p>Afternoon
+                            <select id="WedLeaveSelect15">
+                                <option value="">--Select Leave--</option>
+                                <option value="SICK-IND">Sick-Indv</option>
+                                <option value="SICK-FAM">Sick-Family</option>
+                                <option value="SICK-PER">Personal</option>
+                                <option value="LWOP">LWOP</option>
+                                <option value="CIVIL">Civil</option>
+                                <option value="SICK-FMLA">FMLA</option>
+                                <option value="SICK-INJ">Injury</option>
+                            </select></p>
+                    </div>
+                    <div class="col20"><span class="fas fa-times" id="WedClearLV15"></span></div>
+                </div>
+                <div class="row WedLV WedSpanLV">
+                    <input name="WedTime15S" id="WedTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="WedTime15E" id="WedTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="WedTime15" id="WedTime15" type="text" class="total-time nofocus" disabled>
                 </div>
             </div>
             <hr>
@@ -1932,6 +2052,36 @@
                     <div class="col10"><span class="fas fa-times" id="WedClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="WedSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row WedLV WedSpanFT13">
+                    <div class="col90">
+                        <label for="WedLift13"><input type="checkbox" id="WedLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="WedVoucher13" id="WedVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="WedBanFT13"></span></div>
+                </div>
+                <div class="row WedLV WedSpanFT13">
+                    <input name="WedFrom13" id="WedFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row WedLV WedSpanFT13">
+                    <input name="WedTo13" id="WedTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row WedLV WedSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="WedTime13S" id="WedTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="WedTime13E" id="WedTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="WedTime13" id="WedTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="WedClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Thursday" class="card hide">
             <div class="row">
@@ -1986,28 +2136,6 @@
                 <div class="row ThuLV ThuSpanLV">
                     <div class="col80">
                         <p>Morning
-                            <select id="ThuLeaveSelect13">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
-                    </div>
-                    <div class="col20"><span class="fas fa-times" id="ThuClearLV13"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanLV">
-                    <input name="ThuTime13S" id="ThuTime13S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime13E" id="ThuTime13E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime13" id="ThuTime13" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row ThuSpanLV"><span class="bar"></span></div>
-                <div class="row ThuLV ThuSpanLV">
-                    <div class="col80">
-                        <p>Afternoon
                             <select id="ThuLeaveSelect14">
                                 <option value="">--Select Leave--</option>
                                 <option value="SICK-IND">Sick-Indv</option>
@@ -2025,6 +2153,28 @@
                     <input name="ThuTime14S" id="ThuTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="ThuTime14E" id="ThuTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="ThuTime14" id="ThuTime14" type="text" class="total-time nofocus" disabled>
+                </div>
+                <div class="row ThuSpanLV"><span class="bar"></span></div>
+                <div class="row ThuLV ThuSpanLV">
+                    <div class="col80">
+                        <p>Afternoon
+                            <select id="ThuLeaveSelect15">
+                                <option value="">--Select Leave--</option>
+                                <option value="SICK-IND">Sick-Indv</option>
+                                <option value="SICK-FAM">Sick-Family</option>
+                                <option value="SICK-PER">Personal</option>
+                                <option value="LWOP">LWOP</option>
+                                <option value="CIVIL">Civil</option>
+                                <option value="SICK-FMLA">FMLA</option>
+                                <option value="SICK-INJ">Injury</option>
+                            </select></p>
+                    </div>
+                    <div class="col20"><span class="fas fa-times" id="ThuClearLV15"></span></div>
+                </div>
+                <div class="row ThuLV ThuSpanLV">
+                    <input name="ThuTime15S" id="ThuTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="ThuTime15E" id="ThuTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="ThuTime15" id="ThuTime15" type="text" class="total-time nofocus" disabled>
                 </div>
             </div>
             <hr>
@@ -2333,6 +2483,36 @@
                     <div class="col10"><span class="fas fa-times" id="ThuClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="ThuSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row ThuLV ThuSpanFT13">
+                    <div class="col90">
+                        <label for="ThuLift13"><input type="checkbox" id="ThuLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="ThuVoucher13" id="ThuVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="ThuBanFT13"></span></div>
+                </div>
+                <div class="row ThuLV ThuSpanFT13">
+                    <input name="ThuFrom13" id="ThuFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row ThuLV ThuSpanFT13">
+                    <input name="ThuTo13" id="ThuTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row ThuLV ThuSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="ThuTime13S" id="ThuTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="ThuTime13E" id="ThuTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="ThuTime13" id="ThuTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="ThuClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div id="Friday" class="card hide">
             <div class="row">
@@ -2383,28 +2563,6 @@
                 <div class="row FriLV FriSpanLV">
                     <div class="col80">
                         <p>Morning
-                            <select id="FriLeaveSelect13">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
-                    </div>
-                    <div class="col20"><span class="fas fa-times" id="FriClearLV13"></span></div>
-                </div>
-                <div class="row FriLV FriSpanLV">
-                    <input name="FriTime13S" id="FriTime13S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime13E" id="FriTime13E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime13" id="FriTime13" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row FriSpanLV"><span class="bar"></span></div>
-                <div class="row FriLV FriSpanLV">
-                    <div class="col80">
-                        <p>Afternoon
                             <select id="FriLeaveSelect14">
                                 <option value="">--Select Leave--</option>
                                 <option value="SICK-IND">Sick-Indv</option>
@@ -2422,6 +2580,28 @@
                     <input name="FriTime14S" id="FriTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="FriTime14E" id="FriTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
                     <input name="FriTime14" id="FriTime14" type="text" class="total-time nofocus" disabled>
+                </div>
+                <div class="row FriSpanLV"><span class="bar"></span></div>
+                <div class="row FriLV FriSpanLV">
+                    <div class="col80">
+                        <p>Afternoon
+                            <select id="FriLeaveSelect15">
+                                <option value="">--Select Leave--</option>
+                                <option value="SICK-IND">Sick-Indv</option>
+                                <option value="SICK-FAM">Sick-Family</option>
+                                <option value="SICK-PER">Personal</option>
+                                <option value="LWOP">LWOP</option>
+                                <option value="CIVIL">Civil</option>
+                                <option value="SICK-FMLA">FMLA</option>
+                                <option value="SICK-INJ">Injury</option>
+                            </select></p>
+                    </div>
+                    <div class="col20"><span class="fas fa-times" id="FriClearLV15"></span></div>
+                </div>
+                <div class="row FriLV FriSpanLV">
+                    <input name="FriTime15S" id="FriTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="FriTime15E" id="FriTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                    <input name="FriTime15" id="FriTime15" type="text" class="total-time nofocus" disabled>
                 </div>
             </div>
             <hr>
@@ -2730,6 +2910,36 @@
                     <div class="col10"><span class="fas fa-times" id="FriClearFT12"></span></div>
                 </div>
             </div>
+            <div class="tinycard bg-darkteal">
+                <div class="row">
+                    <div class="category col80">Field Trip</div>
+                    <div class="col20">
+                        <span class="fas fa-question-circle ft"></span>
+                        <span class="fas fa-angle-up spanToggle" id="FriSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row FriLV FriSpanFT13">
+                    <div class="col90">
+                        <label for="FriLift13"><input type="checkbox" id="FriLift13">LIFT</label>&nbsp;&nbsp;
+                        <input name="FriVoucher13" id="FriVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col10"><span class="fas fa-ban" id="FriBanFT13"></span></div>
+                </div>
+                <div class="row FriLV FriSpanFT13">
+                    <input name="FriFrom13" id="FriFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row FriLV FriSpanFT13">
+                    <input name="FriTo13" id="FriTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row FriLV FriSpanFT13">
+                    <div class="col90">
+                        <input type="text" name="FriTime13S" id="FriTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="FriTime13E" id="FriTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="FriTime13" id="FriTime13" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col10"><span class="fas fa-times" id="FriClearFT13"></span></div>
+                </div>
+            </div>
         </div>
         <div class="card bg-olive">
             <div class="row">
@@ -2815,9 +3025,9 @@
     <!-- The Final Validation Modal -->
     <div id="validateModal" class="modal" style="padding-top: 15%;">
         <div class="modal-content" style="width: 500px;">
-            <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;" onclick="showHideModal('validateModal', 'none');"></span>
+            <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;"></span>
             <p>VALIDATION SUCCESSFUL</p>
-            <p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials" onkeypress="limitCharacters('EmpInitials', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet()" ;></span></p>
+            <p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials" onkeypress="limitCharacters('EmpInitials', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet();"></span></p>
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>

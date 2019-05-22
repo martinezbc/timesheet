@@ -34,7 +34,7 @@ function textboxUpdate(refID) {
 		countOtherWork(refID);
 	}
     
-    if (c > 10 && c < 13) {
+    if (c > 10 && c < 14) {
 		countFieldTrips(refID);
 	}
 }
@@ -108,7 +108,7 @@ function checkOverlap(s1, z) {
         max = 15;
     
     if (day === "Sat" || day === "Sun") {
-        max = 13;
+        max = 14;
         i = 8;
     }
     
@@ -199,6 +199,7 @@ function calculateDiff(refID) {
             case "0":
             case "11":
             case "12":
+            case "13":
                 $("#" + refID).val(convertTotal(timeDiff));
                 break;
             default:
@@ -246,7 +247,7 @@ function convertTotal(refVal) {
 }
 
 function setToFixed(refVal) {
-    refVal = parseFloat(refVal);
+    refVal = Number(refVal);
     if (refVal === 0) {
         return "";
     }
@@ -337,9 +338,7 @@ function sumCPay() {
 //Field Trip Times
 function dailyFT(d) {
 	"use strict";
-    var m1 = Number($("#" + d + "Time11").val()),
-        m2 = Number($("#" + d + "Time12").val()),
-        r = m1 + m2;
+    var r = Number($("#" + d + "Time11").val()) + Number($("#" + d + "Time12").val()) + Number($("#" + d + "Time13").val());
     r = setToFixed(r);
     $("#" + d + "FTTotal").val(r);
     setStorage(d + "FTTotal", r);
@@ -357,7 +356,7 @@ function dailyLift(d) {
         }
     }
     //If Lift 8 - 12 is checked, add the time to r
-    for (i = 8; i < 13; i++) {
+    for (i = 8; i < 14; i++) {
         if ($("#" + d + "Lift" + i).is(":checked")) {
             r = r + convertToMinutes($("#" + d + "Time" + i).val());
         }
@@ -444,9 +443,9 @@ function checkSpanVal (day) {
 	"use strict";
     var bln = false,
         elemID = "",
-        spanArray = ["SpanLV", "SpanOW8", "SpanOW9", "SpanOW10", "SpanFT11", "SpanFT12"];
+        spanArray = ["SpanLV", "SpanOW8", "SpanOW9", "SpanOW10", "SpanFT11", "SpanFT12", "SpanFT13"];
     
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < 7; i++) {
         elemID = day + spanArray[i];
         bln = spanToggleTextVal(elemID);
         
