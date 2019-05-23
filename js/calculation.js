@@ -47,7 +47,7 @@ function checkAMPMTime(refID, strNum) {
         openPopUp("<p>Morning run times cannot be PM time</p>","");
         $("#" + refID).val("");
         return true;
-    } else if (strNum === "7" && convertToMinutes($("#" + refID).val()) < 720) {
+    } else if (strNum === "7" && convertToMinutes($("#" + refID).val()) < 720 && $("#" + refID).val() !== "") {
         openPopUp("<p>Late run times cannot be AM time</p>","");
         $("#" + refID).val("");
         return true;

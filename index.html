@@ -100,7 +100,7 @@
                 <input type="text" name="Veh4" id="Veh4" style="width: 100px;" placeholder="0000">
             </div>
         </div>
-        <div class="card bg-grey">
+        <div class="card bg-grey" id="greynav">
             <div class="row center">
                 <div class="col">
                     <span class="fas fa-chevron-circle-left fa-2x" onclick="moveLeftNavBar()"></span>
@@ -2966,7 +2966,7 @@
         </div>
         <!-- The Time Selector -->
         <div id="timeModal" class="modal">
-            <div class="modal-content" style="max-width: 200px">
+            <div class="modal-content">
                 <p class="modal-title">Time Selector<span class="close fas fa-times-circle fa-lg" id="closeTime" style="float: right;"></span></p>
                 <div style="text-align: center;">
                     <ul>
@@ -2980,10 +2980,12 @@
                         <li class="center">
                             <span class="fas fa-angle-up up" id="mrup"></span><span class="timepicker-meridiem" id="meridiem">AM</span><span class="fas fa-angle-down down" id="mrdown"></span>
                         </li>
-                        <li><span class="close fas fa-check-circle fa-lg" id="goTime" style="color:green;float: right;"></span></li>
+                        <li>
+                            <span class="close fas fa-check-circle fa-lg" id="goTime" style="color:green;float:right;"></span>
+                        </li>
                     </ul>
-                    <p></p>
                 </div>
+                
             </div>
         </div>
         <div class="spacer"></div>

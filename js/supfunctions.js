@@ -70,6 +70,22 @@ $(window).ready(function () {
     });
 });
 
+function loadDateRangeSup() {
+	"use strict";
+    var d = new Date();
+    var day = d.getDay();
+    var r1 = DateRange(d, day, 0);
+    var r2 = DateRange(d, day, -7);
+    var r3 = DateRange(d, day, -14);
+    var r4 = DateRange(d, day, -21);
+    $('<option value="' + r1 + '">' + r1 + '</option>').insertAfter("#AfterOptSup");
+    $('<option value="' + r2 + '">' + r2 + '</option>').insertAfter("#AfterOptSup");
+    $('<option value="' + r3 + '">' + r3 + '</option>').insertAfter("#AfterOptSup");
+    $('<option value="' + r4 + '">' + r4 + '</option>').insertAfter("#AfterOptSup");
+    $("#WeekOfSup").val(getStorage("WeekOfSup"));
+    loadSupDates();
+}
+
 function clearFieldsSup() {
     $("#variousModalSup").css("display", "none");
     $("body").find("input:text").val("").trigger("change");

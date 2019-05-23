@@ -190,7 +190,11 @@ function loadLocalStorage(optVal) {
     var x = "",
         y = "";
     
-    loadDateRange(optVal);
+    if (optVal === "Sup") {
+        loadDateRangeSup();
+    } else {
+        loadDateRange();
+    }
     insertFTSelect(optVal);
 
     $("input:not([type='checkbox']), select").each(function () {
@@ -202,7 +206,7 @@ function loadLocalStorage(optVal) {
         }
         $(this).val(y);
         
-        if ($(this).val() === null) {
+        if ($(this).val() === null && $(this).attr('id') !== "Team") { //Need to replace null values with "" except for the team field which will populate further down the script
             $(this).val("");
             setStorage(x, "");
         }
@@ -233,22 +237,18 @@ function loadLocalStorage(optVal) {
 }
 
 //******************LOAD DATE RANGES INTO DATE DROP DOWN******************//
-function loadDateRange(optVal) {
+function loadDateRange() {
 	"use strict";
     var d = new Date();
     var day = d.getDay();
     var r1 = DateRange(d, day, 7);
     var r2 = DateRange(d, day, 0);
     var r3 = DateRange(d, day, -7);
-    $('<option value="' + r1 + '">' + r1 + '</option>').insertAfter("#AfterOpt" + optVal);
-    $('<option value="' + r2 + '">' + r2 + '</option>').insertAfter("#AfterOpt" + optVal);
-    $('<option value="' + r3 + '">' + r3 + '</option>').insertAfter("#AfterOpt" + optVal);
-    $("#WeekOf" + optVal).val(getStorage("WeekOf" + optVal));
-    if (optVal !== "") {
-		loadSupDates();
-	} else {
-        loadStoredWeek();
-    }
+    $('<option value="' + r1 + '">' + r1 + '</option>').insertAfter("#AfterOpt");
+    $('<option value="' + r2 + '">' + r2 + '</option>').insertAfter("#AfterOpt");
+    $('<option value="' + r3 + '">' + r3 + '</option>').insertAfter("#AfterOpt");
+    $("#WeekOf").val(getStorage("WeekOf"));
+    loadStoredWeek();
 }
 
 function DateRange(newDate, day, offset) {

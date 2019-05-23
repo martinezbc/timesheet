@@ -70,15 +70,6 @@
 
 @media (max-width: 320px) {
 
-    .header {
-        height: 58px;
-        font-size: 10px;
-    }
-
-    .header a {
-        padding-right: 0px;
-    }
-
     .header__title {
         font-size: 10px;
     }
@@ -97,6 +88,11 @@
 
     .total_col span {
         font-size: 10px;
+    }
+    
+    .modal-content li span {
+        margin: 0px;
+        padding: 15px 5px;
     }
 
     .totalwidth {
@@ -118,36 +114,36 @@
         font-size: 12px;
     }
     
-    .nav-content {
-        font-size: 10px;
-        max-width: 40%;
-    }
-    
     .modal-content p {
-        font-size: 10px;
+        font-size: 12px;
     }
     
     .modal-content {
         padding: 5px;
-        max-width: 50%;
+        max-width: 70%;
     }
-
+    
+    #greynav {
+        font-size: 12px;
+    }
+    .daily {
+        font-size: 26px;
+    }
+    
+    .dropdown-content div {
+        font-size: 14px;
+    }
 }
 
 
-@media (max-width: 400px) {
-
-    .header {
-        height: 58px;
-        font-size: 12px;
-    }
-
-    .header a {
-        padding-right: 0px;
-    }
+@media only screen and (min-width: 321px) {
 
     .header__title {
         font-size: 12px;
+    }
+    
+    .dropdown-content div {
+        font-size: 14px;
     }
 
     .footer_p {
@@ -164,6 +160,11 @@
 
     .total_col span {
         font-size: 10px;
+    }
+    
+    .modal-content li span {
+        margin: 0px;
+        padding: 15px 5px;
     }
 
     .totalwidth {
@@ -185,15 +186,10 @@
         font-size: 12px;
     }
     
-    .nav-content {
-        font-size: 12px;
-        max-width: 40%;
+    .modal-content {
+        padding: 5px;
+        max-width: 60%;
     }
-
-    .modal-content p {
-        font-size: 12px;
-    }
-
 }
 
 
@@ -201,13 +197,6 @@
 
     .header__title {
         font-size: 15px;
-    }
-
-    .header {
-        font-size: 14px;
-    }
-
-    .header__title {
         padding-top: 2px;
     }
 
@@ -218,6 +207,11 @@
 
     .total_col span {
         font-size: 10px;
+    }
+    
+    .modal-content li span {
+        margin: 0px;
+        padding: 10px 5px;
     }
 
     .totalwidth {
@@ -243,21 +237,19 @@
         padding: 0 5px;
     }
     
-    .nav-content {
+    .empcard input:not([type=checkbox]), .empcard select {
         font-size: 14px;
-        max-width: 40%;
     }
+    
 }
 
 @media only screen and (min-width: 768px) {
-
-    .header__title,
-    .header {
+    
+    .dropdown-content div {
         font-size: 16px;
     }
-
-    .header {
-        height: 56px;
+    .header__title {
+        font-size: 16px;
     }
 
     .footer_p {
@@ -289,21 +281,24 @@
         padding: 0 5px;
     }
     
-    .nav-content {
-        font-size: 16px;
+    .modal-content {
+        max-width: 30%;
     }
 }
 
-@media only screen and (min-width: 980px) {}
+@media only screen and (min-width: 980px) {
+    .modal-content {
+        max-width: 20%;
+    }
+}
 
-@media (min-width: 1250px) {
-
-    .header__title,
-    .header {
-        font-size: 22px;
+@media only screen and (min-width: 1250px) {
+    .modal-content {
+        max-width: 15%;
     }
 
     .header__title {
+        font-size: 22px;
         padding-top: 8px;
     }
 }
