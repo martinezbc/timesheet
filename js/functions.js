@@ -15,13 +15,13 @@ $(window).ready(function () {
     });
 
     $("input").focus(function () {
-        var x = $(this).attr("id");
-        if (x.indexOf('Time') > 0 && !$(this).hasClass("nofocus")) {
+        var refID = $(this).attr("id");
+        if (refID.indexOf('Time') > 0 && !$(this).hasClass("nofocus")) {
             $(this).prop('disabled', true);
-            openTimeSelector(x, (x.indexOf("Sup") > -1) ? "Sup" : "");
-        } else if (x.indexOf('From') > 0 || x.indexOf('To') > 0) {
+            openTimeSelector(refID, (refID.indexOf("Sup") > -1) ? "Sup" : "");
+        } else if (refID.indexOf('From') > 0 || refID.indexOf('To') > 0) {
             $(this).prop('disabled', true);
-            openFTSelector(x, (x.indexOf("Sup") > -1) ? "Sup" : "");
+            openFTSelector(refID, (refID.indexOf("Sup") > -1) ? "Sup" : "");
         }
     });
 
@@ -182,7 +182,7 @@ var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRou
 
 //UPDATES POPUP WINDOW
 function changesMade() {
-    openPopUp("<p>UPDATES 5/22/19</p><p>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
+    //openPopUp("<p>UPDATES 5/22/19</p><p>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
 }
 
 //Initial function to load after window loads
@@ -548,15 +548,15 @@ function otherWorkTime(day, num, bln) {
 }
 
 //Gives value to time selector arrow buttons, sends value to change the time
-function timeSelectors(x) {
-    var y = x.substr(2),
+function timeSelectors(refID) {
+    var strVal = refID.substr(2),
         operator = "",
         optVal = "";
-    if (y.indexOf("Sup") > 0) {
-        y = y.replace("Sup","");
+    if (strVal.indexOf("Sup") > 0) {
+        strVal = strVal.replace("Sup","");
         optVal = "Sup";
     }
-    switch (y) {
+    switch (strVal) {
         case "up":
             operator = 1;
             break;
@@ -570,7 +570,7 @@ function timeSelectors(x) {
             operator = -2;
             break;
     }
-    changeValue(operator, x, optVal);
+    changeValue(operator, refID, optVal, activeID);
 }
 
 //Open supplement page in another tab
@@ -638,6 +638,10 @@ function openTimeSelector(refID, optVal) {
     optVal = optVal || "";
     activeID = refID;
     var refVal = $("#" + activeID).val();
+    var blnPupil = false;
+    if (activeID.substr(-1) === "A" || activeID.substr(-1) === "B" || activeID.substr(-1) === "C" || activeID.substr(-1) === "D") {
+        blnPupil = true;
+    }
 
     //if active element has data already, break time into hours, minutes, and meridiem and load into spans
     if (refVal !== "" && refVal !== null) {
@@ -647,6 +651,16 @@ function openTimeSelector(refID, optVal) {
         $("#hours" + optVal).text(hours);
         $("#minutes" + optVal).text(mins);
         $("#meridiem" + optVal).text(mer);
+    } else {
+        if (!blnPupil) {
+            var mins = round5(Number($("#minutes").text()));
+            if (mins < 10 && mins > -1) {
+                mins = "0" + mins.toString();
+            } else if (mins === 60) {
+                mins = "55";
+            }
+            $("#minutes").text(mins);
+        }
     }
     showHideModal("timeModal" + optVal, "block");
 }

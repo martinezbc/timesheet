@@ -64,9 +64,9 @@ function setMeridiem (b) {
     $("#meridiem" + b).text(meridiemText);
 }
 
-function setMinutes (operator, b) {
+function setMinutes (operator, optVal) {
     var minutesText = "",
-        minutes = Number($("#minutes" + b).text());
+        minutes = Number($("#minutes" + optVal).text());
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -79,42 +79,78 @@ function setMinutes (operator, b) {
     minutesText = minutes + operator;
     if (minutesText === 60) {
         minutesText = "0";
-        setHours(1, b);
+        setHours(1, optVal);
     } else if (minutesText === -5) {
         minutesText = "55";
-        setHours(-1, b);
+        setHours(-1, optVal);
     } else if (minutesText === -10) {
         minutesText = "50";
-        setHours(-1, b);
+        setHours(-1, optVal);
     } else if (minutesText === -15) {
         minutesText = "45";
-        setHours(-1, b);
+        setHours(-1, optVal);
     } else if (minutesText === 65) {
         minutesText = "5";
-        setHours(1, b);
+        setHours(1, optVal);
     } else if (minutesText === 70) {
         minutesText = "10";
-        setHours(1, b);
+        setHours(1, optVal);
     } else if (minutesText === 75) {
         minutesText = "15";
-        setHours(1, b);
+        setHours(1, optVal);
     }
     
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
-    $("#minutes" + b).text(minutesText);
+    $("#minutes" + optVal).text(minutesText);
 }
 
-function setHours (operator, b) {
+function setMinutesPupil (operator) {
+    var minutesText = "",
+        minutes = Number($("#minutes").text());
+    if (operator === 1) {
+        operator = 1;
+    } else if (operator === 2) {
+        operator = 2;
+    } else if (operator === -1) {
+        operator = -1;
+    } else if (operator === -2) {
+        operator = -2;
+    }
+    minutesText = minutes + operator;
+    if (minutesText === 60) {
+        minutesText = "0";
+        setHours(1, "");
+    } else if (minutesText === -1) {
+        minutesText = "59";
+        setHours(-1, "");
+    } else if (minutesText === -2) {
+        minutesText = "58";
+        setHours(-1, "");
+    } else if (minutesText === 61) {
+        minutesText = "1";
+        setHours(1, "");
+    } else if (minutesText === 62) {
+        minutesText = "2";
+        setHours(1, "");
+    }
+    
+    if (minutesText < 10) {
+        minutesText = "0" + minutesText;
+    }
+    $("#minutes").text(minutesText);
+}
+
+function setHours (operator, optVal) {
     var hoursText = "";
-    var hours = Number($("#hours" + b).text());
+    var hours = Number($("#hours" + optVal).text());
     hoursText = hours + operator;
             
     if (hoursText === 13) {
         hoursText = "1";
         if (operator === 2) {
-            setMeridiem(b);
+            setMeridiem(optVal);
         }
     } else if (hoursText === 14) {
         hoursText = "2";
@@ -122,24 +158,32 @@ function setHours (operator, b) {
         hoursText = "12";
     } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
         hoursText = "11";
-        setMeridiem(b);
+        setMeridiem(optVal);
     } else if (hoursText === 12 && operator > 0) {
-        setMeridiem(b);
+        setMeridiem(optVal);
     } else if (hoursText === 10 && operator === -2) {
-        setMeridiem(b);
+        setMeridiem(optVal);
     }
-    $("#hours" + b).text(hoursText);
+    $("#hours" + optVal).text(hoursText);
 }
 
-function changeValue (operator, clicked, optVal) {
+function changeValue (operator, clicked, optVal, refElement) {
     "use strict";
+    var blnPupil = false;
+    if (refElement.substr(-1) === "A" || refElement.substr(-1) === "B" || refElement.substr(-1) === "C" || refElement.substr(-1) === "D") {
+        blnPupil = true;
+    }
     var str = clicked.substr(0,2);
     switch (str) {
         case "hr":
             setHours(operator, optVal);
             break;
         case "mn":
-            setMinutes(operator, optVal);
+            if (blnPupil) {
+                setMinutesPupil(operator);
+            } else {
+                setMinutes(operator, optVal);
+            }
             break;
         default:
             setMeridiem(optVal);

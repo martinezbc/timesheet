@@ -25,6 +25,9 @@ function textboxUpdate(refID) {
     }
     
     checkOverlap(b, d);
+    if (checkAMPMTime(refID, c)) {
+        return;
+    }
     calculateDiff(b);
     setCalculation(refID);
     
@@ -39,6 +42,18 @@ function textboxUpdate(refID) {
 	}
 }
 
+function checkAMPMTime(refID, strNum) {
+    if (strNum === "1" && convertToMinutes($("#" + refID).val()) > 720) {
+        openPopUp("<p>Morning run times cannot be PM time</p>","");
+        $("#" + refID).val("");
+        return true;
+    } else if (strNum === "7" && convertToMinutes($("#" + refID).val()) < 720) {
+        openPopUp("<p>Late run times cannot be AM time</p>","");
+        $("#" + refID).val("");
+        return true;
+    }
+    return false;
+}
 function setCalculation(refID) {
     var y = refID.substr(0, refID.length - 1);
     if ($("#" + refID).val() === "") {
@@ -196,7 +211,6 @@ function calculateDiff(refID) {
 		}
         timeDiff = endTime - startTime;
         switch (num) {
-            case "0":
             case "11":
             case "12":
             case "13":
