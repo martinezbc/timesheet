@@ -72,7 +72,7 @@ $(window).ready(function () {
     
     $("#endValidate").click(function () {
         showHideModal('validateModal', 'none');
-    })
+    });
 
     $("#goTime").click(function () {
         var x = $(this).attr("id"),
@@ -201,6 +201,11 @@ function loadLocalStorage(optVal) {
             setStorage(x, y);
         }
         $(this).val(y);
+        
+        if ($(this).val() === null) {
+            $(this).val("");
+            setStorage(x, "");
+        }
     });
 
     $(":checkbox").each(function () {
@@ -891,15 +896,15 @@ function testFieldTrip() {
     for (var i = 0; i < 7; i++) {
         x = "#" + days[i];
         for (var j = 11; j < 14; j++) {
-            if ($(x + "Time" + j) === "") { //Time is blank
-                if ($(x + "Voucher" + j) !== "" || $(x + "From" + j) !== "" || $(x + "To" + j) !== "") {
+            if ($(x + "Time" + j).val() === "") { //Time is blank
+                if ($(x + "Voucher" + j).val() !== "" || $(x + "From" + j).val() !== "" || $(x + "To" + j).val() !== "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
                 }
             } else { //Time is not blank
-                if ($(x + "Voucher" + j) === "") {
+                if ($(x + "Voucher" + j).val() === "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
                 }
-                if ($(x + "From" + j) === "" || $(x + "To" + j) === "") {
+                if ($(x + "From" + j).val() === "" || $(x + "To" + j).val() === "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
                 }
             }
@@ -915,19 +920,21 @@ function testOtherWork() {
     for (var i = 0; i < 7; i++) {
         x = "#" + days[i];
         for (var j = 8; j < 11; j++) {
-            if ($(x + "Time" + j) !== "") { //Time is not blank
-                if ($(x + "Select" + j) === null) {
+            if ($(x + "Time" + j).val() !== "") { //Time is not blank
+                if ($(x + "Select" + j).val() === "") { //Select IS blank
                     val = val + "<p>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
                 }
-                if (($(x + "Select" + j) === "OT" || $(x + "Select" + j) === "FYI") && $(x + "Desc" + j) === "") {
+                if (($(x + "Select" + j).val() === "OT" || $(x + "Select" + j).val() === "FYI") && $(x + "Desc" + j).val() === "") { //Other or FYI selected but description field is blank
                     val = val + "<p>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
                 }
-                if ($(x + "Select" + j) === null && $(x + "Desc" + j) !== "") {
+                if ($(x + "Select" + j).val() === "" && $(x + "Desc" + j).val() !== "") { //Nothing selected and description field has text
                     val = val + "<p>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
                 }
             } else { //Time is blank
-                if ($(x + "Select" + j) !== null || $(x + "Desc" + j) !== "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
+                if ($(x + "Select" + j).val() !== "" || $(x + "Desc" + j).val() !== "") { //Category IS selected OR Description field is NOT blank
+                    if (!$(x + "Select" + j).val() === "FYI") { //Category is NOT FYI
+                        val = val + "<p>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
+                    }
                 }
             }
         }
@@ -943,12 +950,12 @@ function testLeave() {
     for (var i = 2; i < 7; i++) {
         x = "#" + days[i];
         for (var j = 14; j < 16; j++) {
-            if ($(x + "Time" + j) !== "") {
-                if ($(x + "LeaveSelect" + j) === "") {
+            if ($(x + "Time" + j).val() !== "") {
+                if ($(x + "LeaveSelect" + j).val() === "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
                 }
             } else {
-                if ($(x + "LeaveSelect" + j) !== "") {
+                if ($(x + "LeaveSelect" + j).val() !== "") {
                     val = val + "<p>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
                 }
             }
