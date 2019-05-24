@@ -179,6 +179,38 @@ var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
 var fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
 
+//Determine browser the user is using
+function browserDetection() {
+    // Opera 8.0+
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    if (isOpera) {return 'Opera';}
+
+    // Firefox 1.0+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    if (isFirefox) {return 'Firefox';}
+
+    // Safari 3.0+ "[object HTMLElementConstructor]" 
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+    if (isSafari) {return 'Safari';}
+
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    if (isIE) {return 'IE';}
+
+    // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+    if (isEdge) {return 'Edge';}
+
+    // Chrome 1 - 71
+    var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+    if (isChrome) {return 'Chrome';}
+
+    // Blink engine detection
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+    if (isBlink) {return 'Blink';}
+    
+    return 'Unknown';
+}
 
 //UPDATES POPUP WINDOW
 function changesMade() {

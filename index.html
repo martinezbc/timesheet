@@ -303,18 +303,20 @@
         </div>
         <div id="Saturday" class="card hide">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12">
                     <p class="daily">SATURDAY-<span id="SatDate"></span></p>
                 </div>
-                <div class="col-1">
+            </div>
+            <div class="row">
+                <div class="col-auto">
                     <input type="text" id="SatOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="SatFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="SatLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
@@ -596,18 +598,20 @@
         </div>
         <div id="Sunday" class="card hide">
             <div class="row">
-                <div class="col-3">
+                <div class="col-12">
                     <p class="daily">SUNDAY-<span id="SunDate"></span></p>
                 </div>
-                <div class="col-1">
+            </div>
+            <div class="row">
+                <div class="col-auto">
                     <input type="text" id="SunOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="SunFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="SunLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
@@ -889,33 +893,37 @@
         </div>
         <div id="Monday" class="card hide">
             <div class="row">
-                <div class="col-3">
+                <div class="col-auto">
                     <p class="daily">MONDAY-<span id="MonDate"></span></p>
                 </div>
-                <div class="col-1 center">
+                <div class="col-auto">
                     <span id="Moncopy" class="fas fa-copy font-medblue fa-lg"></span>
                     <p class="copyfont">copy</p>
                 </div>
-                <div class="col-1">
+            </div>
+            <div class="row">
+                <div class="col-auto">
                     <input type="text" id="MonRunTotal" class="totalwidth" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="MonOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="MonFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="col-1">
+                <div class="col-auto">
                     <input type="text" id="MonLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="col-11"><p class="category">Leave</p></div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggle" id="MonSpanLV"></span></div>
                 </div>
                 <div class="row MonSpanLV">
@@ -990,7 +998,9 @@
             <hr>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">Morning Runs</div>
+                    <div class="col-8">
+                        <p class="category">Morning Runs</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT1"><input type="checkbox" id="MonOJT1">OJT</label></div>
                     <div class="col-2"><label for="MonLift1"><input type="checkbox" id="MonLift1">LIFT</label></div>
                 </div>
@@ -1005,7 +1015,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">Afternoon Runs</div>
+                    <div class="col-8">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT2"><input type="checkbox" id="MonOJT2">OJT</label></div>
                     <div class="col-2"><label for="MonLift2"><input type="checkbox" id="MonLift2">LIFT</label></div>
                 </div>
@@ -1020,7 +1032,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT3"><input type="checkbox" id="MonOJT3">OJT</label></div>
                     <div class="col-2"><label for="MonLift3"><input type="checkbox" id="MonLift3">LIFT</label></div>
                 </div>
@@ -1035,7 +1049,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT4"><input type="checkbox" id="MonOJT4">OJT</label></div>
                     <div class="col-2"><label for="MonLift4"><input type="checkbox" id="MonLift4">LIFT</label></div>
                 </div>
@@ -1050,7 +1066,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT5"><input type="checkbox" id="MonOJT5">OJT</label></div>
                     <div class="col-2"><label for="MonLift5"><input type="checkbox" id="MonLift5">LIFT</label></div>
                 </div>
@@ -1065,7 +1083,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT6"><input type="checkbox" id="MonOJT6">OJT</label></div>
                     <div class="col-2"><label for="MonLift6"><input type="checkbox" id="MonLift6">LIFT</label></div>
                 </div>
@@ -1080,7 +1100,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row MonLV">
-                    <div class="category col60">Late Run</div>
+                    <div class="col-8">
+                        <p class="category">Late Run</p>
+                    </div>
                     <div class="col-2"><label for="MonOJT7"><input type="checkbox" id="MonOJT7">OJT</label></div>
                     <div class="col-2"><label for="MonLift7"><input type="checkbox" id="MonLift7">LIFT</label></div>
                 </div>
@@ -1096,15 +1118,23 @@
             <hr>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanOW8"></span>
                     </div>
                 </div>
                 <div class="row MonLV MonSpanOW8">
-                    <label for="MonLift8"><input type="checkbox" id="MonLift8">LIFT</label>&nbsp;&nbsp;
-                    <label for="MonOJT8"><input type="checkbox" id="MonOJT8">OJT</label>
+                    <div class="col-auto">
+                        <label for="MonLift8"><input type="checkbox" id="MonLift8">LIFT</label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="MonOJT8"><input type="checkbox" id="MonOJT8">OJT</label>
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanOW8">
                     <div class="col-11">
@@ -1142,9 +1172,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanOW9"></span>
                     </div>
                 </div>
@@ -1188,9 +1222,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanOW10"></span>
                     </div>
                 </div>
@@ -1235,24 +1273,32 @@
             <hr>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanFT11"></span>
                     </div>
                 </div>
                 <div class="row MonLV MonSpanFT11">
-                    <div class="col-11">
-                        <label for="MonLift11"><input type="checkbox" id="MonLift11">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="MonLift11"><input type="checkbox" id="MonLift11">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="MonVoucher11" id="MonVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="MonBanFT11"></span></div>
                 </div>
                 <div class="row MonLV MonSpanFT11">
-                    <input name="MonFrom11" id="MonFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonFrom11" id="MonFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT11">
-                    <input name="MonTo11" id="MonTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonTo11" id="MonTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT11">
                     <div class="col-11">
@@ -1265,27 +1311,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanFT12"></span>
                     </div>
                 </div>
                 <div class="row MonLV MonSpanFT12">
-                    <div class="col-11">
-                        <label for="MonLift12"><input type="checkbox" id="MonLift12">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="MonLift12"><input type="checkbox" id="MonLift12">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="MonVoucher12" id="MonVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="MonBanFT12"></span></div>
                 </div>
                 <div class="row MonLV MonSpanFT12">
-                    <input name="MonFrom12" id="MonFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonFrom12" id="MonFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT12">
-                    <input name="MonTo12" id="MonTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonTo12" id="MonTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT12">
-                    <div class="col-11">
+                    <div class="col-12">
                         <input type="text" name="MonTime12S" id="MonTime12S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="MonTime12E" id="MonTime12E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="MonTime12" id="MonTime12" class="total-time nofocus" disabled>
@@ -1295,27 +1349,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="MonSpanFT13"></span>
                     </div>
                 </div>
                 <div class="row MonLV MonSpanFT13">
-                    <div class="col-11">
-                        <label for="MonLift13"><input type="checkbox" id="MonLift13">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="MonLift13"><input type="checkbox" id="MonLift13">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="MonVoucher13" id="MonVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="MonBanFT13"></span></div>
                 </div>
                 <div class="row MonLV MonSpanFT13">
-                    <input name="MonFrom13" id="MonFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonFrom13" id="MonFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT13">
-                    <input name="MonTo13" id="MonTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="MonTo13" id="MonTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row MonLV MonSpanFT13">
-                    <div class="col-11">
+                    <div class="col-13">
                         <input type="text" name="MonTime13S" id="MonTime13S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="MonTime13E" id="MonTime13E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="MonTime13" id="MonTime13" class="total-time nofocus" disabled>
@@ -1326,48 +1388,54 @@
         </div>
         <div id="Tuesday" class="card hide">
             <div class="row">
-                <div class="daily">TUESDAY-<span id="TueDate"></span></div>
-                <div class="copyblock center">
+                <div class="col-auto">
+                    <p class="daily">TUESDAY-<span id="TueDate"></span></p>
+                </div>
+                <div class="col-auto">
                     <span id="Tuecopy" class="fas fa-copy font-medblue fa-lg"></span>
                     <p class="copyfont">copy</p>
                 </div>
             </div>
             <div class="row">
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="TueRunTotal" class="totalwidth" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="TueOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="TueFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="TueLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="category col-11">Leave</div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggle" id="TueSpanLV"></span></div>
                 </div>
                 <div class="row TueSpanLV">
-                    <div class="col-11">
-                        <p>All Day<input type="checkbox" id="TueLeaveAD">
-                            <select id="TueLeaveSelectAD">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>All Day<input type="checkbox" id="TueLeaveAD"></p>
+                    </div>
+                    <div class="col-7">
+                        <select id="TueLeaveSelectAD">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="TueClearLVAD"></span>
@@ -1375,21 +1443,22 @@
                 </div>
                 <div class="row TueSpanLV"><span class="bar"></span></div>
                 <div class="row TueLV TueSpanLV">
-                    <div class="category col-10">
-                        <p>Morning
-                            <select id="TueLeaveSelect14">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Morning</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="TueClearLV14"></span>
+                    <div class="col-7">
+                        <select id="TueLeaveSelect14">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
+                    <div class="col-1"><span class="fas fa-times" id="TueClearLV14"></span></div>
                 </div>
                 <div class="row TueLV TueSpanLV">
                     <input name="TueTime14S" id="TueTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -1398,20 +1467,22 @@
                 </div>
                 <div class="row TueSpanLV"><span class="bar"></span></div>
                 <div class="row TueLV TueSpanLV">
-                    <div class="category col-10">
-                        <p>Afternoon
-                            <select id="TueLeaveSelect15">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Afternoon</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="TueClearLV15"></span></div>
+                    <div class="col-7">
+                        <select id="TueLeaveSelect15">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="TueClearLV15"></span></div>
                 </div>
                 <div class="row TueLV TueSpanLV">
                     <input name="TueTime15S" id="TueTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -1422,7 +1493,9 @@
             <hr>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">Morning Runs</div>
+                    <div class="col-8">
+                        <p class="category">Morning Runs</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT1"><input type="checkbox" id="TueOJT1">OJT</label></div>
                     <div class="col-2"><label for="TueLift1"><input type="checkbox" id="TueLift1">LIFT</label></div>
                 </div>
@@ -1437,7 +1510,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">Afternoon Runs</div>
+                    <div class="col-8">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT2"><input type="checkbox" id="TueOJT2">OJT</label></div>
                     <div class="col-2"><label for="TueLift2"><input type="checkbox" id="TueLift2">LIFT</label></div>
                 </div>
@@ -1452,7 +1527,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT3"><input type="checkbox" id="TueOJT3">OJT</label></div>
                     <div class="col-2"><label for="TueLift3"><input type="checkbox" id="TueLift3">LIFT</label></div>
                 </div>
@@ -1467,7 +1544,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT4"><input type="checkbox" id="TueOJT4">OJT</label></div>
                     <div class="col-2"><label for="TueLift4"><input type="checkbox" id="TueLift4">LIFT</label></div>
                 </div>
@@ -1482,7 +1561,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT5"><input type="checkbox" id="TueOJT5">OJT</label></div>
                     <div class="col-2"><label for="TueLift5"><input type="checkbox" id="TueLift5">LIFT</label></div>
                 </div>
@@ -1497,7 +1578,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT6"><input type="checkbox" id="TueOJT6">OJT</label></div>
                     <div class="col-2"><label for="TueLift6"><input type="checkbox" id="TueLift6">LIFT</label></div>
                 </div>
@@ -1512,7 +1595,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row TueLV">
-                    <div class="category col60">Late Run</div>
+                    <div class="col-8">
+                        <p class="category">Late Run</p>
+                    </div>
                     <div class="col-2"><label for="TueOJT7"><input type="checkbox" id="TueOJT7">OJT</label></div>
                     <div class="col-2"><label for="TueLift7"><input type="checkbox" id="TueLift7">LIFT</label></div>
                 </div>
@@ -1528,15 +1613,23 @@
             <hr>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanOW8"></span>
                     </div>
                 </div>
                 <div class="row TueLV TueSpanOW8">
-                    <label for="TueLift8"><input type="checkbox" id="TueLift8">LIFT</label>&nbsp;&nbsp;
-                    <label for="TueOJT8"><input type="checkbox" id="TueOJT8">OJT</label>
+                    <div class="col-auto">
+                        <label for="TueLift8"><input type="checkbox" id="TueLift8">LIFT</label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="TueOJT8"><input type="checkbox" id="TueOJT8">OJT</label>
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanOW8">
                     <div class="col-11">
@@ -1574,9 +1667,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanOW9"></span>
                     </div>
                 </div>
@@ -1620,9 +1717,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanOW10"></span>
                     </div>
                 </div>
@@ -1667,24 +1768,32 @@
             <hr>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanFT11"></span>
                     </div>
                 </div>
                 <div class="row TueLV TueSpanFT11">
-                    <div class="col-11">
-                        <label for="TueLift11"><input type="checkbox" id="TueLift11">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="TueLift11"><input type="checkbox" id="TueLift11">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="TueVoucher11" id="TueVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="TueBanFT11"></span></div>
                 </div>
                 <div class="row TueLV TueSpanFT11">
-                    <input name="TueFrom11" id="TueFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueFrom11" id="TueFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT11">
-                    <input name="TueTo11" id="TueTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueTo11" id="TueTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT11">
                     <div class="col-11">
@@ -1697,27 +1806,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanFT12"></span>
                     </div>
                 </div>
                 <div class="row TueLV TueSpanFT12">
-                    <div class="col-11">
-                        <label for="TueLift12"><input type="checkbox" id="TueLift12">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="TueLift12"><input type="checkbox" id="TueLift12">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="TueVoucher12" id="TueVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="TueBanFT12"></span></div>
                 </div>
                 <div class="row TueLV TueSpanFT12">
-                    <input name="TueFrom12" id="TueFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueFrom12" id="TueFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT12">
-                    <input name="TueTo12" id="TueTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueTo12" id="TueTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT12">
-                    <div class="col-11">
+                    <div class="col-12">
                         <input type="text" name="TueTime12S" id="TueTime12S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="TueTime12E" id="TueTime12E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="TueTime12" id="TueTime12" class="total-time nofocus" disabled>
@@ -1727,27 +1844,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="TueSpanFT13"></span>
                     </div>
                 </div>
                 <div class="row TueLV TueSpanFT13">
-                    <div class="col-11">
-                        <label for="TueLift13"><input type="checkbox" id="TueLift13">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="TueLift13"><input type="checkbox" id="TueLift13">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="TueVoucher13" id="TueVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="TueBanFT13"></span></div>
                 </div>
                 <div class="row TueLV TueSpanFT13">
-                    <input name="TueFrom13" id="TueFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueFrom13" id="TueFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT13">
-                    <input name="TueTo13" id="TueTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="TueTo13" id="TueTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row TueLV TueSpanFT13">
-                    <div class="col-11">
+                    <div class="col-13">
                         <input type="text" name="TueTime13S" id="TueTime13S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="TueTime13E" id="TueTime13E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="TueTime13" id="TueTime13" class="total-time nofocus" disabled>
@@ -1758,48 +1883,54 @@
         </div>
         <div id="Wednesday" class="card hide">
             <div class="row">
-                <div class="daily">WEDNESDAY-<span id="WedDate"></span></div>
-                <div class="copyblock center">
+                <div class="col-auto">
+                    <p class="daily">WEDNESDAY-<span id="WedDate"></span></p>
+                </div>
+                <div class="col-auto">
                     <span id="Wedcopy" class="fas fa-copy font-medblue fa-lg"></span>
                     <p class="copyfont">copy</p>
                 </div>
             </div>
             <div class="row">
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="WedRunTotal" class="totalwidth" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="WedOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="WedFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="WedLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="category col-11">Leave</div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggle" id="WedSpanLV"></span></div>
                 </div>
                 <div class="row WedSpanLV">
-                    <div class="col-11">
-                        <p>All Day<input type="checkbox" id="WedLeaveAD">
-                            <select id="WedLeaveSelectAD">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>All Day<input type="checkbox" id="WedLeaveAD"></p>
+                    </div>
+                    <div class="col-7">
+                        <select id="WedLeaveSelectAD">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="WedClearLVAD"></span>
@@ -1807,20 +1938,22 @@
                 </div>
                 <div class="row WedSpanLV"><span class="bar"></span></div>
                 <div class="row WedLV WedSpanLV">
-                    <div class="col-10">
-                        <p>Morning
-                            <select id="WedLeaveSelect14">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Morning</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="WedClearLV14"></span></div>
+                    <div class="col-7">
+                        <select id="WedLeaveSelect14">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearLV14"></span></div>
                 </div>
                 <div class="row WedLV WedSpanLV">
                     <input name="WedTime14S" id="WedTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -1829,20 +1962,22 @@
                 </div>
                 <div class="row WedSpanLV"><span class="bar"></span></div>
                 <div class="row WedLV WedSpanLV">
-                    <div class="col-10">
-                        <p>Afternoon
-                            <select id="WedLeaveSelect15">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Afternoon</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="WedClearLV15"></span></div>
+                    <div class="col-7">
+                        <select id="WedLeaveSelect15">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearLV15"></span></div>
                 </div>
                 <div class="row WedLV WedSpanLV">
                     <input name="WedTime15S" id="WedTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -1853,7 +1988,9 @@
             <hr>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">Morning Runs</div>
+                    <div class="col-8">
+                        <p class="category">Morning Runs</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT1"><input type="checkbox" id="WedOJT1">OJT</label></div>
                     <div class="col-2"><label for="WedLift1"><input type="checkbox" id="WedLift1">LIFT</label></div>
                 </div>
@@ -1868,7 +2005,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">Afternoon Runs</div>
+                    <div class="col-8">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT2"><input type="checkbox" id="WedOJT2">OJT</label></div>
                     <div class="col-2"><label for="WedLift2"><input type="checkbox" id="WedLift2">LIFT</label></div>
                 </div>
@@ -1883,7 +2022,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT3"><input type="checkbox" id="WedOJT3">OJT</label></div>
                     <div class="col-2"><label for="WedLift3"><input type="checkbox" id="WedLift3">LIFT</label></div>
                 </div>
@@ -1898,7 +2039,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT4"><input type="checkbox" id="WedOJT4">OJT</label></div>
                     <div class="col-2"><label for="WedLift4"><input type="checkbox" id="WedLift4">LIFT</label></div>
                 </div>
@@ -1913,7 +2056,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT5"><input type="checkbox" id="WedOJT5">OJT</label></div>
                     <div class="col-2"><label for="WedLift5"><input type="checkbox" id="WedLift5">LIFT</label></div>
                 </div>
@@ -1928,7 +2073,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT6"><input type="checkbox" id="WedOJT6">OJT</label></div>
                     <div class="col-2"><label for="WedLift6"><input type="checkbox" id="WedLift6">LIFT</label></div>
                 </div>
@@ -1943,7 +2090,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row WedLV">
-                    <div class="category col60">Late Run</div>
+                    <div class="col-8">
+                        <p class="category">Late Run</p>
+                    </div>
                     <div class="col-2"><label for="WedOJT7"><input type="checkbox" id="WedOJT7">OJT</label></div>
                     <div class="col-2"><label for="WedLift7"><input type="checkbox" id="WedLift7">LIFT</label></div>
                 </div>
@@ -1959,15 +2108,23 @@
             <hr>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanOW8"></span>
                     </div>
                 </div>
                 <div class="row WedLV WedSpanOW8">
-                    <label for="WedLift8"><input type="checkbox" id="WedLift8">LIFT</label>&nbsp;&nbsp;
-                    <label for="WedOJT8"><input type="checkbox" id="WedOJT8">OJT</label>
+                    <div class="col-auto">
+                        <label for="WedLift8"><input type="checkbox" id="WedLift8">LIFT</label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="WedOJT8"><input type="checkbox" id="WedOJT8">OJT</label>
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanOW8">
                     <div class="col-11">
@@ -2005,9 +2162,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanOW9"></span>
                     </div>
                 </div>
@@ -2051,9 +2212,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanOW10"></span>
                     </div>
                 </div>
@@ -2098,24 +2263,32 @@
             <hr>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanFT11"></span>
                     </div>
                 </div>
                 <div class="row WedLV WedSpanFT11">
-                    <div class="col-11">
-                        <label for="WedLift11"><input type="checkbox" id="WedLift11">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="WedLift11"><input type="checkbox" id="WedLift11">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="WedVoucher11" id="WedVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="WedBanFT11"></span></div>
                 </div>
                 <div class="row WedLV WedSpanFT11">
-                    <input name="WedFrom11" id="WedFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedFrom11" id="WedFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT11">
-                    <input name="WedTo11" id="WedTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedTo11" id="WedTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT11">
                     <div class="col-11">
@@ -2128,27 +2301,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanFT12"></span>
                     </div>
                 </div>
                 <div class="row WedLV WedSpanFT12">
-                    <div class="col-11">
-                        <label for="WedLift12"><input type="checkbox" id="WedLift12">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="WedLift12"><input type="checkbox" id="WedLift12">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="WedVoucher12" id="WedVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="WedBanFT12"></span></div>
                 </div>
                 <div class="row WedLV WedSpanFT12">
-                    <input name="WedFrom12" id="WedFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedFrom12" id="WedFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT12">
-                    <input name="WedTo12" id="WedTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedTo12" id="WedTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT12">
-                    <div class="col-11">
+                    <div class="col-12">
                         <input type="text" name="WedTime12S" id="WedTime12S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="WedTime12E" id="WedTime12E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="WedTime12" id="WedTime12" class="total-time nofocus" disabled>
@@ -2158,27 +2339,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="WedSpanFT13"></span>
                     </div>
                 </div>
                 <div class="row WedLV WedSpanFT13">
-                    <div class="col-11">
-                        <label for="WedLift13"><input type="checkbox" id="WedLift13">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="WedLift13"><input type="checkbox" id="WedLift13">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="WedVoucher13" id="WedVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="WedBanFT13"></span></div>
                 </div>
                 <div class="row WedLV WedSpanFT13">
-                    <input name="WedFrom13" id="WedFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedFrom13" id="WedFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT13">
-                    <input name="WedTo13" id="WedTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="WedTo13" id="WedTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row WedLV WedSpanFT13">
-                    <div class="col-11">
+                    <div class="col-13">
                         <input type="text" name="WedTime13S" id="WedTime13S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="WedTime13E" id="WedTime13E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="WedTime13" id="WedTime13" class="total-time nofocus" disabled>
@@ -2189,48 +2378,54 @@
         </div>
         <div id="Thursday" class="card hide">
             <div class="row">
-                <div class="daily">THURSDAY-<span id="ThuDate"></span></div>
-                <div class="copyblock center">
+                <div class="col-auto">
+                    <p class="daily">THURSDAY-<span id="ThuDate"></span></p>
+                </div>
+                <div class="col-auto">
                     <span id="Thucopy" class="fas fa-copy font-medblue fa-lg"></span>
                     <p class="copyfont">copy</p>
                 </div>
             </div>
             <div class="row">
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="ThuRunTotal" class="totalwidth" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="ThuOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="ThuFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="ThuLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="category col-11">Leave</div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggle" id="ThuSpanLV"></span></div>
                 </div>
                 <div class="row ThuSpanLV">
-                    <div class="col-11">
-                        <p>All Day<input type="checkbox" id="ThuLeaveAD">
-                            <select id="ThuLeaveSelectAD">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>All Day<input type="checkbox" id="ThuLeaveAD"></p>
+                    </div>
+                    <div class="col-7">
+                        <select id="ThuLeaveSelectAD">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="ThuClearLVAD"></span>
@@ -2238,20 +2433,22 @@
                 </div>
                 <div class="row ThuSpanLV"><span class="bar"></span></div>
                 <div class="row ThuLV ThuSpanLV">
-                    <div class="col-10">
-                        <p>Morning
-                            <select id="ThuLeaveSelect14">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Morning</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="ThuClearLV14"></span></div>
+                    <div class="col-7">
+                        <select id="ThuLeaveSelect14">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV14"></span></div>
                 </div>
                 <div class="row ThuLV ThuSpanLV">
                     <input name="ThuTime14S" id="ThuTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -2260,20 +2457,22 @@
                 </div>
                 <div class="row ThuSpanLV"><span class="bar"></span></div>
                 <div class="row ThuLV ThuSpanLV">
-                    <div class="col-10">
-                        <p>Afternoon
-                            <select id="ThuLeaveSelect15">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Afternoon</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="ThuClearLV15"></span></div>
+                    <div class="col-7">
+                        <select id="ThuLeaveSelect15">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV15"></span></div>
                 </div>
                 <div class="row ThuLV ThuSpanLV">
                     <input name="ThuTime15S" id="ThuTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -2284,7 +2483,9 @@
             <hr>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">Morning Runs</div>
+                    <div class="col-8">
+                        <p class="category">Morning Runs</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT1"><input type="checkbox" id="ThuOJT1">OJT</label></div>
                     <div class="col-2"><label for="ThuLift1"><input type="checkbox" id="ThuLift1">LIFT</label></div>
                 </div>
@@ -2299,7 +2500,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">Afternoon Runs</div>
+                    <div class="col-8">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT2"><input type="checkbox" id="ThuOJT2">OJT</label></div>
                     <div class="col-2"><label for="ThuLift2"><input type="checkbox" id="ThuLift2">LIFT</label></div>
                 </div>
@@ -2314,7 +2517,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT3"><input type="checkbox" id="ThuOJT3">OJT</label></div>
                     <div class="col-2"><label for="ThuLift3"><input type="checkbox" id="ThuLift3">LIFT</label></div>
                 </div>
@@ -2329,7 +2534,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT4"><input type="checkbox" id="ThuOJT4">OJT</label></div>
                     <div class="col-2"><label for="ThuLift4"><input type="checkbox" id="ThuLift4">LIFT</label></div>
                 </div>
@@ -2344,7 +2551,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT5"><input type="checkbox" id="ThuOJT5">OJT</label></div>
                     <div class="col-2"><label for="ThuLift5"><input type="checkbox" id="ThuLift5">LIFT</label></div>
                 </div>
@@ -2359,7 +2568,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT6"><input type="checkbox" id="ThuOJT6">OJT</label></div>
                     <div class="col-2"><label for="ThuLift6"><input type="checkbox" id="ThuLift6">LIFT</label></div>
                 </div>
@@ -2374,7 +2585,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row ThuLV">
-                    <div class="category col60">Late Run</div>
+                    <div class="col-8">
+                        <p class="category">Late Run</p>
+                    </div>
                     <div class="col-2"><label for="ThuOJT7"><input type="checkbox" id="ThuOJT7">OJT</label></div>
                     <div class="col-2"><label for="ThuLift7"><input type="checkbox" id="ThuLift7">LIFT</label></div>
                 </div>
@@ -2390,15 +2603,23 @@
             <hr>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanOW8"></span>
                     </div>
                 </div>
                 <div class="row ThuLV ThuSpanOW8">
-                    <label for="ThuLift8"><input type="checkbox" id="ThuLift8">LIFT</label>&nbsp;&nbsp;
-                    <label for="ThuOJT8"><input type="checkbox" id="ThuOJT8">OJT</label>
+                    <div class="col-auto">
+                        <label for="ThuLift8"><input type="checkbox" id="ThuLift8">LIFT</label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="ThuOJT8"><input type="checkbox" id="ThuOJT8">OJT</label>
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanOW8">
                     <div class="col-11">
@@ -2436,9 +2657,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanOW9"></span>
                     </div>
                 </div>
@@ -2482,9 +2707,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanOW10"></span>
                     </div>
                 </div>
@@ -2529,24 +2758,32 @@
             <hr>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanFT11"></span>
                     </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT11">
-                    <div class="col-11">
-                        <label for="ThuLift11"><input type="checkbox" id="ThuLift11">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="ThuLift11"><input type="checkbox" id="ThuLift11">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="ThuVoucher11" id="ThuVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="ThuBanFT11"></span></div>
                 </div>
                 <div class="row ThuLV ThuSpanFT11">
-                    <input name="ThuFrom11" id="ThuFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuFrom11" id="ThuFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT11">
-                    <input name="ThuTo11" id="ThuTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuTo11" id="ThuTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT11">
                     <div class="col-11">
@@ -2559,27 +2796,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanFT12"></span>
                     </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-11">
-                        <label for="ThuLift12"><input type="checkbox" id="ThuLift12">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="ThuLift12"><input type="checkbox" id="ThuLift12">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="ThuVoucher12" id="ThuVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="ThuBanFT12"></span></div>
                 </div>
                 <div class="row ThuLV ThuSpanFT12">
-                    <input name="ThuFrom12" id="ThuFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuFrom12" id="ThuFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT12">
-                    <input name="ThuTo12" id="ThuTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuTo12" id="ThuTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-11">
+                    <div class="col-12">
                         <input type="text" name="ThuTime12S" id="ThuTime12S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="ThuTime12E" id="ThuTime12E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="ThuTime12" id="ThuTime12" class="total-time nofocus" disabled>
@@ -2589,27 +2834,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="ThuSpanFT13"></span>
                     </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-11">
-                        <label for="ThuLift13"><input type="checkbox" id="ThuLift13">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="ThuLift13"><input type="checkbox" id="ThuLift13">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="ThuVoucher13" id="ThuVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="ThuBanFT13"></span></div>
                 </div>
                 <div class="row ThuLV ThuSpanFT13">
-                    <input name="ThuFrom13" id="ThuFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuFrom13" id="ThuFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT13">
-                    <input name="ThuTo13" id="ThuTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="ThuTo13" id="ThuTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-11">
+                    <div class="col-13">
                         <input type="text" name="ThuTime13S" id="ThuTime13S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="ThuTime13E" id="ThuTime13E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="ThuTime13" id="ThuTime13" class="total-time nofocus" disabled>
@@ -2620,44 +2873,54 @@
         </div>
         <div id="Friday" class="card hide">
             <div class="row">
-                <div class="daily">FRIDAY-<span id="FriDate"></span></div>
+                <div class="col-auto">
+                    <p class="daily">FRIDAY-<span id="FriDate"></span></p>
+                </div>
+                <div class="col-auto">
+                    <span id="Fricopy" class="fas fa-copy font-medblue fa-lg"></span>
+                    <p class="copyfont">copy</p>
+                </div>
             </div>
             <div class="row">
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="FriRunTotal" class="totalwidth" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="FriOtherTotal" class="totalwidth" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="FriFTTotal" class="totalwidth" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
-                <div class="category">
+                <div class="col-auto">
                     <input type="text" id="FriLiftTotal" class="totalwidth" disabled>
                     <p class="dailytotal">total lift</p>
                 </div>
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="category col-11">Leave</div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggle" id="FriSpanLV"></span></div>
                 </div>
                 <div class="row FriSpanLV">
-                    <div class="col-11">
-                        <p>All Day<input type="checkbox" id="FriLeaveAD">
-                            <select id="FriLeaveSelectAD">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>All Day<input type="checkbox" id="FriLeaveAD"></p>
+                    </div>
+                    <div class="col-7">
+                        <select id="FriLeaveSelectAD">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="FriClearLVAD"></span>
@@ -2665,20 +2928,22 @@
                 </div>
                 <div class="row FriSpanLV"><span class="bar"></span></div>
                 <div class="row FriLV FriSpanLV">
-                    <div class="col-10">
-                        <p>Morning
-                            <select id="FriLeaveSelect14">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Morning</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="FriClearLV14"></span></div>
+                    <div class="col-7">
+                        <select id="FriLeaveSelect14">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearLV14"></span></div>
                 </div>
                 <div class="row FriLV FriSpanLV">
                     <input name="FriTime14S" id="FriTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -2687,20 +2952,22 @@
                 </div>
                 <div class="row FriSpanLV"><span class="bar"></span></div>
                 <div class="row FriLV FriSpanLV">
-                    <div class="col-10">
-                        <p>Afternoon
-                            <select id="FriLeaveSelect15">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select></p>
+                    <div class="col-4">
+                        <p>Afternoon</p>
                     </div>
-                    <div class="col-2"><span class="fas fa-times" id="FriClearLV15"></span></div>
+                    <div class="col-7">
+                        <select id="FriLeaveSelect15">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearLV15"></span></div>
                 </div>
                 <div class="row FriLV FriSpanLV">
                     <input name="FriTime15S" id="FriTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
@@ -2711,7 +2978,9 @@
             <hr>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">Morning Runs</div>
+                    <div class="col-8">
+                        <p class="category">Morning Runs</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT1"><input type="checkbox" id="FriOJT1">OJT</label></div>
                     <div class="col-2"><label for="FriLift1"><input type="checkbox" id="FriLift1">LIFT</label></div>
                 </div>
@@ -2726,7 +2995,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">Afternoon Runs</div>
+                    <div class="col-8">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT2"><input type="checkbox" id="FriOJT2">OJT</label></div>
                     <div class="col-2"><label for="FriLift2"><input type="checkbox" id="FriLift2">LIFT</label></div>
                 </div>
@@ -2741,7 +3012,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT3"><input type="checkbox" id="FriOJT3">OJT</label></div>
                     <div class="col-2"><label for="FriLift3"><input type="checkbox" id="FriLift3">LIFT</label></div>
                 </div>
@@ -2756,7 +3029,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">PAC/Preschool</div>
+                    <div class="col-8">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT4"><input type="checkbox" id="FriOJT4">OJT</label></div>
                     <div class="col-2"><label for="FriLift4"><input type="checkbox" id="FriLift4">LIFT</label></div>
                 </div>
@@ -2771,7 +3046,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT5"><input type="checkbox" id="FriOJT5">OJT</label></div>
                     <div class="col-2"><label for="FriLift5"><input type="checkbox" id="FriLift5">LIFT</label></div>
                 </div>
@@ -2786,7 +3063,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">Shuttle</div>
+                    <div class="col-8">
+                        <p class="category">Shuttle</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT6"><input type="checkbox" id="FriOJT6">OJT</label></div>
                     <div class="col-2"><label for="FriLift6"><input type="checkbox" id="FriLift6">LIFT</label></div>
                 </div>
@@ -2801,7 +3080,9 @@
             </div>
             <div class="tinycard bg-medblue">
                 <div class="row FriLV">
-                    <div class="category col60">Late Run</div>
+                    <div class="col-8">
+                        <p class="category">Late Run</p>
+                    </div>
                     <div class="col-2"><label for="FriOJT7"><input type="checkbox" id="FriOJT7">OJT</label></div>
                     <div class="col-2"><label for="FriLift7"><input type="checkbox" id="FriLift7">LIFT</label></div>
                 </div>
@@ -2817,15 +3098,23 @@
             <hr>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanOW8"></span>
                     </div>
                 </div>
                 <div class="row FriLV FriSpanOW8">
-                    <label for="FriLift8"><input type="checkbox" id="FriLift8">LIFT</label>&nbsp;&nbsp;
-                    <label for="FriOJT8"><input type="checkbox" id="FriOJT8">OJT</label>
+                    <div class="col-auto">
+                        <label for="FriLift8"><input type="checkbox" id="FriLift8">LIFT</label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="FriOJT8"><input type="checkbox" id="FriOJT8">OJT</label>
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanOW8">
                     <div class="col-11">
@@ -2863,9 +3152,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanOW9"></span>
                     </div>
                 </div>
@@ -2909,9 +3202,13 @@
             </div>
             <div class="tinycard bg-teal">
                 <div class="row">
-                    <div class="category col-10">Other Work</div>
-                    <div class="col-2">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanOW10"></span>
                     </div>
                 </div>
@@ -2956,24 +3253,32 @@
             <hr>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanFT11"></span>
                     </div>
                 </div>
                 <div class="row FriLV FriSpanFT11">
-                    <div class="col-11">
-                        <label for="FriLift11"><input type="checkbox" id="FriLift11">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="FriLift11"><input type="checkbox" id="FriLift11">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="FriVoucher11" id="FriVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="FriBanFT11"></span></div>
                 </div>
                 <div class="row FriLV FriSpanFT11">
-                    <input name="FriFrom11" id="FriFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriFrom11" id="FriFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT11">
-                    <input name="FriTo11" id="FriTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriTo11" id="FriTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT11">
                     <div class="col-11">
@@ -2986,27 +3291,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanFT12"></span>
                     </div>
                 </div>
                 <div class="row FriLV FriSpanFT12">
-                    <div class="col-11">
-                        <label for="FriLift12"><input type="checkbox" id="FriLift12">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="FriLift12"><input type="checkbox" id="FriLift12">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="FriVoucher12" id="FriVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="FriBanFT12"></span></div>
                 </div>
                 <div class="row FriLV FriSpanFT12">
-                    <input name="FriFrom12" id="FriFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriFrom12" id="FriFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT12">
-                    <input name="FriTo12" id="FriTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriTo12" id="FriTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT12">
-                    <div class="col-11">
+                    <div class="col-12">
                         <input type="text" name="FriTime12S" id="FriTime12S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="FriTime12E" id="FriTime12E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="FriTime12" id="FriTime12" class="total-time nofocus" disabled>
@@ -3016,27 +3329,35 @@
             </div>
             <div class="tinycard bg-darkteal">
                 <div class="row">
-                    <div class="category col-10">Field Trip</div>
-                    <div class="col-2">
+                    <div class="category col-8">Field Trip</div>
+                    <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
                         <span class="fas fa-angle-up spanToggle" id="FriSpanFT13"></span>
                     </div>
                 </div>
                 <div class="row FriLV FriSpanFT13">
-                    <div class="col-11">
-                        <label for="FriLift13"><input type="checkbox" id="FriLift13">LIFT</label>&nbsp;&nbsp;
+                    <div class="col-4">
+                        <label for="FriLift13"><input type="checkbox" id="FriLift13">LIFT</label>
+                    </div>
+                    <div class="col-7 center">
                         <input name="FriVoucher13" id="FriVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
                     </div>
                     <div class="col-1"><span class="fas fa-ban" id="FriBanFT13"></span></div>
                 </div>
                 <div class="row FriLV FriSpanFT13">
-                    <input name="FriFrom13" id="FriFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriFrom13" id="FriFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT13">
-                    <input name="FriTo13" id="FriTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    <div class="col-12">
+                        <input name="FriTo13" id="FriTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                    </div>
                 </div>
                 <div class="row FriLV FriSpanFT13">
-                    <div class="col-11">
+                    <div class="col-13">
                         <input type="text" name="FriTime13S" id="FriTime13S" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="FriTime13E" id="FriTime13E" class="timewidth" placeholder="- - : - -">
                         <input type="text" name="FriTime13" id="FriTime13" class="total-time nofocus" disabled>
@@ -3047,23 +3368,25 @@
         </div>
         <div class="card bg-olive">
             <div class="row">
-                <div class="category col-10">Payroll Codes</div>
-                <div class="category col-2"><span class="fas fa-angle-down spanToggle" id="PayrollSpan"></span></div>
+                <div class="col-10">
+                    <p class="category">Payroll Codes</p>
+                </div>
+                <div class="col-2 right"><span class="fas fa-angle-down spanToggle" id="PayrollSpan"></span></div>
             </div>
             <div class="row total-line hide PayrollSpan">
-                <div class="total_col">
+                <div class="col-auto payroll__col">
                     <p>1R<span>Regular</span><br><input type="text" id="Total1R" class="footer-box" disabled></p>
                 </div>
-                <div class="total_col">
+                <div class="col-auto payroll__col">
                     <p>S4<span>OJT</span><br><input type="text" id="TotalS4" class="footer-box" disabled></p>
                 </div>
-                <div class="total_col">
+                <div class="col-auto payroll__col">
                     <p>S2<span>LIFT</span><br><input type="text" id="TotalS2" class="footer-box" disabled></p>
                 </div>
-                <div class="total_col">
+                <div class="col-auto payroll__col">
                     <p>C3<span>Weather</span><br><input type="text" id="TotalC3" class="footer-box" disabled></p>
                 </div>
-                <div class="total_col">
+                <div class="col-auto payroll__col">
                     <p>C1<span>Callback</span><br><input type="text" id="TotalC1" class="footer-box" disabled></p>
                 </div>
             </div>
@@ -3096,16 +3419,16 @@
     </div>
     <div class="footer">
         <div class="row total-line">
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">RUN TIME<br><input type="text" id="TotalRun" class="footer-box" disabled></p>
             </div>
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">OTHER<br><input type="text" id="TotalOther" class="footer-box" disabled></p>
             </div>
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">FIELD TRIP<br><input type="text" id="TotalFT" class="footer-box" disabled></p>
             </div>
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">WORKED<br><input type="text" id="TotalHW" class="footer-box" disabled></p>
             </div>
         </div>

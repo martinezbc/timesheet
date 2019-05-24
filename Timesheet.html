@@ -22,6 +22,21 @@
     <script src="js/functions.js"></script>
     <script src="js/timesheet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <style>
+        p, table {
+            font-weight: bold;
+            font-size: 14px;
+            font-family: 'Rubik';
+            text-transform: none;
+        }
+        
+        div {
+            font-size: 14px;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 
 <body>
@@ -36,13 +51,13 @@
             </div>
         </div>
     </div>
-<!--
     <div class="main">
         <div class="spacer"></div>
         <div class="card">
             <div class="row">
                 <div class="category">Employee Data</div>
             </div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-3">
                     <script>
@@ -94,8 +109,9 @@
                 </div>
                 <p></p>
             </div>
-            <hr style="border-color: #0e657d;">
+            <hr class="border-blue">
             <div class="category">Pupil Counts</div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-4">
                     <script>
@@ -113,8 +129,9 @@
                     </script>
                 </div>
             </div>
-            <hr style="border-color: #0e657d;">
+            <hr class="border-blue">
             <div class="category">Route Time</div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-2">
                     <script>
@@ -177,6 +194,7 @@
                     </script>
                 </div>
             </div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-2">
                     <script>
@@ -239,6 +257,7 @@
                     </script>
                 </div>
             </div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-2">
                     <script>
@@ -301,6 +320,7 @@
                     </script>
                 </div>
             </div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-2">
                     <script>
@@ -363,6 +383,7 @@
                     </script>
                 </div>
             </div>
+            <hr class="border-grey">
             <div class="row">
                 <div class="col-sm-2">
                     <script>
@@ -425,35 +446,142 @@
                     </script>
                 </div>
             </div>
-            <hr style="border-color: #0e657d;">
+            <hr class="border-blue">
             <div class="category">Other Work Duties</div>
             <div class="row">
-
+                <div class="col-sm-1">Date</div>
+                <div class="col-sm-1">Lift</div>
+                <div class="col-sm-4">Category</div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-1">Start</div>
+                <div class="col-sm-1">End</div>
+                <div class="col-sm-1">Total</div>
             </div>
-            <hr style="border-color: #0e657d;">
+            <script>
+                var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
+                var j = 0;
+                for (var i = 0; i < 7; i++) {
+                    if (getStorage(days[i] + "Select8") !== "") {
+                        otherWork[j] = days[i] + "Time8";
+                        j++;
+                    }
+                    if (getStorage(days[i] + "Select9") !== "") {
+                        otherWork[j] = days[i] + "Time9";
+                        j++;
+                    }
+                    if (getStorage(days[i] + "Select10") !== "") {
+                        otherWork[j] = days[i] + "Time10";
+                        j++;
+                    }
+                }
+                var strDay = "";
+                var blnOW = false;
+                var strnum = "";
+                
+                for (i = 0; i < 10; i++) {
+                    blnOW = (otherWork[i] !== "OW" + i) ? true : false;
+                    if (blnOW) {
+                        document.write("<hr class='border-grey'>");
+                        strDay = otherWork[i].substr(0,3);
+                        strnum = otherWork[i].substr(7);
+                        document.write("<div class='row'>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(strDay + "Date") + "</p></div>");
+                        if (getStorage(strDay + "Lift" + strnum) === "1") {
+                            document.write("<div class='col-sm-1'><p>;<input type='checkbox' checked='checked' disabled></p></div>");
+                        } else {
+                            document.write("<div class='col-sm-1'><p><input type='checkbox' disabled></p></div>");
+                        }
+                        document.write("<div class='col-sm-4'><p>" + getStorage(strDay + "Select" + strnum) + " - " + getStorage(strDay + "Desc" + strnum) + "</p></div>");
+                        document.write("<div class='col-sm-1'><p></p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherWork[i] + "S") + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherWork[i] + "E") + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherWork[i]) + "</p></div>");
+                        document.write("</div>");
+                    }
+                }
+            </script>
+
+            <hr class="border-blue">
             <div class="category">Field Trips</div>
             <div class="row">
-
+                <div class="col-sm-1">Date</div>
+                <div class="col-sm-1">Lift</div>
+                <div class="col-sm-2">From</div>
+                <div class="col-sm-2">To</div>
+                <div class="col-sm-1">Voucher</div>
+                <div class="col-sm-1">Start</div>
+                <div class="col-sm-1">End</div>
+                <div class="col-sm-1">Total</div>
             </div>
-            <hr style="border-color: #0e657d;">
+            <script>
+                var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+                var j = 0;
+                for (var i = 0; i < 7; i++) {
+                    if (getStorage(days[i] + "Time11") !== "") {
+                        otherFT[j] = days[i] + "Time11";
+                        j++;
+                    }
+                    if (getStorage(days[i] + "Time12") !== "") {
+                        otherFT[j] = days[i] + "Time12";
+                        j++;
+                    }
+                    if (getStorage(days[i] + "Time13") !== "") {
+                        otherFT[j] = days[i] + "Time13";
+                        j++;
+                    }
+                }
+                var strDay = "";
+                var blnFT = false;
+                var strnum = "";
+                
+                for (i = 0; i < 5; i++) {
+                    blnFT = (otherFT[i] !== "FT" + i) ? true : false;
+                    if (blnFT) {
+                        document.write("<hr class='border-grey'>");
+                        strDay = otherFT[i].substr(0,3);
+                        strnum = otherFT[i].substr(7);
+                        document.write("<div class='row'>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(strDay + "Date") + "</p></div>");
+                        if (getStorage(strDay + "Lift" + strnum) === "1") {
+                            document.write("<div class='col-sm-1'><p><input type='checkbox' checked='checked' disabled></p></div>");
+                        } else {
+                            document.write("<div class='col-sm-1'><p><input type='checkbox' disabled></p></div>");
+                        }
+                        document.write("<div class='col-sm-2'><p>" + getStorage(strDay + "From" + strnum) + "</p></div>");
+                        document.write("<div class='col-sm-2'><p>" + getStorage(strDay + "To" + strnum) + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(strDay + "Voucher" + strnum) + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherFT[i] + "S") + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherFT[i] + "E") + "</p></div>");
+                        document.write("<div class='col-sm-1'><p>" + getStorage(otherFT[i]) + "</p></div>");
+                        document.write("</div>");
+                    }
+                }
+            </script>
+            <hr class="border-blue">
             <div class="category">Leave</div>
             <div class="row">
 
             </div>
-            <hr style="border-color: #0e657d;">
+            <hr class="border-blue">
             <div class="category">Totals</div>
             <div class="row">
 
             </div>
         </div>
     </div>
--->
 
-        <iframe class="fullframe"></iframe>
+<!--
+    <iframe class="fullframe"></iframe>
     <script>
                 $(document).ready(function() {
                     createTimesheet();
                     $("iframe").attr("src", string);
+                    
+                    var browser = browserDetection();
+                    
+                    if (browser === 'Chrome') {
+                        downloadTS();
+                    }
                 });
                 
                 function downloadTS() {
@@ -484,5 +612,6 @@
             }
         }
     </script>
+-->
 
 </body></html>
