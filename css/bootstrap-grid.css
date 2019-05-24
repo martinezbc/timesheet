@@ -16,8 +16,8 @@ html {
 }
 
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 @media (min-width: 576px) {
@@ -57,8 +57,6 @@ html {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: 0px;
-    margin-left: 0px;
     margin-bottom: 5px;
     width: 100%;
 }
@@ -82,8 +80,8 @@ html {
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .col {

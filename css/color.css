@@ -127,7 +127,7 @@
         font-size: 12px;
     }
     .daily {
-        font-size: 26px;
+        font-size: 24px;
     }
     
     .dropdown-content div {
@@ -190,6 +190,14 @@
         padding: 5px;
         max-width: 60%;
     }
+    
+     #greynav {
+        font-size: 12px;
+    }
+    
+    .daily {
+        font-size: 24px;
+    }
 }
 
 
@@ -241,6 +249,14 @@
         font-size: 14px;
     }
     
+     #greynav {
+        font-size: 14px;
+    }
+    
+    .daily {
+        font-size: 26px;
+    }
+    
 }
 
 @media only screen and (min-width: 768px) {
@@ -283,6 +299,14 @@
     
     .modal-content {
         max-width: 30%;
+    }
+    
+     #greynav {
+        font-size: 16px;
+    }
+    
+    .daily {
+        font-size: 28px;
     }
 }
 
