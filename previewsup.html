@@ -1,0 +1,235 @@
+<!DOCType html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transportation Weekly Report</title>
+    <!--Stylesheet-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="css/bootstrap-grid.css" rel="stylesheet" type="text/css">
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/color.css" rel="stylesheet" type="text/css">
+    <!--Javascript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="js/calculation.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+        
+        .bold-lg {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .section__header {
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: -2px;
+        }
+        
+        p {
+            font-family: 'Rubik';
+            text-transform: none;
+            font-weight: normal;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function getLVDate(x) {
+            switch (x) {
+                case "SupLeaveADM":
+                    x = getStorage("MonDateSup");
+                    break;
+                case "SupLeaveADT":
+                    x = getStorage("TueDateSup");
+                    break;
+                case "SupLeaveADW":
+                    x = getStorage("WedDateSup");
+                    break;
+                case "SupLeaveADR":
+                    x = getStorage("ThuDateSup");
+                    break;
+                case "SupLeaveADF":
+                    x = getStorage("FriDateSup");
+                    break;
+            }
+            return x;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="header__title">TRANSPORTATION SUPPLEMENT REPORT</h1>
+        <div id="navbarmodal" class="dropdown">
+            <!--navmodal-->
+            <span class="fas fa-bars dropbtn" id="tsbtn" onclick="myFunction();"></span>
+            <div class="dropdown-content" id="tsdropdown">
+                <div class="row" onclick="location.href='supplement.html';"><span class="fas fa-file-download"></span>&nbsp;Download</div>
+                <div class="row" onclick="location.href='index2.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="spacer"></div>
+        <div class="card">
+            <div style="font-size: 20px">SUPPLEMENT PREVIEW</div>
+            <hr class="border-blue">
+            <script>
+                var strHTML = "";
+                strHTML += '<div class="row section__header bg-medblue">';
+                strHTML += '<div class="col-12 bold-lg">Employee Data</div></div>';
+                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + getStorage("Area") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + getStorage("Team") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">Name:</p><p>' + getStorage("EmpLName") + ", " + getStorage("EmpFName") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">ID:</p><p>' + getStorage("EmpID") + '</p></div></div>';
+                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Week Range:</p><p>' + getStorage("WeekOfSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">Position:</p><p>' + getStorage("Position") + '</p></div>';
+                strHTML += '<div class="col-sm-1"><p class="bold">OJT Trainer:</p><p>';
+                if (getStorage('OJTSup') === '1') {
+                    strHTML += '<input type="checkbox" checked="checked" disabled>';
+                } else {
+                    strHTML += '<input type="checkbox" disabled>';
+                }
+                strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + getStorage("TraineeSup") + '</p></div>';
+                strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + getStorage("Veh1") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((getStorage("Veh2Sup") !== "") ? getStorage("Veh2Sup") : "") + ((getStorage("Veh3Sup") !== "") ? "/" + getStorage("Veh3Sup") : "") + ((getStorage("Veh4Sup") !== "") ? "/" + getStorage("Veh4Sup") : "") + '</p></div></div>'
+                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
+                var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
+                var j = 0;
+                for (var i = 0; i < 10; i++) {
+                    if (getStorage("SupSelect" + i) !== "") {
+                        otherWork[j] = "SupTime" + i;
+                        j++;
+                    }
+                }
+                var blnOW = false;
+                var strnum = "";
+                
+                for (i = 0; i < 10; i++) {
+                    blnOW = (otherWork[i] !== "OW" + i) ? true : false;
+                    if (blnOW) {
+                        strDay = otherWork[i].substr(0,3);
+                        strnum = otherWork[i].substr(7);
+                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
+                        strHTML += '<div class="row">';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage("SupDate" + strnum) + '</p></div>';
+                        if (getStorage("SupLift" + strnum) === "1") {
+                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" checked="checked" disabled></p></div>';
+                        } else {
+                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" disabled></p></div>';
+                        }
+                        strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + getStorage("SupSelect" + strnum) + " - " + getStorage("SupDesc" + strnum) + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p></p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "S") + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "E") + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i]) + '</p></div>';
+                        strHTML += '</div>';
+                    }
+                }
+                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
+
+                var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+                var j = 0;
+                for (i = 10; i < 15; i++) {
+                    if (getStorage("SupTime" + i) !== "") {
+                        otherFT[j] = "SupTime" + i;
+                        j++;
+                    }
+                }
+                strDay = "";
+                var blnFT = false;
+                strnum = "";
+                
+                for (i = 0; i < 5; i++) {
+                    blnFT = (otherFT[i] !== "FT" + i) ? true : false;
+                    if (blnFT) {
+                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
+                        strnum = otherFT[i].substr(7);
+                        strHTML += '<div class="row">';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage("SupDate") + '</p></div>';
+                        if (getStorage("SupLift" + strnum) === "1") {
+                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" checked="checked" disabled></p></div>';
+                        } else {
+                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" disabled></p></div>';
+                        }
+                        strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + getStorage("SupFrom" + strnum) + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + getStorage("SupTo" + strnum) + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>Voucher:&nbsp;' + getStorage("SupVoucher" + strnum) + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "S") + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "E") + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i]) + '</p></div>';
+                        strHTML += '</div>';
+                    }
+                }
+                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
+                var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
+                var lvd = ["M", "T", "W", "R", "F"];
+                var lvday = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+                var k = 0;
+                j = 0;
+                for (k = 0; k < 5; k++) {
+                    if (getStorage("SupLeaveAD" + lvd[k]) === "1") {
+                        otherLV[j] = "SupLeaveAD" + lvd[k];
+                        j++;
+                    }
+                    for (i = 15; i < 20; i++) {
+                        if (getStorage("SupDate" + i) === getStorage(lvday[k] + "DateSup")) {
+                            otherLV[j] = "SupTime" + i;
+                            j++;
+                        }
+                    }
+                }
+                strDay = "";
+                var blnLV = false;
+                strnum = "";
+                    
+                for (i = 0; i < 10; i++) {
+                    blnLV = (otherLV[i] !== "LV" + i) ? true : false;
+                    if (blnLV) {
+                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
+                        strHTML += '<div class="row">';
+                        strDay = otherLV[i].substr(0,3);
+                        strnum = otherLV[i].substr(-3).replace("e", "");
+                        if (otherLV[i].indexOf("LeaveAD") > 0) {
+                            strHTML += '<div class="col-sm-1"><p>' + getLVDate(otherLV[i]) + '</p></div>';
+                        } else {
+                            strHTML += '<div class="col-sm-1"><p>' + getStorage("SupDate" + strnum) + '</p></div>';
+                        }                        
+                        strHTML += '<div class="col-sm-2"><p>' + getStorage("SupLeaveSelect" + strnum) + '</p></div>';
+                        if (strnum.indexOf("AD") === 0) {
+                            strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"></div>';
+                            strHTML += '<div class="col-sm-1"></div>';
+                            strHTML += '<div class="col-sm-1"></div></div>';
+                        } else {
+                            strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "S") + '</p></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "E") + '</p></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i]) + '</p></div></div>';
+                        }
+                    }
+                }
+                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
+                strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + getStorage("TotalOtherSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + getStorage("TotalFTSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold-lg">HOURS WORKED:&nbsp;' + getStorage("TotalHWSup") + '</p></div>';
+                strHTML += '</div><hr class="border-grey"><div class="row">'
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">1R (RGular):&nbsp;' + getStorage("Total1RSup") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">S4 (OJT):&nbsp;' + getStorage("TotalS4Sup") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Lift):&nbsp;' + getStorage("TotalS2Sup") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">C3 (Weather):&nbsp;' + getStorage("TotalC3Sup") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">C1 (Callback):&nbsp;' + getStorage("TotalC1Sup") + '</p></div>';
+                strHTML += '</div>';
+                document.write(strHTML);
+            </script>    
+        </div>
+    </div>
+</body></html>

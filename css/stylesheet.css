@@ -235,7 +235,8 @@ input[type=radio] {
 }
 
 .category {
-    font-size: 1.20em;
+    font-size: 18px;
+    letter-spacing: 2px;
 }
 
 .descwidth {
@@ -266,6 +267,8 @@ input[type=radio] {
 p {
     margin-top: 1px;
     margin-bottom: 1px;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .empcard p, .PayrollSpan p {

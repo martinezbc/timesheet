@@ -349,7 +349,7 @@ function openTimesheetSup() {
 
     showHideModal("variousModalSup", "none");
     if (emp !== "") {
-        window.open("supplement.html", "_self");
+        window.open("previewsup.html", "_self");
     }
 }
 

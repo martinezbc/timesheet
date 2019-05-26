@@ -854,7 +854,7 @@ function openTimesheet() {
 
     showHideModal("validateModal", "none");
     if (emp !== "") {
-        window.open("timesheet.html", "_self");
+        window.open("preview.html", "_self");
     }
 }
 

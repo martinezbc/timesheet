@@ -17,6 +17,7 @@
 
 .border-blue {
     border-color: #0e657d;
+    border-width: 2px;
 }
 
 .border-grey {
@@ -299,15 +300,11 @@
 }
 
 @media only screen and (min-width: 980px) {
-    .modal-content {
-        max-width: 20%;
-    }
+
 }
 
 @media only screen and (min-width: 1250px) {
-    .modal-content {
-        max-width: 15%;
-    }
+
 
     .header__title {
         font-size: 22px;
