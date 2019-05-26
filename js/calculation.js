@@ -369,13 +369,20 @@ function dailyLift(d) {
             r = r + convertToMinutes($("#" + d + "Time" + i).val());
         }
     }
-    //If Lift 8 - 12 is checked, add the time to r
-    for (i = 8; i < 14; i++) {
+    //If Lift 8 - 10 (Other Work) is checked, add the time to r
+    for (i = 8; i < 11; i++) {
         if ($("#" + d + "Lift" + i).is(":checked")) {
             r = r + convertToMinutes($("#" + d + "Time" + i).val());
         }
     }
-    var x = convertTotal(r);
+    
+    //If lift is checked for field trips, add time to r
+    for (i = 11; i < 14; i++) {
+        if ($("#" + d + "Lift" + i).is(":checked")) {
+            r = r + (Number($("#" + d + "Time" + i).val()) * 60);
+        }
+    }
+    var x = calculateTotal(r);
     $("#" + d + "LiftTotal").val(x);
     setStorage(d + "LiftTotal", x);
 }
@@ -599,15 +606,15 @@ function getWeeklyTotals() {
     setStorage("TotalHW", t);
     $("#TotalHW").val(t);
 
-    a = Number(getStorage("MonLiftTotal"));
-    b = Number(getStorage("TueLiftTotal"));
-    c = Number(getStorage("WedLiftTotal"));
-    d = Number(getStorage("ThuLiftTotal"));
-    e = Number(getStorage("FriLiftTotal"));
-    f = Number(getStorage("SatLiftTotal"));
-    g = Number(getStorage("SunLiftTotal"));
+    a = convertToMinutes(getStorage("MonLiftTotal"));
+    b = convertToMinutes(getStorage("TueLiftTotal"));
+    c = convertToMinutes(getStorage("WedLiftTotal"));
+    d = convertToMinutes(getStorage("ThuLiftTotal"));
+    e = convertToMinutes(getStorage("FriLiftTotal"));
+    f = convertToMinutes(getStorage("SatLiftTotal"));
+    g = convertToMinutes(getStorage("SunLiftTotal"));
     t = a + b + c + d + e + f + g;
-    t = setToFixed(t);
+    t = convertTotal(t);
     setStorage("TotalS2", t);
     $("#TotalS2").val(t);
 

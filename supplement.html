@@ -92,6 +92,9 @@
                 vOffset = 0,
                 hOffset = 0,
                 x = "";
+            
+            var i = 0;
+            var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
 
 
             //********HEADER********//
@@ -277,41 +280,18 @@
             pdf.text(hOffset, vOffset, "Fri");
             pdf.setFontStyle("normal");
 
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-        
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
+            for (i = 0; i < 5; i++) {
+                vOffset += 15;
+                hOffset = margin;
+                pdf.setDrawColor(80, 80, 80);
+                if (i % 2 === 0) {
+                    pdf.setFillColor(255, 255, 255);    
+                } else {
+                    pdf.setFillColor(210, 210, 210);
+                }
+                pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+                pdf.setDrawColor(80, 80, 80);
+            }
             
             vOffset += 15;
             hOffset = margin;
@@ -398,141 +378,46 @@
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
 
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setFontStyle("bold");
+            for (i = 2; i < 7; i++) {
+                vOffset += 15;
+                hOffset = margin;
+                pdf.setDrawColor(80, 80, 80);
+                if (i % 2 === 0) {
+                    pdf.setFillColor(255, 255, 255);    
+                } else {
+                    pdf.setFillColor(210, 210, 210);
+                }
+                pdf.rect(margin, vOffset - 12, 530, 15, "FD");
+                pdf.setFontStyle("bold");
 
-            hOffset += 2;
-            x = getStorage("MonDateSup");
-            pdf.text(hOffset, vOffset, x);
+                hOffset += 2;
+                x = getStorage(days[i] + "DateSup");
+                pdf.text(hOffset, vOffset, x);
 
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            imgCheck = getUncheckBox();
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            pdf.text(hOffset + 11, vOffset, "Lift");
-            
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(550, vOffset - 27, 42, 30, "FD");
+                vOffset += 15;
+                hOffset = margin;
+                pdf.setDrawColor(80, 80, 80);
+                if (i % 2 === 0) {
+                    pdf.setFillColor(255, 255, 255);    
+                } else {
+                    pdf.setFillColor(210, 210, 210);
+                }
+                pdf.rect(margin, vOffset - 12, 530, 15, "FD");
+                pdf.setDrawColor(80, 80, 80);
+                pdf.setFontSize(9);
+                pdf.setFontStyle("bold");
+                hOffset += 2;
+                imgCheck = getUncheckBox();
+                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                pdf.text(hOffset + 11, vOffset, "Lift");
 
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            x = getStorage("TueDateSup");
-            pdf.text(hOffset, vOffset, x);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            imgCheck = getUncheckBox();
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            pdf.text(hOffset + 11, vOffset, "Lift");
-            
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(550, vOffset - 27, 42, 30, "FD");
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            x = getStorage("WedDateSup");
-            pdf.text(hOffset, vOffset, x);
-            
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            imgCheck = getUncheckBox();
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            pdf.text(hOffset + 11, vOffset, "Lift");
-            
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(550, vOffset - 27, 42, 30, "FD");
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            x = getStorage("ThuDateSup");
-            pdf.text(hOffset, vOffset, x);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            imgCheck = getUncheckBox();
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            pdf.text(hOffset + 11, vOffset, "Lift");
-            
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(550, vOffset - 27, 42, 30, "FD");
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            x = getStorage("FriDateSup");
-            pdf.text(hOffset, vOffset, x);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 530, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            hOffset += 2;
-            imgCheck = getUncheckBox();
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            pdf.text(hOffset + 11, vOffset, "Lift");
-            
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(550, vOffset - 27, 42, 30, "FD");
-
+                if (i % 2 === 0) {
+                    pdf.setFillColor(255, 255, 255);    
+                } else {
+                    pdf.setFillColor(210, 210, 210);
+                }
+                pdf.rect(550, vOffset - 27, 42, 30, "FD");    
+            }
 
             pdf.setDrawColor(80, 80, 80);
             pdf.line(50, vOffset + 6, 50, vTimeStart);
@@ -565,7 +450,7 @@
             var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
             var j = 0;
 
-            for (var i = 0; i < 10; i++) {
+            for (i = 0; i < 10; i++) {
                 if (getStorage("SupSelect" + i) !== "") {
                     otherWork[j] = "SupTime" + i;
                     j++;
@@ -627,1054 +512,96 @@
 
             var b = "",
                 c = "";
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
             var blnOW = false;
-            if (otherWork[0] !== "OW0") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                b = otherWork[0].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "ES0" || c === "ES2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[0] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[0] + "E"));
-            }
-            x = getStorage(otherWork[0]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
             var blnLV = false;
-            if (leave[0] !== "LV0") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[0].substr(0, 3);
-                b = leave[0].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[0].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[0]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[0].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[0].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[0] + "S"));
-            }
-            hOffset += 40;
-            if (blnLV === true && leave[0].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[0] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[0].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[0]));
-            }
-            pdf.setFontStyle("normal");
 
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[1] !== "OW1") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[1].substr(0, 3);
-                b = otherWork[1].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
+            for (i = 0; i < 10; i++) {
+                vOffset += 15;
+                hOffset = margin;
+                pdf.setDrawColor(80, 80, 80);
+                if (i % 2 === 0) {
+                    pdf.setFillColor(255, 255, 255);    
+                } else {
+                    pdf.setFillColor(210, 210, 210);
                 }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[1] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[1] + "E"));
-            }
-            x = getStorage(otherWork[1]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
+                pdf.rect(margin, vOffset - 12, 572, 15, "FD");
                 hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
+                blnOW = (otherWork[i] !== "OW" + i) ? true : false;
+                if (blnOW) {
+                    b = otherWork[i].substr(7);
+                    c = getStorage("SupSelect" + b);
+                    if (c === "ES0" || c === "ES2" || c === "CBK") {
+                        pdf.setDrawColor(80, 80, 80);
+                        pdf.setFillColor(255, 255, 0);
+                        pdf.rect(margin, vOffset - 12, 355, 15, "FD");
+                    }
                 }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[1] !== "LV1") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[1].substr(0, 3);
-                b = leave[1].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[1].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[1]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[1].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[1].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[1] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[1].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[1] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[1].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[1]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[2] !== "OW2") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[2].substr(0, 3);
-                b = otherWork[2].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
+                x = (blnOW) ? getStorage("SupDate" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 32;
+                imgCheck = (blnOW && getStorage("SupLift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                hOffset += 21;
+                pdf.setFontSize(8);
+                x = (blnOW) ? c + " - " + getStorage("SupDesc" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 175;
+                x = (blnOW) ? getStorage(otherWork[i] + "S") : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 42;
+                x = (blnOW) ? getStorage(otherWork[i] + "E") : "";
+                pdf.text(hOffset, vOffset, x);
+                x = getStorage(otherWork[i]);
+                hOffset += 43;
+                pdf.setFontSize(9);
+                pdf.setFontStyle("bold");
+                if (getStorage("SupOJT" + b) === "1") {
+                    x = "**" + x + "**";
+                    if (blnOW) {
+                        pdf.text(hOffset, vOffset, x);
+                    }
+                    hOffset += 5;
+                } else {
+                    hOffset += 7;
+                    if (blnOW) {
+                        pdf.text(hOffset, vOffset, x);
+                    }
+                    hOffset += -2;
                 }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[2] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[2] + "E"));
-            }
-            x = getStorage(otherWork[2]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
+                pdf.setFontStyle("normal");
+                //LEAVE
+                hOffset += 38;                
+                blnLV = (leave[i] !== "LV" + i) ? true : false;
+                if (blnLV) {
+                    a = leave[i].substr(0, 3);
+                    b = leave[i].substr(-3).replace("e", "");
+                }  
+                if (blnLV && leave[i].indexOf("LeaveAD") > 0) {
+                    pdf.text(hOffset, vOffset, getLVDate(leave[i]));
+                } else if (blnLV) {
+                    pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
                 }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            var blnLV = false;
-            if (leave[2] !== "LV2") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[2].substr(0, 3);
-                b = leave[2].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[2].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[2]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[2].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[2].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[2] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[2].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[2] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[2].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[2]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[3] !== "OW3") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[3].substr(0, 3);
-                b = otherWork[3].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[3] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[3] + "E"));
-            }
-            x = getStorage(otherWork[3]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[3] !== "LV3") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[3].substr(0, 3);
-                b = leave[3].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[3].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[3]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[3].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[3].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[3] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[3].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[3] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[3].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[3]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[4] !== "OW4") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[4].substr(0, 3);
-                b = otherWork[4].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[4] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[4] + "E"));
-            }
-            x = getStorage(otherWork[4]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[4] !== "LV4") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[4].substr(0, 3);
-                b = leave[4].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[4].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[4]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[4].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[4].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[4] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[4].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[4] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[4].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[4]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[5] !== "OW5") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[5].substr(0, 3);
-                b = otherWork[5].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[5] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[5] + "E"));
-            }
-            x = getStorage(otherWork[5]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[5] !== "LV5") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[5].substr(0, 3);
-                b = leave[5].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[5].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[5]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[5].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[5].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[5] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[5].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[5] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[5].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[5]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[6] !== "OW6") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[6].substr(0, 3);
-                b = otherWork[6].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[6] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[6] + "E"));
-            }
-            x = getStorage(otherWork[6]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[6] !== "LV6") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[6].substr(0, 3);
-                b = leave[6].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[6].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[6]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[6].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[6].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[6] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[6].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[6] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[6].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[6]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[7] !== "OW7") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[7].substr(0, 3);
-                b = otherWork[7].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[7] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[7] + "E"));
-            }
-            x = getStorage(otherWork[7]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[7] !== "LV7") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[7].substr(0, 3);
-                b = leave[7].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[7].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[7]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[7].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[7].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[7] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[7].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[7] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[7].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[7]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[8] !== "OW8") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                a = otherWork[8].substr(0, 3);
-                b = otherWork[8].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[8] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[8] + "E"));
-            }
-            x = getStorage(otherWork[8]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[8] !== "LV8") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[8].substr(0, 3);
-                b = leave[8].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[8].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[8]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[8].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[8].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[8] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[8].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[8] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[8].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[8]));
-            }
-            pdf.setFontStyle("normal");
-
-            //OTHER WORK
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            hOffset += 5;
-            blnOW = false;
-            if (otherWork[9] !== "OW9") {
-                blnOW = true;
-            }
-            if (blnOW === true) {
-                b = otherWork[9].substr(7);
-                c = getStorage("SupSelect" + b);
-                if (c === "EC0" || c === "EC2" || c === "CBK") {
-                    pdf.setDrawColor(80, 80, 80);
-                    pdf.setFillColor(255, 255, 0);
-                    pdf.rect(margin, vOffset - 12, 355, 15, "FD");
-                }
-            }
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 32;
-            if (blnOW === true && getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 21;
-            pdf.setFontSize(8);
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, c + " - " + getStorage("SupDesc" + b));
-            }
-            hOffset += 175;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[9] + "S"));
-            }
-            hOffset += 42;
-            if (blnOW === true) {
-                pdf.text(hOffset, vOffset, getStorage(otherWork[9] + "E"));
-            }
-            x = getStorage(otherWork[9]);
-            hOffset += 43;
-            pdf.setFontSize(9);
-            pdf.setFontStyle("bold");
-            if (getStorage("SupOJT" + b) === "1") {
-                x = "**" + x + "**";
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += 5;
-            } else {
-                hOffset += 7;
-                if (blnOW === true) {
-                    pdf.text(hOffset, vOffset, x);
-                }
-                hOffset += -2;
-            }
-            pdf.setFontStyle("normal");
-            //LEAVE
-            hOffset += 38;
-            blnLV = false;
-            if (leave[9] !== "LV9") {
-                blnLV = true;
-            }
-            if (blnLV === true) {
-                a = leave[9].substr(0, 3);
-                b = leave[9].substr(-3).replace("e", "");
-            }  
-            if (blnLV === true && leave[9].indexOf("LeaveAD") > 0) {
-                pdf.text(hOffset, vOffset, getLVDate(leave[9]));
-            } else if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupDate" + b));
-            }
-            hOffset += 28;
-            pdf.setFontSize(8);
-            if (blnLV === true) {
-                pdf.text(hOffset, vOffset, getStorage("SupLeaveSelect" + b));
-            }
-            hOffset += 50;
-            if (blnLV === true && leave[9].indexOf("LeaveAD") > 0) {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 15;
-            if (blnLV === true && leave[9].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[9] + "S"));
-            }
-            hOffset += 42;
-            if (blnLV === true && leave[9].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[9] + "E"));
-            }
-            hOffset += 45;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(9);
-            if (blnLV === true && leave[9].indexOf("Time") > 0) {
-                pdf.text(hOffset, vOffset, getStorage(leave[9]));
-            }
-
+                hOffset += 28;
+                pdf.setFontSize(8);
+                x = (blnLV) ? getStorage("SupLeaveSelect" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 50;
+                imgCheck = (blnLV && leave[i].indexOf("LeaveAD") > 0) ? getCheckBox() : getUncheckBox();
+                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                hOffset += 15;
+                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i] + "S") : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 40;
+                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i] + "E") : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 45;
+                pdf.setFontStyle("bold");
+                pdf.setFontSize(9);
+                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i]) : "";
+                pdf.text(hOffset, vOffset, x);
+                pdf.setFontStyle("normal");
+            }
+            
             vOffset += 15;
             hOffset = margin + 5;
             pdf.setTextColor(0);
@@ -1708,6 +635,7 @@
 
             //FIND OTHER WORK DATA
             var fieldTrip = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+            var blnFT = false;
             j = 0;
             for (i = 10; i < 15; i++) {
                 if (getStorage("SupTime" + i) !== "") {
@@ -1741,230 +669,50 @@
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
 
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            var blnFT = false;
+            for (i = 0; i < 5; i++) {
+                vOffset += 15;
+                hOffset = margin;
+                pdf.setDrawColor(80, 80, 80);
+                if (i % 2 === 0) {
+                        pdf.setFillColor(255, 255, 255);    
+                    } else {
+                        pdf.setFillColor(210, 210, 210);
+                    }
+                pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+                pdf.setDrawColor(80, 80, 80);
+                
 
-            hOffset += 10;
-            if (fieldTrip[0] !== "FT0") {
-                blnFT = true;
-                b = fieldTrip[0].substr(7);
+                hOffset += 10;
+                blnFT = (fieldTrip[i] !== "FT" + i) ? true : false;
+                b = (blnFT) ? fieldTrip[i].substr(7) : "";
+                x = (blnFT) ? getStorage("SupDate" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 35;
+                imgCheck = (getStorage("SupLift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                hOffset += 25;
+                x = (blnFT) ? getStorage("SupFrom" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 150;
+                x = (blnFT) ? getStorage("SupTo" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 150;
+                x = (blnFT) ? getStorage("SupVoucher" + b) : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 55;
+                x = (blnFT) ? getStorage(fieldTrip[i] + "S") : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 55;
+                x = (blnFT) ? getStorage(fieldTrip[i] + "E") : "";
+                pdf.text(hOffset, vOffset, x);
+                hOffset += 58;
+                pdf.setFontStyle("bold");
+                pdf.setFontSize(10);
+                x = (blnFT) ? getStorage(fieldTrip[i]) : "";
+                pdf.text(hOffset, vOffset, x);
+                pdf.setFontStyle("normal");
+                pdf.setFontSize(9);
             }
-            x = blnFT === true ? getStorage("SupDate" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 35;
-            if (getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 25;
-            x = blnFT === true ? getStorage("SupFrom" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupTo" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupVoucher" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[0] + "S") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[0] + "E") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 58;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(10);
-            x = blnFT === true ? getStorage(fieldTrip[0]) : "";
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            pdf.setFontSize(9);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            var blnFT = false;
-
-            hOffset += 10;
-            if (fieldTrip[1] !== "FT1") {
-                blnFT = true;
-                b = fieldTrip[1].substr(7);
-            }
-            x = blnFT === true ? getStorage("SupDate" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 35;
-            if (getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 25;
-            x = blnFT === true ? getStorage("SupFrom" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupTo" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupVoucher" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[1] + "S") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[1] + "E") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 58;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(10);
-            x = blnFT === true ? getStorage(fieldTrip[1]) : "";
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            pdf.setFontSize(9);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            var blnFT = false;
-
-            hOffset += 10;
-            if (fieldTrip[2] !== "FT2") {
-                blnFT = true;
-                b = fieldTrip[2].substr(7);
-            }
-            x = blnFT === true ? getStorage("SupDate" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 35;
-            if (getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 25;
-            x = blnFT === true ? getStorage("SupFrom" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupTo" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupVoucher" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[2] + "S") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[2] + "E") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 58;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(10);
-            x = blnFT === true ? getStorage(fieldTrip[2]) : "";
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            pdf.setFontSize(9);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            var blnFT = false;
-
-            hOffset += 10;
-            if (fieldTrip[3] !== "FT3") {
-                blnFT = true;
-                b = fieldTrip[3].substr(7);
-            }
-            x = blnFT === true ? getStorage("SupDate" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 35;
-            if (getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 25;
-            x = blnFT === true ? getStorage("SupFrom" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupTo" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupVoucher" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[3] + "S") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[3] + "E") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 58;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(10);
-            x = blnFT === true ? getStorage(fieldTrip[3]) : "";
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            pdf.setFontSize(9);
-
-            vOffset += 15;
-            hOffset = margin;
-            pdf.setDrawColor(80, 80, 80);
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            pdf.setDrawColor(80, 80, 80);
-            var blnFT = false;
-
-            hOffset += 10;
-            if (fieldTrip[4] !== "FT4") {
-                blnFT = true;
-                b = fieldTrip[4].substr(7);
-            }
-            x = blnFT === true ? getStorage("SupDate" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 35;
-            if (getStorage("SupLift" + b) === "1") {
-                imgCheck = getCheckBox();
-            } else {
-                imgCheck = getUncheckBox();
-            }
-            pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-            hOffset += 25;
-            x = blnFT === true ? getStorage("SupFrom" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupTo" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 150;
-            x = blnFT === true ? getStorage("SupVoucher" + b) : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[4] + "S") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 55;
-            x = blnFT === true ? getStorage(fieldTrip[4] + "E") : "";
-            pdf.text(hOffset, vOffset, x);
-            hOffset += 58;
-            pdf.setFontStyle("bold");
-            pdf.setFontSize(10);
-            x = blnFT === true ? getStorage(fieldTrip[4]) : "";
-            pdf.text(hOffset, vOffset, x);
-            pdf.setFontStyle("normal");
-            pdf.setFontSize(9);
 
             pdf.setDrawColor(80, 80, 80);
             pdf.line(552, vOffset + 6, 552, vTimeStart + 13);
