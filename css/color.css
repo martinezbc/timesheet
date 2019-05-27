@@ -54,6 +54,13 @@
     color: white;
 }
 
+.bg-greyblue {
+    background-color: #abc6cd;
+}
+
+.bg-greyteal {
+    background-color: #aedbe2;
+}
 
 .bg-burntred {
     background-color: #CF4520;
@@ -87,8 +94,6 @@
         font-size: 9px;
         letter-spacing: normal;
     }
-
-
 
     .total_col span {
         font-size: 10px;
@@ -154,8 +159,6 @@
         font-size: 9px;
         letter-spacing: normal;
     }
-
-
 
     .total_col span {
         font-size: 10px;
@@ -237,8 +240,6 @@
         width: 90px;
     }
 
-
-    
     .empcard input:not([type=checkbox]), .empcard select {
         font-size: 14px;
     }
@@ -284,8 +285,6 @@
         letter-spacing: 1px;
     }
 
-
-    
     .modal-content {
         max-width: 30%;
     }

@@ -383,6 +383,7 @@ function dailyLift(d) {
         }
     }
     var x = calculateTotal(r);
+    x = (x === "0:00") ? "" : x;
     $("#" + d + "LiftTotal").val(x);
     setStorage(d + "LiftTotal", x);
 }

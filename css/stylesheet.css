@@ -192,8 +192,13 @@ input[type=radio] {
     overflow: hidden;
 }
 
-.spacer {
-    padding: 36px;
+
+.topspacer {
+    padding: 30px;
+}
+
+.bottomspacer {
+    padding: 40px;
 }
 
 .header__title {
@@ -442,6 +447,10 @@ input[type=checkbox]:hover {
     cursor: pointer;
 }
 
+.footer_col input {
+    max-height: 18px;
+}
+
 .ftwidth {
     width: 218px;
 }
@@ -489,7 +498,7 @@ input[type=checkbox]:hover {
     overflow: hidden;
     bottom: 0;
     width: 100%;
-    height: 56px;
+    height: 80px;
     color: #FFF;
     background: #CF4520;
     position: fixed;
