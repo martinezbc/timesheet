@@ -10,6 +10,19 @@
     background-color: #00AEC7;
 }
 
+.bg-teal1 {
+    background-image: linear-gradient(to bottom right, #A6DDE9, #68D2DF);
+}
+
+.bg-teal2 {
+    background-image: linear-gradient(to bottom right, #68D2DF, #00AEC7);
+}
+
+.bg-teal3 {
+    background-image: linear-gradient(to bottom right, #00AEC7, #00677F);
+    color: white;
+}
+
 .bg-darkteal {
     background-color: #00677F;
     color: white;

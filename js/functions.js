@@ -19,6 +19,8 @@ $(window).ready(function () {
         if (refID.indexOf('Time') > 0 && !$(this).hasClass("nofocus")) {
             $(this).prop('disabled', true);
             openTimeSelector(refID, (refID.indexOf("Sup") > -1) ? "Sup" : "");
+        } else if (refID.indexOf('Total') > 0) {
+            //do nothing
         } else if (refID.indexOf('From') > 0 || refID.indexOf('To') > 0) {
             $(this).prop('disabled', true);
             openFTSelector(refID, (refID.indexOf("Sup") > -1) ? "Sup" : "");
@@ -267,7 +269,6 @@ function loadLocalStorage(optVal) {
         checkOJTDataSup();
     }
 }
-
 //******************LOAD DATE RANGES INTO DATE DROP DOWN******************//
 function loadDateRange() {
 	"use strict";
