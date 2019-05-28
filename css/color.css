@@ -98,6 +98,11 @@
 }
 
 @media (max-width: 320px) {
+    
+    .card {
+        padding: 2px;
+        margin: 5px;
+    }
 
     .header__title {
         font-size: 10px;
@@ -296,6 +301,10 @@
     
     .daily {
         font-size: 28px;
+    }
+    
+    .empname {
+        width: 60%;
     }
 }
 

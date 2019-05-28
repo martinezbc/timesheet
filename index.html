@@ -43,68 +43,76 @@
                 <div class="col-1 right"><span class="fas fa-angle-up spanToggle" id="EmpSpan"></span></div>
             </div>
             <div class="row EmpSpan">
-                <div class="col-md-3"><p>Select Week:
-                    <select name="WeekOf" id="WeekOf">
-                        <option value="" id="AfterOpt">--Select Week--</option>
-                    </select></p>
+                <div class="col-md-4">
+                    <p id="WeekOf">Select Week:<br>
+                        </p>
                 </div>
-                <div class="col-md-3">
-                    <p>Area:
-                        <select name="Area" id="Area" onchange="loadTeamValues($(this).val(), '')">
-                            <option value="">--Select Area--</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="7">7</option>
-                            <option value="TC">TC</option>
-                        </select></p>
+                <div class="col-md-4">
+                    <p><strong>Area:</strong><br>
+                        <input type="radio" id="area1" name="area" value="1">
+                        <label for="area1">1</label>
+                        <input type="radio" id="area2" name="area" value="2">
+                        <label for="area2">2</label>
+                        <input type="radio" id="area3" name="area" value="3">
+                        <label for="area3">3</label>
+                        <input type="radio" id="area4" name="area" value="4">
+                        <label for="area4">4</label>
+                        <input type="radio" id="area7" name="area" value="7">
+                        <label for="area7">7</label>
+                        <input type="radio" id="areaTC" name="area" value="TC">
+                        <label for="areaTC">TC</label>
+                    </p>
                 </div>
-                <div class="col-md-3">          
-                <p id="insertTeam">Team:
-                <select name="Team" id="Team">
-                    <option id="AddTeam" value="">--Select Team--</option>
-                </select></p>
-                </div>
-            </div>
-            <div class="row EmpSpan">
-                <div class="col-md-12"><p>Employee Name:
-                    <input type="text" name="EmpLName" id="EmpLName" style="text-align: left;padding-left: 5px;width:280px;" placeholder="Last name...">
-                    <input type="text" name="EmpFName" id="EmpFName" style="text-align: left;padding-left: 5px;width:217px;" placeholder="First name...">
-                    <input type="text" name="EmpMI" id="EmpMI" style="width: 60px;" placeholder="M.I."></p>
+                <div class="col-md-4" id="">
+                    <p id="insertTeam">Team:<br>
+                        
+                    </p>
                 </div>
             </div>
             <div class="row EmpSpan">
-                <div class="col-md-3">
-                    <p>Employee ID: <input type="text" name="EmpID" id="EmpID" placeholder="000000"></p>
+                <div class="col-md-9">
+                    <p><strong>Employee Name: (Last, First MI)</strong><br>
+                        <input type="text" name="EmpName" id="EmpName" class="empname" style="text-align: left;" placeholder="Last name, First Name   Middle Initial...">
+                        </p>
                 </div>
                 <div class="col-md-3">
-                    <p>Position:
-                        <select id="Position" name="Position" onchange="positionChange();">
-                            <option value="">--Select Position--</option>
-                            <option value="Driver">Driver</option>
-                            <option value="Attendant">Attendant</option>
-                            <option value="Floater">Floater</option>
-                            <option value="Activity Driver">Activity Driver</option>
-                            <option value="Driver Trainee">Driver Trainee</option>
-                            <option value="Attendant Trainee">Attendant Trainee</option>
-                            <option value="Sub Driver">Sub Driver</option>
-                            <option value="Sub Attendant">Sub Attendant</option>
-                        </select></p>
+                    <p><strong>Employee ID:</strong><br><input type="text" name="EmpID" id="EmpID" placeholder="000000"></p>
+                </div>
+            </div>
+            <div class="row EmpSpan">
+                <div class="col-md-9">
+                    <p><strong>Position:</strong><br>
+                        <input type="radio" id="posDriver" name="position" value="Driver">
+                        <label for="posDriver">Driver</label>
+                        <input type="radio" id="posDriverTrainee" name="position" value="Driver Trainee">
+                        <label for="posDriverTrainee">Driver Trainee</label>
+                        <input type="radio" id="posSubDriver" name="position" value="Sub Driver">
+                        <label for="posSubDriver">Sub Driver</label>
+                        <input type="radio" id="posAttendant" name="position" value="Attendant">
+                        <label for="posAttendant">Attendant</label>
+                        <input type="radio" id="posAttendantTrainee" name="position" value="Attendant Trainee">
+                        <label for="posAttendantTrainee">Attendant Trainee</label>                        
+                        <input type="radio" id="posSubAttendant" name="position" value="Sub Attendant">
+                        <label for="posSubAttendant">Sub Attendant</label>
+                        <input type="radio" id="posFloater" name="position" value="Floater">
+                        <label for="posFloater">Floater</label>
+                        <input type="radio" id="posActivityDriver" name="position" value="Activity Driver">
+                        <label for="posActivityDriver">Activity Driver</label>
+                    </p>
                 </div>
                 <div class="col-md-3">
-                    <p><label for="OJT">OJT Trainer&nbsp;<input type="checkbox" id="OJT"></label><input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;" placeholder="Trainee's name..."></p>
+                    <p><label for="OJT">OJT Trainer&nbsp;<input type="checkbox" id="OJT"></label><br><input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 100%" placeholder="Trainee's name..."></p>
                 </div>
             </div>
             <div class="row EmpSpan">
                 <div class="col-md-2">
-                    <p>Vehicle: <input type="text" name="Veh1" id="Veh1" style="width: 100px;" placeholder="0000"></p>
+                    <p><strong>Vehicle:</strong><br><input type="text" name="Veh1" id="Veh1" style="width: 100px;" placeholder="0000"></p>
                 </div>
                 <div class="col-md-6">
-                    <p>Spare Vehicles:
-                    <input type="text" name="Veh2" id="Veh2" style="width: 100px;" placeholder="0000">
-                    <input type="text" name="Veh3" id="Veh3" style="width: 100px;" placeholder="0000">
-                    <input type="text" name="Veh4" id="Veh4" style="width: 100px;" placeholder="0000"></p>
+                    <p><strong>Spare Vehicles:</strong><br>
+                        <input type="text" name="Veh2" id="Veh2" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh3" id="Veh3" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh4" id="Veh4" style="width: 100px;" placeholder="0000"></p>
                 </div>
             </div>
         </div>
@@ -3400,34 +3408,32 @@
     </div>
     <div class="footer bg-burntred">
         <div class="row total-line">
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">RUN<br><input type="text" id="TotalRun" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">OTHER<br><input type="text" id="TotalOther" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">FT<br><input type="text" id="TotalFT" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">WORKED<br><input type="text" id="TotalHW" class="footer-box" disabled></p>
             </div>
-        </div>
-        <div class="row total-line">
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">OJT<br><input type="text" id="TotalS4" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">LIFT<br><input type="text" id="TotalS2" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">C3<br><input type="text" id="TotalC3" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-md-1 col-xs-2 footer_col">
                 <p class="footer_p">C1<br><input type="text" id="TotalC1" class="footer-box" disabled></p>
             </div>
         </div>
-        
+
     </div>
     <!-- The Field Trip Picker -->
     <div id="ftModal" class="modal">

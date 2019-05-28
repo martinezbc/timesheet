@@ -74,15 +74,36 @@ function loadDateRangeSup() {
 	"use strict";
     var d = new Date();
     var day = d.getDay();
-    var r1 = DateRange(d, day, 0);
-    var r2 = DateRange(d, day, -7);
-    var r3 = DateRange(d, day, -14);
-    var r4 = DateRange(d, day, -21);
-    $('<option value="' + r1 + '">' + r1 + '</option>').insertAfter("#AfterOptSup");
-    $('<option value="' + r2 + '">' + r2 + '</option>').insertAfter("#AfterOptSup");
-    $('<option value="' + r3 + '">' + r3 + '</option>').insertAfter("#AfterOptSup");
-    $('<option value="' + r4 + '">' + r4 + '</option>').insertAfter("#AfterOptSup");
-    $("#WeekOfSup").val(getStorage("WeekOfSup"));
+    var r1 = DateRange(d, day, -21);
+    var r2 = DateRange(d, day, -14);
+    var r3 = DateRange(d, day, -7);
+    var r4 = DateRange(d, day, 0);
+    var strHTML = '<strong>Week Of:</strong><br>';
+    strHTML += '<input type="radio" id="week1sup" name="weekofsup" value="' + r1 + '" onclick="storeWeek($(this).attr(\'id\'), \'Sup\');"><label for="week1sup">' + r1 + '</label>';
+    strHTML += '<input type="radio" id="week2sup" name="weekofsup" value="' + r2 + '" onclick="storeWeek($(this).attr(\'id\'), \'Sup\');"><label for="week2sup">' + r2 + '</label>';
+    strHTML += '<input type="radio" id="week3sup" name="weekofsup" value="' + r3 + '" onclick="storeWeek($(this).attr(\'id\'), \'Sup\');"><label for="week3sup">' + r3 + '</label>';
+    strHTML += '<input type="radio" id="week4sup" name="weekofsup" value="' + r4 + '" onclick="storeWeek($(this).attr(\'id\'), \'Sup\');"><label for="week4sup">' + r4 + '</label>';
+    $("#WeekOfSup").html(strHTML);
+    if (getStorage("WeekOfSup") === null) {
+        setStorage("WeekOfSup", "");
+    } else {
+        switch (getStorage("WeekOfSup")) {
+            case r1:
+                $("#week1sup").prop("checked","checked");
+                break;
+            case r2:
+                $("#week2sup").prop("checked","checked");
+                break;
+            case r3:
+                $("#week3sup").prop("checked","checked");
+                break;
+            case r4:
+                $("#week4sup").prop("checked","checked");
+                break;
+            default:
+                break;
+        }
+    }
     loadSupDates();
 }
 
@@ -98,7 +119,7 @@ function clearFieldsSup() {
 function loadSupDates () {
 	"use strict";
     var x = "";
-    if ($("#WeekOfSup").val() === "") {
+    if (getStorage("WeekOfSup") === "") {
         return;
     }
     for (var j = 0; j < 15; j++) {
@@ -200,14 +221,44 @@ function spanToggleSupVal(refID) {
 }
 
 function loadSupData() {
-    $("#AreaSup").text(getStorage("Area"));
-    $("#TeamSup").text(getStorage("Team"));
-    $("#EmpNameSup").text(getStorage("EmpLName") + ", " + getStorage("EmpFName") + " " + getStorage("EmpMI"));
-    $("#EmpIDSup").text(getStorage("EmpID"));
-    $("#PositionSup").text(getStorage("Position"));
-    $("#Veh1Sup").text(getStorage("Veh1"));
-    $("#Veh2Sup").val(getStorage("Veh2"));
-    $("#Veh3Sup").val(getStorage("Veh3"));
+    if (getStorage("Area") === "" || getStorage("Area") === null) {
+        $("#AreaSup").prop("disabled", false);
+    } else {
+        $("#AreaSup").prop("disabled", true);
+        $("#AreaSup").val(getStorage("Area"));
+    }
+    if (getStorage("Team") === "" || getStorage("Team") === null) {
+        $("#TeamSup").prop("disabled", false);
+    } else {
+        $("#TeamSup").prop("disabled", true);
+        $("#TeamSup").val(getStorage("Team"));
+    }
+    if (getStorage("EmpName") === "" || getStorage("EmpName") === null) {
+        $("#EmpNameSup").prop("disabled", false);
+    } else {
+        $("#EmpNameSup").prop("disabled", true);
+        $("#EmpNameSup").val(getStorage("EmpName"));
+    }
+    if (getStorage("EmpID") === "") {
+        $("#EmpIDSup").prop("disabled", false);
+    } else {
+        $("#EmpIDSup").prop("disabled", true);
+        $("#EmpIDSup").val(getStorage("EmpID"));
+    }
+    if (getStorage("Position") === "" || getStorage("Position") === null) {
+        $("#PositionSup").prop("disabled", false);
+    } else {
+        $("#PositionSup").prop("disabled", true);
+        $("#PositionSup").val(getStorage("Position"));
+    }
+    
+    if (getStorage("Veh1") === "") {
+        $("#Veh1Sup").prop("disabled", false);
+    } else {
+        $("#Veh1Sup").prop("disabled", true);
+        $("#Veh1Sup").val(getStorage("Veh1"));
+    }
+
     if (getStorage("OJT") === "1") {
         $("#OJTSup").prop("checked", true);
         $("#TraineeSup").val(getStorage("Trainee"));

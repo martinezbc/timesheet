@@ -18,6 +18,7 @@
     <script src="js/calculation.js"></script>
     <script src="js/functions.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="js/FileSaver.js"></script>
     <style>
         .full {
             width: 100%;
@@ -134,7 +135,7 @@
             pdf.text(hOffset, vOffset, "Name:");
             pdf.setFontStyle("bold");
             hOffset += 35;
-            x = getStorage("EmpLName") + ", " + getStorage("EmpFName") + " " + getStorage("EmpMI");
+            x = getStorage("EmpName");
             pdf.text(hOffset, vOffset, x);
 
             hOffset += 260;
@@ -1179,13 +1180,8 @@
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + getStorage("EmpLName");
-            var n = getStorage("EmpFName");
-            n = n.substr(0, 1);
-            if (getStorage("EmpMI") !== "") {
-                n = n + getStorage("EmpMI");
-            }
-            var fileName = x + n;
+            x = x + "_" + getStorage("EmpName").replace(",","").replace(" ","");
+            var fileName = x;
 
             pdf.setProperties({
                 title: fileName,
@@ -1198,14 +1194,41 @@
             var string = pdf.output("datauristring");
 
             $("iframe").attr("src", string);
+            
+//            saveAs(string, fileName + ".pdf");
+            
+//            var blobPDF = new Blob([ pdf.output() ], {type:'application/pdf'});
+//            saveAs(blobPDF, fileName + ".pdf");
 
-            var browser = browserDetection();
-
-            if (browser === 'Chrome') {
-                pdf.save(fileName + ".pdf");
-            }
+//            var browser = browserDetection();
+//
+//            if (browser === 'Chrome') {
+//                pdf.save(fileName + ".pdf");
+//            }
 
         });
+        function createCSV() {
+            var arrayVal = "";
+            for (var i = 0; i < localStorage.length; i++) {
+                arrayVal += localStorage.key(i);
+                if (i !== localStorage.length - 1) {
+                    arrayVal += ",";
+                }
+            }
+            var arrayVal2 = "";
+            for (var i = 0; i < localStorage.length; i++) {
+                arrayVal2 += getStorage(localStorage.key(i));
+                if (i !== localStorage.length - 1) {
+                    arrayVal2 += ",";
+                }
+            }
+            var CSV = [[arrayVal],[arrayVal2]].join('\n');
+            
+            var contentType = 'text/csv';
+
+            var csvFile = new Blob([CSV], {type: contentType});
+            saveAs(csvFile, "timesheet.csv");
+        }
     </script>
 </body>
 </html>

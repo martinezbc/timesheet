@@ -20,6 +20,7 @@
     <script src="js/fieldtrip.js"></script>
     <script src="js/timepicker.js"></script>
     <script src="js/supfunctions.js"></script>
+    <script src="js/FileSaver.js"></script>
 </head>
 <body onload="loadLocalStorage('Sup');">
     <div class="header">
@@ -34,48 +35,58 @@
         </div>
     </div>
     <div class="main">
-        <div class="spacer"></div>
+        <div class="topspacer"></div>
         <div class="card" id="EmpDataSup">
             <div class="row">
                 <div class="col-11"><p class="daily">Employee Information</p></div>
                 <div class="col-1 right"><span class="fas fa-angle-up spanToggleSup" id="EmpSpanSup"></span></div>
             </div>
-            <div class="empcard EmpSpanSup">
-                <p>Select Week:</p>
-                <select name="WeekOfSup" id="WeekOfSup">
-                    <option value="" id="AfterOptSup">--Select Week--</option>
-                </select>
-                <br><br>
-                <p>Area:</p>
-                <span id="AreaSup"></span>
-                <br><br>
-                <p id="insertTeamSup">Team:</p>
-                <span id="TeamSup"></span>
+            <div class="row EmpSpanSup">
+               <div class="col-md-4">
+                   <div class="col-md-4">
+                    <p id="WeekOfSup">Select Week:<br></p>
+                </div>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>Area:</strong><br>
+                    <input type="text" style="width: 100px;" id="AreaSup"></p>
+                </div>
+                <div class="col-md-4">
+                    <p id="insertTeamSup"><strong>Team:</strong><br>
+                    <input type="text" style="width: 100px;" id="TeamSup"></p>
+                </div>
             </div>
-            <div class="empcard EmpSpanSup">
-                <p>Employee Name:</p>
-                <span id="EmpNameSup"></span>
-                <br><br>
-                <p>Employee ID:</p>
-                <span id="EmpIDSup"></span>
+            <div class="row EmpSpanSup">
+               <div class="col-md-9">
+                    <p><strong>Employee Name:</strong><br>
+                    <input type="text" id="EmpNameSup" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;"></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Employee ID:</strong><br>
+                    <input type="text" id="EmpIDSup" placeholder="000000"></p>
+                </div>
             </div>
-            <div class="empcard EmpSpanSup">
-                <p>Position:</p>
-                <span id="PositionSup"></span>
-                <br>
-                <br>
-                <label for="OJTSup">OJT Trainer&nbsp;<input type="checkbox" id="OJTSup"></label>
-                <br>
-                <input type="text" id="TraineeSup" class="left" style="text-align: left;padding-left: 5px;" placeholder="Trainee's name...">
+            <div class="row EmpSpanSup">
+               <div class="col-md-4">
+                   <p><strong>Position:</strong><br>
+                    <input type="text" id="PositionSup" placeholder="Type position..."></p>
+                </div>
+                <div class="col-md-4">
+                    <label for="OJTSup">OJT Trainer&nbsp;<input type="checkbox" id="OJTSup"></label><br>
+                    <input type="text" id="TraineeSup" class="left" style="text-align: left;padding-left: 5px;" placeholder="Trainee's name...">
+                </div>
             </div>
-            <div class="empcard EmpSpanSup">
-                <p>Vehicle:</p>
-                <span id="Veh1Sup"></span>
-                <br><br>
-                <p>Spare Vehicles:</p>
-                <input type="text" name="Veh2" id="Veh2Sup" style="width: 100px;" placeholder="0000">
-                <input type="text" name="Veh3" id="Veh3Sup" style="width: 100px;" placeholder="0000">
-                <input type="text" name="Veh4" id="Veh4Sup" style="width: 100px;" placeholder="0000">
+            <div class="row EmpSpanSup">
+               <div class="col-md-3">
+                   <p><strong>Vehicle:</strong><br>
+                    <input type="text" id="Veh1Sup" style="width: 100px;" placeholder="0000"></p>
+                </div>
+                <div class="col-md-9">
+                    <p><strong>Spare Vehicles:</strong><br>
+                    <input type="text" name="Veh2" id="Veh2Sup" style="width: 100px;" placeholder="0000">
+                    <input type="text" name="Veh3" id="Veh3Sup" style="width: 100px;" placeholder="0000">
+                    <input type="text" name="Veh4" id="Veh4Sup" style="width: 100px;" placeholder="0000"></p>
+                </div>
             </div>
         </div>
         <div id="Supplement" class="card">
@@ -1117,30 +1128,6 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearFT14"></span></div>
                 </div>
             </div>
-            
-        </div>
-        <div class="card bg-olive">
-            <div class="row">
-                <div class="col-11"><p class="category">Payroll Codes</p></div>
-                <div class="col-1 right"><span class="fas fa-angle-down spanToggleSup" id="SupPayrollSpan"></span></div>
-            </div>
-            <div class="row total-line hide SupPayrollSpan">
-                <div class="col-auto payroll__col">
-                    <p>1R<span>Regular</span><br><input type="text" id="Total1RSup" class="footer-box" disabled></p>
-                </div>
-                <div class="col-auto payroll__col">
-                    <p>S4<span>OJT</span><br><input type="text" id="TotalS4Sup" class="footer-box" disabled></p>
-                </div>
-                <div class="col-auto payroll__col">
-                    <p>S2<span>LIFT</span><br><input type="text" id="TotalS2Sup" class="footer-box" disabled></p>
-                </div>
-                <div class="col-auto payroll__col">
-                    <p>C3<span>Weather</span><br><input type="text" id="TotalC3Sup" class="footer-box" disabled></p>
-                </div>
-                <div class="col-auto payroll__col">
-                    <p>C1<span>Callback</span><br><input type="text" id="TotalC1Sup" class="footer-box" disabled></p>
-                </div>
-            </div>
         </div>
         <!-- The Time Selector -->
         <div id="timeModalSup" class="modal">
@@ -1164,18 +1151,30 @@
                 </div>
             </div>
         </div>
-        <div class="spacer"></div>
+        <div class="bottomspacer"></div>
     </div>
-    <div class="footer">
+    <div class="footer bg-burntred">
         <div class="row total-line">
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">OTHER<br><input type="text" id="TotalOtherSup" class="footer-box" disabled></p>
             </div>
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">FIELD TRIP<br><input type="text" id="TotalFTSup" class="footer-box" disabled></p>
             </div>
-            <div class="footer_col">
+            <div class="col-3 footer_col">
                 <p class="footer_p">WORKED<br><input type="text" id="TotalHWSup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">OJT<br><input type="text" id="TotalS4Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">LIFT<br><input type="text" id="TotalS2Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">C3<br><input type="text" id="TotalC3Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">C1<br><input type="text" id="TotalC1Sup" class="footer-box" disabled></p>
             </div>
         </div>
     </div>

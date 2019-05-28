@@ -40,7 +40,7 @@ $(window).ready(function () {
         }
     });
 
-    $('input:not([type="checkbox"])').change(function () {
+    $('input[type=number], input[type=text]').change(function () {
         var x = $(this).attr("id");
 
         if (x.indexOf("Time") > 0) {
@@ -171,6 +171,17 @@ $(window).ready(function () {
         }
     });
     
+    $("input[type=radio]").click(function () {
+        var refID = $(this).attr("id");
+        if (refID.indexOf("area") > -1) {
+            loadTeamValues(refID.substr(4));
+            setStorage("Area", refID.substr(4));
+        } else if (refID.indexOf("pos") > -1) {
+            setStorage("Position", $("#" + refID).val());
+            positionChange();
+        }
+    });
+    
 });
 
 "use strict";
@@ -231,7 +242,7 @@ function loadLocalStorage(optVal) {
     }
     insertFTSelect(optVal);
 
-    $("input:not([type='checkbox']), select").each(function () {
+    $("input[type=text], input[type=number], select").each(function () {
         x = $(this).attr("id");
         y = getStorage(x);
         if (y === null) {
@@ -256,9 +267,20 @@ function loadLocalStorage(optVal) {
         $(this).prop("checked", (y === "1") ? true : false);
     });
     
+    if (getStorage("Area") === null) {
+        setStorage("Area", "");
+    }
+    
+    if (getStorage("Team") === null) {
+        setStorage("Team", "");
+    }
+    
+    if (getStorage("Position") === null) {
+        setStorage("Position", "");
+    }
     if (optVal === "") {
         loadTeamValues(getStorage("Area"), "");
-        $("#Team").val(getStorage("Team"));
+        loadRadioSelection();
         checkOJTData();
         checkDailyLeave();
         positionChange();
@@ -269,18 +291,43 @@ function loadLocalStorage(optVal) {
         checkOJTDataSup();
     }
 }
+
+//Change to proper case
+function properCase(str) {
+    return str.toLowerCase().replace(/\b[a-z]/g, function(txtVal) {
+        return txtVal.toUpperCase();
+    });
+}
 //******************LOAD DATE RANGES INTO DATE DROP DOWN******************//
 function loadDateRange() {
 	"use strict";
     var d = new Date();
     var day = d.getDay();
-    var r1 = DateRange(d, day, 7);
+    var r1 = DateRange(d, day, -7);
     var r2 = DateRange(d, day, 0);
-    var r3 = DateRange(d, day, -7);
-    $('<option value="' + r1 + '">' + r1 + '</option>').insertAfter("#AfterOpt");
-    $('<option value="' + r2 + '">' + r2 + '</option>').insertAfter("#AfterOpt");
-    $('<option value="' + r3 + '">' + r3 + '</option>').insertAfter("#AfterOpt");
-    $("#WeekOf").val(getStorage("WeekOf"));
+    var r3 = DateRange(d, day, 7);
+    var strHTML = '<strong>Week Of:</strong><br>';
+    strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week1">' + r1 + '</label>';
+    strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week2">' + r2 + '</label>';
+    strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week3">' + r3 + '</label>';
+    $("#WeekOf").html(strHTML);
+    if (getStorage("WeekOf") === null) {
+        setStorage("WeekOf", "");
+    } else {
+        switch (getStorage("WeekOf")) {
+            case r1:
+                $("#week1").prop("checked","checked");
+                break;
+            case r2:
+                $("#week2").prop("checked","checked");
+                break;
+            case r3:
+                $("#week3").prop("checked","checked");
+                break;
+            default:
+                break;
+        }
+    }
     loadStoredWeek();
 }
 
@@ -341,42 +388,56 @@ function loadStoredWeek() {
 }
 
 //Loads team values into #Team after area selection
-function loadTeamValues(area, sup) {
+function loadTeamValues(area) {
     "use strict";
     var i = 0;
-    $("#Team" + sup + " option[value!='']").each(function () {
-        $(this).remove();
-    });
+    $("#insertTeam").html('<strong>Team:</strong><br>');
+    var strHTML = "";
     switch (area) {
         case "1":
         case "2":
         case "3":
         case "4":
-            for (i = 7; i >= 0; i--) {
-                $('<option value="' + area + i + '">' + area + i + '</option>').insertAfter("#AddTeam" + sup);
+            strHTML += '<strong>Team:</strong><br>';
+            for (i = 0; i < 8; i++) {
+                strHTML += '<input type="radio" id="team' + area + i + '" name="team" value="' + area + i + '" onclick="setTeamSelection($(this).attr(\'id\'));"><label for="team' + area + i + '">' + area + i + '</label>';
             }
+            $("#insertTeam").html(strHTML);
             break;
         case "7":
-            $('<option value="SCOL">SCOL</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="RIV">RIV</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="PHIL">PHIL</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="MATH">MATH</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="LOU">LOU</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="LAB">LAB</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="KT">KT</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="KK">KK</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="KING">KING</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="IVY">IVY</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="FR">FR</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="CARD">CARD</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="AUR">AUR</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="ALTP">ALTP</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="ALTM">ALTM</option>').insertAfter("#AddTeam" + sup);
-            $('<option value="ACA">ACA</option>').insertAfter("#AddTeam" + sup);
+            var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
+            strHTML += '<strong>Team:</strong><br>';
+            for (i = 0; i < 16; i++) {
+                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'));><label for="team' + teams[i] + '">' + teams[i] + '</label>';
+            }
+            $("#insertTeam").html(strHTML);
             break;
         case "TC":
-            $('<option value="TC">TC</option>').insertAfter("#AddTeam" + sup);
+            $("#insertTeam").html('<strong>Team:</strong><br><input type="radio" id="teamTC" name="team" value="TC" checked><label for="teamTC">TC</label>');
+            setStorage("Team", "TC");
             break;
+    }
+}
+
+function setTeamSelection(refID) {
+    setStorage("Team", refID.substr(4));
+}
+
+function loadRadioSelection () {
+    var val = getStorage("Area");
+    if (val !== "") {
+        $("#area" + val).prop("checked", "checked");
+    }
+        
+        
+    val = getStorage("Team");
+    if (val !== "") {
+        $("#team" + val).prop("checked", "checked");
+    }
+    
+    val = getStorage("Position").replace(" ", "");
+    if (val !== "") {
+        $("#pos" + val).prop("checked", "checked");
     }
 }
 
@@ -503,7 +564,7 @@ function positionChange() {
 }
 
 function getJobPosition() {
-    var x = $("#Position").val();
+    var x = getStorage("Position");
     return (x !== "Driver" && x !== "Sub Driver" && x !== "Driver Trainee") ? false : true;
 }
 
@@ -884,22 +945,22 @@ function testEmpData(optVal) {
     var val = "";
 
     //Check selected week
-    if ($("#WeekOf" + optVal).val() === "") {
+    if (getStorage("#WeekOf" + optVal) === "") {
         val = "<p>&bull;Pay week not selected.</p>";
     }
 
     //Check Area
-    if ($("#Area").val() === "" || $("#Area").val() === null) {
+    if (getStorage("Area") === "" || getStorage("Area") === null) {
         val = val + "<p>&bull;Area not selected.</p>";
     }
 
     //Check Team
-    if ($("#Team").val() === "" || $("#Team").val() === null) {
+    if (getStorage("Team") === "" || getStorage("Team") === null) {
         val = val + "<p>&bull;Team not selected.</p>";
     }
 
     //Check employee name
-    if ($("#EmpLName").val() === "" || $("#EmpFName").val() === "") {
+    if ($("EmpName").val() === "") {
         val = val + "<p>&bull;Employee name not entered</p>";
     }
 
@@ -909,7 +970,7 @@ function testEmpData(optVal) {
     }
 
     //Check position
-    if ($("#Position").val() === null) {
+    if (getStorage("Position") === "") {
         val = val + "<p>&bull;Employee position not selected.</p>";
     }
     
@@ -1176,8 +1237,8 @@ function setLocalStorage(refID) {
     var y = $("#" + refID).val(),
         x = "";
 
-    if (refID === "EmpLName" || refID === "EmpFName" || refID === "EmpMI") {
-        y = toTitleCase(y);
+    if (refID === "EmpName") {
+        y = properCase(y);
         $("#" + refID).val(y);
     } else if (refID.indexOf("Route") > 0) {
         y = y.toUpperCase();
@@ -1193,24 +1254,13 @@ function setLocalStorage(refID) {
     if (refID.indexOf("Time14") > 0 || refID.indexOf("Time15") > 0) {
         checkDailyLeave();
     }
-
-    if (refID === "WeekOf") {
-        storeWeek("");
-    } else if (refID === "WeekOfSup") {
-        storeWeek("Sup");
-    }
-}
-
-function toTitleCase(str) {
-    var x = str.substr(0, 1).toUpperCase(),
-        y = str.substr(1).toLowerCase();
-    return x + y;
 }
 
 //******************STORE SELECTED WEEK RANGE******************//
-function storeWeek(optVal) {
+function storeWeek(refID, optVal) {
     optVal = optVal || "";
-    var x = $("#WeekOf" + optVal).val(),
+    setStorage("WeekOf" + optVal, $("#" + refID).val());
+    var x = $("#" + refID).val(),
         y = x.substr(0, 8),
         ny = y.substr(0, 5),
         z = x.substr(11),
@@ -1234,6 +1284,10 @@ function storeWeek(optVal) {
     }
 }
 
+function testtesttest() {
+    var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    FileSaver.saveAs(blob, "hello world.txt");
+}
 //Check voucher length, limit to 6 characters
 function checkVoucherLength(refID) {
     refVal = $("#" + refID).val();
@@ -1242,7 +1296,6 @@ function checkVoucherLength(refID) {
         $("#" + refID).val(refVal.substr(0, 6));
     }
 }
-
 
 //******************IMAGES FOR TIMESHEET******************//
 function getImageLogo() {
