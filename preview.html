@@ -57,9 +57,10 @@
     </div>
     <div class="main">
         <div class="topspacer"></div>
-        <div class="card">
+        <div class="card bg-burntred">
             <div style="font-size: 20px">TIMESHEET PREVIEW</div>
-            <hr class="border-blue">
+        </div>
+        <div class="card">
             <script>
                 var strHTML = "";
                 strHTML += '<div class="row section__header bg-medblue">';
@@ -79,148 +80,120 @@
                 strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + getStorage("Trainee") + '</p></div>';
                 strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + getStorage("Veh1") + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((getStorage("Veh2") !== "") ? getStorage("Veh2") : "") + ((getStorage("Veh3") !== "") ? "/" + getStorage("Veh3") : "") + ((getStorage("Veh4") !== "") ? "/" + getStorage("Veh4") : "") + '</p></div></div>'
-                strHTML += '<hr class="border-blue">';
-                if (getStorage("Position") === "Driver" || getStorage("Position") === "Sub Driver" || getStorage("Position") === "Driver Trainee") {    
-                    strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Pupil Counts</div></div>';
-                    strHTML += '<hr class="border-grey">';
-                    strHTML += '<div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">AM 1st Bell:&nbsp;' + getStorage("AMRoute1") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonAM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueAM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedAM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuAM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriAM1Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">AM 2nd Bell:&nbsp;' + getStorage("AMRoute2") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonAM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueAM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedAM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuAM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriAM2Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + getStorage("AMRoute3") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonAM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueAM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedAM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuAM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriAM3Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + getStorage("AMRoute4") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonAM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueAM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedAM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuAM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriAM4Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + getStorage("AMRoute5") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonAM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueAM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedAM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuAM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriAM5Ct") + '</p></div>';
-                    strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("MonTimeA") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("TueTimeA") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("WedTimeA") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("ThuTimeA") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("FriTimeA") + '</p></div>';
-                    strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("MonTimeB") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("TueTimeB") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("WedTimeB") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("ThuTimeB") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("FriTimeB") + '</p></div>';
-                    strHTML += '</div><hr class="border-grey"><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + getStorage("PMRoute1") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPM1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPM1Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + getStorage("PMRoute2") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPM2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPM2Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + getStorage("PMRoute3") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPM3Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPM3Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + getStorage("PMRoute4") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPM4Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPM4Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + getStorage("PMRoute5") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPM5Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPM5Ct") + '</p></div>';
-                    strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("MonTimeC") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("TueTimeC") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("WedTimeC") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("ThuTimeC") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("FriTimeC") + '</p></div>';
-                    strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("MonTimeD") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("TueTimeD") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("WedTimeD") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("ThuTimeD") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("FriTimeD") + '</p></div>';
-                    strHTML += '</div><hr class="border-grey"><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PAC/PS:&nbsp;' + getStorage("PSRoute1") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPS1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePS1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPS1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPS1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPS1Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">PAC/PS:&nbsp;' + getStorage("PSRoute2") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonPS2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TuePS2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedPS2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuPS2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriPS2Ct") + '</p></div>';
-                    strHTML += '</div><hr class="border-grey"><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">SH:&nbsp;' + getStorage("SHRoute1") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonSH1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueSH1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedSH1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuSH1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriSH1Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">SH:&nbsp;' + getStorage("SHRoute2") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonSH2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueSH2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedSH2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuSH2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriSH2Ct") + '</p></div>';
-                    strHTML += '</div><hr class="border-grey"><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + getStorage("LRRoute1") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonLR1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueLR1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedLR1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuLR1Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriLR1Ct") + '</p></div>';
-                    strHTML += '</div><div class="row">';
-                    strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + getStorage("LRRoute2") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>M:&nbsp;' + getStorage("MonLR2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>T:&nbsp;' + getStorage("TueLR2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>W:&nbsp;' + getStorage("WedLR2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>Th:&nbsp;' + getStorage("ThuLR2Ct") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>F:&nbsp;' + getStorage("FriLR2Ct") + '</p></div>';
-                    strHTML += '</div><hr class="border-blue">'
+                document.write(strHTML);
+            </script>
+        </div>
+        
+        <script>
+            strHTML = '<div class="card">';
+            var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+            if (getStorage("Position") === "Driver" || getStorage("Position") === "Sub Driver" || getStorage("Position") === "Driver Trainee") {    
+                strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Pupil Counts</div></div>';
+                strHTML += '<hr class="border-grey">';
+                strHTML += '<div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 1st Bell:&nbsp;' + getStorage("AMRoute1") + '</p></div>';
+                for (var i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "AM1Ct") + '</p></div>';    
                 }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 2nd Bell:&nbsp;' + getStorage("AMRoute2") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "AM2Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + getStorage("AMRoute3") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "AM3Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + getStorage("AMRoute4") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "AM4Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + getStorage("AMRoute5") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "AM5Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + getStorage(days[i] + "TimeA") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + getStorage(days[i] + "TimeB") + '</p></div>';    
+                }
+                strHTML += '</div><hr class="border-grey"><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + getStorage("PMRoute1") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PM1Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + getStorage("PMRoute2") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PM2Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + getStorage("PMRoute3") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PM3Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + getStorage("PMRoute4") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PM4Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + getStorage("PMRoute5") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PM5Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + getStorage(days[i] + "TimeC") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + getStorage(days[i] + "TimeD") + '</p></div>';    
+                }
+                strHTML += '</div><hr class="border-grey"><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + getStorage("PSRoute1") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PS1Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + getStorage("PSRoute2") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "PS2Ct") + '</p></div>';    
+                }
+                strHTML += '</div><hr class="border-grey"><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + getStorage("SHRoute1") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "SH1Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + getStorage("SHRoute2") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "SH2Ct") + '</p></div>';    
+                }
+                strHTML += '</div><hr class="border-grey"><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + getStorage("LRRoute1") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "LR1Ct") + '</p></div>';    
+                }
+                strHTML += '</div><div class="row">';
+                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + getStorage("LRRoute2") + '</p></div>';
+                for (i = 2; i < 7; i++) {
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + getStorage(days[i] + "LR2Ct") + '</p></div>';    
+                }
+                strHTML += '</div></div>'
+                document.write(strHTML);
+            }
+        </script>
+        
+        <div class="card">
+            <script>
+                strHTML = "";
                 strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Route Time</div></div>';
                 for (var i = 2; i < 7; i++) {
                     if (i !== 2) {strHTML += '<hr class="border-grey">';}
@@ -241,7 +214,13 @@
                     strHTML += '<div class="col-sm-2"><p>LR:&nbsp;' + getStorage(days[i] + "Time7S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time7E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time7") + '</p></div>';
                     strHTML += '<div class="col-sm-2"><p>TOTAL:&nbsp;' + getStorage(days[i] + "RunTotal") + '</p></div></div>';
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
+            document.write(strHTML);
+            </script>
+        </div>
+        <div class="card">
+            <script>
+                strHTML = "";
+                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
                 var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
                 var j = 0;
                 for (i = 0; i < 7; i++) {
@@ -283,7 +262,13 @@
                         strHTML += '</div>';
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
+                document.write(strHTML);
+            </script>
+        </div>
+        <div class="card">
+            <script>
+                strHTML = "";
+                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
 
                 var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
                 var j = 0;
@@ -327,7 +312,13 @@
                         strHTML += '</div>';
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
+                document.write(strHTML);
+            </script>
+        </div>
+        <div class="card">
+            <script>
+                strHTML = "";
+                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
                 var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
                 j = 0;
                 for (i = 2; i < 7; i++) {
@@ -370,7 +361,13 @@
                         }
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
+                document.write(strHTML);
+            </script>
+        </div>
+        <div class="card">
+            <script>
+                strHTML = "";
+                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">REGULAR:&nbsp;' + getStorage("TotalRun") + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + getStorage("TotalOther") + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + getStorage("TotalFT") + '</p></div>';

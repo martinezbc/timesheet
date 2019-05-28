@@ -11,15 +11,15 @@
 }
 
 .bg-teal1 {
-    background-image: linear-gradient(to bottom right, #A6DDE9, #68D2DF);
+    background-color: hsl(186,65%,64%);
 }
 
 .bg-teal2 {
-    background-image: linear-gradient(to bottom right, #68D2DF, #00AEC7);
+    background-color: hsl(186,65%,44%);
 }
 
 .bg-teal3 {
-    background-image: linear-gradient(to bottom right, #00AEC7, #00677F);
+    background-color: hsl(186,65%,34%);
     color: white;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .bg-burntred {
-    background-color: #CF4520;
+    background-image: linear-gradient(to bottom right, hsl(12,73%,46%), hsl(12,73%,35%));
     color: white;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .bg-olive {
-    background-color: #B5BD00;
+    background-image: linear-gradient(to bottom right, hsl(62,100%,37%), hsl(62,100%,30%));
 }
 
 @media (max-width: 320px) {
@@ -130,10 +130,6 @@
 
     .routewidth {
         width: 80px;
-    }
-    
-    .empcard input:not([type=checkbox]), .empcard select {
-        font-size: 12px;
     }
     
     .modal-content p {
@@ -197,10 +193,6 @@
         width: 80px;
     }
     
-    .empcard input:not([type=checkbox]), .empcard select {
-        font-size: 12px;
-    }
-    
     .modal-content {
         padding: 5px;
         max-width: 60%;
@@ -251,10 +243,6 @@
 
     .routewidth {
         width: 90px;
-    }
-
-    .empcard input:not([type=checkbox]), .empcard select {
-        font-size: 14px;
     }
     
      #greynav {
