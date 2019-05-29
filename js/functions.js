@@ -1239,7 +1239,7 @@ function setLocalStorage(refID) {
     var y = $("#" + refID).val(),
         x = "";
 
-    if (refID === "EmpName") {
+    if (refID === "EmpName" || refID === "Trainee") {
         y = properCase(y);
         $("#" + refID).val(y);
     } else if (refID.indexOf("Route") > 0) {
