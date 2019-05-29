@@ -22,15 +22,17 @@
     <script src="js/supfunctions.js"></script>
     <script src="js/FileSaver.js"></script>
 </head>
+
 <body onload="loadLocalStorage('Sup');">
     <div class="header">
         <h1 class="header__title">TRANSPORTATION SUPPLEMENT REPORT</h1>
-        <div id="navbarmodal" class="dropdown"><!--navmodal-->
+        <div id="navbarmodal" class="dropdown">
+            <!--navmodal-->
             <span class="fas fa-bars dropbtn" id="nav2btn" onclick="myFunction();" ontouchstart="myFunction();"></span>
             <div class="dropdown-content" id="nav2dropdown">
-               <div class="row" onclick="completeTimesheetSup();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
-               <div class="row" onclick="location.href='index.html';"><span class="fas fa-home"></span>&nbsp;Home</div>
-               <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+                <div class="row" onclick="completeTimesheetSup();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                <div class="row" onclick="location.href='index.html';"><span class="fas fa-home"></span>&nbsp;Home</div>
+                <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
             </div>
         </div>
     </div>
@@ -38,77 +40,97 @@
         <div class="topspacer"></div>
         <div class="card" id="EmpDataSup">
             <div class="row">
-                <div class="col-11"><p class="daily">Employee Information</p></div>
+                <div class="col-11">
+                    <p class="daily">Employee Information</p>
+                </div>
                 <div class="col-1 right"><span class="fas fa-angle-up spanToggleSup" id="EmpSpanSup"></span></div>
             </div>
             <div class="row EmpSpanSup">
-               <div class="col-md-4">
-                   <div class="col-md-4">
+                <div class="col-md-6">
                     <p id="WeekOfSup">Select Week:<br></p>
                 </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p><strong>Area:</strong><br>
-                    <input type="text" style="width: 100px;" id="AreaSup"></p>
+                        <input type="text" style="width: 100px;" id="AreaSup">
+                    </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p id="insertTeamSup"><strong>Team:</strong><br>
-                    <input type="text" style="width: 100px;" id="TeamSup"></p>
+                        <input type="text" style="width: 100px;" id="TeamSup"></p>
                 </div>
             </div>
             <div class="row EmpSpanSup">
-               <div class="col-md-9">
+                <div class="col-md-9">
                     <p><strong>Employee Name:</strong><br>
-                    <input type="text" id="EmpNameSup" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;"></p>
+                        <input type="text" id="EmpNameSup" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;"></p>
                 </div>
                 <div class="col-md-3">
                     <p><strong>Employee ID:</strong><br>
-                    <input type="text" id="EmpIDSup" placeholder="000000"></p>
+                        <input type="text" id="EmpIDSup" placeholder="000000"></p>
                 </div>
             </div>
             <div class="row EmpSpanSup">
-               <div class="col-md-4">
-                   <p><strong>Position:</strong><br>
-                    <input type="text" id="PositionSup" placeholder="Type position..."></p>
+                <div class="col-md-9" id="posdiv">
+                    <p><strong>Position:</strong><br>
+                        <input type="radio" id="posDriverSup" name="position" value="Driver">
+                        <label for="posDriverSup">Driver</label>
+                        <input type="radio" id="posDriverTraineeSup" name="position" value="Driver Trainee">
+                        <label for="posDriverTraineeSup">Driver Trainee</label>
+                        <input type="radio" id="posSubDriverSup" name="position" value="Sub Driver">
+                        <label for="posSubDriverSup">Sub Driver</label>
+                        <input type="radio" id="posAttendantSup" name="position" value="Attendant">
+                        <label for="posAttendantSup">Attendant</label>
+                        <input type="radio" id="posAttendantTraineeSup" name="position" value="Attendant Trainee">
+                        <label for="posAttendantTraineeSup">Attendant Trainee</label>                        
+                        <input type="radio" id="posSubAttendantSup" name="position" value="Sub Attendant">
+                        <label for="posSubAttendantSup">Sub Attendant</label>
+                        <input type="radio" id="posFloaterSup" name="position" value="Floater">
+                        <label for="posFloaterSup">Floater</label>
+                        <input type="radio" id="posActivityDriverSup" name="position" value="Activity Driver">
+                        <label for="posActivityDriverSup">Activity Driver</label>
+                    </p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="OJTSup">OJT Trainer&nbsp;<input type="checkbox" id="OJTSup"></label><br>
                     <input type="text" id="TraineeSup" class="left" style="text-align: left;padding-left: 5px;" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row EmpSpanSup">
-               <div class="col-md-3">
-                   <p><strong>Vehicle:</strong><br>
-                    <input type="text" id="Veh1Sup" style="width: 100px;" placeholder="0000"></p>
+                <div class="col-md-3">
+                    <p><strong>Vehicle:</strong><br>
+                        <input type="text" id="Veh1Sup" style="width: 100px;" placeholder="0000"></p>
                 </div>
                 <div class="col-md-9">
                     <p><strong>Spare Vehicles:</strong><br>
-                    <input type="text" name="Veh2" id="Veh2Sup" style="width: 100px;" placeholder="0000">
-                    <input type="text" name="Veh3" id="Veh3Sup" style="width: 100px;" placeholder="0000">
-                    <input type="text" name="Veh4" id="Veh4Sup" style="width: 100px;" placeholder="0000"></p>
+                        <input type="text" name="Veh2" id="Veh2Sup" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh3" id="Veh3Sup" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh4" id="Veh4Sup" style="width: 100px;" placeholder="0000"></p>
                 </div>
             </div>
         </div>
         <div id="Supplement" class="card">
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="col-11"><p class="category">Leave</p></div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggleSup" id="SupSpanLV15"></span></div>
                 </div>
                 <div class="row SupSpanLV15">
                     <div class="col-5">
-                        <p><span id="SupLVMon">All Day-Mon</span><input type="checkbox" id="SupLeaveADM"></p></div>
+                        <p><span id="SupLVMon">All Day-Mon</span><input type="checkbox" id="SupLeaveADM"></p>
+                    </div>
                     <div class="col-6">
-                            <select id="SupLeaveSelectADM">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select>
+                        <select id="SupLeaveSelectADM">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="SupClearLVADM"></span>
@@ -117,18 +139,19 @@
                 <div class="row SupSpanLV15"><span class="bar"></span></div>
                 <div class="row SupSpanLV15">
                     <div class="col-5">
-                        <p><span id="SupLVTue">All Day-Tue</span><input type="checkbox" id="SupLeaveADT"></p></div>
+                        <p><span id="SupLVTue">All Day-Tue</span><input type="checkbox" id="SupLeaveADT"></p>
+                    </div>
                     <div class="col-6">
-                            <select id="SupLeaveSelectADT">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select>
+                        <select id="SupLeaveSelectADT">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="SupClearLVADT"></span>
@@ -137,18 +160,19 @@
                 <div class="row SupSpanLV15"><span class="bar"></span></div>
                 <div class="row SupSpanLV15">
                     <div class="col-5">
-                        <p><span id="SupLVWed">All Day-Wed</span><input type="checkbox" id="SupLeaveADW"></p></div>
+                        <p><span id="SupLVWed">All Day-Wed</span><input type="checkbox" id="SupLeaveADW"></p>
+                    </div>
                     <div class="col-6">
-                            <select id="SupLeaveSelectADW">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select>
+                        <select id="SupLeaveSelectADW">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="SupClearLVADW"></span>
@@ -157,18 +181,19 @@
                 <div class="row SupSpanLV15"><span class="bar"></span></div>
                 <div class="row SupSpanLV15">
                     <div class="col-5">
-                        <p><span id="SupLVThu">All Day-Thu</span><input type="checkbox" id="SupLeaveADR"></p></div>
+                        <p><span id="SupLVThu">All Day-Thu</span><input type="checkbox" id="SupLeaveADR"></p>
+                    </div>
                     <div class="col-6">
-                            <select id="SupLeaveSelectADR">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select>
+                        <select id="SupLeaveSelectADR">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="SupClearLVADR"></span>
@@ -177,18 +202,19 @@
                 <div class="row SupSpanLV15"><span class="bar"></span></div>
                 <div class="row SupSpanLV15">
                     <div class="col-5">
-                        <p><span id="SupLVFri">All Day-Fri</span><input type="checkbox" id="SupLeaveADF"></p></div>
+                        <p><span id="SupLVFri">All Day-Fri</span><input type="checkbox" id="SupLeaveADF"></p>
+                    </div>
                     <div class="col-6">
-                            <select id="SupLeaveSelectADF">
-                                <option value="">--Select Leave--</option>
-                                <option value="SICK-IND">Sick-Indv</option>
-                                <option value="SICK-FAM">Sick-Family</option>
-                                <option value="SICK-PER">Personal</option>
-                                <option value="LWOP">LWOP</option>
-                                <option value="CIVIL">Civil</option>
-                                <option value="SICK-FMLA">FMLA</option>
-                                <option value="SICK-INJ">Injury</option>
-                            </select>
+                        <select id="SupLeaveSelectADF">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="SICK-PER">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
                     </div>
                     <div class="col-1">
                         <span class="fas fa-times" id="SupClearLVADF"></span>
@@ -197,7 +223,9 @@
             </div>
             <div class="tinycard bg-gold">
                 <div class="row">
-                    <div class="col-11"><p class="category">Leave</p></div>
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
                     <div class="col-1"><span class="fas fa-angle-up spanToggleSup" id="SupSpanLV16"></span></div>
                 </div>
                 <div class="row SupSpanLV16">
@@ -341,9 +369,11 @@
                 </div>
             </div>
             <hr>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -398,9 +428,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW0"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -455,9 +487,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW1"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -512,9 +546,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW2"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -569,9 +605,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW3"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -626,9 +664,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW4"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -683,9 +723,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW5"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -694,7 +736,7 @@
                     </div>
                 </div>
                 <div class="row SupSpanOW6">
-                   <div class="col-6">
+                    <div class="col-6">
                         <select id="SupDate6">
                             <option value="" id="AfterSup6">Select Date...</option>
                         </select>
@@ -740,9 +782,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW6"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -797,9 +841,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW7"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -854,9 +900,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW8"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal">
+            <div class="tinycard bg-teal2">
                 <div class="row">
-                    <div class="col-8"><p class="category">Other Work</p></div>
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ow"></span>
                     </div>
@@ -911,11 +959,13 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearOW9"></span></div>
                 </div>
             </div>
-            
+
             <hr>
-            <div class="tinycard bg-darkteal">
+            <div class="tinycard bg-teal3">
                 <div class="row">
-                    <div class="col-8"><p class="category">Field Trip</p></div>
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
                     </div>
@@ -956,9 +1006,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearFT10"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-darkteal">
+            <div class="tinycard bg-teal3">
                 <div class="row">
-                    <div class="col-8"><p class="category">Field Trip</p></div>
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
                     </div>
@@ -999,9 +1051,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearFT11"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-darkteal">
+            <div class="tinycard bg-teal3">
                 <div class="row">
-                    <div class="col-8"><p class="category">Field Trip</p></div>
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
                     </div>
@@ -1042,9 +1096,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearFT12"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-darkteal">
+            <div class="tinycard bg-teal3">
                 <div class="row">
-                    <div class="col-8"><p class="category">Field Trip</p></div>
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
                     </div>
@@ -1085,9 +1141,11 @@
                     <div class="col-1"><span class="fas fa-times" id="SupClearFT13"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-darkteal">
+            <div class="tinycard bg-teal3">
                 <div class="row">
-                    <div class="col-8"><p class="category">Field Trip</p></div>
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
                     <div class="col-2 right">
                         <span class="fas fa-question-circle ft"></span>
                     </div>
@@ -1203,7 +1261,7 @@
             <p>VALIDATION SUCCESSFUL</p>
             <p>
                 <label for="EmpInitialsSup">Initial Below:<br>
-                <input type="text" id="EmpInitialsSup" onkeypress="limitCharacters('EmpInitialsSup', 5);"></label>
+                    <input type="text" id="EmpInitialsSup" onkeypress="limitCharacters('EmpInitialsSup', 5);"></label>
                 <span class="close fas fa-check-circle fa-lg" id="goConfirmSup" style="color:green;" onclick="openTimesheetSup()"></span>
             </p>
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
@@ -1232,6 +1290,4 @@
             }
         }
     </script>
-</body>
-
-</html>
+</body></html>

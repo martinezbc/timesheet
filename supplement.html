@@ -18,6 +18,7 @@
     <script src="js/functions.js"></script>
     <script src="js/supfunctions.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="js/FileSaver.js"></script>
     <style>
         .full {
             width: 100%;
@@ -115,7 +116,7 @@
             pdf.text(hOffset, vOffset + 4, "Employee ID:");
             pdf.setFontStyle("bold");
             hOffset += 65;
-            x = getStorage("EmpID");
+            x = getStorage("EmpIDSup");
             pdf.text(hOffset, vOffset + 4, x);
 
             hOffset += 50;
@@ -141,7 +142,7 @@
             pdf.text(hOffset, vOffset, "Area:");
             pdf.setFontStyle("bold");
             hOffset += 28;
-            x = getStorage("Area");
+            x = getStorage("AreaSup");
             pdf.text(hOffset, vOffset, x);
 
             hOffset += 60;
@@ -149,7 +150,7 @@
             pdf.text(hOffset, vOffset, "Team:");
             pdf.setFontStyle("bold");
             hOffset += 32;
-            x = getStorage("Team");
+            x = getStorage("TeamSup");
             pdf.text(hOffset, vOffset, x);
 
             hOffset += 70;
@@ -157,7 +158,7 @@
             pdf.text(hOffset, vOffset, "Name:");
             pdf.setFontStyle("bold");
             hOffset += 35;
-            x = getStorage("EmpLName") + ", " + getStorage("EmpFName") + " " + getStorage("EmpMI");
+            x = getStorage("EmpNameSup");
             pdf.text(hOffset, vOffset, x);
 
             hOffset += 260;
@@ -165,7 +166,7 @@
             pdf.text(hOffset, vOffset, "Vehicle:");
             pdf.setFontStyle("bold");
             hOffset += 38;
-            x = getStorage("Veh1");
+            x = getStorage("Veh1Sup");
             pdf.text(hOffset, vOffset, x);
 
             vOffset += 16;
@@ -175,7 +176,7 @@
             pdf.text(hOffset, vOffset, "Position:");
             pdf.setFontStyle("bold");
             hOffset += 45;
-            x = getStorage("Position");
+            x = getStorage("PositionSup");
             pdf.text(hOffset, vOffset, x);
 
             //OJT checkbox
@@ -201,7 +202,7 @@
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
             if (x === "1") {
-                x = getStorage("Trainee");
+                x = getStorage("TraineeSup");
                 pdf.text(hOffset, vOffset, "(" + x + ")");
             }
 
@@ -211,9 +212,9 @@
             pdf.text(hOffset, vOffset, "Spares:");
             hOffset += 38;
             pdf.setFontStyle("bold");
-            x = getStorage("Veh2");
-            x = (getStorage("Veh3") !== "") ? x + " / " + getStorage("Veh3") : x;
-            x = (getStorage("Veh4") !== "") ? x + " / " + getStorage("Veh4") : x;
+            x = getStorage("Veh2Sup");
+            x = (getStorage("Veh3Sup") !== "") ? x + " / " + getStorage("Veh3Sup") : x;
+            x = (getStorage("Veh4Sup") !== "") ? x + " / " + getStorage("Veh4Sup") : x;
             pdf.text(hOffset, vOffset, x);
 
             //********ROUTE COUNTS********//
@@ -819,13 +820,8 @@
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + getStorage("EmpLName");
-            var n = getStorage("EmpFName");
-            n = n.substr(0, 1);
-            if (getStorage("EmpMI") !== "") {
-                n = n + getStorage("EmpMI");
-            }
-            var fileName = x + n;
+            x = x + "_" + getStorage("EmpNameSup").replace(",","").replace(" ","");
+            var fileName = x;
 
             pdf.setProperties({
                 title: fileName,
@@ -839,11 +835,13 @@
             
             $("iframe").attr("src", string);
             
-            var browser = browserDetection();
-
-            if (browser === 'Chrome') {
-                pdf.save(fileName + "-Supplement.pdf");
-            }
+            saveAs(string, fileName + "-supplement.pdf");
+            
+//            var browser = browserDetection();
+//
+//            if (browser === 'Chrome') {
+//                pdf.save(fileName + "-Supplement.pdf");
+//            }
         });
     </script>
 </body>

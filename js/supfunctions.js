@@ -61,6 +61,13 @@ $(window).ready(function () {
         
     });
     
+    $("#EmpNameSup").change(function () {
+        var x = $("#EmpNameSup").val();
+        x = properCase(x);
+        $("#EmpNameSup").val(x);
+        setStorage("EmpNameSup", x);
+    })
+    
     $(".ow").click(function () {
         openPopUp("<p style='font-size:14px'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "Sup");
     });
@@ -246,10 +253,13 @@ function loadSupData() {
         $("#EmpIDSup").val(getStorage("EmpID"));
     }
     if (getStorage("Position") === "" || getStorage("Position") === null) {
-        $("#PositionSup").prop("disabled", false);
+        setStorage("PositionSup", "");
     } else {
-        $("#PositionSup").prop("disabled", true);
-        $("#PositionSup").val(getStorage("Position"));
+        var x = getStorage("Position").replace(" ", "");
+        $("#pos" + x + "Sup").prop("checked", "checked");
+        $("#posdiv input").each(function () {
+            $(this).prop("disabled", true);
+        });
     }
     
     if (getStorage("Veh1") === "") {
@@ -431,15 +441,15 @@ function testFieldTripSup() {
 
     //Check field trips
     for (var i = 10; i < 15; i++) {
-        if ($("#SupTime" + i) === "") { //Time is blank
-            if ($("#SupVoucher" + i) !== "" || $("#SupFrom" + i) !== "" || $("#SupTo" + i) !== "") {
+        if ($("#SupTime" + i).val() === "") { //Time is blank
+            if ($("#SupVoucher" + i).val() !== "" || $("#SupFrom" + i).val() !== "" || $("#SupTo" + i).val() !== "") {
                 val = val + "<p>&bull;Field Trip " + (i - 9) + ": No time entered.</p>";
             }
         } else { //Time is not blank
-            if ($("#SupVoucher" + i) === "") {
+            if ($("#SupVoucher" + i).val() === "") {
                 val = val + "<p>&bull;Field Trip " + (i - 9) + ": Voucher number cannot be blank.</p>";
             }
-            if ($("#SupFrom" + i) === "" || $("#SupTo" + i) === "") {
+            if ($("#SupFrom" + i).val() === "" || $("#SupTo" + i).val() === "") {
                 val = val + "<p>&bull;Field Trip " + (i - 9) + ": From and To location cannot be blank.</p>";
             }
         }
@@ -451,18 +461,18 @@ function testOtherWorkSup() {
     var val = "";
     
     for (var i = 0; i < 10; i++) {
-        if ($("#SupTime" + i) !== "") { //Time is not blank
-            if ($("#SupSelect" + i) === null) {
+        if ($("#SupTime" + i).val() !== "") { //Time is not blank
+            if ($("#SupSelect" + i).val() === null) {
                 val = val + "<p>&bull;Other Work " + i + ": Category is required.</p>";
             }
-            if (($("#SupSelect" + i) === "OT" || $("#SupSelect" + i) === "FYI") && $("#SupDesc" + i) === "") {
+            if (($("#SupSelect" + i).val() === "OT" || $("#SupSelect" + i).val() === "FYI") && $("#SupDesc" + i).val() === "") {
                 val = val + "<p>&bull;Other Work " + i + ": Description is required when Other or FYI selected.</p>";
             }
-            if ($("#SupSelect" + i) === null && $("#SupDesc" + i) !== "") {
+            if ($("#SupSelect" + i).val() === null && $("#SupDesc" + i).val() !== "") {
                 val = val + "<p>&bull;Other Work " + i + ": Description entered without category selection.</p>";
             }
         } else { //Time is blank
-            if ($("#SupSelect" + i) !== null || $("#SupDesc" + i) !== "") {
+            if ($("#SupSelect" + i).val() !== null || $("#SupDesc" + i).val() !== "") {
                 val = val + "<p>&bull;Other Work " + i + ": No time entered.</p>";
             }
         }
@@ -488,12 +498,12 @@ function testLeaveSup() {
     var lvArray = ["M", "T", "W", "R", "F"];
 
     for (var i = 15; i < 20; i++) {
-        if ($("#SupTime" + i) !== "") {
-            if ($("#SupLeaveSelect" + i) === "") {
+        if ($("#SupTime" + i).val() !== "") {
+            if ($("#SupLeaveSelect" + i).val() === "") {
                 val = val + "<p>&bull;Leave " + (i - 14) + ": Type of leave is required.</p>";
             }
         } else {
-            if ($("#SupLeaveSelect" + i) !== "") {
+            if ($("#SupLeaveSelect" + i).val() !== "") {
                 val = val + "<p>&bull;Leave " + (i - 14) + ": Leave type selected but no time was entered.</p>";
             }
         }
@@ -646,6 +656,8 @@ function getSupTotals() {
     sum = (sum === "0:00") ? "" : sum;
     $("#TotalOtherSup").val(sum);
     setStorage("TotalOtherSup", sum);
+    sum = convertTotal(convertToMinutes(sum));
+    setStorage("Total1RSup", sum);
     
     //Calculate field trip
     sum = 0;

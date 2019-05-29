@@ -1195,7 +1195,7 @@
 
             $("iframe").attr("src", string);
             
-//            saveAs(string, fileName + ".pdf");
+            saveAs(string, fileName + ".pdf");
             
 //            var blobPDF = new Blob([ pdf.output() ], {type:'application/pdf'});
 //            saveAs(blobPDF, fileName + ".pdf");
@@ -1207,28 +1207,28 @@
 //            }
 
         });
-        function createCSV() {
-            var arrayVal = "";
-            for (var i = 0; i < localStorage.length; i++) {
-                arrayVal += localStorage.key(i);
-                if (i !== localStorage.length - 1) {
-                    arrayVal += ",";
-                }
-            }
-            var arrayVal2 = "";
-            for (var i = 0; i < localStorage.length; i++) {
-                arrayVal2 += getStorage(localStorage.key(i));
-                if (i !== localStorage.length - 1) {
-                    arrayVal2 += ",";
-                }
-            }
-            var CSV = [[arrayVal],[arrayVal2]].join('\n');
-            
-            var contentType = 'text/csv';
-
-            var csvFile = new Blob([CSV], {type: contentType});
-            saveAs(csvFile, "timesheet.csv");
-        }
+//        function createCSV() {
+//            var arrayVal = "";
+//            for (var i = 0; i < localStorage.length; i++) {
+//                arrayVal += localStorage.key(i);
+//                if (i !== localStorage.length - 1) {
+//                    arrayVal += ",";
+//                }
+//            }
+//            var arrayVal2 = "";
+//            for (var i = 0; i < localStorage.length; i++) {
+//                arrayVal2 += getStorage(localStorage.key(i));
+//                if (i !== localStorage.length - 1) {
+//                    arrayVal2 += ",";
+//                }
+//            }
+//            var CSV = [[arrayVal],[arrayVal2]].join('\n');
+//            
+//            var contentType = 'text/csv';
+//
+//            var csvFile = new Blob([CSV], {type: contentType});
+//            saveAs(csvFile, "timesheet.csv");
+//        }
     </script>
 </body>
 </html>

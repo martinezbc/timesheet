@@ -173,10 +173,12 @@ $(window).ready(function () {
     
     $("input[type=radio]").click(function () {
         var refID = $(this).attr("id");
-        if (refID.indexOf("area") > -1) {
+        if (refID.substr(0,4) === "area") {
             loadTeamValues(refID.substr(4));
             setStorage("Area", refID.substr(4));
-        } else if (refID.indexOf("pos") > -1) {
+        } else if (refID.substr(0,3) === "pos" && refID.substr(-3) === "Sup") {
+            setStorage("PositionSup", $("#" + refID).val());
+        } else if (refID.substr(0,3) === "pos") {
             setStorage("Position", $("#" + refID).val());
             positionChange();
         }

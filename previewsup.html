@@ -79,17 +79,18 @@
     </div>
     <div class="main">
         <div class="topspacer"></div>
-        <div class="card">
+        <div class="card bg-burntred">
             <div style="font-size: 20px">SUPPLEMENT PREVIEW</div>
-            <hr class="border-blue">
+        </div>
+        <div class="card">
             <script>
                 var strHTML = "";
                 strHTML += '<div class="row section__header bg-medblue">';
                 strHTML += '<div class="col-12 bold-lg">Employee Data</div></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + getStorage("Area") + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + getStorage("Team") + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Name:</p><p>' + getStorage("EmpLName") + ", " + getStorage("EmpFName") + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">ID:</p><p>' + getStorage("EmpID") + '</p></div></div>';
+                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + getStorage("AreaSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + getStorage("TeamSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">Name:</p><p>' + getStorage("EmpNameSup") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold">ID:</p><p>' + getStorage("EmpIDSup") + '</p></div></div>';
                 strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Week Range:</p><p>' + getStorage("WeekOfSup") + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold">Position:</p><p>' + getStorage("Position") + '</p></div>';
                 strHTML += '<div class="col-sm-1"><p class="bold">OJT Trainer:</p><p>';
@@ -99,9 +100,9 @@
                     strHTML += '<input type="checkbox" disabled>';
                 }
                 strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + getStorage("TraineeSup") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + getStorage("Veh1") + '</p></div>';
+                strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + getStorage("Veh1Sup") + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((getStorage("Veh2Sup") !== "") ? getStorage("Veh2Sup") : "") + ((getStorage("Veh3Sup") !== "") ? "/" + getStorage("Veh3Sup") : "") + ((getStorage("Veh4Sup") !== "") ? "/" + getStorage("Veh4Sup") : "") + '</p></div></div>'
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
+                strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
                 var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
                 var j = 0;
                 for (var i = 0; i < 10; i++) {
@@ -134,7 +135,7 @@
                         strHTML += '</div>';
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
+                strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
 
                 var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
                 var j = 0;
@@ -169,7 +170,7 @@
                         strHTML += '</div>';
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
+                strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
                 var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
                 var lvd = ["M", "T", "W", "R", "F"];
                 var lvday = ["Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -217,7 +218,7 @@
                         }
                     }
                 }
-                strHTML += '<hr class="border-blue"><div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
+                strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + getStorage("TotalOtherSup") + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + getStorage("TotalFTSup") + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">HOURS WORKED:&nbsp;' + getStorage("TotalHWSup") + '</p></div>';
