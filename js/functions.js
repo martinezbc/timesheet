@@ -410,7 +410,7 @@ function loadTeamValues(area) {
             var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
             strHTML += '<strong>Team:</strong><br>';
             for (i = 0; i < 16; i++) {
-                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'));><label for="team' + teams[i] + '">' + teams[i] + '</label>';
+                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'))";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
             }
             $("#insertTeam").html(strHTML);
             break;
