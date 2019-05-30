@@ -605,11 +605,7 @@ input[type=checkbox]:hover {
 
 
 .pupilcard {
-    display: inline-block;
-    padding: 5px;
-    border-radius: 4px;
-    margin: 4px;
-    vertical-align: top;
+    min-width: 200px;
 }
 
 

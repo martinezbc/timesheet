@@ -18,6 +18,16 @@ function clearTimeField (fieldID) {
         if ($("#" + day + "LeaveAD").prop("checked") === true) {
             $("#" + day + "LeaveAD").trigger("click");
         }
+    } else if (num === "AM") {
+        $("#" + day + "TimeA").val("");
+        setStorage(day + "TimeA", "");
+        $("#" + day + "TimeB").val("");
+        setStorage(day + "TimeB", "");
+    } else if (num === "PM") {
+        $("#" + day + "TimeC").val("");
+        setStorage(day + "TimeC", "");
+        $("#" + day + "TimeD").val("");
+        setStorage(day + "TimeD", "");
     } else {
         $("#" + day + "Time" + num + "E").val("").trigger("change");
         $("#" + day + "Time" + num + "S").val("").trigger("change");
@@ -77,27 +87,12 @@ function setMinutes (operator, optVal) {
         operator = -15;
     }
     minutesText = minutes + operator;
-    if (minutesText === 60) {
-        minutesText = "0";
+    if (minutesText > 59) {
+        minutesText = Number(minutesText) - 60;
         setHours(1, optVal);
-    } else if (minutesText === -5) {
-        minutesText = "55";
+    } else if (minutesText < 0) {
+        minutesText = 60 + Number(minutesText)
         setHours(-1, optVal);
-    } else if (minutesText === -10) {
-        minutesText = "50";
-        setHours(-1, optVal);
-    } else if (minutesText === -15) {
-        minutesText = "45";
-        setHours(-1, optVal);
-    } else if (minutesText === 65) {
-        minutesText = "5";
-        setHours(1, optVal);
-    } else if (minutesText === 70) {
-        minutesText = "10";
-        setHours(1, optVal);
-    } else if (minutesText === 75) {
-        minutesText = "15";
-        setHours(1, optVal);
     }
     
     if (minutesText < 10) {
@@ -112,27 +107,18 @@ function setMinutesPupil (operator) {
     if (operator === 1) {
         operator = 1;
     } else if (operator === 2) {
-        operator = 2;
+        operator = 10;
     } else if (operator === -1) {
         operator = -1;
     } else if (operator === -2) {
-        operator = -2;
+        operator = -10;
     }
     minutesText = minutes + operator;
-    if (minutesText === 60) {
-        minutesText = "0";
-        setHours(1, "");
-    } else if (minutesText === -1) {
-        minutesText = "59";
+    if (minutesText < 0) {
+        minutesText = 60 + Number(minutesText);
         setHours(-1, "");
-    } else if (minutesText === -2) {
-        minutesText = "58";
-        setHours(-1, "");
-    } else if (minutesText === 61) {
-        minutesText = "1";
-        setHours(1, "");
-    } else if (minutesText === 62) {
-        minutesText = "2";
+    } else if (minutesText > 59) {
+        minutesText = Number(minutesText) - 60;
         setHours(1, "");
     }
     

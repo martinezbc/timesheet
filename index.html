@@ -45,7 +45,7 @@
             <div class="row EmpSpan">
                 <div class="col-md-4">
                     <p id="WeekOf">Select Week:<br>
-                        </p>
+                    </p>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Area:</strong><br>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-md-4" id="">
                     <p id="insertTeam">Team:<br>
-                        
+
                     </p>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="col-md-9">
                     <p><strong>Employee Name: (Last, First MI)</strong><br>
                         <input type="text" name="EmpName" id="EmpName" class="empname" style="text-align: left;" placeholder="Last name, First Name   Middle Initial...">
-                        </p>
+                    </p>
                 </div>
                 <div class="col-md-3">
                     <p><strong>Employee ID:</strong><br><input type="text" name="EmpID" id="EmpID" placeholder="000000"></p>
@@ -91,7 +91,7 @@
                         <input type="radio" id="posAttendant" name="position" value="Attendant">
                         <label for="posAttendant">Attendant</label>
                         <input type="radio" id="posAttendantTrainee" name="position" value="Attendant Trainee">
-                        <label for="posAttendantTrainee">Attendant Trainee</label>                        
+                        <label for="posAttendantTrainee">Attendant Trainee</label>
                         <input type="radio" id="posSubAttendant" name="position" value="Sub Attendant">
                         <label for="posSubAttendant">Sub Attendant</label>
                         <input type="radio" id="posFloater" name="position" value="Floater">
@@ -132,6 +132,7 @@
                 </div>
             </div>
         </div>
+
         <div id="PupilCounts" class="card">
             <div class="row">
                 <div class="col-11">
@@ -141,8 +142,12 @@
                     <span class="fas fa-angle-up spanToggle" id="PupilSpan"></span>
                 </div>
             </div>
-            <div class="bg-teal1 pupilcard PupilSpan">
-                <p class="category">Morning Runs</p>
+            <div class="tinycard bg-teal1 pupilcard PupilSpan">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Morning Runs</p>
+                    </div>
+                </div>
                 <div class="row">
                     <input type="text" id="AMRoute1" class="routewidth" placeholder="1st bell">&nbsp;
                     <input type="number" id="MonAM1Ct" class="countwidth" placeholder="Mon">
@@ -183,26 +188,49 @@
                     <input type="number" id="ThuAM5Ct" class="countwidth" placeholder="Thu">
                     <input type="number" id="FriAM5Ct" class="countwidth" placeholder="Fri">
                 </div>
-                <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
-                <div class="row">
-                    <p><strong>First on:</strong></p>&nbsp;
-                    <input type="text" id="MonTimeA" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="TueTimeA" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="WedTimeA" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="ThuTimeA" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="FriTimeA" class="timewidth" placeholder="- - : - -">
+                <div class="row"><p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p></div>
+                <div class="row" id="MonTimeAM">
+                    <div class="col-11">
+                        <input name="MonTimeA" id="MonTimeA" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTimeB" id="MonTimeB" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearPTAM"></span></div>
                 </div>
-                <div class="row">
-                    <p><strong>Last Off:</strong></p>&nbsp;
-                    <input type="text" id="MonTimeB" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="TueTimeB" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="WedTimeB" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="ThuTimeB" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="FriTimeB" class="timewidth" placeholder="- - : - -">
+                <div class="row" id="TueTimeAM">
+                    <div class="col-11">
+                        <input name="TueTimeA" id="TueTimeA" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="TueTimeB" id="TueTimeB" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="TueClearPTAM"></span></div>
+                </div>
+                <div class="row" id="WedTimeAM">
+                    <div class="col-11">
+                        <input name="WedTimeA" id="WedTimeA" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTimeB" id="WedTimeB" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearPTAM"></span></div>
+                </div>
+                <div class="row" id="ThuTimeAM">
+                    <div class="col-11">
+                        <input name="ThuTimeA" id="ThuTimeA" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTimeB" id="ThuTimeB" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearPTAM"></span></div>
+                </div>
+                <div class="row" id="FriTimeAM">
+                    <div class="col-11">
+                        <input name="FriTimeA" id="FriTimeA" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTimeB" id="FriTimeB" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearPTAM"></span></div>
                 </div>
             </div>
-            <div class="bg-teal1 pupilcard PupilSpan">
-                <p class="category">Afternoon Runs</p>
+            <div class="tinycard bg-teal1 pupilcard PupilSpan">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
+                </div>
                 <div class="row">
                     <input type="text" id="PMRoute1" class="routewidth" placeholder="1st bell">&nbsp;
                     <input type="number" id="MonPM1Ct" class="countwidth" placeholder="Mon">
@@ -243,25 +271,44 @@
                     <input type="number" id="ThuPM5Ct" class="countwidth" placeholder="Thu">
                     <input type="number" id="FriPM5Ct" class="countwidth" placeholder="Fri">
                 </div>
-                <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
-                <div class="row">
-                    <p><strong>First on:</strong></p>&nbsp;
-                    <input type="text" id="MonTimeC" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="TueTimeC" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="WedTimeC" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="ThuTimeC" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="FriTimeC" class="timewidth" placeholder="- - : - -">
+                <div class="row"><p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p></div>
+                <div class="row" id="MonTimePM">
+                    <div class="col-11">
+                        <input name="MonTimeA" id="MonTimeC" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTimeB" id="MonTimeD" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearPTPM"></span></div>
                 </div>
-                <div class="row">
-                    <p><strong>Last Off:</strong></p>&nbsp;
-                    <input type="text" id="MonTimeD" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="TueTimeD" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="WedTimeD" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="ThuTimeD" class="timewidth" placeholder="- - : - -">
-                    <input type="text" id="FriTimeD" class="timewidth" placeholder="- - : - -">
+                <div class="row" id="TueTimePM">
+                    <div class="col-11">
+                        <input name="TueTimeA" id="TueTimeC" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="TueTimeB" id="TueTimeD" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="TueClearPTPM"></span></div>
+                </div>
+                <div class="row" id="WedTimePM">
+                    <div class="col-11">
+                        <input name="WedTimeA" id="WedTimeC" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTimeB" id="WedTimeD" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearPTPM"></span></div>
+                </div>
+                <div class="row" id="ThuTimePM">
+                    <div class="col-11">
+                        <input name="ThuTimeA" id="ThuTimeC" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTimeB" id="ThuTimeD" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearPTPM"></span></div>
+                </div>
+                <div class="row" id="FriTimePM">
+                    <div class="col-11">
+                        <input name="FriTimeA" id="FriTimeC" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTimeB" id="FriTimeD" type="text" class="timewidth" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearPTPM"></span></div>
                 </div>
             </div>
-            <div class="bg-teal1 pupilcard PupilSpan">
+            <div class="bg-teal1 tinycard pupilcard PupilSpan">
                 <p class="category">PAC/Preschool</p>
                 <div class="row">
                     <input type="text" id="PSRoute1" class="routewidth" placeholder="pac/ps">&nbsp;

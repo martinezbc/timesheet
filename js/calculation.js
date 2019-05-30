@@ -500,10 +500,8 @@ function togglePupilCounts (day) {
             $("#" + days[i] + "SH" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
             $("#" + days[i] + "LR" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
         }
-        $("#" + days[i] + "TimeA").css("display", (bln === true) ? "flex" : "none");
-        $("#" + days[i] + "TimeB").css("display", (bln === true) ? "flex" : "none");
-        $("#" + days[i] + "TimeC").css("display", (bln === true) ? "flex" : "none");
-        $("#" + days[i] + "TimeD").css("display", (bln === true) ? "flex" : "none");
+        $("#" + days[i] + "TimeAM").css("display", (bln === true) ? "flex" : "none");
+        $("#" + days[i] + "TimePM").css("display", (bln === true) ? "flex" : "none");
     }
 }
 
