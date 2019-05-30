@@ -59,10 +59,10 @@ $(window).ready(function () {
             leny = y.length,
             refID = x.replace("Desc", "Select");
         if (getOtherWorkVal(refID) === "FYI" && leny > 70) {
-            openPopUp("<p>Restricted to 70 characters</p>");
+            openPopUp("<p class='varp'>Restricted to 70 characters</p>");
             $("#" + x).val(y.substr(0, 50));
         } else if (getOtherWorkVal(refID) !== "FYI" && leny > 50) {
-            openPopUp("<p>Restricted to 50 characters</p>");
+            openPopUp("<p class='varp'>Restricted to 50 characters</p>");
             $("#" + x).val(y.substr(0, 30));
         }
     });
@@ -112,19 +112,19 @@ $(window).ready(function () {
     });
 
     $(".ow").click(function () {
-        openPopUp("<p style='font-size:14px'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+        openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
     });
 
     $(".ft").click(function () {
-        openPopUp("<p>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p>&bull;Check lift if the trip required a lift.</p><p>&bull;The start and end time must match what was recorded on the voucher.</p>");
+        openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
     });
 
     $(".ct").click(function () {
-        openPopUp("<p>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p>&bull;Record the number of students transported for each route for every day that was driven.<p>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
+        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
     })
 
     $("#clear").click(function () {
-        openPopUp('<p>You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
+        openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
     });
 
     $(".spanToggle").click(function () {
@@ -166,7 +166,7 @@ $(window).ready(function () {
     
     $("#EmpID").keyup(function () {
         if (isNaN($(this).val())) {
-            openPopUp("<p>Employee ID can only contains numbers.</p>");
+            openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>");
             $("#EmpID").val("");
         }
     });
@@ -229,7 +229,7 @@ function browserDetection() {
 
 //UPDATES POPUP WINDOW
 function changesMade() {
-    //openPopUp("<p>UPDATES 5/22/19</p><p>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
+    //openPopUp("<p class='varp'>UPDATES 5/22/19</p><p class='varp'>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p class='varp'>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
 }
 
 //Initial function to load after window loads
@@ -704,7 +704,7 @@ function countOtherWork(refID) {
     }
     //Result of j value
     if (j > 9) {
-        openPopUp("<p>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
         $("#" + refID).val("").trigger("change");
     }
 }
@@ -728,7 +728,7 @@ function countFieldTrips(refID) {
     }
     //Result of j value
     if (j > 4) {
-        openPopUp("<p>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
         $("#" + refID).val("").trigger("change");
     }
 }
@@ -777,8 +777,8 @@ function openFTSelector(refVal, optVal) {
 
 function openPopUp(msgVal, optVal) {
     optVal = optVal || "";
-    $("#varDiv" + optVal).nextAll("p").remove();
-    $(msgVal).insertAfter("#varDiv" + optVal);
+    $("#varDiv" + optVal).html("");
+    $("#varDiv" + optVal).html(msgVal);
     showHideModal("variousModal" + optVal, "block");
 }
 
@@ -786,9 +786,9 @@ function openPopUp(msgVal, optVal) {
 function copyRoutine(refID) {
     activeID = refID;
     if (refID === "AMPupilcopy" || refID === "PMPupilcopy") {
-        openPopUp('<p>Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>');    
+        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>');    
     } else {
-        openPopUp('<p>Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>');    
+        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>');    
     }
 }
 
@@ -905,7 +905,7 @@ function completeTimesheet() {
 function limitCharacters(refID, num) {
     var refVal = $("#" + refID).val();
     if ($("#" + refID).val().length > num) {
-        openPopUp("<p>Limit " + num + " characters.</p>","");
+        openPopUp("<p class='varp'>Limit " + num + " characters.</p>","");
         $("#" + refID).val(refVal.substr(0, num));
     }
 }
@@ -948,37 +948,37 @@ function testEmpData(optVal) {
 
     //Check selected week
     if (getStorage("#WeekOf" + optVal) === "") {
-        val = "<p>&bull;Pay week not selected.</p>";
+        val = "<p class='varp'>&bull;Pay week not selected.</p>";
     }
 
     //Check Area
     if (getStorage("Area") === "" || getStorage("Area") === null) {
-        val = val + "<p>&bull;Area not selected.</p>";
+        val = val + "<p class='varp'>&bull;Area not selected.</p>";
     }
 
     //Check Team
     if (getStorage("Team") === "" || getStorage("Team") === null) {
-        val = val + "<p>&bull;Team not selected.</p>";
+        val = val + "<p class='varp'>&bull;Team not selected.</p>";
     }
 
     //Check employee name
     if ($("EmpName").val() === "") {
-        val = val + "<p>&bull;Employee name not entered</p>";
+        val = val + "<p class='varp'>&bull;Employee name not entered</p>";
     }
 
     //Check employee ID
     if ($("#EmpID").val() === "") {
-        val = val + "<p>&bull;Employee ID not entered.</p>";
+        val = val + "<p class='varp'>&bull;Employee ID not entered.</p>";
     }
 
     //Check position
     if (getStorage("Position") === "") {
-        val = val + "<p>&bull;Employee position not selected.</p>";
+        val = val + "<p class='varp'>&bull;Employee position not selected.</p>";
     }
     
     //Check vehicle1
     if ($("#Veh1").val() === "") {
-        val = val + "<p>&bull;Assigned vehicle not entered.</p>";
+        val = val + "<p class='varp'>&bull;Assigned vehicle not entered.</p>";
     }
 
     return val;
@@ -994,14 +994,14 @@ function testFieldTrip() {
         for (var j = 11; j < 14; j++) {
             if ($(x + "Time" + j).val() === "") { //Time is blank
                 if ($(x + "Voucher" + j).val() !== "" || $(x + "From" + j).val() !== "" || $(x + "To" + j).val() !== "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
                 }
             } else { //Time is not blank
                 if ($(x + "Voucher" + j).val() === "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
                 }
                 if ($(x + "From" + j).val() === "" || $(x + "To" + j).val() === "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
                 }
             }
         }
@@ -1018,18 +1018,18 @@ function testOtherWork() {
         for (var j = 8; j < 11; j++) {
             if ($(x + "Time" + j).val() !== "") { //Time is not blank
                 if ($(x + "Select" + j).val() === "") { //Select IS blank
-                    val = val + "<p>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
                 }
                 if (($(x + "Select" + j).val() === "OT" || $(x + "Select" + j).val() === "FYI") && $(x + "Desc" + j).val() === "") { //Other or FYI selected but description field is blank
-                    val = val + "<p>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
                 }
                 if ($(x + "Select" + j).val() === "" && $(x + "Desc" + j).val() !== "") { //Nothing selected and description field has text
-                    val = val + "<p>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
                 }
             } else { //Time is blank
                 if ($(x + "Select" + j).val() !== "" || $(x + "Desc" + j).val() !== "") { //Category IS selected OR Description field is NOT blank
                     if (!$(x + "Select" + j).val() === "FYI") { //Category is NOT FYI
-                        val = val + "<p>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
+                        val = val + "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
                     }
                 }
             }
@@ -1048,20 +1048,20 @@ function testLeave() {
         for (var j = 14; j < 16; j++) {
             if ($(x + "Time" + j).val() !== "") {
                 if ($(x + "LeaveSelect" + j).val() === "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
                 }
             } else {
                 if ($(x + "LeaveSelect" + j).val() !== "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
                 }
             }
             if ($(x + "LeaveAD").prop("checked") === true) {
                 if ($(x + "LeaveSelectAD").val() === "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
                 }
             } else {
                 if ($(x + "LeaveSelectAD").val() !== "") {
-                    val = val + "<p>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
+                    val = val + "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
                 }
             }
         }
@@ -1080,38 +1080,38 @@ function testStopCounts() {
             x = "#" + days[i];
 
             if (testRegPupil(days[i], 1, "AM") === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
             }
             if (testRegCounts(days[i], 1, "AM") === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": AM time entered with no routes specified.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": AM time entered with no routes specified.</p>";
             }
 
             if (testRegPupil(days[i], 2, "PM") === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": PM pupil counts not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": PM pupil counts not completed.</p>";
             }
             if (testRegCounts(days[i], 2, "PM") === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": PM time entered with no routes specified.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": PM time entered with no routes specified.</p>";
             }
 
             if (testSpecPupil(days[i], 3, "PS", 1) === false || testSpecPupil(days[i], 4, "PS", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": PAC/PS pupil counts not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS pupil counts not completed.</p>";
             }
             if (testSpecCounts(days[i], 3, "PS", 1) === false || testSpecCounts(days[i], 4, "PS", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": PAC/PS time entered with no routes specified.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS time entered with no routes specified.</p>";
             }
 
             if (testSpecPupil(days[i], 5, "SH", 1) === false || testSpecPupil(days[i], 6, "SH", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": Shuttle pupil counts not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": Shuttle pupil counts not completed.</p>";
             }
             if (testSpecCounts(days[i], 5, "SH", 1) === false || testSpecCounts(days[i], 6, "SH", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": Shuttle time entered with no shuttle specified.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": Shuttle time entered with no shuttle specified.</p>";
             }
 
             if (testSpecPupil(days[i], 7, "LR", 1) === false || testSpecPupil(days[i], 7, "LR", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": Late run pupil counts not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": Late run pupil counts not completed.</p>";
             }
             if (testSpecCounts(days[i], 7, "LR", 1) === false && testSpecCounts(days[i], 7, "LR", 2) === false) {
-                val = val + "<p>&bull;" + fullday[i] + ": Late run time entered with no route specified.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": Late run time entered with no route specified.</p>";
             }
         }
     }
@@ -1191,7 +1191,7 @@ function testAMPMRoute(day, num) {
         }
     }
     if (bln === false) {
-        val = val + "<p>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+        val = val + "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
     }
 }
 
@@ -1201,7 +1201,7 @@ function testTimeComplete() {
     for (var i = 0; i < 7; i++) {
         for (var j = 1; j < 15; j++) {
             if ($("#" + days[i] + "Time" + j + "S").val() !== "" && $("#" + days[i] + "Time" + j + "E").val() === "") {
-                val = val + "<p>&bull;" + fullday[i] + ": Time not completed.</p>";
+                val = val + "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
             }
         }
     }
@@ -1294,7 +1294,7 @@ function testtesttest() {
 function checkVoucherLength(refID) {
     refVal = $("#" + refID).val();
     if (refVal.length !== 6) {
-        openPopUp("<p>Only input last 6 digits of voucher number.</p>");
+        openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>");
         $("#" + refID).val(refVal.substr(0, 6));
     }
 }

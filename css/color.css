@@ -146,6 +146,10 @@
         max-width: 70%;
     }
     
+    .varp {
+        font-size: 12px;
+    }
+    
     #greynav {
         font-size: 12px;
     }
@@ -203,6 +207,10 @@
         max-width: 60%;
     }
     
+    .varp {
+        font-size: 12px;
+    }
+    
      #greynav {
         font-size: 12px;
     }
@@ -257,7 +265,6 @@
     .daily {
         font-size: 26px;
     }
-    
 }
 
 @media only screen and (min-width: 768px) {
@@ -292,7 +299,7 @@
     }
 
     .modal-content {
-        max-width: 30%;
+        max-width: 40%;
     }
     
      #greynav {
@@ -305,6 +312,10 @@
     
     .empname {
         width: 60%;
+    }
+    
+    .varp {
+        font-size: 14px;
     }
 }
 
