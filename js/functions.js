@@ -932,8 +932,13 @@ function runValidations() {
     $('input[type="checkbox"]').each(function () {
         setStorage($(this).attr("id"), ($(this).prop("checked") === true) ? 1 : 0);
     });
-
-    val = testEmpData("") + testOtherWork() + testFieldTrip() + testLeave() + testStopCounts() + testTimeComplete();
+    
+    if (getStorage("Area") === "TC") { //Remove some validations for training center
+        val = testEmpDataTC() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    } else {
+        val = testEmpData("") + testOtherWork() + testFieldTrip() + testLeave() + testStopCounts() + testTimeComplete();
+    }
+    
 
     if (val !== "") {
         openPopUp(val);
@@ -981,6 +986,37 @@ function testEmpData(optVal) {
         val = val + "<p class='varp'>&bull;Assigned vehicle not entered.</p>";
     }
 
+    return val;
+}
+
+function testEmpDataTC() {
+    var val = "";
+
+    //Check selected week
+    if (getStorage("#WeekOf") === "") {
+        val = "<p class='varp'>&bull;Pay week not selected.</p>";
+    }
+
+    //Check Area
+    if (getStorage("Area") === "" || getStorage("Area") === null) {
+        val = val + "<p class='varp'>&bull;Area not selected.</p>";
+    }
+
+    //Check Team
+    if (getStorage("Team") === "" || getStorage("Team") === null) {
+        val = val + "<p class='varp'>&bull;Team not selected.</p>";
+    }
+
+    //Check employee name
+    if ($("EmpName").val() === "") {
+        val = val + "<p class='varp'>&bull;Employee name not entered</p>";
+    }
+    
+    //Check position
+    if (getStorage("Position") === "") {
+        val = val + "<p class='varp'>&bull;Employee position not selected.</p>";
+    }
+    
     return val;
 }
 
