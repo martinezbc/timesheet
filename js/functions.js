@@ -229,7 +229,7 @@ function browserDetection() {
 
 //UPDATES POPUP WINDOW
 function changesMade() {
-    //openPopUp("<p class='varp'>UPDATES 5/22/19</p><p class='varp'>&bull;FIELD TRIP - 3rd field trip option for each day has been added.</p><p class='varp'>&bull;FINISH - Final timesheet must be previewed before it can be downloaded. Use top menu bar to download timesheet.</p>");
+    openPopUp("<p class='varp'>UPDATES 5/22/19</p><p class='varp'>&bull;FINISH - PREVIEW FEATURE REPLACES FINISH IN MENU BAR. USE PREVIEW TO REVIEW ALL DATA FOR THE WEEK. THEN SELECT DOWNLOAD FROM THE MENU BAR.</p>");
 }
 
 //Initial function to load after window loads
@@ -957,32 +957,32 @@ function testEmpData(optVal) {
     }
 
     //Check Area
-    if (getStorage("Area") === "" || getStorage("Area") === null) {
+    if (getStorage("Area" + optVal) === "") {
         val = val + "<p class='varp'>&bull;Area not selected.</p>";
     }
 
     //Check Team
-    if (getStorage("Team") === "" || getStorage("Team") === null) {
+    if (getStorage("Team" + optVal) === "") {
         val = val + "<p class='varp'>&bull;Team not selected.</p>";
     }
 
     //Check employee name
-    if ($("EmpName").val() === "") {
+    if ($("EmpName" + optVal).val() === "") {
         val = val + "<p class='varp'>&bull;Employee name not entered</p>";
     }
 
     //Check employee ID
-    if ($("#EmpID").val() === "") {
+    if ($("#EmpID" + optVal).val() === "") {
         val = val + "<p class='varp'>&bull;Employee ID not entered.</p>";
     }
 
     //Check position
-    if (getStorage("Position") === "") {
+    if (getStorage("Position" + optVal) === "") {
         val = val + "<p class='varp'>&bull;Employee position not selected.</p>";
     }
     
     //Check vehicle1
-    if ($("#Veh1").val() === "") {
+    if ($("#Veh1" + optVal).val() === "") {
         val = val + "<p class='varp'>&bull;Assigned vehicle not entered.</p>";
     }
 

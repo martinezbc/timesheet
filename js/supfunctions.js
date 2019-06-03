@@ -233,24 +233,28 @@ function loadSupData() {
     } else {
         $("#AreaSup").prop("disabled", true);
         $("#AreaSup").val(getStorage("Area"));
+        setStorage("AreaSup",getStorage("Area"));
     }
     if (getStorage("Team") === "" || getStorage("Team") === null) {
         $("#TeamSup").prop("disabled", false);
     } else {
         $("#TeamSup").prop("disabled", true);
         $("#TeamSup").val(getStorage("Team"));
+        setStorage("TeamSup",getStorage("Team"));
     }
     if (getStorage("EmpName") === "" || getStorage("EmpName") === null) {
         $("#EmpNameSup").prop("disabled", false);
     } else {
         $("#EmpNameSup").prop("disabled", true);
         $("#EmpNameSup").val(getStorage("EmpName"));
+        setStorage("EmpNameSup",getStorage("EmpName"));        
     }
     if (getStorage("EmpID") === "") {
         $("#EmpIDSup").prop("disabled", false);
     } else {
         $("#EmpIDSup").prop("disabled", true);
         $("#EmpIDSup").val(getStorage("EmpID"));
+        setStorage("EmpIDSup",getStorage("EmpID"));
     }
     if (getStorage("Position") === "" || getStorage("Position") === null) {
         setStorage("PositionSup", "");
@@ -260,6 +264,7 @@ function loadSupData() {
         $("#posdiv input").each(function () {
             $(this).prop("disabled", true);
         });
+        setStorage("PositionSup",getStorage("Position"));
     }
     
     if (getStorage("Veh1") === "") {
@@ -267,11 +272,13 @@ function loadSupData() {
     } else {
         $("#Veh1Sup").prop("disabled", true);
         $("#Veh1Sup").val(getStorage("Veh1"));
+        setStorage("Veh1Sup",getStorage("Veh1"));
     }
 
     if (getStorage("OJT") === "1") {
         $("#OJTSup").prop("checked", true);
         $("#TraineeSup").val(getStorage("Trainee"));
+        setStorage("TraineeSup",getStorage("Trainee"));
     }
 }
 
