@@ -32,10 +32,7 @@
 </head>
 
 <body>
-    <object id="pdfobj" data="" type="application/pdf">
-    <iframe src="https://docs.google.com/viewer?&embedded=true"></iframe>
-    </object>
-<!--    <a class="btn btn-default" id="pdfData" ng-show="isMobile && pdfReady" href="test.html" target="xxx">Download PDF</a>-->
+    <a class="btn btn-default" id="pdfData" ng-show="isMobile && pdfReady" href="test.html" target="xxx">Download PDF</a>
 <!--    <iframe class="full"></iframe>-->
     <script>
         function getDateField(x) {
@@ -1193,15 +1190,10 @@
                 keywords: "",
                 creator: "FCPS Transportation"
             });
-            
-            
             var pdfData = pdf.output('datauristring');
-//            var element = document.getElementById('pdfData');
-            var element = document.getElementById('pdfobj');
-            element.data = "data='data:application/pdf;base64, " + pdfData + "'";
-//            element.href = "https://docs.google.com/gview?embedded=true&url="+ pdfData;
-//            element.target = "xxx";
-//            mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url="+ pdfData);
+            var element = document.getElementById('pdfData');
+            element.href = "test.html#" + pdfData;
+            element.target = "xxx";
 //            var string = pdf.output("dataurl");
 //
 //            $("iframe").attr("src", string);
