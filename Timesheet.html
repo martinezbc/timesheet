@@ -15,6 +15,9 @@
     <link href="css/color.css" rel="stylesheet" type="text/css">
     <!--Javascript-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
     <script src="js/calculation.js"></script>
     <script src="js/functions.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
@@ -32,11 +35,9 @@
 </head>
 
 <body>
-    <object id="pdfobj" data="" type="application/pdf">
-    <iframe src="https://docs.google.com/viewer?&embedded=true"></iframe>
-    </object>
-<!--    <a class="btn btn-default" id="pdfData" ng-show="isMobile && pdfReady" href="test.html" target="xxx">Download PDF</a>-->
-<!--    <iframe class="full"></iframe>-->
+<span id="some-element"></span>
+<!--    <a class="btn btn-default" id="pdfData" ng-show="isMobile && pdfReady" src="test.html" target="xxx" download="myString.pdf">Download PDF</a>-->
+    <iframe class="full"></iframe>
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
@@ -1194,19 +1195,18 @@
                 creator: "FCPS Transportation"
             });
             
-            
-            var pdfData = pdf.output('datauristring');
-//            var element = document.getElementById('pdfData');
-            var element = document.getElementById('pdfobj');
-            element.data = "data='data:application/pdf;base64, " + pdfData + "'";
-//            element.href = "https://docs.google.com/gview?embedded=true&url="+ pdfData;
-//            element.target = "xxx";
-//            mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url="+ pdfData);
-//            var string = pdf.output("dataurl");
-//
-//            $("iframe").attr("src", string);
-//            
-//            pdf.save(fileName + ".pdf");
+            var myString = pdf.output('dataurlstring');
+            $("iframe").attr("src", myString);
+            var is_mobile = false;
+
+            if( $('#some-element').css('display')=='none') {
+                is_mobile = true;       
+            }
+
+            // now i can use is_mobile to run javascript conditionally
+            if (!is_mobile) {
+                pdf.save(fileName + ".pdf");
+            }
         });
     </script>
     

@@ -677,3 +677,8 @@ input[type=checkbox]:hover {
     padding-left: 5px;
     width:100%;
 }
+
+/* Smartphones ----------- */
+@media only screen and (max-width: 760px) {
+  #some-element { display: none;}
+}
