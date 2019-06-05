@@ -834,17 +834,18 @@
                 creator: "FCPS Transportation"
             });
 
-            var string = pdf.output("datauristring");
-            
-            $("iframe").attr("src", string);
-            
-            saveAs(string, fileName + "-supplement.pdf");
-            
-//            var browser = browserDetection();
-//
-//            if (browser === 'Chrome') {
-//                pdf.save(fileName + "-Supplement.pdf");
-//            }
+            var myString = pdf.output('dataurlstring');
+            $("iframe").attr("src", myString);
+            var is_mobile = false;
+
+            if( $('#some-element').css('display')=='none') {
+                is_mobile = true;       
+            }
+
+            // now i can use is_mobile to run javascript conditionally
+            if (!is_mobile) {
+                pdf.save(fileName + "-supplement.pdf");
+            }
         });
     </script>
 </body>
