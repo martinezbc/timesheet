@@ -21,7 +21,6 @@
     <script src="js/functions.js"></script>
     <script src="js/supfunctions.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script src="js/FileSaver.js"></script>
     <style>
         .full {
             width: 100%;
@@ -834,7 +833,7 @@
                 creator: "FCPS Transportation"
             });
 
-            var myString = pdf.output('dataurlstring');
+            var myString = pdf.output('dataurl');
             $("iframe").attr("src", myString);
             var is_mobile = false;
 
