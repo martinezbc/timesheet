@@ -32,6 +32,7 @@ $(window).ready(function () {
 
         setLocalStorage($(this).attr("id"));
         if (refID.indexOf("Select") === 3) {
+            countOtherWork(refID);
             if ($(this).val() === "FYI") {
                 otherWorkTime(refID.substr(0, 3), refID.substr(9), true);
             } else {
@@ -41,29 +42,30 @@ $(window).ready(function () {
     });
 
     $('input[type=number], input[type=text]').change(function () {
-        var x = $(this).attr("id");
+        var refID = $(this).attr("id");
 
-        if (x.indexOf("Time") > 0) {
-            textboxUpdate(x);
+        if (refID.indexOf("Time") > 0) {
+            textboxUpdate(refID);
         }
-        if (x.indexOf("Voucher") > 0) {
-            checkVoucherLength(x);
+        if (refID.indexOf("Voucher") > 0) {
+            countFieldTrips(refID);
+            checkVoucherLength(refID);
         }
-        setLocalStorage(x);
+        setLocalStorage(refID);
         getWeeklyTotals();
     });
 
     $("input[id*='Desc']").keydown(function () {
-        var x = $(this).attr("id"),
-            y = $("#" + x).val(),
-            leny = y.length,
-            refID = x.replace("Desc", "Select");
-        if (getOtherWorkVal(refID) === "FYI" && leny > 70) {
-            openPopUp("<p class='varp'>Restricted to 70 characters</p>");
-            $("#" + x).val(y.substr(0, 50));
-        } else if (getOtherWorkVal(refID) !== "FYI" && leny > 50) {
-            openPopUp("<p class='varp'>Restricted to 50 characters</p>");
-            $("#" + x).val(y.substr(0, 30));
+        var refID = $(this).attr("id"),
+            refVal = $("#" + refID).val(),
+            lenVal = refVal.length,
+            selectID = refID.replace("Desc", "Select");
+        if (getOtherWorkVal(selectID) === "FYI" && lenVal > 65) {
+            openPopUp("<p class='varp'>Restricted to 65 characters</p>", "");
+            $("#" + refID).val(refVal.substr(0, 65));
+        } else if (getOtherWorkVal(selectID) !== "FYI" && lenVal > 40) {
+            openPopUp("<p class='varp'>Restricted to 40 characters</p>", "");
+            $("#" + refID).val(refVal.substr(0, 40));
         }
     });
 
@@ -77,8 +79,7 @@ $(window).ready(function () {
     });
 
     $("#goTime").click(function () {
-        var x = $(this).attr("id"),
-            timeText = $("#hours").text() + ":" + $("#minutes").text() + " " + $("#meridiem").text();
+        var timeText = $("#hours").text() + ":" + $("#minutes").text() + " " + $("#meridiem").text();
         $("#" + activeID).val(timeText).prop("disabled", false);
         showHideModal("timeModal", "none");
         $("#" + activeID).trigger("change");
@@ -89,14 +90,13 @@ $(window).ready(function () {
     });
 
     $("#goFT").click(function () {
-        var x = $(this).attr("id"),
-            ftText = "";
+        var ftText = "";
         if ($("#ftselector").val() !== null) {
             ftText = $("#ftselector").val();
         } else {
             ftText = $("#fttype").val();
         }
-        ftText = ftText.substr(0, 35);
+        ftText = ftText.substr(0, 30);
         $("#" + activeID).val(ftText).prop("disabled", false);
         setStorage(activeID, ftText);
         showHideModal("ftModal", "none");
@@ -112,43 +112,42 @@ $(window).ready(function () {
     });
 
     $(".ow").click(function () {
-        openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+        openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
     });
 
     $(".ft").click(function () {
-        openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
+        openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>", "");
     });
 
     $(".ct").click(function () {
-        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
+        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
     })
 
     $("#clear").click(function () {
-        openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
+        openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>', "");
     });
 
     $(".spanToggle").click(function () {
-        var x = $(this).attr("id"),
+        var refID = $(this).attr("id"),
             bln = false;
         
-        bln = spanToggleTextVal(x);
+        bln = spanToggleTextVal(refID);
 
         if (bln === true) {
-            $("." + x).css("display", "flex");
+            $("." + refID).css("display", "flex");
             $(this).addClass("fa-angle-up").removeClass("fa-angle-down");
         } else {
             if ($(this).hasClass("fa-angle-down") === true) {
-                $("." + x).css("display", (x.indexOf("Pupil") > -1 || x.indexOf("Emp") > -1) ? "inline-block" : "flex");
+                $("." + refID).css("display", (refID.indexOf("Pupil") > -1 || refID.indexOf("Emp") > -1) ? "inline-block" : "flex");
                 $(this).addClass("fa-angle-up").removeClass("fa-angle-down");
             } else {
-                $("." + x).css("display", "none");
+                $("." + refID).css("display", "none");
                 $(this).addClass("fa-angle-down").removeClass("fa-angle-up");
             }
         }
     });
 
     $("input[id*='Route']").change(function () {
-        var x = $(this).attr("id");
         $(this).val($(this).val().toUpperCase());
     });
 
@@ -166,7 +165,7 @@ $(window).ready(function () {
     
     $("#EmpID").keyup(function () {
         if (isNaN($(this).val())) {
-            openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>");
+            openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>", "");
             $("#EmpID").val("");
         }
     });
@@ -229,13 +228,13 @@ function browserDetection() {
 
 //UPDATES POPUP WINDOW
 function changesMade() {
-    openPopUp("<p class='varp'>UPDATES 5/22/19</p><p class='varp'>&bull;FINISH - PREVIEW FEATURE REPLACES FINISH IN MENU BAR. USE PREVIEW TO REVIEW ALL DATA FOR THE WEEK. THEN SELECT DOWNLOAD FROM THE MENU BAR.</p>");
+    //openPopUp("<p class='varp'>UPDATES 5/22/19</p><p class='varp'>&bull;FINISH - PREVIEW FEATURE REPLACES FINISH IN MENU BAR. USE PREVIEW TO REVIEW ALL DATA FOR THE WEEK. THEN SELECT DOWNLOAD FROM THE MENU BAR.</p>", "");
 }
 
 //Initial function to load after window loads
 function loadLocalStorage(optVal) {
-    var x = "",
-        y = "";
+    var refID = "",
+        refVal = "";
     
     if (optVal === "Sup") {
         loadDateRangeSup();
@@ -245,28 +244,28 @@ function loadLocalStorage(optVal) {
     insertFTSelect(optVal);
 
     $("input[type=text], input[type=number], select").each(function () {
-        x = $(this).attr("id");
-        y = getStorage(x);
-        if (y === null) {
-            y = "";
-            setStorage(x, y);
+        refID = $(this).attr("id");
+        refVal = getStorage(refID);
+        if (refVal === null) {
+            refVal = "";
+            setStorage(refID, refVal);
         }
-        $(this).val(y);
+        $(this).val(refVal);
         
         if ($(this).val() === null && $(this).attr('id') !== "Team") { //Need to replace null values with "" except for the team field which will populate further down the script
             $(this).val("");
-            setStorage(x, "");
+            setStorage(refID, "");
         }
     });
 
     $(":checkbox").each(function () {
-        x = $(this).attr("id");
-        y = getStorage(x);
-        if (y === null) {
-            y = 0;
-            setStorage(x, y);
+        refID = $(this).attr("id");
+        refVal = getStorage(refID);
+        if (refVal === null) {
+            refVal = 0;
+            setStorage(refID, refVal);
         }
-        $(this).prop("checked", (y === "1") ? true : false);
+        $(this).prop("checked", (refVal === "1") ? true : false);
     });
     
     if (getStorage("Area") === null) {
@@ -692,19 +691,19 @@ function countOtherWork(refID) {
 
     //Loop through each day of the week
     for (i = 0; i < 7; i++) {
-        if (getStorage(days[i] + "Time8S") !== "") {
+        if (getStorage(days[i] + "Select8") !== "") {
             j++;
         }
-        if (getStorage(days[i] + "Time9S") !== "") {
+        if (getStorage(days[i] + "Select9") !== "") {
             j++;
         }
-        if (getStorage(days[i] + "Time10S") !== "") {
+        if (getStorage(days[i] + "Select10") !== "") {
             j++;
         }
     }
     //Result of j value
-    if (j > 9) {
-        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
+    if (j > 10) {
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>", "");
         $("#" + refID).val("").trigger("change");
     }
 }
@@ -716,19 +715,19 @@ function countFieldTrips(refID) {
 
     //Loop through each day of the week
     for (i = 0; i < 7; i++) {
-        if (getStorage(days[i] + "Time11S") !== "") {
+        if (getStorage(days[i] + "Voucher11") !== "") {
             j++;
         }
-        if (getStorage(days[i] + "Time12S") !== "") {
+        if (getStorage(days[i] + "Voucher12") !== "") {
             j++;
         }
-        if (getStorage(days[i] + "Time13S") !== "") {
+        if (getStorage(days[i] + "Voucher13") !== "") {
             j++;
         }
     }
     //Result of j value
-    if (j > 4) {
-        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
+    if (j > 5) {
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>", "");
         $("#" + refID).val("").trigger("change");
     }
 }
@@ -786,9 +785,9 @@ function openPopUp(msgVal, optVal) {
 function copyRoutine(refID) {
     activeID = refID;
     if (refID === "AMPupilcopy" || refID === "PMPupilcopy") {
-        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>');    
+        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>', '');    
     } else {
-        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>');    
+        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>', '');    
     }
 }
 
@@ -941,7 +940,7 @@ function runValidations() {
     
 
     if (val !== "") {
-        openPopUp(val);
+        openPopUp(val, '');
         return false;
     } else {
         return true;
@@ -1330,7 +1329,7 @@ function testtesttest() {
 function checkVoucherLength(refID) {
     refVal = $("#" + refID).val();
     if (refVal.length !== 6) {
-        openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>");
+        openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>", "");
         $("#" + refID).val(refVal.substr(0, 6));
     }
 }
