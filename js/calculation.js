@@ -440,22 +440,32 @@ function loadNavBar() {
 //On span click, make next day visible and hide other days
 function moveRightNavBar() {
 	"use strict";
-    for (var i = 0; i < 6; i++) {
+    var i = 0;
+    for (i = 0; i < 7; i++) {
         if ($("#" + fullday[i]).is(":visible")) {
             $("#" + fullday[i]).hide();
-            toggleDay(i + 1);
+            if (i === 6) {
+                toggleDay(i - 6);
+            } else {
+                toggleDay(i + 1);
+            }
             break;
         }
     }
+    
 }
 
 //On span click, make previous day visible and hide other days
 function moveLeftNavBar() {
 	"use strict";
-    for (var i = 1; i < 7; i++) {
+    for (var i = 0; i < 7; i++) {
         if ($("#" + fullday[i]).is(":visible")) {
             $("#" + fullday[i]).hide();
-            toggleDay(i - 1);
+            if (i === 0) {
+                toggleDay(i + 6);
+            } else {
+                toggleDay(i - 1);
+            }
             break;
         }
     }
@@ -509,24 +519,25 @@ function togglePupilCounts (day) {
 //Function for nav bar to show day and change text for arrows
 function toggleDay(x) {
 	"use strict";
+    var obj = "";
     if (x > 0 && x < 6) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
-        $("#prev").text(fullday[x - 1]);
-        $("#today").text(fullday[x]);
-        $("#next").text(fullday[x + 1]);
+        $("#prev").text(days[x - 1] + "-" + getStorage(days[x - 1] + "Date"));
+        $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
+        $("#next").text(days[x + 1] + "-" + getStorage(days[x + 1] + "Date"));
     } else if (x === 0) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
-        $("#prev").text("");
-        $("#today").text(fullday[x]);
-        $("#next").text(fullday[x + 1]);
+        $("#prev").text(days[x + 6] + "-" + getStorage(days[x + 6] + "Date"));
+        $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
+        $("#next").text(days[x + 1] + "-" + getStorage(days[x + 1] + "Date"));
     } else if (x === 6) {
         $("#" + fullday[x]).show();
         checkSpanVal(days[x]);
-        $("#prev").text(fullday[x - 1]);
-        $("#today").text(fullday[x]);
-        $("#next").text("");
+        $("#prev").text(days[x - 1] + "-" + getStorage(days[x - 1] + "Date"));
+        $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
+        $("#next").text(days[x - 6] + "-" + getStorage(days[x - 6] + "Date"));
     }
     togglePupilCounts(days[x]);
     if (x > 1 && x < 6) {
