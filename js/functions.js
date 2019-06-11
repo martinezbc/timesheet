@@ -51,6 +51,10 @@ $(window).ready(function () {
             countFieldTrips(refID);
             checkVoucherLength(refID);
         }
+        if (refID.indexOf("Route") > 0) {
+            $(this).val($(this).val().toUpperCase());
+            checkRouteValue();
+        }
         setLocalStorage(refID);
         getWeeklyTotals();
     });
@@ -138,17 +142,13 @@ $(window).ready(function () {
             $(this).addClass("fa-angle-up").removeClass("fa-angle-down");
         } else {
             if ($(this).hasClass("fa-angle-down") === true) {
-                $("." + refID).css("display", (refID.indexOf("Pupil") > -1 || refID.indexOf("Emp") > -1) ? "inline-block" : "flex");
+                $("." + refID).css("display", (refID.indexOf("Pupil") > -1) ? "inline-block" : "flex");
                 $(this).addClass("fa-angle-up").removeClass("fa-angle-down");
             } else {
                 $("." + refID).css("display", "none");
                 $(this).addClass("fa-angle-down").removeClass("fa-angle-up");
             }
         }
-    });
-
-    $("input[id*='Route']").change(function () {
-        $(this).val($(this).val().toUpperCase());
     });
 
     $(".fa-copy").click(function () {
@@ -286,6 +286,7 @@ function loadLocalStorage(optVal) {
         checkDailyLeave();
         positionChange();
         checkOtherWorkVal();
+        checkRouteValue();
     } else {
         loadSupData();
         checkOWFTSupVal();
@@ -378,6 +379,31 @@ Date.prototype.addDays = function (x) {
     return date;
 };
 
+//Only load equipment checkboxes if there is a route number has EQ in the title
+function checkRouteValue() {
+    var bln = false;
+    for (var i = 0; i < 10; i++) {
+        if ($("#" + routes[i]).val().substr(-2) === "EQ" || $("#" + routes[i]).val().substr(-1) === "L") {
+            bln = true;
+            break;
+        }
+    }
+    toggleEQPT(bln);
+}
+
+function toggleEQPT(bln) {
+    for (var i = 2; i < 7; i++) {
+        $(".eqpt").each(function() {
+            if (bln) {
+                $(this).css("display", "flex");    
+            } else {
+                //hide div with checkbox and label, also clear the checkboxes if they're checked and run change functions
+                $(this).css("display", "none");
+                $(this).find('input:checkbox').prop("checked", false).trigger("change");
+            }
+        });
+    }
+}
 //Loads dates from storage into the date text fields
 function loadStoredWeek() {
     var i = 0;
