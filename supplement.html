@@ -105,28 +105,30 @@
             pdf.addImage(imgData, "JPEG", 20, 20, 20, 20);
 
             vOffset = margin + 15;
-            hOffset = 45;
-            pdf.setFontSize(10);
-            pdf.setFontStyle("bold");
-            pdf.text(hOffset, vOffset + 2, "TRANSPORTATION WEEKLY REPORT");
+            hOffset = 42;
             pdf.setFontSize(14);
-            pdf.text(hOffset + 190, vOffset + 2, "SUPPLEMENT");
+            pdf.setFontStyle("bold");
+            pdf.text(hOffset, vOffset + 2, "TRANSPORTATION SUPPLEMENT REPORT");
 
-            hOffset += 300;
+            hOffset += 295;
             pdf.setFontSize(10);
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset + 4, "Employee ID:");
             pdf.setFontStyle("bold");
-            hOffset += 65;
+            pdf.setFontSize(12);
+            hOffset += 60;
             x = getStorage("EmpIDSup");
             pdf.text(hOffset, vOffset + 4, x);
+            pdf.setFontSize(10);
 
-            hOffset += 50;
+            hOffset += 48;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset + 4, "Week Of:");
             pdf.setFontStyle("bold");
+            pdf.setFontSize(12);
             x = getStorage("WeekOfSup");
-            pdf.text(hOffset + 45, vOffset + 4, x);
+            pdf.text(hOffset + 42, vOffset + 4, x);
+            pdf.setFontSize(10);
 
             pdf.setDrawColor(80, 80, 80);
             pdf.setLineWidth(1);
@@ -144,32 +146,40 @@
             pdf.text(hOffset, vOffset, "Area:");
             pdf.setFontStyle("bold");
             hOffset += 28;
+            pdf.setFontSize(12);
             x = getStorage("AreaSup");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             hOffset += 60;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Team:");
             pdf.setFontStyle("bold");
             hOffset += 32;
+            pdf.setFontSize(12);
             x = getStorage("TeamSup");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
-            hOffset += 70;
+            hOffset += 60;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Name:");
             pdf.setFontStyle("bold");
             hOffset += 35;
+            pdf.setFontSize(12);
             x = getStorage("EmpNameSup");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
-            hOffset += 260;
+            hOffset += 270;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Vehicle:");
+            pdf.setFontSize(12);
             pdf.setFontStyle("bold");
             hOffset += 38;
             x = getStorage("Veh1Sup");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             vOffset += 16;
             hOffset = margin + 5;
@@ -178,8 +188,10 @@
             pdf.text(hOffset, vOffset, "Position:");
             pdf.setFontStyle("bold");
             hOffset += 45;
+            pdf.setFontSize(12);
             x = getStorage("PositionSup");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             //OJT checkbox
             hOffset += 140;
@@ -214,10 +226,12 @@
             pdf.text(hOffset, vOffset, "Spares:");
             hOffset += 38;
             pdf.setFontStyle("bold");
+            pdf.setFontSize(12);
             x = getStorage("Veh2Sup");
             x = (getStorage("Veh3Sup") !== "") ? x + " / " + getStorage("Veh3Sup") : x;
             x = (getStorage("Veh4Sup") !== "") ? x + " / " + getStorage("Veh4Sup") : x;
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             //********ROUTE COUNTS********//
             vOffset += 13;

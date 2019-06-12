@@ -91,21 +91,25 @@
             pdf.setFontStyle("bold");
             pdf.text(hOffset, vOffset + 2, "TRANSPORTATION WEEKLY REPORT");
 
-            hOffset += 300;
+            hOffset += 280;
             pdf.setFontSize(10);
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset + 4, "Employee ID:");
             pdf.setFontStyle("bold");
-            hOffset += 65;
+            pdf.setFontSize(12);
+            hOffset += 62;
             x = getStorage("EmpID");
             pdf.text(hOffset, vOffset + 4, x);
+            pdf.setFontSize(10);
 
-            hOffset += 50;
+            hOffset += 53;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset + 4, "Week Of:");
             pdf.setFontStyle("bold");
+            pdf.setFontSize(12);
             x = getStorage("WeekOf");
             pdf.text(hOffset + 45, vOffset + 4, x);
+            pdf.setFontSize(10);
 
             pdf.setDrawColor(80, 80, 80);
             pdf.setLineWidth(1);
@@ -123,32 +127,40 @@
             pdf.text(hOffset, vOffset, "Area:");
             pdf.setFontStyle("bold");
             hOffset += 28;
+            pdf.setFontSize(12);
             x = getStorage("Area");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             hOffset += 60;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Team:");
             pdf.setFontStyle("bold");
             hOffset += 32;
+            pdf.setFontSize(12);
             x = getStorage("Team");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
-            hOffset += 70;
+            hOffset += 60;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Name:");
             pdf.setFontStyle("bold");
             hOffset += 35;
+            pdf.setFontSize(12);
             x = getStorage("EmpName");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
-            hOffset += 260;
+            hOffset += 270;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Vehicle:");
             pdf.setFontStyle("bold");
+            pdf.setFontSize(12);
             hOffset += 38;
             x = getStorage("Veh1");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             vOffset += 16;
             hOffset = margin + 5;
@@ -157,8 +169,10 @@
             pdf.text(hOffset, vOffset, "Position:");
             pdf.setFontStyle("bold");
             hOffset += 45;
+            pdf.setFontSize(12);
             x = getStorage("Position");
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             //OJT checkbox
             hOffset += 140;
@@ -192,11 +206,13 @@
             pdf.setFontSize(10);
             pdf.text(hOffset, vOffset, "Spares:");
             hOffset += 38;
+            pdf.setFontSize(12);
             pdf.setFontStyle("bold");
             x = getStorage("Veh2");
             x = (getStorage("Veh3") !== "") ? x + " / " + getStorage("Veh3") : x;
             x = (getStorage("Veh4") !== "") ? x + " / " + getStorage("Veh4") : x;
             pdf.text(hOffset, vOffset, x);
+            pdf.setFontSize(10);
 
             //********ROUTE COUNTS********//
             vOffset += 13;
