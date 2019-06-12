@@ -240,41 +240,41 @@
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin, vOffset - 10, 572, 13, "FD");
             pdf.setFontSize(9);
-            hOffset += 3;
+            hOffset += 5;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             hOffset += 30;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             hOffset += 30;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             pdf.setFontStyle("normal");
 
@@ -284,15 +284,15 @@
             pdf.setFillColor(255, 255, 255);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-            hOffset += 3;
+            hOffset += 5;
             pdf.setFontSize(9);
             pdf.setFontStyle("bold");
             x = getStorage("AMRoute1");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "AM1Ct"));
             }
             hOffset += 30;
@@ -300,9 +300,9 @@
             x = getStorage("PMRoute1");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PM1Ct"));
             }
             hOffset += 30;
@@ -310,9 +310,9 @@
             x = getStorage("PSRoute1");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PS1Ct"));
             }
 
@@ -322,14 +322,14 @@
             pdf.setFillColor(210, 210, 210);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-            hOffset += 3;
+            hOffset += 5;
             pdf.setFontStyle("bold");
             x = getStorage("AMRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "AM2Ct"));
             }
             hOffset += 30;
@@ -337,9 +337,9 @@
             x = getStorage("PMRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PM2Ct"));
             }
             hOffset += 30;
@@ -347,9 +347,9 @@
             x = getStorage("PSRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PS2Ct"));
             }
 
@@ -359,14 +359,14 @@
             pdf.setFillColor(255, 255, 255);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-            hOffset += 3;
+            hOffset += 5;
             pdf.setFontStyle("bold");
             x = getStorage("AMRoute3");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "AM3Ct"));
             }
             hOffset += 30;
@@ -374,9 +374,9 @@
             x = getStorage("PMRoute3");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PM3Ct"));
             }
             hOffset += 30;
@@ -384,9 +384,9 @@
             x = getStorage("SHRoute1");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "SH1Ct"));
             }
 
@@ -396,14 +396,14 @@
             pdf.setFillColor(210, 210, 210);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-            hOffset += 3;
+            hOffset += 5;
             pdf.setFontStyle("bold");
             x = getStorage("AMRoute4");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "AM4Ct"));
             }
             hOffset += 30;
@@ -411,9 +411,9 @@
             x = getStorage("PMRoute4");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PM4Ct"));
             }
             hOffset += 30;
@@ -421,9 +421,9 @@
             x = getStorage("SHRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "SH2Ct"));
             }
 
@@ -433,14 +433,14 @@
             pdf.setFillColor(255, 255, 255);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
             pdf.setDrawColor(80, 80, 80);
-            hOffset += 3;
+            hOffset += 5;
             pdf.setFontStyle("bold");
             x = getStorage("AMRoute5");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "AM5Ct"));
             }
             hOffset += 30;
@@ -448,9 +448,9 @@
             x = getStorage("PMRoute5");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "PM5Ct"));
             }
             hOffset += 30;
@@ -459,40 +459,40 @@
             x = getStorage("LRRoute1");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             pdf.setFontSize(9);
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "LR1Ct"));
             }
 
             vOffset += 15;
             hOffset = margin;
             pdf.setFillColor(104, 210, 233);
-            pdf.rect(margin, vOffset - 12, 45, 30, "FD");
+            pdf.rect(margin, vOffset - 12, 50, 30, "FD");
             pdf.setFillColor(209, 241, 245);
-            pdf.rect(margin + 45, vOffset - 12, 336, 30, "FD");
+            pdf.rect(margin + 50, vOffset - 12, 336, 30, "FD");
             pdf.setFontSize(9);
             pdf.setFontStyle("bold");
-            pdf.text(margin + 2, vOffset + 1, "AM Pupil\n   Time");
+            pdf.text(margin + 4, vOffset + 1, "AM Pupil\n   Time");
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
             hOffset += 19;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeA"))); 
             }
 
             pdf.setFontSize(9);
             pdf.setFontStyle("bold");
             pdf.setFillColor(104, 210, 233);
-            pdf.rect(margin + 190, vOffset - 12, 45, 30, "FD");
-            pdf.text(margin + 192, vOffset + 1, "PM Pupil\n   Time")
+            pdf.rect(margin + 190, vOffset - 12, 50, 30, "FD");
+            pdf.text(margin + 194, vOffset + 1, "PM Pupil\n   Time")
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
             hOffset += 46;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeC")));
             }
             hOffset += 30;
@@ -500,14 +500,14 @@
             pdf.setFontStyle("bold");
 
             pdf.setFillColor(210, 210, 210);
-            pdf.rect(hOffset - 4, vOffset - 12, 191, 15, "FD");
+            pdf.rect(hOffset + 6, vOffset - 12, 191, 15, "FD");
             x = getStorage("LRRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
-            hOffset += 16;
+            hOffset += 22;
             pdf.setFontSize(9);
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, getStorage(days[i] + "LR2Ct"));
             }
 
@@ -517,24 +517,24 @@
             pdf.setFontSize(8);
             hOffset += 19;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeB")));
             }
             hOffset += 46;
             for (i = 2; i < 7; i++) {
-                hOffset += 29;
+                hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeD")));    
             }
 
             pdf.setFillColor(255, 255, 255);
-            pdf.rect(hOffset + 26, vOffset - 12, 191, 15, "FD");
+            pdf.rect(hOffset + 36, vOffset - 12, 191, 15, "FD");
 
             pdf.setDrawColor(80, 80, 80);
-            pdf.line(65, routeOffset + 13, 65, vOffset + 6);
+            pdf.line(70, routeOffset + 13, 70, vOffset + 6);
             pdf.line(210, routeOffset, 210, vOffset + 6);
-            pdf.line(255, routeOffset + 13, 255, vOffset + 6);
+            pdf.line(260, routeOffset + 13, 260, vOffset + 6);
             pdf.line(401, routeOffset, 401, vOffset + 6);
-            pdf.line(447, routeOffset + 13, 447, vOffset + 6);
+            pdf.line(452, routeOffset + 13, 452, vOffset + 6);
 
             //**REGULAR RUNS**//
             vOffset += 13;
@@ -691,7 +691,7 @@
                     imgCheck = getUncheckBox();
                 }
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                pdf.text(hOffset + 11, vOffset, "Lift");
+                pdf.text(hOffset + 11, vOffset, "EQPT");
 
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
@@ -862,9 +862,9 @@
             pdf.setFontStyle("bold");
             hOffset += 5;
             pdf.text(hOffset, vOffset, "Date");
-            hOffset += 32;
-            pdf.text(hOffset, vOffset, "Lift");
-            hOffset += 22;
+            hOffset += 25;
+            pdf.text(hOffset, vOffset, "EQPT");
+            hOffset += 29;
             pdf.text(hOffset, vOffset, "Description");
             hOffset += 175;
             pdf.text(hOffset, vOffset, "Start");
@@ -917,7 +917,7 @@
                 x = (blnOW) ? getDateField(otherWork[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 32;
-                imgCheck = (blnOW && getStorage(a + "Lift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                imgCheck = (blnOW && getStorage(a + "EQPT" + b) === "1") ? getCheckBox() : getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 21;
                 pdf.setFontSize(8);
@@ -1028,9 +1028,9 @@
             pdf.setFontSize(9);
             hOffset += 10;
             pdf.text(hOffset, vOffset, "Date");
-            hOffset += 35;
-            pdf.text(hOffset, vOffset, "Lift");
-            hOffset += 25;
+            hOffset += 28;
+            pdf.text(hOffset, vOffset, "EQPT");
+            hOffset += 32;
             pdf.text(hOffset, vOffset, "From");
             hOffset += 150;
             pdf.text(hOffset, vOffset, "To");
@@ -1063,7 +1063,7 @@
                 x = (blnFT) ? getDateField(fieldTrip[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 35;
-                if (getStorage(fieldTrip[i].substr(0, 3) + "Lift" + fieldTrip[i].substr(7)) === "1") {
+                if (getStorage(fieldTrip[i].substr(0, 3) + "EQPT" + fieldTrip[i].substr(7)) === "1") {
                     imgCheck = getCheckBox();
                 } else {
                     imgCheck = getUncheckBox();
@@ -1162,7 +1162,7 @@
             hOffset += 118;
             pdf.text(hOffset, vOffset, "S4-OJT");
             hOffset += 118;
-            pdf.text(hOffset, vOffset, "S2-Lift");
+            pdf.text(hOffset, vOffset, "S2-Equipment");
             hOffset += 118;
             pdf.text(hOffset, vOffset, "C3-Weather");
             hOffset += 118;
@@ -1220,9 +1220,9 @@
             }
 
             // now i can use is_mobile to run javascript conditionally
-            if (!is_mobile) {
-                pdf.save(fileName + ".pdf");
-            }
+//            if (!is_mobile) {
+//                pdf.save(fileName + ".pdf");
+//            }
         });
     </script>
     

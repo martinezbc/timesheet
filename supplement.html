@@ -426,7 +426,7 @@
                 hOffset += 2;
                 imgCheck = getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                pdf.text(hOffset + 11, vOffset, "Lift");
+                pdf.text(hOffset + 11, vOffset, "EQPT");
 
                 if (i % 2 === 0) {
                     pdf.setFillColor(255, 255, 255);    
@@ -504,7 +504,7 @@
             hOffset += 5;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 32;
-            pdf.text(hOffset, vOffset, "Lift");
+            pdf.text(hOffset, vOffset, "EQPT");
             hOffset += 22;
             pdf.text(hOffset, vOffset, "Description");
             hOffset += 175;
@@ -556,7 +556,7 @@
                 x = (blnOW) ? getStorage("SupDate" + b) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 32;
-                imgCheck = (blnOW && getStorage("SupLift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                imgCheck = (blnOW && getStorage("SupEQPT" + b) === "1") ? getCheckBox() : getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 21;
                 pdf.setFontSize(8);
@@ -671,7 +671,7 @@
             hOffset += 10;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 35;
-            pdf.text(hOffset, vOffset, "Lift");
+            pdf.text(hOffset, vOffset, "EQPT");
             hOffset += 25;
             pdf.text(hOffset, vOffset, "From");
             hOffset += 150;
@@ -705,7 +705,7 @@
                 x = (blnFT) ? getStorage("SupDate" + b) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 35;
-                imgCheck = (getStorage("SupLift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                imgCheck = (getStorage("SupEQPT" + b) === "1") ? getCheckBox() : getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 25;
                 x = (blnFT) ? getStorage("SupFrom" + b) : "";
@@ -798,7 +798,7 @@
             hOffset += 118;
             pdf.text(hOffset, vOffset, "S4-OJT");
             hOffset += 118;
-            pdf.text(hOffset, vOffset, "S2-Lift");
+            pdf.text(hOffset, vOffset, "S2-EQPT");
             hOffset += 118;
             pdf.text(hOffset, vOffset, "C3-Weather");
             hOffset += 118;
