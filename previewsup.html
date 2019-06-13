@@ -127,9 +127,9 @@
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage("SupDate" + strnum) + '</p></div>';
                         if (getStorage("SupLift" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" disabled></p></div>';
                         }
                         strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + getStorage("SupSelect" + strnum) + " - " + getStorage("SupDesc" + strnum) + '</p></div>';
                         strHTML += '<div class="col-sm-1"><p></p></div>';
@@ -161,9 +161,9 @@
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage("SupDate") + '</p></div>';
                         if (getStorage("SupLift" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>Lift<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" disabled></p></div>';
                         }
                         strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + getStorage("SupFrom" + strnum) + '</p></div>';
                         strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + getStorage("SupTo" + strnum) + '</p></div>';
@@ -229,7 +229,7 @@
                 strHTML += '</div><hr class="border-grey"><div class="row">'
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">1R (Regular):&nbsp;' + getStorage("Total1RSup") + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">S4 (OJT):&nbsp;' + getStorage("TotalS4Sup") + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Lift):&nbsp;' + getStorage("TotalS2Sup") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Equipment):&nbsp;' + getStorage("TotalS2Sup") + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">C3 (Weather):&nbsp;' + getStorage("TotalC3Sup") + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">C1 (Callback):&nbsp;' + getStorage("TotalC1Sup") + '</p></div>';
                 strHTML += '</div>';

@@ -438,6 +438,7 @@ function toggleEQPT(bln) {
         });
     }
 }
+
 //Loads dates from storage into the date text fields
 function loadStoredWeek() {
     var i = 0;
@@ -622,11 +623,13 @@ function hidePupilCounts() {
 
 function positionChange() {
     hidePupilCounts();
+    checkRouteValue();
+    loadNavBar();
 }
 
 function getJobPosition() {
     var x = getStorage("Position");
-    return (x !== "Driver" && x !== "Sub Driver" && x !== "Driver Trainee") ? false : true;
+    return (x === "Activity Driver") ? false : true;
 }
 
 function clearRouteFields() {

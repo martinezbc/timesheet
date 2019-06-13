@@ -491,7 +491,7 @@ function checkSpanVal (day) {
     }
 }
 
-function togglePupilCounts (day) {
+function togglePupilCounts (day, intDay) {
     var i = 0,
         j = 0,
         bln = false;
@@ -500,6 +500,25 @@ function togglePupilCounts (day) {
         bln = false;
         if (days[i] === day) {
             bln = true;
+        }
+        if (getStorage("Position").indexOf("Driver") >= 0) {
+            if (intDay > 1 && intDay < 6) {
+                $("#AMPupilcopy").show();
+                $("#PMPupilcopy").show();
+            } else {
+                $("#AMPupilcopy").hide();
+                $("#PMPupilcopy").hide();
+            }
+            $(".att").each(function() {
+                $(this).css("display", "flex");
+            });
+        } else {
+            bln = false;
+            $("#AMPupilcopy").hide();
+            $("#PMPupilcopy").hide();
+            $(".att").each(function() {
+                $(this).css("display", "none");
+            });
         }
         for (j = 1; j < 6; j++) {
             $("#" + days[i] + "AM" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
@@ -513,6 +532,7 @@ function togglePupilCounts (day) {
         $("#" + days[i] + "TimeAM").css("display", (bln === true) ? "flex" : "none");
         $("#" + days[i] + "TimePM").css("display", (bln === true) ? "flex" : "none");
     }
+    
 }
 
 
@@ -539,14 +559,7 @@ function toggleDay(x) {
         $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
         $("#next").text(days[x - 6] + "-" + getStorage(days[x - 6] + "Date"));
     }
-    togglePupilCounts(days[x]);
-    if (x > 1 && x < 6) {
-        $("#AMPupilcopy").show();
-        $("#PMPupilcopy").show();
-    } else {
-        $("#AMPupilcopy").hide();
-        $("#PMPupilcopy").hide();
-    }
+    togglePupilCounts(days[x], x);
 }
 
 function getDailyTotals() {
