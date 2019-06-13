@@ -283,6 +283,7 @@ input[type=checkbox] {
 .category {
     font-size: 18px;
     letter-spacing: 2px;
+    font-weight: bold;
 }
 
 .descwidth {

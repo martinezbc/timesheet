@@ -52,7 +52,7 @@ $(window).ready(function () {
             checkVoucherLength(refID);
         }
         if (refID.indexOf("Route") > 0) {
-            $(this).val($(this).val().toUpperCase());
+            fixRouteName($(this).attr('id'));
             checkRouteValue();
         }
         setLocalStorage(refID);
@@ -124,7 +124,7 @@ $(window).ready(function () {
     });
 
     $(".ct").click(function () {
-        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
+        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
     })
 
     $("#clear").click(function () {
@@ -389,6 +389,40 @@ function checkRouteValue() {
         }
     }
     toggleEQPT(bln);
+}
+
+function fixRouteName(refID) {
+    var i = 0;
+    var refVal = $("#" + refID).val();
+    refVal = refVal.toUpperCase();
+    refVal = refVal.replace(" ", "").replace("-","");
+    
+    for (i = 0; i < refVal.length; i++) {
+        if (!isNaN(refVal.substr(i, 1))) {
+            if (isNaN(refVal.substr(i + 1, 1)) || i + 1 === refVal.length) {
+                refVal = refVal.substr(0, i) + "0" + refVal.substr(i);
+            }
+            refVal = refVal.substr(0, i) + "-" + refVal.substr(i);
+            break;
+        }
+    }
+    if (refVal.indexOf("AM") > 1 || refVal.indexOf("PM") > 1) {
+        refVal = refVal.replace("AM","").replace("PM","");
+    }
+    if (refVal.substr(-1) === "L" && refVal.substr(-2) !== " L") {
+        refVal = refVal.substr(0, refVal.length - 1) + " L";
+    }
+    if (refVal.substr(-2) === "EQ" && refVal.substr(-3) !== " EQ") {
+        refVal = refVal.substr(0, refVal.length - 2) + " EQ";
+    }
+    if (refVal.substr(-4) === "EQ L" && refVal.substr(-5) !== " EQ L") {
+        refVal = refVal.substr(0, refVal.length - 4) + " EQ L";
+    }
+    if (refVal.substr(-4) === "L EQ" && refVal.substr(-5) !== " L EQ") {
+        refVal = refVal.substr(0, refVal.length - 4) + " L EQ";
+    }
+    
+    $("#" + refID).val(refVal);
 }
 
 function toggleEQPT(bln) {
@@ -1345,6 +1379,7 @@ function storeWeek(refID, optVal) {
     } else {
         loadSupDates();
     }
+    loadNavBar();
 }
 
 function testtesttest() {

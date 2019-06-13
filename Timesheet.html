@@ -35,9 +35,8 @@
 </head>
 
 <body>
-<span id="some-element"></span>
-<!--    <a class="btn btn-default" id="pdfData" ng-show="isMobile && pdfReady" src="test.html" target="xxx" download="myString.pdf">Download PDF</a>-->
-    <iframe class="full"></iframe>
+    <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
+    
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
@@ -477,7 +476,7 @@
             pdf.text(margin + 4, vOffset + 1, "AM Pupil\n   Time");
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
-            hOffset += 19;
+            hOffset += 27;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeA"))); 
@@ -490,7 +489,7 @@
             pdf.text(margin + 194, vOffset + 1, "PM Pupil\n   Time")
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
-            hOffset += 46;
+            hOffset += 52;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeC")));
@@ -500,7 +499,7 @@
             pdf.setFontStyle("bold");
 
             pdf.setFillColor(210, 210, 210);
-            pdf.rect(hOffset + 6, vOffset - 12, 191, 15, "FD");
+            pdf.rect(hOffset - 8, vOffset - 12, 191, 15, "FD");
             x = getStorage("LRRoute2");
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
@@ -515,19 +514,19 @@
             hOffset = margin;
             pdf.setFontStyle("normal");
             pdf.setFontSize(8);
-            hOffset += 19;
+            hOffset += 27;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeB")));
             }
-            hOffset += 46;
+            hOffset += 52;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
                 pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeD")));    
             }
 
             pdf.setFillColor(255, 255, 255);
-            pdf.rect(hOffset + 36, vOffset - 12, 191, 15, "FD");
+            pdf.rect(hOffset + 22, vOffset - 12, 191, 15, "FD");
 
             pdf.setDrawColor(80, 80, 80);
             pdf.line(70, routeOffset + 13, 70, vOffset + 6);
@@ -561,7 +560,7 @@
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin, vOffset - 10, 572, 13, "FD");
             pdf.setFontSize(9);
-            hOffset += 37;
+            hOffset += 40;
             pdf.text(hOffset, vOffset, "Start");
             hOffset += 40;
             pdf.text(hOffset, vOffset, "End");
@@ -585,7 +584,7 @@
             pdf.text(hOffset, vOffset, "End");
             hOffset += 48;
             pdf.text(hOffset, vOffset, "Total");
-            hOffset += 40;
+            hOffset += 37;
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
             
@@ -599,7 +598,7 @@
                 } else {
                     pdf.setFillColor(210, 210, 210);
                 }
-                pdf.rect(margin, vOffset - 12, 530, 15, "FD");
+                pdf.rect(margin, vOffset - 12, 534, 15, "FD");
                 pdf.setFontStyle("bold");
 
                 hOffset += 2;
@@ -609,7 +608,7 @@
 
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
-                hOffset += 35;
+                hOffset += 38;
                 x = getStorage(days[i] + "Time1S");
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
@@ -679,7 +678,7 @@
                 } else {
                     pdf.setFillColor(210, 210, 210);
                 }
-                pdf.rect(margin, vOffset - 12, 530, 15, "FD");
+                pdf.rect(margin, vOffset - 12, 534, 15, "FD");
                 pdf.setDrawColor(80, 80, 80);
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
@@ -690,12 +689,12 @@
                 } else {
                     imgCheck = getUncheckBox();
                 }
-                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                pdf.text(hOffset + 11, vOffset, "EQPT");
+                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 7, 8, 8);
+                pdf.setFontSize(8);
+                pdf.text(hOffset + 9, vOffset, "EQPT");
 
                 pdf.setFontStyle("normal");
-                pdf.setFontSize(8);
-                hOffset += 35;
+                hOffset += 38;
                 x = getStorage(days[i] + "Time2S");
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
@@ -781,7 +780,7 @@
                 } else {
                     pdf.setFillColor(210, 210, 210);
                 }
-                pdf.rect(550, vOffset - 27, 42, 30, "FD");
+                pdf.rect(554, vOffset - 27, 38, 30, "FD");
                 hOffset += 40;
                 pdf.setFontSize(10);
                 x = getStorage(days[i] + "RunTotal");
@@ -789,15 +788,15 @@
             }
             
             pdf.setDrawColor(80, 80, 80);
-            pdf.line(50, vOffset + 6, 50, vTimeStart);
-            pdf.line(136, vOffset + 6, 136, vTimeStart + 12);
-            pdf.line(176, vOffset + 6, 176, vTimeStart);
-            pdf.line(261, vOffset + 6, 261, vTimeStart + 12);
-            pdf.line(301, vOffset + 6, 301, vTimeStart);
-            pdf.line(386, vOffset + 6, 386, vTimeStart + 12);
-            pdf.line(426, vOffset + 6, 426, vTimeStart);
-            pdf.line(510, vOffset + 6, 510, vTimeStart + 12);
-            pdf.line(550, vOffset + 6, 550, vTimeStart);
+            pdf.line(55, vOffset + 6, 55, vTimeStart);
+            pdf.line(140, vOffset + 6, 140, vTimeStart + 12);
+            pdf.line(180, vOffset + 6, 180, vTimeStart);
+            pdf.line(265, vOffset + 6, 265, vTimeStart + 12);
+            pdf.line(305, vOffset + 6, 305, vTimeStart);
+            pdf.line(390, vOffset + 6, 390, vTimeStart + 12);
+            pdf.line(430, vOffset + 6, 430, vTimeStart);
+            pdf.line(514, vOffset + 6, 514, vTimeStart + 12);
+            pdf.line(554, vOffset + 6, 554, vTimeStart);
 
 
             //OTHER WORK SECTION
@@ -1211,18 +1210,18 @@
                 creator: "FCPS Transportation"
             });
             
-            var myString = pdf.output('dataurl');
-            $("iframe").attr("src", myString);
+            var string = pdf.output('datauristring');
+            $("iframe").attr("src", string);
             var is_mobile = false;
 
             if( $('#some-element').css('display')=='none') {
                 is_mobile = true;       
             }
 
-            // now i can use is_mobile to run javascript conditionally
-//            if (!is_mobile) {
-//                pdf.save(fileName + ".pdf");
-//            }
+             now i can use is_mobile to run javascript conditionally
+            if (!is_mobile) {
+                pdf.save(fileName + ".pdf");
+            }
         });
     </script>
     
