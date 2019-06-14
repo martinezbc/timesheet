@@ -428,7 +428,7 @@
                 imgCheck = getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 7, 8, 8);
                 pdf.setFontSize(8);
-                pdf.text(hOffset + 9, vOffset, "EQPT");
+                pdf.text(hOffset + 9, vOffset, "EQ/L");
 
                 if (i % 2 === 0) {
                     pdf.setFillColor(255, 255, 255);    
@@ -506,7 +506,7 @@
             hOffset += 5;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 25;
-            pdf.text(hOffset, vOffset, "EQPT");
+            pdf.text(hOffset, vOffset, "EQ/L");
             hOffset += 29;
             pdf.text(hOffset, vOffset, "Description");
             hOffset += 175;
@@ -673,7 +673,7 @@
             hOffset += 10;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 28;
-            pdf.text(hOffset, vOffset, "EQPT");
+            pdf.text(hOffset, vOffset, "EQ/L");
             hOffset += 32;
             pdf.text(hOffset, vOffset, "From");
             hOffset += 150;

@@ -209,9 +209,9 @@
                     strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + getStorage(days[i] + "Time5S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time5E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time5") + '</p></div></div>';
                     strHTML += '<div class="row"><div class="col-sm-1">';
                     if (getStorage(days[i] + "Lift1") === "1") {
-                        strHTML += '<p class="bold">EQPT&nbsp;<input type="checkbox" checked="checked" disabled></p></div>';
+                        strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" checked="checked" disabled></p></div>';
                     } else {
-                        strHTML += '<p class="bold">EQPT&nbsp;<input type="checkbox" disabled></p></div>';
+                        strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" disabled></p></div>';
                     }
                     strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + getStorage(days[i] + "Time2S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time2E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time2") + '</p></div>';
                     strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + getStorage(days[i] + "Time4S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time4E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time4") + '</p></div>';
@@ -255,9 +255,9 @@
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
                         if (getStorage(strDay + "Lift" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
                         }
                         strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + getStorage(strDay + "Select" + strnum) + " - " + getStorage(strDay + "Desc" + strnum) + '</p></div>';
                         strHTML += '<div class="col-sm-1"><p></p></div>';
@@ -304,9 +304,9 @@
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
                         if (getStorage(strDay + "Lift" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>EQPT<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
                         }
                         strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + getStorage(strDay + "From" + strnum) + '</p></div>';
                         strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + getStorage(strDay + "To" + strnum) + '</p></div>';
