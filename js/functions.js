@@ -32,6 +32,7 @@ $(window).ready(function () {
 
         setLocalStorage($(this).attr("id"));
         if (refID.indexOf("Select") === 3) {
+            toggleOWCheckboxes(refID);
             countOtherWork(refID);
             if ($(this).val() === "FYI") {
                 otherWorkTime(refID.substr(0, 3), refID.substr(9), true);
@@ -747,6 +748,30 @@ function clearFields() {
     location.reload();
 }
 
+//Check value of other work select box to determine if OJT and EQ/L checkboxes should be enabled or not
+function toggleOWCheckboxes(refID) {
+    var refVal = $("#" + refID).val();
+    var refNum = refID.substr(9);
+    var day = refID.substr(0,3);
+    switch (refVal) {
+        case "RCL":
+            $("#" + day + "Lift" + refNum).prop("disabled", false);
+            $("#" + day + "OJT" + refNum).prop("disabled", false);
+            break;
+        case "RC":
+        case "MTNG":
+        case "TRNG":
+            $("#" + day + "Lift" + refNum).prop("checked", false).prop("disabled", true);
+            setStorage(day + "Lift" + refNum, 0);
+            $("#" + day + "OJT" + refNum).prop("disabled", false);
+            break;
+        default:
+            $("#" + day + "OJT" + refNum).prop("checked", false).prop("disabled", true);
+            setStorage(day + "OJT" + refNum, 0);
+            $("#" + day + "Lift" + refNum).prop("checked", false).prop("disabled", true);
+            setStorage(day + "Lift" + refNum, 0);
+    }
+}
 //Check number of other work entries and limit to 10
 function countOtherWork(refID) {
     var j = 0,
