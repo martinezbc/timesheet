@@ -120,7 +120,7 @@ function checkOverlap(s1, z) {
         day = s1.substr(0, 3),
         newStart = "",
         newEnd = "",
-        max = 15;
+        max = 16;
     
     if (day === "Sat" || day === "Sun") {
         max = 14;
