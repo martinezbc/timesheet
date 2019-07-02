@@ -188,6 +188,15 @@ $(window).ready(function () {
         addOtherWork(refID);
     });
     
+    $(".addFT").click(function() {
+        var refID = $(this).attr('id');
+        addFieldTrip(refID);
+    });
+    
+    $(".addLV").click(function() {
+        var refID = $(this).attr('id');
+        addLeave(refID);
+    })
 });
 
 "use strict";
@@ -433,13 +442,7 @@ function fixRouteName(refID) {
 function toggleEQPT(bln) {
     for (var i = 2; i < 7; i++) {
         $(".eqpt").each(function() {
-            if (bln) {
-                $(this).css("display", "flex");    
-            } else {
-                //hide div with checkbox and label, also clear the checkboxes if they're checked and run change functions
-                $(this).css("display", "none");
-                $(this).find('input:checkbox').prop("checked", false).trigger("change");
-            }
+            //
         });
     }
 }
@@ -1415,8 +1418,26 @@ function checkVoucherLength(refID) {
 
 function addOtherWork(refID) {
     var dayVal = refID.substr(0,3);
-    var countOW = Number($("#" + dayVal + "OWCt").text());
-    var strHTML = '<div class="tinycard bg-teal2"><div class="row"><div class="col-8"><p class="category">Other Work</p></div><div class="col-2 right"><span class="fas fa-question-circle ow"></span></div><div class="col-2 right"><span class="fas fa-angle-up spanToggle" id="' + dayVal + 'SpanOW8"></span></div></div><div class="row ' + dayVal + 'LV ' + dayVal + 'SpanOW8"><div class="col-auto"><label for="' + dayVal + 'Lift8"><input type="checkbox" id="' + dayVal + 'Lift8">EQ/L</label></div><div class="col-auto"><label for="' + dayVal + 'OJT8"><input type="checkbox" id="' + dayVal + 'OJT8">OJT</label></div></div><div class="row ' + dayVal + 'LV ' + dayVal + 'SpanOW8"><div class="col-11"><select id="' + dayVal + 'Select8" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div><div class="col-1"><span class="fas fa-ban" id="' + dayVal + 'BanOW8"></span></div></div><div class="row ' + dayVal + 'LV ' + dayVal + 'SpanOW8"><input name="' + dayVal + 'Desc8" id="' + dayVal + 'Desc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV ' + dayVal + 'SpanOW8"><div class="col-11"><input type="text" name="' + dayVal + 'Time8S" id="' + dayVal + 'Time8S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time8E" id="' + dayVal + 'Time8E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time8" id="' + dayVal + 'Time8" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW8"></span></div></div></div>';
+    var countOW = Number("2" + $("#" + dayVal + "OWCt").text());
+    countOW += 1;
+    var strHTML = '<div class="tinycard bg-teal2"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '"><label for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '"><label for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
     $("#" + refID + "2").before(strHTML);
-    $("#" + dayVal + "OWCt").text();
+    $("#" + dayVal + "OWCt").text(countOW);
+}
+
+function addFieldTrip(refID) {
+    var dayVal = refID.substr(0,3);
+    var countFT = Number("3" + $("#" + dayVal + "FTCt").text());
+    countFT += 1;
+    var strHTML = '<div class="tinycard bg-teal3"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><label for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
+    $("#" + refID + "2").before(strHTML);
+    $("#" + dayVal + "FTCt").text(countFT);
+}
+
+function addLeave(refID) {
+    var dayVal = refID.substr(0,3);
+    $("#" + dayVal + "Leave40").css("display", "inline-block");
+    $("#" + dayVal + "Leave41").css("display", "inline-block");
+    $("#" + dayVal + "Leave42").css("display", "inline-block");
+    
 }
