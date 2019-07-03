@@ -2,7 +2,7 @@
 
 <html lang="en">
 
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +99,8 @@
                     </p>
                 </div>
                 <div class="col-md-3">
-                    <p><label for="OJT">OJT Trainer&nbsp;<input type="checkbox" id="OJT"></label><br><input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 100%" placeholder="Trainee's name..."></p>
+                    <input type="checkbox" id="OJT"><label for="OJT">OJT Trainer&nbsp;</label><br>
+                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 100%" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row EmpSpan">
@@ -1590,7 +1591,7 @@
                 </div>
             </div>
             <div class="tinycard bg-gold hide" id="TueLeave41">
-              <div class="row">
+                <div class="row">
                     <div class="col-4">
                         <p class="category">Leave</p>
                     </div>
@@ -1608,7 +1609,7 @@
                     </div>
                 </div>
                 <div class="row TueLV">
-                   <div class="col-11">
+                    <div class="col-11">
                         <input name="TueTime41S" id="TueTime41S" type="text" class="timewidth" placeholder="- - : - -">
                         <input name="TueTime41E" id="TueTime41E" type="text" class="timewidth" placeholder="- - : - -">
                         <input name="TueTime41" id="TueTime41" type="text" class="total-time nofocus" disabled>
@@ -1617,7 +1618,7 @@
                 </div>
             </div>
             <div class="tinycard bg-gold hide" id="TueLeave42">
-               <div class="row">
+                <div class="row">
                     <div class="col-4">
                         <p class="category">Leave</p>
                     </div>
@@ -1633,10 +1634,10 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    
+
                 </div>
                 <div class="row TueLV">
-                   <div class="col-11">
+                    <div class="col-11">
                         <input name="TueTime42S" id="TueTime42S" type="text" class="timewidth" placeholder="- - : - -">
                         <input name="TueTime42E" id="TueTime42E" type="text" class="timewidth" placeholder="- - : - -">
                         <input name="TueTime42" id="TueTime42" type="text" class="total-time nofocus" disabled>
@@ -1651,7 +1652,7 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT11" disabled>
+                        <input type="checkbox" id="TueOJT11">
                         <label for="TueOJT11">OJT</label>
                         <input type="checkbox" id="TueLift11" class="eqpt">
                         <label for="TueLift11">EQ/L</label>
@@ -1674,7 +1675,7 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT12" disabled>
+                        <input type="checkbox" id="TueOJT12">
                         <label for="TueOJT12">OJT</label>
                         <input type="checkbox" id="TueLift12" class="eqpt">
                         <label for="TueLift12">EQ/L</label>
@@ -1695,7 +1696,7 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT13" disabled>
+                        <input type="checkbox" id="TueOJT13">
                         <label for="TueOJT13">OJT</label>
                         <input type="checkbox" id="TueLift13" class="eqpt">
                         <label for="TueLift13">EQ/L</label>
@@ -1716,7 +1717,7 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT14" disabled>
+                        <input type="checkbox" id="TueOJT14">
                         <label for="TueOJT14">OJT</label>
                         <input type="checkbox" id="TueLift14" class="eqpt">
                         <label for="TueLift14">EQ/L</label>
@@ -1737,7 +1738,7 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT15" disabled>
+                        <input type="checkbox" id="TueOJT15">
                         <label for="TueOJT15">OJT</label>
                         <input type="checkbox" id="TueLift15" class="eqpt">
                         <label for="TueLift15">EQ/L</label>
@@ -1758,7 +1759,7 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT16" disabled>
+                        <input type="checkbox" id="TueOJT16">
                         <label for="TueOJT16">OJT</label>
                         <input type="checkbox" id="TueLift16" class="eqpt">
                         <label for="TueLift16">EQ/L</label>
@@ -1779,7 +1780,7 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" id="TueOJT17" disabled>
+                        <input type="checkbox" id="TueOJT17">
                         <label for="TueOJT17">OJT</label>
                         <input type="checkbox" id="TueLift17" class="eqpt">
                         <label for="TueLift17">EQ/L</label>
@@ -1837,18 +1838,20 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="tinycard bg-gold">
+            <div class="row addLV" id="WedLVAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="tinycard bg-gold hide" id="WedLeave40">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <p class="category">Leave</p>
                     </div>
-                    <div class="col-1"><span class="fas fa-angle-up spanToggle" id="WedSpanLV"></span></div>
                 </div>
-                <div class="row WedSpanLV">
+                <div class="row">
                     <div class="col-4">
-                        <p>All Day<input type="checkbox" id="WedLeaveAD"></p>
+                        <input type="checkbox" id="WedLeaveAD"><label for="WedLeaveAD">ALL DAY</label>
                     </div>
-                    <div class="col-7">
+                    <div class="col-8">
                         <select id="WedLeaveSelectAD">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
@@ -1860,17 +1863,15 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1">
-                        <span class="fas fa-times" id="WedClearLVAD"></span>
-                    </div>
                 </div>
-                <div class="row WedSpanLV"><span class="bar"></span></div>
-                <div class="row WedLV WedSpanLV">
+            </div>
+            <div class="tinycard bg-gold hide" id="WedLeave41">
+                <div class="row">
                     <div class="col-4">
-                        <p>Morning</p>
+                        <p class="category">Leave</p>
                     </div>
-                    <div class="col-7">
-                        <select id="WedLeaveSelect14">
+                    <div class="col-8">
+                        <select id="WedLeaveSelect41">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1881,20 +1882,23 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearLV14"></span></div>
                 </div>
-                <div class="row WedLV WedSpanLV">
-                    <input name="WedTime14S" id="WedTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime14E" id="WedTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime14" id="WedTime14" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row WedSpanLV"><span class="bar"></span></div>
-                <div class="row WedLV WedSpanLV">
-                    <div class="col-4">
-                        <p>Afternoon</p>
+                <div class="row WedLV">
+                    <div class="col-11">
+                        <input name="WedTime41S" id="WedTime41S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime41E" id="WedTime41E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime41" id="WedTime41" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-7">
-                        <select id="WedLeaveSelect15">
+                    <div class="col-1"><span class="fas fa-times" id="WedClearLV41"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-gold hide" id="WedLeave42">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-8">
+                        <select id="WedLeaveSelect42">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1905,158 +1909,181 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearLV15"></span></div>
+
                 </div>
-                <div class="row WedLV WedSpanLV">
-                    <input name="WedTime15S" id="WedTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime15E" id="WedTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="WedTime15" id="WedTime15" type="text" class="total-time nofocus" disabled>
+                <div class="row WedLV">
+                    <div class="col-11">
+                        <input name="WedTime42S" id="WedTime42S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime42E" id="WedTime42E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime42" id="WedTime42" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearLV42"></span></div>
                 </div>
             </div>
             <hr>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Morning Runs</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT1"><input type="checkbox" id="WedOJT1">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift1"><input type="checkbox" id="WedLift1">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT11" disabled>
+                        <label for="WedOJT11">OJT</label>
+                        <input type="checkbox" id="WedLift11" class="eqpt">
+                        <label for="WedLift11">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime1S" id="WedTime1S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime1E" id="WedTime1E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime1" id="WedTime1" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime11S" id="WedTime11S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime11E" id="WedTime11E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime11" id="WedTime11" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG1"></span></div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="WedClearRG11"></span>
+                    </div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Afternoon Runs</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT2"><input type="checkbox" id="WedOJT2">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift2"><input type="checkbox" id="WedLift2">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT12" disabled>
+                        <label for="WedOJT12">OJT</label>
+                        <input type="checkbox" id="WedLift12" class="eqpt">
+                        <label for="WedLift12">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime2S" id="WedTime2S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime2E" id="WedTime2E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime2" id="WedTime2" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime12S" id="WedTime12S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime12E" id="WedTime12E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime12" id="WedTime12" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG2"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG12"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT3"><input type="checkbox" id="WedOJT3">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift3"><input type="checkbox" id="WedLift3">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT13">
+                        <label for="WedOJT13">OJT</label>
+                        <input type="checkbox" id="WedLift13" class="eqpt">
+                        <label for="WedLift13">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime3S" id="WedTime3S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime3E" id="WedTime3E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime3" id="WedTime3" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime13S" id="WedTime13S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime13E" id="WedTime13E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime13" id="WedTime13" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG3"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG13"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT4"><input type="checkbox" id="WedOJT4">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift4"><input type="checkbox" id="WedLift4">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT14">
+                        <label for="WedOJT14">OJT</label>
+                        <input type="checkbox" id="WedLift14" class="eqpt">
+                        <label for="WedLift14">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime4S" id="WedTime4S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime4E" id="WedTime4E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime4" id="WedTime4" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime14S" id="WedTime14S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime14E" id="WedTime14E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime14" id="WedTime14" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG4"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG14"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT5"><input type="checkbox" id="WedOJT5">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift5"><input type="checkbox" id="WedLift5">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT15">
+                        <label for="WedOJT15">OJT</label>
+                        <input type="checkbox" id="WedLift15" class="eqpt">
+                        <label for="WedLift15">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime5S" id="WedTime5S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime5E" id="WedTime5E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime5" id="WedTime5" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime15S" id="WedTime15S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime15E" id="WedTime15E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime15" id="WedTime15" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG5"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG15"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT6"><input type="checkbox" id="WedOJT6">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift6"><input type="checkbox" id="WedLift6">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT16">
+                        <label for="WedOJT16">OJT</label>
+                        <input type="checkbox" id="WedLift16" class="eqpt">
+                        <label for="WedLift16">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime6S" id="WedTime6S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime6E" id="WedTime6E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime6" id="WedTime6" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime16S" id="WedTime16S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime16E" id="WedTime16E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime16" id="WedTime16" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG6"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG16"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row WedLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Late Run</p>
                     </div>
-                    <div class="col-2"><label for="WedOJT7"><input type="checkbox" id="WedOJT7">OJT</label></div>
-                    <div class="col-3 center"><label for="WedLift7"><input type="checkbox" id="WedLift7">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="WedOJT17">
+                        <label for="WedOJT17">OJT</label>
+                        <input type="checkbox" id="WedLift17" class="eqpt">
+                        <label for="WedLift17">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row WedLV">
                     <div class="col-11">
-                        <input name="WedTime7S" id="WedTime7S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime7E" id="WedTime7E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTime7" id="WedTime7" type="text" class="total-time nofocus" disabled>
+                        <input name="WedTime17S" id="WedTime17S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime17E" id="WedTime17E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="WedTime17" id="WedTime17" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearRG7"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearRG17"></span></div>
                 </div>
             </div>
             <hr>
-            <div class="tinycard bg-teal2">
+            <div class="row addOW" id="WedOWAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
+            </div>
+            <div class="tinycard bg-teal2" id="WedOWDiv21">
                 <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanOW8"></span>
-                    </div>
+                    <div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div>
+                    <div class="col-1 center"><span class="fas fa-trash-alt" id="WedOWTrash21" onclick="clearOtherField(this.id);"></span></div>
                 </div>
-                <div class="row WedLV WedSpanOW8">
-                    <div class="col-auto">
-                        <label for="WedLift8"><input type="checkbox" id="WedLift8">EQ/L</label>
-                    </div>
-                    <div class="col-auto">
-                        <label for="WedOJT8"><input type="checkbox" id="WedOJT8">OJT</label>
-                    </div>
+                <div class="row WedLV">
+                    <div class="col-auto"><input type="checkbox" id="WedOJT21" onclick=""><label for="WedOJT21">OJT</label>&nbsp;<input type="checkbox" id="WedLift21" onclick=""><label for="WedLift21">EQ/L</label></div>
                 </div>
-                <div class="row WedLV WedSpanOW8">
-                    <div class="col-11">
-                        <select id="WedSelect8" class="selectwidth">
+                <div class="row WedLV">
+                    <div class="col-12"><select id="WedSelect21" class="selectwidth" onchange="">
                             <option value="">--Select work--</option>
                             <option value="FYI">FYI</option>
                             <option value="OTHR">Other</option>
@@ -2075,237 +2102,25 @@
                             <option value="CBK">Call back</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanOW8"></span></div>
                 </div>
-                <div class="row WedLV WedSpanOW8">
-                    <input name="WedDesc8" id="WedDesc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                <div class="row WedLV">
+                    <input name="WedDesc21" id="WedDesc21" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..." onblur="setStorage(this.id, $(this).val());">
                 </div>
-                <div class="row WedLV WedSpanOW8">
+                <div class="row WedLV">
                     <div class="col-11">
-                        <input type="text" name="WedTime8S" id="WedTime8S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime8E" id="WedTime8E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime8" id="WedTime8" class="total-time nofocus" disabled>
+                        <input type="text" name="WedTime21S" id="WedTime21S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">
+                        <input type="text" name="WedTime21E" id="WedTime21E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">
+                        <input type="text" name="WedTime21" id="WedTime21" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearOW8"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="WedClearOW21"></span></div>
                 </div>
             </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanOW9"></span>
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanOW9">
-                    <label for="WedLift9"><input type="checkbox" id="WedLift9">EQ/L</label>&nbsp;&nbsp;
-                    <label for="WedOJT9"><input type="checkbox" id="WedOJT9">OJT</label>
-                </div>
-                <div class="row WedLV WedSpanOW9">
-                    <div class="col-11">
-                        <select id="WedSelect9" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanOW9"></span></div>
-                </div>
-                <div class="row WedLV WedSpanOW9">
-                    <input name="WedDesc9" id="WedDesc9" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row WedLV WedSpanOW9">
-                    <div class="col-11">
-                        <input type="text" name="WedTime9S" id="WedTime9S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime9E" id="WedTime9E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime9" id="WedTime9" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearOW9"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanOW10"></span>
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanOW10">
-                    <label for="WedLift10"><input type="checkbox" id="WedLift10">EQ/L</label>&nbsp;&nbsp;
-                    <label for="WedOJT10"><input type="checkbox" id="WedOJT10">OJT</label>
-                </div>
-                <div class="row WedLV WedSpanOW10">
-                    <div class="col-11">
-                        <select id="WedSelect10" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanOW10"></span></div>
-                </div>
-                <div class="row WedLV WedSpanOW10">
-                    <input name="WedDesc10" id="WedDesc10" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row WedLV WedSpanOW10">
-                    <div class="col-11">
-                        <input type="text" name="WedTime10S" id="WedTime10S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime10E" id="WedTime10E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime10" id="WedTime10" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearOW10"></span></div>
-                </div>
-            </div>
+            
             <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanFT11"></span>
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT11">
-                    <div class="col-4">
-                        <label for="WedLift11"><input type="checkbox" id="WedLift11">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="WedVoucher11" id="WedVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanFT11"></span></div>
-                </div>
-                <div class="row WedLV WedSpanFT11">
-                    <div class="col-12">
-                        <input name="WedFrom11" id="WedFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT11">
-                    <div class="col-12">
-                        <input name="WedTo11" id="WedTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT11">
-                    <div class="col-11">
-                        <input type="text" name="WedTime11S" id="WedTime11S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime11E" id="WedTime11E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime11" id="WedTime11" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearFT11"></span></div>
-                </div>
+            <div class="row addFT" id="WedFTAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
             </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanFT12"></span>
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT12">
-                    <div class="col-4">
-                        <label for="WedLift12"><input type="checkbox" id="WedLift12">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="WedVoucher12" id="WedVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanFT12"></span></div>
-                </div>
-                <div class="row WedLV WedSpanFT12">
-                    <div class="col-12">
-                        <input name="WedFrom12" id="WedFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT12">
-                    <div class="col-12">
-                        <input name="WedTo12" id="WedTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT12">
-                    <div class="col-11">
-                        <input type="text" name="WedTime12S" id="WedTime12S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime12E" id="WedTime12E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime12" id="WedTime12" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearFT12"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="WedSpanFT13"></span>
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT13">
-                    <div class="col-4">
-                        <label for="WedLift13"><input type="checkbox" id="WedLift13">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="WedVoucher13" id="WedVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="WedBanFT13"></span></div>
-                </div>
-                <div class="row WedLV WedSpanFT13">
-                    <div class="col-12">
-                        <input name="WedFrom13" id="WedFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT13">
-                    <div class="col-12">
-                        <input name="WedTo13" id="WedTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row WedLV WedSpanFT13">
-                    <div class="col-11">
-                        <input type="text" name="WedTime13S" id="WedTime13S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime13E" id="WedTime13E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="WedTime13" id="WedTime13" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearFT13"></span></div>
-                </div>
-            </div>
+            <div class="row" id="WedFTAdd2"></div>
         </div>
         <div id="Thursday" class="card hide">
             <div class="row">
@@ -3409,5 +3224,8 @@
                 }
             }
         }
+
     </script>
-</body></html>
+</body>
+
+</html>

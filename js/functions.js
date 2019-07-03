@@ -2,20 +2,16 @@
 $(window).ready(function () {
 
     $('.fa-times').click(function () {
-        clearTimeField($(this).attr("id"));
-    });
-
-    $('.fa-ban').click(function () {
-        clearOtherField($(this).attr("id"));
+        clearTimeField(this.id);
     });
 
     $("input[type='checkbox']").click(function () {
-        checkboxFunctions($(this).attr("id"));
+        checkboxFunctions(this.id);
         getWeeklyTotals();
     });
 
     $("input").focus(function () {
-        var refID = $(this).attr("id");
+        var refID = this.id;
         if (refID.indexOf('Time') > 0 && !$(this).hasClass("nofocus")) {
             $(this).prop('disabled', true);
             openTimeSelector(refID, (refID.indexOf("Sup") > -1) ? "Sup" : "");
@@ -28,9 +24,9 @@ $(window).ready(function () {
     });
 
     $("select").change(function () {
-        var refID = $(this).attr("id");
+        var refID = this.id;
 
-        setLocalStorage($(this).attr("id"));
+        setLocalStorage(this.id);
         if (refID.indexOf("Select") === 3) {
             countOtherWork(refID);
             if ($(this).val() === "FYI") {
@@ -42,7 +38,7 @@ $(window).ready(function () {
     });
 
     $('input[type=number], input[type=text]').change(function () {
-        var refID = $(this).attr("id");
+        var refID = this.id;
 
         if (refID.indexOf("Time") > 0) {
             textboxUpdate(refID);
@@ -52,7 +48,7 @@ $(window).ready(function () {
             checkVoucherLength(refID);
         }
         if (refID.indexOf("Route") > 0) {
-            fixRouteName($(this).attr('id'));
+            fixRouteName(this.id);
             checkRouteValue();
         }
         setLocalStorage(refID);
@@ -60,7 +56,7 @@ $(window).ready(function () {
     });
 
     $("input[id*='Desc']").keydown(function () {
-        var refID = $(this).attr("id"),
+        var refID = this.id,
             refVal = $("#" + refID).val(),
             lenVal = refVal.length,
             selectID = refID.replace("Desc", "Select");
@@ -90,7 +86,7 @@ $(window).ready(function () {
     });
 
     $(".up, .down, .up2, .down2").click(function () {
-        timeSelectors($(this).attr("id"));
+        timeSelectors(this.id);
     });
 
     $("#goFT").click(function () {
@@ -132,12 +128,12 @@ $(window).ready(function () {
     });
 
     $(".spanToggle").click(function () {
-        var refID = $(this).attr("id"),
+        var refID = this.id,
             bln = false;
         
         bln = spanToggleTextVal(refID);
 
-        if (bln === true) {
+        if (bln) {
             $("." + refID).css("display", "flex");
             $(this).addClass("fa-angle-up").removeClass("fa-angle-down");
         } else {
@@ -152,7 +148,7 @@ $(window).ready(function () {
     });
 
     $(".fa-copy").click(function () {
-        copyRoutine($(this).attr("id"));
+        copyRoutine(this.id);
     });
     
     $("#EmpID").keyup(function () {
@@ -160,7 +156,7 @@ $(window).ready(function () {
     });
     
     $("#Veh1, #Veh2, #Veh3, #Veh4").keyup(function () {
-        limitCharacters($(this).attr("id"), 4);
+        limitCharacters(this.id, 4);
     });
     
     $("#EmpID").keyup(function () {
@@ -171,7 +167,7 @@ $(window).ready(function () {
     });
     
     $("input[type=radio]").click(function () {
-        var refID = $(this).attr("id");
+        var refID = this.id;
         if (refID.substr(0,4) === "area") {
             loadTeamValues(refID.substr(4));
             setStorage("Area", refID.substr(4));
@@ -184,22 +180,21 @@ $(window).ready(function () {
     });
     
     $(".addOW").click(function() {
-        var refID = $(this).attr('id');
+        var refID = this.id;
         addOtherWork(refID);
     });
     
     $(".addFT").click(function() {
-        var refID = $(this).attr('id');
+        var refID = this.id;
         addFieldTrip(refID);
     });
     
     $(".addLV").click(function() {
-        var refID = $(this).attr('id');
+        var refID = this.id;
         addLeave(refID);
-    })
-});
+    });
 
-"use strict";
+});
 
 //Define public variables
 var activeID = "";
@@ -258,7 +253,7 @@ function loadLocalStorage(optVal) {
     insertFTSelect(optVal);
 
     $("input[type=text], input[type=number], select").each(function () {
-        refID = $(this).attr("id");
+        refID = this.id;
         refVal = getStorage(refID);
         if (refVal === null) {
             refVal = "";
@@ -266,14 +261,14 @@ function loadLocalStorage(optVal) {
         }
         $(this).val(refVal);
         
-        if ($(this).val() === null && $(this).attr('id') !== "Team") { //Need to replace null values with "" except for the team field which will populate further down the script
+        if ($(this).val() === null && this.id !== "Team") { //Need to replace null values with "" except for the team field which will populate further down the script
             $(this).val("");
             setStorage(refID, "");
         }
     });
 
     $(":checkbox").each(function () {
-        refID = $(this).attr("id");
+        refID = this.id;
         refVal = getStorage(refID);
         if (refVal === null) {
             refVal = 0;
@@ -323,9 +318,9 @@ function loadDateRange() {
     var r2 = DateRange(d, day, 0);
     var r3 = DateRange(d, day, 7);
     var strHTML = '<strong>Week Of:</strong><br>';
-    strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week1">' + r1 + '</label>';
-    strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week2">' + r2 + '</label>';
-    strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week3">' + r3 + '</label>';
+    strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek($(this).attr(\'id\'));"><label class="lblBtnFalse" for="week1">' + r1 + '</label>';
+    strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek($(this).attr(\'id\'));"><label class="lblBtnFalse" for="week2">' + r2 + '</label>';
+    strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek($(this).attr(\'id\'));"><label class="lblBtnFalse" for="week3">' + r3 + '</label>';
     $("#WeekOf").html(strHTML);
     if (getStorage("WeekOf") === null) {
         setStorage("WeekOf", "");
@@ -350,29 +345,42 @@ function loadDateRange() {
 function DateRange(newDate, day, offset) {
 	"use strict";
     var start,
-        end;
-    if (day === 1) {
-        start = newDate.addDays(-2 + offset);
-        end = newDate.addDays(4 + offset);
-    } else if (day === 2) {
-        start = newDate.addDays(-3 + offset);
-        end = newDate.addDays(3 + offset);
-    } else if (day === 3) {
-        start = newDate.addDays(-4 + offset);
-        end = newDate.addDays(2 + offset);
-    } else if (day === 4) {
-        start = newDate.addDays(-5 + offset);
-        end = newDate.addDays(1 + offset);
-    } else if (day === 5) {
-        start = newDate.addDays(-6 + offset);
-        end = newDate.addDays(0 + offset);
-    } else if (day === 6) {
-        start = newDate.addDays(0 + offset);
-        end = newDate.addDays(6 + offset);
-    } else if (day === 0) {
-        start = newDate.addDays(-1 + offset);
-        end = newDate.addDays(5 + offset);
+        end,
+        sOffset,
+        eOffset;
+    switch (day) {
+        case 1:
+            sOffset = -2;
+            eOffset = 4;
+            break;
+        case 2:
+            sOffset = -3;
+            eOffset = 3;
+            break;
+        case 3:
+            sOffset = -4;
+            eOffset = 2;
+            break;
+        case 4:
+            sOffset = -5;
+            eOffset = 1;
+            break;
+        case 5:
+            sOffset = -6;
+            eOffset = 0;
+            break;
+        case 6:
+            sOffset = 0;
+            eOffset = 6;
+            break;
+        case 0:
+            sOffset = -1;
+            eOffset = 5;
+            break;            
     }
+    start = newDate.addDays(sOffset + offset);
+    end = newDate.addDays(eOffset + offset);
+
     var sm = start.getMonth() + 1,
         sd = start.getDate(),
         sy = start.getFullYear().toString().substr(-2);
@@ -395,14 +403,23 @@ Date.prototype.addDays = function (x) {
 
 //Only load equipment checkboxes if there is a route number has EQ in the title
 function checkRouteValue() {
-    var bln = false;
-    for (var i = 0; i < 10; i++) {
+    var bln = false,
+        i = 0;
+    
+    //Loop through Routes and get value
+    for (i = 0; i < 10; i++) {
         if ($("#" + routes[i]).val().substr(-2) === "EQ" || $("#" + routes[i]).val().substr(-1) === "L") {
             bln = true;
             break;
         }
     }
-    toggleEQPT(bln);
+    
+    //Loop through EQ/L checkboxes and enable/disable them
+    for (var i = 2; i < 7; i++) {
+        $(".eqpt").each(function() {
+            $("#" + this.id).prop("disabled", !bln).prop("checked", false);
+        });
+    }
 }
 
 function fixRouteName(refID) {
@@ -439,13 +456,7 @@ function fixRouteName(refID) {
     $("#" + refID).val(refVal);
 }
 
-function toggleEQPT(bln) {
-    for (var i = 2; i < 7; i++) {
-        $(".eqpt").each(function() {
-            //
-        });
-    }
-}
+
 
 //Loads dates from storage into the date text fields
 function loadStoredWeek() {
@@ -470,7 +481,7 @@ function loadTeamValues(area) {
         case "4":
             strHTML += '<strong>Team:</strong><br>';
             for (i = 0; i < 8; i++) {
-                strHTML += '<input type="radio" id="team' + area + i + '" name="team" value="' + area + i + '" onclick="setTeamSelection($(this).attr(\'id\'));"><label for="team' + area + i + '">' + area + i + '</label>';
+                strHTML += '<input type="radio" id="team' + area + i + '" name="team" value="' + area + i + '" onclick="setTeamSelection($(this).attr(\'id\'));"><label class="lblBtnFalse" for="team' + area + i + '">' + area + i + '</label>';
             }
             $("#insertTeam").html(strHTML);
             break;
@@ -478,12 +489,12 @@ function loadTeamValues(area) {
             var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
             strHTML += '<strong>Team:</strong><br>';
             for (i = 0; i < 17; i++) {
-                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'))";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
+                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'))";><label class="lblBtnFalse" for="team' + teams[i] + '">' + teams[i] + '</label>';
             }
             $("#insertTeam").html(strHTML);
             break;
         case "TC":
-            $("#insertTeam").html('<strong>Team:</strong><br><input type="radio" id="teamTC" name="team" value="TC" checked><label for="teamTC">TC</label>');
+            $("#insertTeam").html('<strong>Team:</strong><br><input type="radio" id="teamTC" name="team" value="TC" checked><label class="lblBtnFalse" for="teamTC">TC</label>');
             setStorage("Team", "TC");
             break;
     }
@@ -524,13 +535,17 @@ function checkOJTData() {
     }
 }
 
-//Toggle OJT checkboxes and Trainee textbox
+//TOGGLE OJT CHECKBOXES AND TRAINEE TEXTBOX
 function toggleOJT(bln) {
     var i = 0,
-        j = 0;
+        j = 0,
+        blnLV = false;
 
+    //Set property of #OJT
     $("#OJT").prop("checked", bln);
-    if (bln === true) {
+    
+    //Set property and color of #Trainee
+    if (bln) {
         $("#Trainee").prop("disabled", false).css("background-color", "white");
     } else {
         $("#Trainee").prop("disabled", true).css("background-color", "lightgray").val("");
@@ -540,12 +555,15 @@ function toggleOJT(bln) {
     //Loop through days of the week
     for (i = 2; i < 7; i++) {
         //Loop through OJT checkboxes 1-10
-        for (j = 0; j < 11; j++) {
+        for (j = 11; j < 18; j++) {
+            //Check if All Day Leave is checked for this day
+            blnLV = (getStorage(days[i] + "LeaveAD") === "0") ? false : true;
+            
             //If all day leave is checked, do not show OJT boxes
-            if (bln === true && isADLeaveChecked(days[i]) === false) {
-                $("#" + days[i] + "OJT" + j).parent().show();
+            if (bln) {
+                $("#" + days[i] + "OJT" + j).prop("disabled", false);
             } else {
-                $("#" + days[i] + "OJT" + j).prop("checked", false).parent().hide();
+                $("#" + days[i] + "OJT" + j).prop("disabled", true);
                 setStorage(days[i] + "OJT" + j, 0);
             }
         }
@@ -583,20 +601,20 @@ function toggleADLeave(day) {
     bln = isADLeaveChecked(day);
 
     $("input[id*='" + day + "'], select[id*='" + day + "']").each(function () {
-        if ($(this).attr("id") === day + "LeaveSelectAD" || $(this).attr("id") === day + "LeaveAD") {
+        if (this.id === day + "LeaveSelectAD" || this.id === day + "LeaveAD") {
             return;
         }
         if (!$(this).hasClass("nofocus")) {
             $(this).prop("disabled", bln);
         }
-        $(this).css("background-color", (bln === true) ? "lightgrey" : "white");
-        if (bln === true) {
+        $(this).css("background-color", (bln) ? "lightgrey" : "white");
+        if (bln) {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         }
-        if ($(this).prop("checked") === true && bln === true) {
+        if ($(this).prop("checked") === true && bln) {
             $(this).prop("checked", false);
-            setStorage($(this).attr("id"), 0);
+            setStorage(this.id, 0);
         }
     });
 }
@@ -648,31 +666,31 @@ function clearRouteFields() {
     for (i = 1; i < 6; i++) {
         $("input[id*='AM" + i + "Ct']").each(function () {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         });
         $("input[id*='PM" + i + "Ct']").each(function () {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         });
     }
 
     for (i = 1; i < 3; i++) {
         $("input[id*='PS" + i + "Ct']").each(function () {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         });
         $("input[id*='SH" + i + "Ct']").each(function () {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         });
         $("input[id*='LR" + i + "Ct']").each(function () {
             $(this).val("");
-            setStorage($(this).attr("id"), "");
+            setStorage(this.id, "");
         });
     }
     $("input", $('#PupilCounts')).each(function () {
         $(this).val("");
-        setStorage($(this).attr("id"), "");
+        setStorage(this.id, "");
     });
 }
 
@@ -709,10 +727,10 @@ function checkOtherWorkVal() {
 }
 
 function otherWorkTime(day, num, bln) {
-    $("#" + day + "Time" + num + "S").prop("disabled", bln).css("background-color", (bln === true) ? "lightgrey" : "white");
-    $("#" + day + "Time" + num + "E").prop("disabled", bln).css("background-color", (bln === true) ? "lightgrey" : "white");
-    $("#" + day + "Time" + num).css("background-color", (bln === true) ? "lightgrey" : "white");
-    if (bln === true) {
+    $("#" + day + "Time" + num + "S").prop("disabled", bln).css("background-color", (bln) ? "lightgrey" : "white");
+    $("#" + day + "Time" + num + "E").prop("disabled", bln).css("background-color", (bln) ? "lightgrey" : "white");
+    $("#" + day + "Time" + num).css("background-color", (bln) ? "lightgrey" : "white");
+    if (bln) {
         $("#" + day + "Time" + num + "S").val("").trigger("change");
         $("#" + day + "Time" + num + "E").val("").trigger("change");
     }
@@ -882,7 +900,7 @@ function runCopyRoutine() {
             bln = true;
         }
     }
-    while (bln === true && k < 7);
+    while (bln && k < 7);
     if (k === 7) {
         return;
     }
@@ -912,7 +930,7 @@ function runPupilCopyRoutine() {
             bln = true;
         }
     }
-    while (bln === true && k < 7);
+    while (bln && k < 7);
     
     if (k === 7) {
         return;
@@ -996,11 +1014,11 @@ function runValidations() {
     var val = "";
 
     $('input:not([type="checkbox"]), select').each(function () {
-        setStorage($(this).attr("id"), $(this).val());
+        setStorage(this.id, $(this).val());
     });
 
     $('input[type="checkbox"]').each(function () {
-        setStorage($(this).attr("id"), ($(this).prop("checked") === true) ? 1 : 0);
+        setStorage(this.id, ($(this).prop("checked") === true) ? 1 : 0);
     });
     
     if (getStorage("Area") === "TC") { //Remove some validations for training center
@@ -1316,11 +1334,14 @@ function testTimeComplete() {
 
 //******************CHECKBOXES******************//
 function checkboxFunctions(refID) {
-    var z = 0;
+    var z = ($("#" + refID).prop("checked")) ? 1 : 0;
 
-    if ($("#" + refID).prop("checked") === true) {
-        z = 1;
-    }
+//    if (z === 1) {
+//        $("label[for='#" + refID + "']").addClass("lblBtnTrue").removeClass("lblBtnFalse");
+//    } else {
+//        $("label[for='#" + refID + "']").addClass("lblBtnFalse").removeClass("lblBtnTrue");
+//    }
+    
     setStorage(refID, z);
 
     if (refID.indexOf("Lift") > 0) {
@@ -1418,20 +1439,42 @@ function checkVoucherLength(refID) {
 
 function addOtherWork(refID) {
     var dayVal = refID.substr(0,3);
-    var countOW = Number("2" + $("#" + dayVal + "OWCt").text());
-    countOW += 1;
-    var strHTML = '<div class="tinycard bg-teal2"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '"><label for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '"><label for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
+    var countOW = getMissingOW(dayVal);
+    
+    //Exit function if count is 10
+    if (countOW === 31) return;
+    
+    var strHTML = '<div class="tinycard bg-teal2" id="' + dayVal + 'OWDiv' + countOW + '"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'OWTrash' + countOW + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '"><label class="lblBtnFalse" for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '"><label class="lblBtnFalse" for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
     $("#" + refID + "2").before(strHTML);
     $("#" + dayVal + "OWCt").text(countOW);
 }
 
 function addFieldTrip(refID) {
     var dayVal = refID.substr(0,3);
-    var countFT = Number("3" + $("#" + dayVal + "FTCt").text());
-    countFT += 1;
-    var strHTML = '<div class="tinycard bg-teal3"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><label for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
+    var countFT = getMissingFT(dayVal);
+    
+    //Exit function if count is 5
+    if (countFT === 36) return;
+    
+    var strHTML = '<div class="tinycard bg-teal3" id="' + dayVal + 'FTDiv' + countFT + '"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'FTTrash' + countFT + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><label class="lblBtnFalse" for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
     $("#" + refID + "2").before(strHTML);
     $("#" + dayVal + "FTCt").text(countFT);
+}
+
+function getMissingOW(day) {
+    for (var i = 21; i < 31; i++) {
+        if (!$("#" + day + "OWDiv" + i).length) {
+            return i;
+        }
+    }
+}
+
+function getMissingFT(day) {
+    for (var i = 31; i < 36; i++) {
+        if (!$("#" + day + "FTDiv" + i).length) {
+            return i;
+        }
+    }
 }
 
 function addLeave(refID) {

@@ -37,13 +37,13 @@ function clearTimeField (fieldID) {
 function clearOtherField (fieldID) {
     "use strict";
     var day = fieldID.substr(0, 3),
-        num = fieldID.substr(8);
+        num = fieldID.substr(10);
     
     if (day === "Sup") {
         clearOtherFieldSup(fieldID);
         return;
     }
-    if (num === "11" || num === "12" || num === "13") {
+    if (num.substr(0,1) === "3") {
         $("#" + day + "To" + num).val("");
         setStorage(day + "To" + num, "");
         $("#" + day + "From" + num).val("");
@@ -52,14 +52,18 @@ function clearOtherField (fieldID) {
         setStorage(day + "Voucher" + num, "");
         $("#" + day + "Lift" + num).prop("checked", false);
         setStorage(day + "Lift" + num, 0);
-    } else if (num === "8" || num === "9" || num === "10") {
+        $("#" + day + "FTDiv" + num).remove();
+    } else if (num.substr(0,1) === "2") {
         $("#" + day + "Desc" + num).val("");
         setStorage(day + "Desc" + num, "");
         $("#" + day + "Select" + num).val("");
         setStorage(day + "Select" + num, "");
         $("#" + day + "Lift" + num).prop("checked", false);
         setStorage(day + "Lift" + num, 0);
+        $("#" + day + "OJT" + num).prop("checked", false);
+        setStorage(day + "OJT" + num, 0);
         otherWorkTime(day, num, false);
+        $("#" + day + "OWDiv" + num).remove();
     }
 }
 
