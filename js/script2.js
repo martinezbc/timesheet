@@ -1,5 +1,3 @@
-// JavaScript Document
-
 //Declare variables
 var fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -7,9 +5,13 @@ var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
 //******************STARTING TEXTBOX FUNCTIONS******************//
 //Check for overlaps and run calculation
 function textboxUpdate(refID) {
-  
+	"use strict";
+    var b = refID.substr(0, refID.length - 1),
+        c = refID.substr(7,1),
+        d = refID.substr(-1);
+      
     //Check if field is used for pupil time, return if true
-    if (isNaN(refID.substr(7,2)))
+    if (isNaN(refID.substr(7,1)))
         return;
     
     if (refID.indexOf("Sup") > -1) {
@@ -25,11 +27,11 @@ function textboxUpdate(refID) {
     
     getDailyTotals();
     
-    if (refID.substr(7,2) > 19 && refID.substr(7,2) < 30) {
+    if (c > 7 && c < 11) {
 		countOtherWork(refID);
 	}
     
-    if (refID.substr(7,2) > 29 && refID.substr(7,2) < 35) {
+    if (c > 10 && c < 14) {
 		countFieldTrips(refID);
 	}
     setLocalStorage(refID);
@@ -53,13 +55,14 @@ function checkOverlap(refID) {
     day = refID.substr(0,3);
     
     if (day === "Sat" || day === "Sun") {
-        max = 35;
-        i = 20;
+        max = 36;
+        i = 21;
     }
     
     for (i; i < max; i++) {
-        if (i === numVal)
-            i++;
+        if (i === numVal) {
+			i++;
+		}
         
         //If the timefield does not exist then move to next i
         if (!$("#" + day + "Time" + i).length > 0) 
@@ -93,7 +96,7 @@ function checkOverlap(refID) {
     }
     
     //If bln is true then there is an overlap
-    if (bln) {
+    if (bln === true) {
         openPopUp("<p>Overlap error</p>");
         $("#" + refID).val("");
     }
@@ -152,12 +155,11 @@ function calculateDiff(refID) {
 
         timeDiff = endTime - startTime;
         
-        if (num > 29)
+        if (num > 30)
             $("#" + totalID).val(convertTotal(timeDiff));
         else
             $("#" + totalID).val(calculateTotal(timeDiff));
     }
-    //Set value of total into storage
     setStorage(totalID, $("#" + totalID).val());
 }
 
@@ -211,13 +213,13 @@ function setToFixed(refVal) {
 //Regular Run Times
 function dailyRuns(day) {
 	"use strict";
-    var m1 = convertToMinutes($("#" + day + "Time11").val()),
-        m2 = convertToMinutes($("#" + day + "Time12").val()),
-        m3 = convertToMinutes($("#" + day + "Time13").val()),
-        m4 = convertToMinutes($("#" + day + "Time14").val()),
-        m5 = convertToMinutes($("#" + day + "Time15").val()),
-        m6 = convertToMinutes($("#" + day + "Time16").val()),
-        m7 = convertToMinutes($("#" + day + "Time17").val()),
+    var m1 = convertToMinutes($("#" + day + "Time1").val()),
+        m2 = convertToMinutes($("#" + day + "Time2").val()),
+        m3 = convertToMinutes($("#" + day + "Time3").val()),
+        m4 = convertToMinutes($("#" + day + "Time4").val()),
+        m5 = convertToMinutes($("#" + day + "Time5").val()),
+        m6 = convertToMinutes($("#" + day + "Time6").val()),
+        m7 = convertToMinutes($("#" + day + "Time7").val()),
         totalVal = m1 + m2 + m3 + m4 + m5 + m6 + m7;
     totalVal = calculateTotal(totalVal);
     totalVal = (totalVal === "0:00") ? "" : totalVal;
@@ -228,20 +230,17 @@ function dailyRuns(day) {
 //Other Work Times
 function dailyOther(day) {
 	"use strict";
-    //Declare variables and initialize values
-    var sum = 0, selectVal;
-    
-    for (var i = 20; i < 30; i++) {
-        if (!$("#" + day + "Time" + i).length > 0)
-            continue;
-        
-        selectVal = $("#" + day + "Select" + i).val();
-        sum += (selectVal !== "CBK" && selectVal !== "ES0" && selectVal !== "ES2") ? convertToMinutes($("#" + day + "Time" + i).val()) : 0;
-    }
-    sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
-    $("#" + day + "OtherTotal").val(sum);
-    setStorage(day + "OtherTotal", sum);
+    var s1 = $("#" + day + "Select8").val(),
+        s2 = $("#" + day + "Select9").val(),
+        s3 = $("#" + day + "Select10").val();
+    var m1 = (s1 !== "CBK" && s1 !== "ES0" && s1 !== "ES2") ? convertToMinutes($("#" + day + "Time8").val()) : 0, //if C1 or C3 do not add to total
+        m2 = (s2 !== "CBK" && s2 !== "ES0" && s2 !== "ES2") ? convertToMinutes($("#" + day + "Time9").val()) : 0,
+        m3 = (s3 !== "CBK" && s3 !== "ES0" && s3 !== "ES2") ? convertToMinutes($("#" + day + "Time10").val()) : 0,
+        r = m1 + m2 + m3,
+        x = calculateTotal(r);
+    x = (x === "0:00") ? "" : x;
+    $("#" + day + "OtherTotal").val(x);
+    setStorage(day + "OtherTotal", x);
 }
 
 //Total up Specialty Pay
@@ -250,121 +249,118 @@ function sumCPay() {
     var c1 = 0,
         c3 = 0,
         i = 0,
-        j = 20,
-        sum = 0,
-        selectVal;
-    
-    for (i; i < 7; i++) {
-        for (j; j < 30; j++) {
-            if (!$("#" + days[i] + "Time" + j).length > 0)
-                continue;
+        j = 0,
+        sum = 0;
 
-            selectVal = $("#" + days[i] + "Select" + j).val();
-            c1 += (selectVal === "CBK") ? 240 : 0;
-            c3 += (selectVal === "ES0") ? convertToMinutes($("#" + days[i] + "Time" + j).val()) : 0;
-            c3 += (selectVal === "ES2") ? convertToMinutes($("#" + days[i] + "Time" + j).val()) + 120 : 0;
-            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes($("#" + days[i] + "Time" + j).val()) : 0;
+    for (i = 0; i < 7; i++) {
+        for (j = 8; j < 11; j++) {
+            if ($("#" + days[i] + "Select" + j).val() === "CBK") {
+                c1 = c1 + 240;
+                sum = sum + convertToMinutes($("#" + days[i] + "Time" + j).val());
+            }
         }
     }
-
     c1 = (c1 === 0) ? "" : convertTotal(c1);
     setStorage("TotalC1", c1);
     $("#TotalC1").val(c1);
 
+    for (i = 0; i < 7; i++) {
+        for (j = 8; j < 11; j++) {
+            if ($("#" + days[i] + "Select" + j).val() === "ES0") {
+                c3 = c3 + convertToMinutes($("#" + days[i] + "Time" + j).val());
+                sum = sum + convertToMinutes($("#" + days[i] + "Time" + j).val());
+            }
+        }
+    }
+
+    for (i = 0; i < 7; i++) {
+        for (j = 8; j < 11; j++) {
+            if ($("#" + days[i] + "Select" + j).val() === "ES2") {
+                c3 = c3 + convertToMinutes($("#" + days[i] + "Time" + j).val()) + 120;
+                sum = sum + convertToMinutes($("#" + days[i] + "Time" + j).val());
+            }
+        }
+    }
     sum = convertTotal(sum);
     setStorage("TotalHW", sum);
     $("#TotalHW").val(sum);
-    
     c3 = (c3 === 0) ? "" : convertTotal(c3);
     setStorage("TotalC3", c3);
     $("#TotalC3").val(c3);
 }
 
 //Field Trip Times
-function dailyFT(day) {
-    "use strict";
-    //Declare variables and initialize values
-    var sum = 0;
-    
-    for (var i = 30; i < 35; i++) {
-        if (!$("#" + day + "Time" + i).length > 0)
-            continue;
-        
-        sum += Number($("#" + day + "Time" + i).val());
-    }
-    sum = setToFixed(sum);
-    $("#" + day + "FTTotal").val(sum);
-    setStorage(day + "FTTotal", sum);
+function dailyFT(d) {
+	"use strict";
+    var r = Number($("#" + d + "Time11").val()) + Number($("#" + d + "Time12").val()) + Number($("#" + d + "Time13").val());
+    r = setToFixed(r);
+    $("#" + d + "FTTotal").val(r);
+    setStorage(d + "FTTotal", r);
 }
 
 //Lift Time
-function dailyLift(day) {
+function dailyLift(d) {
 	"use strict";
-    var sum = 0,
+    var r = 0,
 		i = 0;
-    
-    //If EQ/L is checked, total up run, pac, shuttles, late run time
-    if ($("#" + day + "Lift1").is(":checked")) {
-        for (i = 11; i < 18; i++) {
-            sum += convertToMinutes($("#" + day + "Time" + i).val());
+    //If Lift 1 is checked, total up run, pac, shuttles, late run time
+    if ($("#" + d + "Lift1").is(":checked")) {
+        for (i = 1; i < 8; i++) {
+            r = r + convertToMinutes($("#" + d + "Time" + i).val());
         }
     }
-    //If Other Work EQ/L is checked, add the time
-    for (i = 20; i < 30; i++) {
-        if (!$("#" + day + "Time" + i).length > 0)
-            continue;
-        
-        if ($("#" + day + "Lift" + i).is(":checked")) 
-            sum += convertToMinutes($("#" + day + "Time" + i).val());
+    //If Lift 8 - 10 (Other Work) is checked, add the time to r
+    for (i = 8; i < 11; i++) {
+        if ($("#" + d + "Lift" + i).is(":checked")) {
+            r = r + convertToMinutes($("#" + d + "Time" + i).val());
+        }
     }
     
-    //If EQ/L is checked for field trips, add time
-    for (i = 30; i < 35; i++) {
-        if (!$("#" + day + "Time" + i).length > 0)
-            continue;
-        
-        if ($("#" + day + "Lift" + i).is(":checked")) 
-            sum += (Number($("#" + day + "Time" + i).val()) * 60);
+    //If lift is checked for field trips, add time to r
+    for (i = 11; i < 14; i++) {
+        if ($("#" + d + "Lift" + i).is(":checked")) {
+            r = r + (Number($("#" + d + "Time" + i).val()) * 60);
+        }
     }
-    sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
-    $("#" + day + "LiftTotal").val(sum);
-    setStorage(day + "LiftTotal", sum);
+    var x = calculateTotal(r);
+    x = (x === "0:00") ? "" : x;
+    $("#" + d + "LiftTotal").val(x);
+    setStorage(d + "LiftTotal", x);
 }
 
 //Daily leave checkboxes
-function checkLeaveToggle (refID) {
+function checkLeaveToggle (x) {
 	"use strict";
-    var day = refID.substr(0, 3);
-    checkAllDayLeave(day);
+    var y = x.substr(0, 3);
+    checkAllDayLeave(y);
 }
 
 //Toggle lift checkboxes on/off, set them in storage and run totals
-function checkRunTimeLift(refID) {
+function checkRunTimeLift(x) {
 	"use strict";
     var blnmatch = false,
 		bln = false,
-		day = x.substr(0, 3),
+		y = x.substr(0, 3),
 		i = 0,
-		array = [day + "Lift11", day + "Lift12", day + "Lift13", day + "Lift14", day + "Lift15", day + "Lift16", day + "Lift17"];
+		array = [y + "Lift1", y + "Lift2", y + "Lift3", y + "Lift4", y + "Lift5", y + "Lift6", y + "Lift7"];
 
     for (i; i < 7; i++) {
-        if (array[i] === refID) {
-            bln = ($("#" + refID).prop("checked")) ? true : false;
+        if (array[i] === x) {
+            bln = ($("#" + x).prop("checked") === true) ? true : false;
             blnmatch = true;
         }
     }
-    if (blnmatch) {
+    if (blnmatch === true) {
         for (i = 0; i < 7; i++) {
             $("#" + array[i]).prop("checked", bln);
-            setStorage(array[i], (bln) ? "1" : "0");
+            setStorage(array[i], (bln === true) ? "1" : "0");
         }
     } else {
-        bln = ($("#" + refID).prop("checked")) ? true : false;
-        setStorage(refID, (bln) ? "1" : "0");
+        bln = ($("#" + x).prop("checked") === true) ? true : false;
+        setStorage(x, (bln === true) ? "1" : "0");
     }
 
-    dailyLift(day);
+    dailyLift(y);
     getWeeklyTotals();
 }
 
@@ -415,6 +411,26 @@ function moveLeftNavBar() {
     }
 }
 
+function checkSpanVal (day) {
+	"use strict";
+    var bln = false,
+        elemID = "",
+        spanArray = ["SpanLV", "SpanOW8", "SpanOW9", "SpanOW10", "SpanFT11", "SpanFT12", "SpanFT13"];
+    
+    for (var i = 0; i < 7; i++) {
+        elemID = day + spanArray[i];
+        bln = spanToggleTextVal(elemID);
+        
+        if (bln === true) {
+            $("." + elemID).css("display", "flex");
+            $("#" + elemID).addClass("fa-angle-up").removeClass("fa-angle-down");
+        } else {
+            $("." + elemID).css("display", "none");
+            $("#" + elemID).addClass("fa-angle-down").removeClass("fa-angle-up");
+        }
+    }
+}
+
 function togglePupilCounts (day, intDay) {
     var i = 0,
         j = 0,
@@ -445,16 +461,16 @@ function togglePupilCounts (day, intDay) {
             });
         }
         for (j = 1; j < 6; j++) {
-            $("#" + days[i] + "AM" + j + "Ct").css("display", (bln) ? "flex" : "none");
-            $("#" + days[i] + "PM" + j + "Ct").css("display", (bln) ? "flex" : "none");
+            $("#" + days[i] + "AM" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
+            $("#" + days[i] + "PM" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
         }
         for (j = 1; j < 3; j++) {
-            $("#" + days[i] + "PS" + j + "Ct").css("display", (bln) ? "flex" : "none");
-            $("#" + days[i] + "SH" + j + "Ct").css("display", (bln) ? "flex" : "none");
-            $("#" + days[i] + "LR" + j + "Ct").css("display", (bln) ? "flex" : "none");
+            $("#" + days[i] + "PS" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
+            $("#" + days[i] + "SH" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
+            $("#" + days[i] + "LR" + j + "Ct").css("display", (bln === true) ? "flex" : "none");
         }
-        $("#" + days[i] + "TimeAM").css("display", (bln) ? "flex" : "none");
-        $("#" + days[i] + "TimePM").css("display", (bln) ? "flex" : "none");
+        $("#" + days[i] + "TimeAM").css("display", (bln === true) ? "flex" : "none");
+        $("#" + days[i] + "TimePM").css("display", (bln === true) ? "flex" : "none");
     }
     
 }
@@ -466,16 +482,19 @@ function toggleDay(x) {
     var obj = "";
     if (x > 0 && x < 6) {
         $("#" + fullday[x]).show();
+        checkSpanVal(days[x]);
         $("#prev").text(days[x - 1] + "-" + getStorage(days[x - 1] + "Date"));
         $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
         $("#next").text(days[x + 1] + "-" + getStorage(days[x + 1] + "Date"));
     } else if (x === 0) {
         $("#" + fullday[x]).show();
+        checkSpanVal(days[x]);
         $("#prev").text(days[x + 6] + "-" + getStorage(days[x + 6] + "Date"));
         $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
         $("#next").text(days[x + 1] + "-" + getStorage(days[x + 1] + "Date"));
     } else if (x === 6) {
         $("#" + fullday[x]).show();
+        checkSpanVal(days[x]);
         $("#prev").text(days[x - 1] + "-" + getStorage(days[x - 1] + "Date"));
         $("#today").text(days[x] + "-" + getStorage(days[x] + "Date"));
         $("#next").text(days[x - 6] + "-" + getStorage(days[x - 6] + "Date"));
@@ -484,7 +503,9 @@ function toggleDay(x) {
 }
 
 function getDailyTotals() {
-    for (var i = 0; i < 7; i++) {
+    var i = 0;
+    
+    for (i; i < 7; i++) {
         dailyRuns(days[i]);
         dailyOther(days[i]);
         dailyFT(days[i]);
@@ -494,76 +515,93 @@ function getDailyTotals() {
 
 //Run calculations for the whole week and set the values into local storage
 function getWeeklyTotals() {
-    //Declare variables and initialize the values
-    var i = 0, sum = 0, j = 0;
+    "use strict";
+	sumCPay();
     
     //Clear Hours worked
     $("#TotalHW").val("");
     setStorage("TotalHW", "");
     sumCPay();
 
-    for (i = 2; i < 7; i++) {
-        sum += convertToMinutes(getStorage(days[i] + "RunTotal"));
-    }
-    sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
-    setStorage("TotalRun", sum);
-    $("#TotalRun").val(sum);
+    var a, b, c, d, e, f, g, t;
+    a = convertToMinutes(getStorage("MonRunTotal"));
+    b = convertToMinutes(getStorage("TueRunTotal"));
+    c = convertToMinutes(getStorage("WedRunTotal"));
+    d = convertToMinutes(getStorage("ThuRunTotal"));
+    e = convertToMinutes(getStorage("FriRunTotal"));
+    t = calculateTotal(a + b + c + d + e);
+    t = (t === "0:00") ? "" : t;
+    setStorage("TotalRun", t);
+    $("#TotalRun").val(t);
 
-    sum = 0;
-    for (i = 0; i < 7; i++) {
-        sum += convertToMinutes(getStorage(days[i] + "OtherTotal"));
-    }
-    sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
-    setStorage("TotalOther", sum);
-    $("#TotalOther").val(sum);
-    
-    sum = 0;
-    for (i = 0; i < 7; i++) {
-        sum += Number(getStorage(days[i] + "FTTotal"));
-    }
-    sum = setToFixed(sum);
-    setStorage("TotalFT", sum);
-    $("#TotalFT").val(sum);
+    a = convertToMinutes(getStorage("MonOtherTotal"));
+    b = convertToMinutes(getStorage("TueOtherTotal"));
+    c = convertToMinutes(getStorage("WedOtherTotal"));
+    d = convertToMinutes(getStorage("ThuOtherTotal"));
+    e = convertToMinutes(getStorage("FriOtherTotal"));
+    f = convertToMinutes(getStorage("SatOtherTotal"));
+    g = convertToMinutes(getStorage("SunOtherTotal"));
+    t = calculateTotal(a + b + c + d + e + f + g);
+    t = (t === "0:00") ? "" : t;
+    setStorage("TotalOther", t);
+    $("#TotalOther").val(t);
 
-    
-    sum = convertToMinutes(getStorage("TotalRun")) + convertToMinutes(getStorage("TotalOther"));
-    sum = Number(convertTotal(sum));
-    sum += Number(getStorage("TotalFT"));
-    sum += Number($("#TotalHW").val());
-    sum = setToFixed(sum);
-    setStorage("TotalHW", sum);
-    $("#TotalHW").val(sum);
+    a = Number(getStorage("MonFTTotal"));
+    b = Number(getStorage("TueFTTotal"));
+    c = Number(getStorage("WedFTTotal"));
+    d = Number(getStorage("ThuFTTotal"));
+    e = Number(getStorage("FriFTTotal"));
+    f = Number(getStorage("SatFTTotal"));
+    g = Number(getStorage("SunFTTotal"));
+    t = a + b + c + d + e + f + g;
+    t = setToFixed(t);
+    setStorage("TotalFT", t);
+    $("#TotalFT").val(t);
 
-    sum = 0;
-    for (i = 0; i < 7; i++) {
-        sum += convertToMinutes(getStorage(days[i] + "LiftTotal"));
-    }
-    sum = convertTotal(sum);
-    setStorage("TotalS2", sum);
-    $("#TotalS2").val(sum);
+    a = convertToMinutes(getStorage("TotalRun"));
+    b = convertToMinutes(getStorage("TotalOther"));
+    t = a + b;
+    t = Number(convertTotal(t));
+    c = Number(getStorage("TotalFT"));
+    t = t + c;
+    t = t + Number($("#TotalHW").val());
+    t = setToFixed(t);
+    setStorage("TotalHW", t);
+    $("#TotalHW").val(t);
 
-    sum = convertToMinutes(getStorage("TotalRun")) + convertToMinutes(getStorage("TotalOther"));
-    sum = convertTotal(sum);
-    setStorage("Total1R", sum);
-    $("#Total1R").val(sum);
+    a = convertToMinutes(getStorage("MonLiftTotal"));
+    b = convertToMinutes(getStorage("TueLiftTotal"));
+    c = convertToMinutes(getStorage("WedLiftTotal"));
+    d = convertToMinutes(getStorage("ThuLiftTotal"));
+    e = convertToMinutes(getStorage("FriLiftTotal"));
+    f = convertToMinutes(getStorage("SatLiftTotal"));
+    g = convertToMinutes(getStorage("SunLiftTotal"));
+    t = a + b + c + d + e + f + g;
+    t = convertTotal(t);
+    setStorage("TotalS2", t);
+    $("#TotalS2").val(t);
 
-    sum = 0;
-    //If OJT Trainer is not checked then exit function
-    if (!$("#OJT").prop("checked")) 
-        return;
-    
-    for (i = 2; i < 7; i++) {
-        for (j = 11; j < 30; j++) {
-            if (!$("#" + days[i] + "Time" + j).length > 0)
-                continue;
+    a = convertToMinutes(getStorage("TotalRun"));
+    b = convertToMinutes(getStorage("TotalOther"));
+    t = convertTotal(a + b);
+    setStorage("Total1R", t);
+    $("#Total1R").val(t);
 
-            if ($("#" + days[i] + "OJT" + j).prop("checked"))
-                sum += convertToMinutes($("#" + days[i] + "Time" + j).val());
+    if ($("#OJT").prop("checked") === true) {
+        var i = 0,
+            j = 0;
+        t = 0;
+        for (i = 2; i < 7; i++) {
+            for (j = 1; j < 11; j++) {
+                if (getStorage(days[i] + "OJT" + j) === "1") {
+                    t = t + convertToMinutes($("#" + days[i] + "Time" + j).val());
+                }
+            }
         }
+    } else {
+        t = 0;
     }
-    sum = convertTotal(sum);
-    setStorage("TotalS4", sum);
-    $("#TotalS4").val(sum);
+    t = convertTotal(t);
+    setStorage("TotalS4", t);
+    $("#TotalS4").val(t);
 }

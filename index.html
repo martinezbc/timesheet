@@ -1065,18 +1065,20 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="tinycard bg-gold">
+            <div class="row addLV" id="MonLVAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="tinycard bg-gold hide" id="MonLeave40">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <p class="category">Leave</p>
                     </div>
-                    <div class="col-1"><span class="fas fa-angle-up spanToggle" id="MonSpanLV"></span></div>
                 </div>
-                <div class="row MonSpanLV">
+                <div class="row">
                     <div class="col-4">
-                        <p>All Day<input type="checkbox" id="MonLeaveAD"></p>
+                        <input type="checkbox" id="MonLeaveAD"><label for="MonLeaveAD">ALL DAY</label>
                     </div>
-                    <div class="col-7">
+                    <div class="col-8">
                         <select id="MonLeaveSelectAD">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
@@ -1088,17 +1090,15 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1">
-                        <span class="fas fa-times" id="MonClearLVAD"></span>
-                    </div>
                 </div>
-                <div class="row MonSpanLV"><span class="bar"></span></div>
-                <div class="row MonLV MonSpanLV">
+            </div>
+            <div class="tinycard bg-gold hide" id="MonLeave41">
+                <div class="row">
                     <div class="col-4">
-                        <p>Morning</p>
+                        <p class="category">Leave</p>
                     </div>
-                    <div class="col-7">
-                        <select id="MonLeaveSelect14">
+                    <div class="col-8">
+                        <select id="MonLeaveSelect41">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1109,20 +1109,23 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearLV14"></span></div>
                 </div>
-                <div class="row MonLV MonSpanLV">
-                    <input name="MonTime14S" id="MonTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime14E" id="MonTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime14" id="MonTime14" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row MonSpanLV"><span class="bar"></span></div>
-                <div class="row MonLV MonSpanLV">
-                    <div class="col-4">
-                        <p>Afternoon</p>
+                <div class="row MonLV">
+                    <div class="col-11">
+                        <input name="MonTime41S" id="MonTime41S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime41E" id="MonTime41E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime41" id="MonTime41" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-7">
-                        <select id="MonLeaveSelect15">
+                    <div class="col-1"><span class="fas fa-times" id="MonClearLV41"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-gold hide" id="MonLeave42">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-8">
+                        <select id="MonLeaveSelect42">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1133,407 +1136,177 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearLV15"></span></div>
+
                 </div>
-                <div class="row MonLV MonSpanLV">
-                    <input name="MonTime15S" id="MonTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime15E" id="MonTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="MonTime15" id="MonTime15" type="text" class="total-time nofocus" disabled>
+                <div class="row MonLV">
+                    <div class="col-11">
+                        <input name="MonTime42S" id="MonTime42S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime42E" id="MonTime42E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime42" id="MonTime42" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearLV42"></span></div>
                 </div>
             </div>
             <hr>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Morning Runs</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT1"><input type="checkbox" id="MonOJT1">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift1"><input type="checkbox" id="MonLift1">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT11">
+                        <label for="MonOJT11">OJT</label>
+                        <input type="checkbox" id="MonLift11" class="eqpt">
+                        <label for="MonLift11">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime1S" id="MonTime1S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime1E" id="MonTime1E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime1" id="MonTime1" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime11S" id="MonTime11S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime11E" id="MonTime11E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime11" id="MonTime11" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG1"></span></div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="MonClearRG11"></span>
+                    </div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Afternoon Runs</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT2"><input type="checkbox" id="MonOJT2">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift2"><input type="checkbox" id="MonLift2">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT12">
+                        <label for="MonOJT12">OJT</label>
+                        <input type="checkbox" id="MonLift12" class="eqpt">
+                        <label for="MonLift12">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime2S" id="MonTime2S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime2E" id="MonTime2E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime2" id="MonTime2" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime12S" id="MonTime12S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime12E" id="MonTime12E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime12" id="MonTime12" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG2"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG12"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT3"><input type="checkbox" id="MonOJT3">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift3"><input type="checkbox" id="MonLift3">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT13">
+                        <label for="MonOJT13">OJT</label>
+                        <input type="checkbox" id="MonLift13" class="eqpt">
+                        <label for="MonLift13">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime3S" id="MonTime3S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime3E" id="MonTime3E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime3" id="MonTime3" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime13S" id="MonTime13S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime13E" id="MonTime13E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime13" id="MonTime13" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG3"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG13"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT4"><input type="checkbox" id="MonOJT4">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift4"><input type="checkbox" id="MonLift4">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT14">
+                        <label for="MonOJT14">OJT</label>
+                        <input type="checkbox" id="MonLift14" class="eqpt">
+                        <label for="MonLift14">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime4S" id="MonTime4S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime4E" id="MonTime4E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime4" id="MonTime4" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime14S" id="MonTime14S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime14E" id="MonTime14E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime14" id="MonTime14" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG4"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG14"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT5"><input type="checkbox" id="MonOJT5">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift5"><input type="checkbox" id="MonLift5">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT15">
+                        <label for="MonOJT15">OJT</label>
+                        <input type="checkbox" id="MonLift15" class="eqpt">
+                        <label for="MonLift15">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime5S" id="MonTime5S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime5E" id="MonTime5E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime5" id="MonTime5" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime15S" id="MonTime15S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime15E" id="MonTime15E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime15" id="MonTime15" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG5"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG15"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT6"><input type="checkbox" id="MonOJT6">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift6"><input type="checkbox" id="MonLift6">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT16">
+                        <label for="MonOJT16">OJT</label>
+                        <input type="checkbox" id="MonLift16" class="eqpt">
+                        <label for="MonLift16">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime6S" id="MonTime6S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime6E" id="MonTime6E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime6" id="MonTime6" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime16S" id="MonTime16S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime16E" id="MonTime16E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime16" id="MonTime16" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG6"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG16"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row MonLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Late Run</p>
                     </div>
-                    <div class="col-2"><label for="MonOJT7"><input type="checkbox" id="MonOJT7">OJT</label></div>
-                    <div class="col-3 center"><label for="MonLift7"><input type="checkbox" id="MonLift7">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="MonOJT17">
+                        <label for="MonOJT17">OJT</label>
+                        <input type="checkbox" id="MonLift17" class="eqpt">
+                        <label for="MonLift17">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row MonLV">
                     <div class="col-11">
-                        <input name="MonTime7S" id="MonTime7S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime7E" id="MonTime7E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTime7" id="MonTime7" type="text" class="total-time nofocus" disabled>
+                        <input name="MonTime17S" id="MonTime17S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime17E" id="MonTime17E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="MonTime17" id="MonTime17" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearRG7"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="MonClearRG17"></span></div>
                 </div>
             </div>
             <hr>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanOW8"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanOW8">
-                    <div class="col-auto">
-                        <label for="MonLift8"><input type="checkbox" id="MonLift8">EQ/L</label>
-                    </div>
-                    <div class="col-auto">
-                        <label for="MonOJT8"><input type="checkbox" id="MonOJT8">OJT</label>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanOW8">
-                    <div class="col-11">
-                        <select id="MonSelect8" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanOW8"></span></div>
-                </div>
-                <div class="row MonLV MonSpanOW8">
-                    <input name="MonDesc8" id="MonDesc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row MonLV MonSpanOW8">
-                    <div class="col-11">
-                        <input type="text" name="MonTime8S" id="MonTime8S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime8E" id="MonTime8E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime8" id="MonTime8" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearOW8"></span></div>
-                </div>
+            <div class="row addOW" id="MonOWAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
             </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanOW9"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanOW9">
-                    <label for="MonLift9"><input type="checkbox" id="MonLift9">EQ/L</label>&nbsp;&nbsp;
-                    <label for="MonOJT9"><input type="checkbox" id="MonOJT9">OJT</label>
-                </div>
-                <div class="row MonLV MonSpanOW9">
-                    <div class="col-11">
-                        <select id="MonSelect9" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanOW9"></span></div>
-                </div>
-                <div class="row MonLV MonSpanOW9">
-                    <input name="MonDesc9" id="MonDesc9" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row MonLV MonSpanOW9">
-                    <div class="col-11">
-                        <input type="text" name="MonTime9S" id="MonTime9S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime9E" id="MonTime9E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime9" id="MonTime9" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearOW9"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanOW10"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanOW10">
-                    <label for="MonLift10"><input type="checkbox" id="MonLift10">EQ/L</label>&nbsp;&nbsp;
-                    <label for="MonOJT10"><input type="checkbox" id="MonOJT10">OJT</label>
-                </div>
-                <div class="row MonLV MonSpanOW10">
-                    <div class="col-11">
-                        <select id="MonSelect10" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanOW10"></span></div>
-                </div>
-                <div class="row MonLV MonSpanOW10">
-                    <input name="MonDesc10" id="MonDesc10" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row MonLV MonSpanOW10">
-                    <div class="col-11">
-                        <input type="text" name="MonTime10S" id="MonTime10S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime10E" id="MonTime10E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime10" id="MonTime10" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearOW10"></span></div>
-                </div>
-            </div>
+            <div class="row" id="MonOWAdd2"></div>
             <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanFT11"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT11">
-                    <div class="col-4">
-                        <label for="MonLift11"><input type="checkbox" id="MonLift11">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="MonVoucher11" id="MonVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanFT11"></span></div>
-                </div>
-                <div class="row MonLV MonSpanFT11">
-                    <div class="col-12">
-                        <input name="MonFrom11" id="MonFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT11">
-                    <div class="col-12">
-                        <input name="MonTo11" id="MonTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT11">
-                    <div class="col-11">
-                        <input type="text" name="MonTime11S" id="MonTime11S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime11E" id="MonTime11E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime11" id="MonTime11" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearFT11"></span></div>
-                </div>
+            <div class="row addFT" id="MonFTAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
             </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanFT12"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT12">
-                    <div class="col-4">
-                        <label for="MonLift12"><input type="checkbox" id="MonLift12">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="MonVoucher12" id="MonVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanFT12"></span></div>
-                </div>
-                <div class="row MonLV MonSpanFT12">
-                    <div class="col-12">
-                        <input name="MonFrom12" id="MonFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT12">
-                    <div class="col-12">
-                        <input name="MonTo12" id="MonTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT12">
-                    <div class="col-11">
-                        <input type="text" name="MonTime12S" id="MonTime12S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime12E" id="MonTime12E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime12" id="MonTime12" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearFT12"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="MonSpanFT13"></span>
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT13">
-                    <div class="col-4">
-                        <label for="MonLift13"><input type="checkbox" id="MonLift13">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="MonVoucher13" id="MonVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="MonBanFT13"></span></div>
-                </div>
-                <div class="row MonLV MonSpanFT13">
-                    <div class="col-12">
-                        <input name="MonFrom13" id="MonFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT13">
-                    <div class="col-12">
-                        <input name="MonTo13" id="MonTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row MonLV MonSpanFT13">
-                    <div class="col-11">
-                        <input type="text" name="MonTime13S" id="MonTime13S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime13E" id="MonTime13E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="MonTime13" id="MonTime13" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearFT13"></span></div>
-                </div>
-            </div>
+            <div class="row" id="MonFTAdd2"></div>
         </div>
         <div id="Tuesday" class="card hide">
             <div class="row">
@@ -1799,16 +1572,12 @@
             <div class="row addOW" id="TueOWAdd">
                 <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
             </div>
-            <div class="row" id="TueOWAdd2">
-                <span class="hide" id="TueOWCt">0</span>
-            </div>
+            <div class="row" id="TueOWAdd2"></div>
             <hr>
             <div class="row addFT" id="TueFTAdd">
                 <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
             </div>
-            <div class="row" id="TueFTAdd2">
-                <span class="hide" id="TueFTCt">0</span>
-            </div>
+            <div class="row" id="TueFTAdd2"></div>
         </div>
         <div id="Wednesday" class="card hide">
             <div class="row">
@@ -2073,49 +1842,8 @@
             <hr>
             <div class="row addOW" id="WedOWAdd">
                 <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
-            </div>
-            <div class="tinycard bg-teal2" id="WedOWDiv21">
-                <div class="row">
-                    <div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div>
-                    <div class="col-1 center"><span class="fas fa-trash-alt" id="WedOWTrash21" onclick="clearOtherField(this.id);"></span></div>
-                </div>
-                <div class="row WedLV">
-                    <div class="col-auto"><input type="checkbox" id="WedOJT21" onclick=""><label for="WedOJT21">OJT</label>&nbsp;<input type="checkbox" id="WedLift21" onclick=""><label for="WedLift21">EQ/L</label></div>
-                </div>
-                <div class="row WedLV">
-                    <div class="col-12"><select id="WedSelect21" class="selectwidth" onchange="">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row WedLV">
-                    <input name="WedDesc21" id="WedDesc21" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..." onblur="setStorage(this.id, $(this).val());">
-                </div>
-                <div class="row WedLV">
-                    <div class="col-11">
-                        <input type="text" name="WedTime21S" id="WedTime21S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">
-                        <input type="text" name="WedTime21E" id="WedTime21E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">
-                        <input type="text" name="WedTime21" id="WedTime21" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearOW21"></span></div>
-                </div>
-            </div>
-            
+            </div> 
+            <div class="row" id="WedOWAdd2"></div>           
             <hr>
             <div class="row addFT" id="WedFTAdd">
                 <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>

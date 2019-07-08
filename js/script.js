@@ -1,21 +1,69 @@
 //ALL ON WINDOW READY FUNCTIONS
-$(window).ready(function () {
-    $(document).ready(function () {
-        //LOAD DATE RANGES INTO RADIO BUTTONS AND DISPLAY
-        loadDateRange();
+$(document).ready(function () {
+    //LOAD DATE RANGES INTO RADIO BUTTONS AND DISPLAY
+    loadDateRange();
 
-        //ADD THE FIELD TRIP SELECTOR FROM FIELDTRIPS.JS
-        insertFTSelect();
+    //ADD THE FIELD TRIP SELECTOR FROM FIELDTRIPS.JS
+    insertFTSelect();
 
-        loadLocalStorage();
+    loadLocalStorage();
 
-        loadTeamValues(getStorage("Area"));
-        loadRadioSelection();
-        checkOJTData();
-        checkDailyLeave();
-        positionChange();
-//        checkOtherWorkVal();
-        checkRouteValue();
+    loadTeamValues(getStorage("Area"));
+    loadRadioSelection();
+    checkOJTData();
+    checkDailyLeave();
+    positionChange();
+//    checkOtherWorkVal();
+    checkRouteValue();
+    
+    $("#closeTime").click(function () {
+        $("#" + activeID).prop("disabled", false);
+        showHideModal("timeModal", "none");
+    });
+    
+    $("#goTime").click(function () {
+        var timeText = $("#hours").text() + ":" + $("#minutes").text() + " " + $("#meridiem").text();
+        $("#" + activeID).val(timeText).prop("disabled", false);
+        showHideModal("timeModal", "none");
+        textboxUpdate(activeID);
+    });
+
+    $(".up, .down, .up2, .down2").click(function () {
+        timeSelectors(this.id);
+    });
+
+    $("#goFT").click(function () {
+        var ftText = "";
+        if ($("#ftselector").val() !== null) {
+            ftText = $("#ftselector").val();
+        } else {
+            ftText = $("#fttype").val();
+        }
+        ftText = ftText.substr(0, 30);
+        $("#" + activeID).val(ftText).prop("disabled", false);
+        setStorage(activeID, ftText);
+        showHideModal("ftModal", "none");
+    });
+
+    $("#closeFT").click(function () {
+        $("#" + activeID).prop("disabled", false);
+        showHideModal("ftModal", "none");
+    });
+
+    $("#endVarious").click(function () {
+        showHideModal("variousModal", "none");
+    });
+
+    $(".ow").click(function () {
+        openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
+    });
+
+    $(".ft").click(function () {
+        openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>", "");
+    });
+
+    $(".ct").click(function () {
+        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
     });
 });
 
@@ -312,6 +360,7 @@ function toggleADLeave(day) {
     });
 }
 
+//IF POSITION CHANGES TO ACTIVITY DRIVER THEN REMOVE PUPILCOUNT SECTION
 function positionChange() {
     var bln = (x === "Activity Driver") ? false : true;
     if (!bln) {
@@ -321,4 +370,58 @@ function positionChange() {
         $("#PupilCounts").show();
     }
     checkRouteValue();
+}
+
+
+//CHECK NUMBER OF OTHER WORK ENTRIES, IF MORE THAN 10 THEN GIVE POP UP ERROR MESSAGE
+function countOtherWork(refID) {
+    var j = 0,
+        i = 0,
+        num = 20;
+
+    //Loop through each day of the week
+    for (i = 0; i < 7; i++) {
+        for (num; num < 30; num++) {
+            if (!$("#" + days[i] + "Select" + num).length > 0)
+                continue;
+            
+            if ($("#" + days[i] + "Select" + num).val() !== "")
+                j++;
+        }
+    }
+    //Result of j value
+    if (j > 10) {
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>", "");
+        $("#" + refID).val("");
+        textboxUpdate(refID);
+    }
+}
+
+//CHECK NUMBER OF FIELD TRIP ENTRIES, IF MORE THAN 5 THEN GIVE POP UP ERROR MESSAGE
+function countFieldTrips(refID) {
+    var j = 0,
+        i = 0,
+        num = 30;
+
+    //Loop through each day of the week
+    for (i = 0; i < 7; i++) {
+        for (num; num < 35; num++) {
+            if (!$("#" + days[i] + "Voucher" + num).length > 0)
+                continue;
+            
+            if ($("#" + days[i] + "Voucher" + num).val() !== "")
+                j++;
+        }
+    }
+    //Result of j value
+    if (j > 5) {
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>", "");
+        $("#" + refID).val("");
+        textboxUpdate(refID);
+    }
+}
+
+//TOGGLE MODAL USING ELEMENT ID AND STYLE PARAMETER
+function showHideModal(refID, strStyle) {
+    $("#" + refID).css("display", strStyle);
 }
