@@ -304,7 +304,7 @@ function dailyLift(day) {
 		i = 0;
     
     //If EQ/L is checked, total up run, pac, shuttles, late run time
-    if ($("#" + day + "Lift1").is(":checked")) {
+    if ($("#" + day + "Lift11").is(":checked")) {
         for (i = 11; i < 18; i++) {
             sum += convertToMinutes($("#" + day + "Time" + i).val());
         }
@@ -340,11 +340,11 @@ function checkLeaveToggle (refID) {
 }
 
 //Toggle lift checkboxes on/off, set them in storage and run totals
-function checkRunTimeLift(refID) {
+function checkboxEQL(refID) {
 	"use strict";
     var blnmatch = false,
 		bln = false,
-		day = x.substr(0, 3),
+		day = refID.substr(0, 3),
 		i = 0,
 		array = [day + "Lift11", day + "Lift12", day + "Lift13", day + "Lift14", day + "Lift15", day + "Lift16", day + "Lift17"];
 
@@ -352,6 +352,7 @@ function checkRunTimeLift(refID) {
         if (array[i] === refID) {
             bln = ($("#" + refID).prop("checked")) ? true : false;
             blnmatch = true;
+            break;
         }
     }
     if (blnmatch) {
