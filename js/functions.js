@@ -1,7 +1,5 @@
 //WEBSITE INTERACTION SCRIPT
-
-//ALL ON WINDOW READY FUNCTIONS
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function() {
     //LOAD DATE RANGES INTO RADIO BUTTONS AND DISPLAY
     loadDateRange();
 
@@ -18,64 +16,74 @@ $(document).ready(function () {
     positionChange();
     checkOtherWorkVal();
     checkRouteValue();
+}, false);
 
-    $("input[type='checkbox']").click(function () {
-        checkboxFunctions(this.id);
-    });
+document.querySelector("input[type=checkbox]").addEventListener("click", function() {
+    checkboxFunctions(document.activeElement);
+});
 
-    $("input[type='text'], input[type='number']").change(function () {
-        inputOnChange(this.id);
-    });
+document.querySelector("input[type=text]").addEventListener("change", function () {
+    inputOnChange(document.activeElement);
+});
 
-    $("input[type=radio]").click(function () {
-        radioOnClick(this.id);
-    });
+document.querySelector("input[type=number]").addEventListener("change", function () {
+    inputOnChange(document.activeElement);
+});
 
-    $("select").change(function () {
-        selectOnChange(this.id);
-    });
+document.querySelector("input[type=radio]").addEventListener("click", function () {
+    radioOnClick(document.activeElement);
+});
+   
+document.querySelector("select").addEventListener("change", function () {
+    selectOnChange(document.activeElement);
+});
+   
+document.getElementById("closeTime").addEventListener("click", function () {
+    document.getElementById(activeID).disabled = false;
+    showHideModal("timeModal", "none"); 
+});
 
-    $("#closeTime").click(function () {
-        $("#" + activeID).prop("disabled", false);
-        showHideModal("timeModal", "none");
-    });
+document.getElementById("goTime").addEventListener("click", function () {
+    var timetext = document.getElementById("hours").innerHTML;
+    timetext += ":" + document.getElementById("minutes").innerHTML;
+    timetext += " " + document.getElementById("meridiem").innerHTML;
+    document.getElementById(activeID).disabled = false;
+    showHideModal("timeModal", "none");
+    textboxUpdate(activeID);
+});
 
-    $("#goTime").click(function () {
-        var timeText = $("#hours").text() + ":" + $("#minutes").text() + " " + $("#meridiem").text();
-        $("#" + activeID).val(timeText).prop("disabled", false);
-        showHideModal("timeModal", "none");
-        textboxUpdate(activeID);
-    });
 
     $(".up, .down, .up2, .down2").click(function () {
         timeSelectors(this.id);
     });
 
-    $("#goFT").click(function () {
-        var ftText = "";
-        if ($("#ftselector").val() !== null)
-            ftText = $("#ftselector").val();
-        else
-            ftText = $("#fttype").val();
+document.getElementById("goFT").addEventListener("click", function () {
+    var ftText = "";
+    if (document.getElementById("ftselector").value !== null)
+        ftText = document.getElementById("ftselector").value;
+    else
+        ftText = document.getElementById("fttype").value;
 
-        ftText = ftText.substr(0, 30);
-        $("#" + activeID).val(ftText).prop("disabled", false);
-        setStorage(activeID, ftText);
-        showHideModal("ftModal", "none");
-    });
+    ftText = ftText.substr(0, 30);
+    document.getElementById(activeID).value = ftText;
+    document.getElementById(activeID).disabled = false;
+    setStorage(activeID, ftText);
+    showHideModal("ftModal", "none");
+});
 
-    $("#closeFT").click(function () {
-        $("#" + activeID).prop("disabled", false);
-        showHideModal("ftModal", "none");
-    });
+document.getElementById("closeFT").addEventListener("click", function () {
+    document.getElementById(activeID).disabled = false;
+    showHideModal("ftModal", "none");
+});
 
-    $("#endVarious").click(function () {
-        showHideModal("variousModal", "none");
-    });
+document.getElementById("endVarious").addEventListener("click", function () {
+    showHideModal("variousModal", "none");
+});
 
-    $("#endValidate").click(function () {
-        showHideModal('validateModal', 'none');
-    });
+document.getElementById("endValidate").addEventListener("click", function () {
+    showHideModal("validateModal", "none");
+});
+
 
     $('.fa-times').click(function () {
         clearTimeField(this.id);
@@ -93,22 +101,24 @@ $(document).ready(function () {
         openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
     });
 
-    $("#clear").click(function () {
-        openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>', "");
-    });
+document.getElementById("clear").addEventListener("click", function () {
+    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>', "");
+});
 
     $(".fa-copy").click(function () {
         copyRoutine(this.id);
     });
 
-    $("#EmpID").keyup(function () {
-        limitCharacters("EmpID", 6);
+document.getElementById("EmpID").addEventListener("keyup", function () {
+    limitCharacters("EmpID", 6);
+    
+    var empID = document.getElementById("EmpID");
 
-        if (isNaN($(this).val())) {
-            openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>", "");
-            $("#EmpID").val("");
-        }
-    });
+    if (isNaN(empID.value)) {
+        openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>", "");
+        empID.value = "";
+    }
+});
 
     $("#Veh1, #Veh2, #Veh3, #Veh4").keyup(function () {
         limitCharacters(this.id, 4);
@@ -125,7 +135,6 @@ $(document).ready(function () {
     $(".addLV").click(function () {
         addLeave(this.id);
     });
-});
 
 //DEFINE PUBLIC VARIABLES
 var activeID = "";
@@ -154,10 +163,10 @@ function inputOnChange(refID) {
 
 //SELECT ON CHANGE EVENT
 function selectOnChange(refID) {
-    setLocalStorage(this.id);
+    setLocalStorage(document.activeElement);
     if (refID.indexOf("Select") === 3) {
         countOtherWork(refID);
-        if ($(this).val() === "FYI") 
+        if (document.getElementById.value === "FYI") 
             otherWorkTime(refID.substr(0, 3), refID.substr(9), true);
         else
             otherWorkTime(refID.substr(0, 3), refID.substr(9), false);
@@ -178,7 +187,7 @@ function radioOnClick(refID) {
 
 //CHECK VOUCHER LENGTH, IF EXCEED 6 DIGITS THEN SHOW ERROR MESSAGE
 function checkVoucherLength(refID) {
-    refVal = $("#" + refID).val();
+    var refVal = document.getElementByID(refID).value;
     if (refVal.length !== 6) {
         openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>", "");
         $("#" + refID).val(refVal.substr(0, 6));
@@ -449,6 +458,7 @@ function checkOJTData() {
         toggleOJT(false);
     else
         toggleOJT(true);
+    getWeeklyTotals();
 }
 
 //TOGGLE OJT CHECKBOXES AND TRAINEE TEXTBOX
