@@ -18,13 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
-    <script src="js/calculation.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/fieldtrip.js"></script>
-    <script src="js/timepicker.js"></script>
 </head>
 
-<body onload="loadLocalStorage('');loadNavBar();changesMade();">
+<body>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
         <div id="navbarmodal" class="dropdown">
@@ -1878,18 +1874,20 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="tinycard bg-gold">
+            <div class="row addLV" id="ThuLVAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="tinycard bg-gold hide" id="ThuLeave40">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <p class="category">Leave</p>
                     </div>
-                    <div class="col-1"><span class="fas fa-angle-up spanToggle" id="ThuSpanLV"></span></div>
                 </div>
-                <div class="row ThuSpanLV">
+                <div class="row">
                     <div class="col-4">
-                        <p>All Day<input type="checkbox" id="ThuLeaveAD"></p>
+                        <input type="checkbox" id="ThuLeaveAD"><label for="ThuLeaveAD">ALL DAY</label>
                     </div>
-                    <div class="col-7">
+                    <div class="col-8">
                         <select id="ThuLeaveSelectAD">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
@@ -1901,17 +1899,15 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1">
-                        <span class="fas fa-times" id="ThuClearLVAD"></span>
-                    </div>
                 </div>
-                <div class="row ThuSpanLV"><span class="bar"></span></div>
-                <div class="row ThuLV ThuSpanLV">
+            </div>
+            <div class="tinycard bg-gold hide" id="ThuLeave41">
+                <div class="row">
                     <div class="col-4">
-                        <p>Morning</p>
+                        <p class="category">Leave</p>
                     </div>
-                    <div class="col-7">
-                        <select id="ThuLeaveSelect14">
+                    <div class="col-8">
+                        <select id="ThuLeaveSelect41">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1922,20 +1918,23 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV14"></span></div>
                 </div>
-                <div class="row ThuLV ThuSpanLV">
-                    <input name="ThuTime14S" id="ThuTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime14E" id="ThuTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime14" id="ThuTime14" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row ThuSpanLV"><span class="bar"></span></div>
-                <div class="row ThuLV ThuSpanLV">
-                    <div class="col-4">
-                        <p>Afternoon</p>
+                <div class="row ThuLV">
+                    <div class="col-11">
+                        <input name="ThuTime41S" id="ThuTime41S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime41E" id="ThuTime41E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime41" id="ThuTime41" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-7">
-                        <select id="ThuLeaveSelect15">
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV41"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-gold hide" id="ThuLeave42">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-8">
+                        <select id="ThuLeaveSelect42">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -1946,407 +1945,177 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV15"></span></div>
+
                 </div>
-                <div class="row ThuLV ThuSpanLV">
-                    <input name="ThuTime15S" id="ThuTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime15E" id="ThuTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="ThuTime15" id="ThuTime15" type="text" class="total-time nofocus" disabled>
+                <div class="row ThuLV">
+                    <div class="col-11">
+                        <input name="ThuTime42S" id="ThuTime42S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime42E" id="ThuTime42E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime42" id="ThuTime42" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV42"></span></div>
                 </div>
             </div>
             <hr>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Morning Runs</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT1"><input type="checkbox" id="ThuOJT1">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift1"><input type="checkbox" id="ThuLift1">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT11">
+                        <label for="ThuOJT11">OJT</label>
+                        <input type="checkbox" id="ThuLift11" class="eqpt">
+                        <label for="ThuLift11">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime1S" id="ThuTime1S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime1E" id="ThuTime1E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime1" id="ThuTime1" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime11S" id="ThuTime11S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime11E" id="ThuTime11E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime11" id="ThuTime11" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG1"></span></div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="ThuClearRG11"></span>
+                    </div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Afternoon Runs</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT2"><input type="checkbox" id="ThuOJT2">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift2"><input type="checkbox" id="ThuLift2">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT12">
+                        <label for="ThuOJT12">OJT</label>
+                        <input type="checkbox" id="ThuLift12" class="eqpt">
+                        <label for="ThuLift12">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime2S" id="ThuTime2S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime2E" id="ThuTime2E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime2" id="ThuTime2" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime12S" id="ThuTime12S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime12E" id="ThuTime12E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime12" id="ThuTime12" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG2"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG12"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT3"><input type="checkbox" id="ThuOJT3">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift3"><input type="checkbox" id="ThuLift3">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT13">
+                        <label for="ThuOJT13">OJT</label>
+                        <input type="checkbox" id="ThuLift13" class="eqpt">
+                        <label for="ThuLift13">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime3S" id="ThuTime3S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime3E" id="ThuTime3E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime3" id="ThuTime3" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime13S" id="ThuTime13S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime13E" id="ThuTime13E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime13" id="ThuTime13" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG3"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG13"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT4"><input type="checkbox" id="ThuOJT4">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift4"><input type="checkbox" id="ThuLift4">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT14">
+                        <label for="ThuOJT14">OJT</label>
+                        <input type="checkbox" id="ThuLift14" class="eqpt">
+                        <label for="ThuLift14">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime4S" id="ThuTime4S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime4E" id="ThuTime4E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime4" id="ThuTime4" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime14S" id="ThuTime14S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime14E" id="ThuTime14E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime14" id="ThuTime14" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG4"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG14"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT5"><input type="checkbox" id="ThuOJT5">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift5"><input type="checkbox" id="ThuLift5">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT15">
+                        <label for="ThuOJT15">OJT</label>
+                        <input type="checkbox" id="ThuLift15" class="eqpt">
+                        <label for="ThuLift15">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime5S" id="ThuTime5S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime5E" id="ThuTime5E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime5" id="ThuTime5" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime15S" id="ThuTime15S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime15E" id="ThuTime15E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime15" id="ThuTime15" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG5"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG15"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT6"><input type="checkbox" id="ThuOJT6">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift6"><input type="checkbox" id="ThuLift6">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT16">
+                        <label for="ThuOJT16">OJT</label>
+                        <input type="checkbox" id="ThuLift16" class="eqpt">
+                        <label for="ThuLift16">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime6S" id="ThuTime6S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime6E" id="ThuTime6E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime6" id="ThuTime6" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime16S" id="ThuTime16S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime16E" id="ThuTime16E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime16" id="ThuTime16" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG6"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG16"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row ThuLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Late Run</p>
                     </div>
-                    <div class="col-2"><label for="ThuOJT7"><input type="checkbox" id="ThuOJT7">OJT</label></div>
-                    <div class="col-3 center"><label for="ThuLift7"><input type="checkbox" id="ThuLift7">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="ThuOJT17">
+                        <label for="ThuOJT17">OJT</label>
+                        <input type="checkbox" id="ThuLift17" class="eqpt">
+                        <label for="ThuLift17">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row ThuLV">
                     <div class="col-11">
-                        <input name="ThuTime7S" id="ThuTime7S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime7E" id="ThuTime7E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTime7" id="ThuTime7" type="text" class="total-time nofocus" disabled>
+                        <input name="ThuTime17S" id="ThuTime17S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime17E" id="ThuTime17E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="ThuTime17" id="ThuTime17" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG7"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="ThuClearRG17"></span></div>
                 </div>
             </div>
             <hr>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanOW8"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanOW8">
-                    <div class="col-auto">
-                        <label for="ThuLift8"><input type="checkbox" id="ThuLift8">EQ/L</label>
-                    </div>
-                    <div class="col-auto">
-                        <label for="ThuOJT8"><input type="checkbox" id="ThuOJT8">OJT</label>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanOW8">
-                    <div class="col-11">
-                        <select id="ThuSelect8" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanOW8"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanOW8">
-                    <input name="ThuDesc8" id="ThuDesc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row ThuLV ThuSpanOW8">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime8S" id="ThuTime8S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime8E" id="ThuTime8E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime8" id="ThuTime8" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearOW8"></span></div>
-                </div>
+            <div class="row addOW" id="ThuOWAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
             </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanOW9"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanOW9">
-                    <label for="ThuLift9"><input type="checkbox" id="ThuLift9">EQ/L</label>&nbsp;&nbsp;
-                    <label for="ThuOJT9"><input type="checkbox" id="ThuOJT9">OJT</label>
-                </div>
-                <div class="row ThuLV ThuSpanOW9">
-                    <div class="col-11">
-                        <select id="ThuSelect9" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanOW9"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanOW9">
-                    <input name="ThuDesc9" id="ThuDesc9" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row ThuLV ThuSpanOW9">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime9S" id="ThuTime9S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime9E" id="ThuTime9E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime9" id="ThuTime9" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearOW9"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanOW10"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanOW10">
-                    <label for="ThuLift10"><input type="checkbox" id="ThuLift10">EQ/L</label>&nbsp;&nbsp;
-                    <label for="ThuOJT10"><input type="checkbox" id="ThuOJT10">OJT</label>
-                </div>
-                <div class="row ThuLV ThuSpanOW10">
-                    <div class="col-11">
-                        <select id="ThuSelect10" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanOW10"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanOW10">
-                    <input name="ThuDesc10" id="ThuDesc10" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row ThuLV ThuSpanOW10">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime10S" id="ThuTime10S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime10E" id="ThuTime10E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime10" id="ThuTime10" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearOW10"></span></div>
-                </div>
-            </div>
+            <div class="row" id="ThuOWAdd2"></div>
             <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanFT11"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT11">
-                    <div class="col-4">
-                        <label for="ThuLift11"><input type="checkbox" id="ThuLift11">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="ThuVoucher11" id="ThuVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanFT11"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanFT11">
-                    <div class="col-12">
-                        <input name="ThuFrom11" id="ThuFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT11">
-                    <div class="col-12">
-                        <input name="ThuTo11" id="ThuTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT11">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime11S" id="ThuTime11S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime11E" id="ThuTime11E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime11" id="ThuTime11" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearFT11"></span></div>
-                </div>
+            <div class="row addFT" id="ThuFTAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
             </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanFT12"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-4">
-                        <label for="ThuLift12"><input type="checkbox" id="ThuLift12">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="ThuVoucher12" id="ThuVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanFT12"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-12">
-                        <input name="ThuFrom12" id="ThuFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-12">
-                        <input name="ThuTo12" id="ThuTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT12">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime12S" id="ThuTime12S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime12E" id="ThuTime12E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime12" id="ThuTime12" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearFT12"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="ThuSpanFT13"></span>
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-4">
-                        <label for="ThuLift13"><input type="checkbox" id="ThuLift13">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="ThuVoucher13" id="ThuVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="ThuBanFT13"></span></div>
-                </div>
-                <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-12">
-                        <input name="ThuFrom13" id="ThuFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-12">
-                        <input name="ThuTo13" id="ThuTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row ThuLV ThuSpanFT13">
-                    <div class="col-11">
-                        <input type="text" name="ThuTime13S" id="ThuTime13S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime13E" id="ThuTime13E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="ThuTime13" id="ThuTime13" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearFT13"></span></div>
-                </div>
-            </div>
+            <div class="row" id="ThuFTAdd2"></div>
         </div>
         <div id="Friday" class="card hide">
             <div class="row">
@@ -2376,18 +2145,20 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="tinycard bg-gold">
+            <div class="row addLV" id="FriLVAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="tinycard bg-gold hide" id="FriLeave40">
                 <div class="row">
-                    <div class="col-11">
+                    <div class="col-12">
                         <p class="category">Leave</p>
                     </div>
-                    <div class="col-1"><span class="fas fa-angle-up spanToggle" id="FriSpanLV"></span></div>
                 </div>
-                <div class="row FriSpanLV">
+                <div class="row">
                     <div class="col-4">
-                        <p>All Day<input type="checkbox" id="FriLeaveAD"></p>
+                        <input type="checkbox" id="FriLeaveAD"><label for="FriLeaveAD">ALL DAY</label>
                     </div>
-                    <div class="col-7">
+                    <div class="col-8">
                         <select id="FriLeaveSelectAD">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
@@ -2399,17 +2170,15 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1">
-                        <span class="fas fa-times" id="FriClearLVAD"></span>
-                    </div>
                 </div>
-                <div class="row FriSpanLV"><span class="bar"></span></div>
-                <div class="row FriLV FriSpanLV">
+            </div>
+            <div class="tinycard bg-gold hide" id="FriLeave41">
+                <div class="row">
                     <div class="col-4">
-                        <p>Morning</p>
+                        <p class="category">Leave</p>
                     </div>
-                    <div class="col-7">
-                        <select id="FriLeaveSelect14">
+                    <div class="col-8">
+                        <select id="FriLeaveSelect41">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -2420,20 +2189,23 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearLV14"></span></div>
                 </div>
-                <div class="row FriLV FriSpanLV">
-                    <input name="FriTime14S" id="FriTime14S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime14E" id="FriTime14E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime14" id="FriTime14" type="text" class="total-time nofocus" disabled>
-                </div>
-                <div class="row FriSpanLV"><span class="bar"></span></div>
-                <div class="row FriLV FriSpanLV">
-                    <div class="col-4">
-                        <p>Afternoon</p>
+                <div class="row FriLV">
+                    <div class="col-11">
+                        <input name="FriTime41S" id="FriTime41S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime41E" id="FriTime41E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime41" id="FriTime41" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-7">
-                        <select id="FriLeaveSelect15">
+                    <div class="col-1"><span class="fas fa-times" id="FriClearLV41"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-gold hide" id="FriLeave42">
+                <div class="row">
+                    <div class="col-4">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-8">
+                        <select id="FriLeaveSelect42">
                             <option value="">--Select Leave--</option>
                             <option value="SICK-IND">Sick-Indv</option>
                             <option value="SICK-FAM">Sick-Family</option>
@@ -2444,407 +2216,177 @@
                             <option value="SICK-INJ">Injury</option>
                         </select>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearLV15"></span></div>
+
                 </div>
-                <div class="row FriLV FriSpanLV">
-                    <input name="FriTime15S" id="FriTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime15E" id="FriTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
-                    <input name="FriTime15" id="FriTime15" type="text" class="total-time nofocus" disabled>
+                <div class="row FriLV">
+                    <div class="col-11">
+                        <input name="FriTime42S" id="FriTime42S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime42E" id="FriTime42E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime42" id="FriTime42" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearLV42"></span></div>
                 </div>
             </div>
             <hr>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Morning Runs</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT1"><input type="checkbox" id="FriOJT1">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift1"><input type="checkbox" id="FriLift1">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT11">
+                        <label for="FriOJT11">OJT</label>
+                        <input type="checkbox" id="FriLift11" class="eqpt">
+                        <label for="FriLift11">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime1S" id="FriTime1S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime1E" id="FriTime1E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime1" id="FriTime1" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime11S" id="FriTime11S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime11E" id="FriTime11E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime11" id="FriTime11" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG1"></span></div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="FriClearRG11"></span>
+                    </div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Afternoon Runs</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT2"><input type="checkbox" id="FriOJT2">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift2"><input type="checkbox" id="FriLift2">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT12">
+                        <label for="FriOJT12">OJT</label>
+                        <input type="checkbox" id="FriLift12" class="eqpt">
+                        <label for="FriLift12">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime2S" id="FriTime2S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime2E" id="FriTime2E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime2" id="FriTime2" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime12S" id="FriTime12S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime12E" id="FriTime12E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime12" id="FriTime12" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG2"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG12"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT3"><input type="checkbox" id="FriOJT3">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift3"><input type="checkbox" id="FriLift3">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT13">
+                        <label for="FriOJT13">OJT</label>
+                        <input type="checkbox" id="FriLift13" class="eqpt">
+                        <label for="FriLift13">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime3S" id="FriTime3S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime3E" id="FriTime3E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime3" id="FriTime3" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime13S" id="FriTime13S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime13E" id="FriTime13E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime13" id="FriTime13" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG3"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG13"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">PAC/Preschool</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT4"><input type="checkbox" id="FriOJT4">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift4"><input type="checkbox" id="FriLift4">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT14">
+                        <label for="FriOJT14">OJT</label>
+                        <input type="checkbox" id="FriLift14" class="eqpt">
+                        <label for="FriLift14">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime4S" id="FriTime4S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime4E" id="FriTime4E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime4" id="FriTime4" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime14S" id="FriTime14S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime14E" id="FriTime14E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime14" id="FriTime14" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG4"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG14"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT5"><input type="checkbox" id="FriOJT5">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift5"><input type="checkbox" id="FriLift5">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT15">
+                        <label for="FriOJT15">OJT</label>
+                        <input type="checkbox" id="FriLift15" class="eqpt">
+                        <label for="FriLift15">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime5S" id="FriTime5S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime5E" id="FriTime5E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime5" id="FriTime5" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime15S" id="FriTime15S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime15E" id="FriTime15E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime15" id="FriTime15" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG5"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG15"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Shuttle</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT6"><input type="checkbox" id="FriOJT6">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift6"><input type="checkbox" id="FriLift6">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT16">
+                        <label for="FriOJT16">OJT</label>
+                        <input type="checkbox" id="FriLift16" class="eqpt">
+                        <label for="FriLift16">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime6S" id="FriTime6S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime6E" id="FriTime6E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime6" id="FriTime6" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime16S" id="FriTime16S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime16E" id="FriTime16E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime16" id="FriTime16" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG6"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG16"></span></div>
                 </div>
             </div>
             <div class="tinycard bg-teal1">
                 <div class="row FriLV">
-                    <div class="col-7">
+                    <div class="col-8">
                         <p class="category">Late Run</p>
                     </div>
-                    <div class="col-2"><label for="FriOJT7"><input type="checkbox" id="FriOJT7">OJT</label></div>
-                    <div class="col-3 center"><label for="FriLift7"><input type="checkbox" id="FriLift7">EQ/L</label></div>
+                    <div class="col-4">
+                        <input type="checkbox" id="FriOJT17">
+                        <label for="FriOJT17">OJT</label>
+                        <input type="checkbox" id="FriLift17" class="eqpt">
+                        <label for="FriLift17">EQ/L</label>
+                    </div>
                 </div>
                 <div class="row FriLV">
                     <div class="col-11">
-                        <input name="FriTime7S" id="FriTime7S" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime7E" id="FriTime7E" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTime7" id="FriTime7" type="text" class="total-time nofocus" disabled>
+                        <input name="FriTime17S" id="FriTime17S" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime17E" id="FriTime17E" type="text" class="timewidth" placeholder="- - : - -">
+                        <input name="FriTime17" id="FriTime17" type="text" class="total-time nofocus" disabled>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearRG7"></span></div>
+                    <div class="col-1"><span class="fas fa-times" id="FriClearRG17"></span></div>
                 </div>
             </div>
             <hr>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanOW8"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanOW8">
-                    <div class="col-auto">
-                        <label for="FriLift8"><input type="checkbox" id="FriLift8">EQ/L</label>
-                    </div>
-                    <div class="col-auto">
-                        <label for="FriOJT8"><input type="checkbox" id="FriOJT8">OJT</label>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanOW8">
-                    <div class="col-11">
-                        <select id="FriSelect8" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanOW8"></span></div>
-                </div>
-                <div class="row FriLV FriSpanOW8">
-                    <input name="FriDesc8" id="FriDesc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row FriLV FriSpanOW8">
-                    <div class="col-11">
-                        <input type="text" name="FriTime8S" id="FriTime8S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime8E" id="FriTime8E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime8" id="FriTime8" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearOW8"></span></div>
-                </div>
+            <div class="row addOW" id="FriOWAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
             </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanOW9"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanOW9">
-                    <label for="FriLift9"><input type="checkbox" id="FriLift9">EQ/L</label>&nbsp;&nbsp;
-                    <label for="FriOJT9"><input type="checkbox" id="FriOJT9">OJT</label>
-                </div>
-                <div class="row FriLV FriSpanOW9">
-                    <div class="col-11">
-                        <select id="FriSelect9" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanOW9"></span></div>
-                </div>
-                <div class="row FriLV FriSpanOW9">
-                    <input name="FriDesc9" id="FriDesc9" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row FriLV FriSpanOW9">
-                    <div class="col-11">
-                        <input type="text" name="FriTime9S" id="FriTime9S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime9E" id="FriTime9E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime9" id="FriTime9" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearOW9"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanOW10"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanOW10">
-                    <label for="FriLift10"><input type="checkbox" id="FriLift10">EQ/L</label>&nbsp;&nbsp;
-                    <label for="FriOJT10"><input type="checkbox" id="FriOJT10">OJT</label>
-                </div>
-                <div class="row FriLV FriSpanOW10">
-                    <div class="col-11">
-                        <select id="FriSelect10" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="CPR">CPR/First Aid</option>
-                            <option value="RCRT">Recertification</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="ES2">2 Hr Delay - Early start</option>
-                            <option value="ES0">On Time - Early start</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanOW10"></span></div>
-                </div>
-                <div class="row FriLV FriSpanOW10">
-                    <input name="FriDesc10" id="FriDesc10" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                </div>
-                <div class="row FriLV FriSpanOW10">
-                    <div class="col-11">
-                        <input type="text" name="FriTime10S" id="FriTime10S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime10E" id="FriTime10E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime10" id="FriTime10" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearOW10"></span></div>
-                </div>
-            </div>
+            <div class="row" id="FriOWAdd2"></div>
             <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanFT11"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT11">
-                    <div class="col-4">
-                        <label for="FriLift11"><input type="checkbox" id="FriLift11">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="FriVoucher11" id="FriVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanFT11"></span></div>
-                </div>
-                <div class="row FriLV FriSpanFT11">
-                    <div class="col-12">
-                        <input name="FriFrom11" id="FriFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT11">
-                    <div class="col-12">
-                        <input name="FriTo11" id="FriTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT11">
-                    <div class="col-11">
-                        <input type="text" name="FriTime11S" id="FriTime11S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime11E" id="FriTime11E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime11" id="FriTime11" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearFT11"></span></div>
-                </div>
+            <div class="row addFT" id="FriFTAdd">
+                <p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
             </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanFT12"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT12">
-                    <div class="col-4">
-                        <label for="FriLift12"><input type="checkbox" id="FriLift12">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="FriVoucher12" id="FriVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanFT12"></span></div>
-                </div>
-                <div class="row FriLV FriSpanFT12">
-                    <div class="col-12">
-                        <input name="FriFrom12" id="FriFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT12">
-                    <div class="col-12">
-                        <input name="FriTo12" id="FriTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT12">
-                    <div class="col-11">
-                        <input type="text" name="FriTime12S" id="FriTime12S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime12E" id="FriTime12E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime12" id="FriTime12" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearFT12"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="FriSpanFT13"></span>
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT13">
-                    <div class="col-4">
-                        <label for="FriLift13"><input type="checkbox" id="FriLift13">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="FriVoucher13" id="FriVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="FriBanFT13"></span></div>
-                </div>
-                <div class="row FriLV FriSpanFT13">
-                    <div class="col-12">
-                        <input name="FriFrom13" id="FriFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT13">
-                    <div class="col-12">
-                        <input name="FriTo13" id="FriTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row FriLV FriSpanFT13">
-                    <div class="col-11">
-                        <input type="text" name="FriTime13S" id="FriTime13S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime13E" id="FriTime13E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="FriTime13" id="FriTime13" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearFT13"></span></div>
-                </div>
-            </div>
+            <div class="row" id="FriFTAdd2"></div>
         </div>
         <!-- The Time Selector -->
         <div id="timeModal" class="modal">
@@ -2954,6 +2496,10 @@
         }
 
     </script>
+    <script src="js/calculation.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/fieldtrip.js"></script>
+    <script src="js/timepicker.js"></script>
 </body>
 
 </html>
