@@ -1,5 +1,6 @@
 //WEBSITE INTERACTION SCRIPT
 var d = document;
+
 var byID = function(id) {
     return d.getElementById(id);
 }
@@ -7,9 +8,6 @@ var byID = function(id) {
 d.addEventListener('DOMContentLoaded', function() {
     //LOAD DATE RANGES INTO RADIO BUTTONS AND DISPLAY
     loadDateRange();
-
-    //ADD THE FIELD TRIP SELECTOR FROM FIELDTRIPS.JS
-    insertFTSelect();
 
     //START WITH LOADING DATA FROM LOCAL STORAGE
     loadLocalStorage();
@@ -23,29 +21,58 @@ d.addEventListener('DOMContentLoaded', function() {
     checkRouteValue();
 }, false);
 
-d.querySelector("input[type=checkbox]").addEventListener("click", function(e) {
-    checkboxFunctions(e.target.id);
+d.querySelector("input[type=checkbox]").addEventListener("click", function() {
+    checkboxFunctions(this.id);
 });
 
-d.querySelector("input[type=text]").addEventListener("change", function (e) {
-    inputOnChange(e.target.id);
+d.querySelector("input[type=text]").addEventListener("change", function () {
+    inputOnChange(this.id);
 });
 
-d.querySelector("input[type=number]").addEventListener("change", function (e) {
-    inputOnChange(e.target.id);
+d.querySelector("input[type=number]").addEventListener("change", function () {
+    inputOnChange(this.id);
 });
 
-d.querySelector("input[type=radio]").addEventListener("click", function (e) {
-    radioOnClick(e.target.id);
+d.querySelector("input[type=radio]").addEventListener("click", function () {
+    radioOnClick(this.id);
 });
    
-d.querySelector("select").addEventListener("change", function (e) {
-    selectOnChange(e.target.id);
+d.querySelector("select").addEventListener("change", function () {
+    selectOnChange(this.id);
 });
    
 byID("closeTime").addEventListener("click", function () {
     byID(activeID).disabled = false;
     showHideModal("timeModal", "none"); 
+});
+
+d.addEventListener("click", function(e) {
+    if (e.target.classList.contains("up") || e.target.classList.contains("down") || e.target.classList.contains("up2") || e.target.classList.contains("down2"))
+        timeSelectors(e.target.id);
+    
+    if (e.target.classList.contains("fa-times"))
+        clearTimeField(e.target.id);
+    
+    if (e.target.classList.contains("ow"))
+        openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
+    
+    if (e.target.classList.contains("ft"))
+        openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>", "");
+    
+    if (e.target.classList.contains("ct"))
+        openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
+    
+    if (e.target.classList.contains("fa-copy"))
+        copyRoutine(e.target.id);
+    
+    if (e.target.classList.contains("addOW"))
+        addOtherWork(e.target.id);
+    
+    if (e.target.classList.contains("addFT"))
+        addFieldTrip(e.target.id);
+    
+    if (e.target.classList.contains("addLV"))
+        addLeave(e.target.id);
 });
 
 byID("goTime").addEventListener("click", function () {
@@ -56,11 +83,6 @@ byID("goTime").addEventListener("click", function () {
     byID(activeID).value = timetext;
     showHideModal("timeModal", "none");
     textboxUpdate(activeID);
-});
-
-
-$(".up, .down, .up2, .down2").click(function (e) {
-    timeSelectors(this.id);
 });
 
 byID("goFT").addEventListener("click", function () {
@@ -90,28 +112,8 @@ byID("endValidate").addEventListener("click", function () {
     showHideModal("validateModal", "none");
 });
 
-$(".fa-times").click(function (e) {
-    clearTimeField(this.id);
-});
-
-$(".ow").click(function () {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
-});
-
-$(".ft").click(function () {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>", "");
-});
-
-$(".ct").click(function () {
-    openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
-});
-
 byID("clear").addEventListener("click", function () {
     openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>', "");
-});
-
-$(".fa-copy").click(function () {
-    copyRoutine(e.target.id);
 });
 
 byID("EmpID").addEventListener("keyup", function () {
@@ -125,21 +127,22 @@ byID("EmpID").addEventListener("keyup", function () {
     }
 });
 
-$("#Veh1, #Veh2, #Veh3, #Veh4").keyup(function () {
+byID("Veh1").addEventListener("keyup", function () {
     limitCharacters(this.id, 4);
 });
 
-$(".addOW").click(function () {
-    addOtherWork(e.target.id);
+byID("Veh2").addEventListener("keyup", function () {
+    limitCharacters(this.id, 4);
 });
 
-$(".addFT").click(function () {
-    addFieldTrip(e.target.id);
+byID("Veh3").addEventListener("keyup", function () {
+    limitCharacters(this.id, 4);
 });
 
-$(".addLV").click(function () {
-    addLeave(e.target.id);
+byID("Veh4").addEventListener("keyup", function () {
+    limitCharacters(this.id, 4);
 });
+
 
 //DEFINE PUBLIC VARIABLES
 var activeID = "";
@@ -158,7 +161,7 @@ function inputOnChange(refID) {
     }
 
     if (refID.indexOf("Route") > 0) {
-        fixRouteName(e.target.id);
+        fixRouteName(this.id);
         checkRouteValue();
     }
 
@@ -168,7 +171,7 @@ function inputOnChange(refID) {
 
 //SELECT ON CHANGE EVENT
 function selectOnChange(refID) {
-    setLocalStorage(e.target.id);
+    setLocalStorage(this.id);
     if (refID.indexOf("Select") === 3) {
         countOtherWork(refID);
         if (byID.value === "FYI") 
@@ -223,37 +226,40 @@ function properCase(str) {
 }
 
 //GO THROUGH LOCAL STORAGE AND SEE WHAT IS ALREADY STORED. LOAD STORED DATA INTO ELEMENTS
-function loadLocalStorage(optVal) {
-    optVal = (optVal === "undefined") ? "" : "Sup";
+function loadLocalStorage() {
     var refVal = "";
+    var req = ["EmpName", "EmpID", "Area", "Team", "Position", "Veh1", "WeekOf", "EmpInitials"];
+    
+    for (var i = 0; i < req.length; i++) {
+        refVal = getStorage(req[i]);
+        if (refVal === null)
+            refVal = "";
+        setStorage(req[i], refVal);
+    }
 
     //Loop through all text, number, and select elements. Set element value to matching ID in local storage
-    $("input[type=number], input[type=text], select").each(function (e) {
-        if (e.target === undefined)
-            return;
-        
-        refVal = getStorage(e.target.id);
+    var elements = d.querySelectorAll('input[type=number], input[type=text], select');
+    Array.prototype.forEach.call(elements, e => {
+        refVal = getStorage(e.id);
 
         //Set value to element and into local storage
         if (refVal !== null)
-            e.target.value = refVal;
+            e.value = refVal;
         else
-            setStorage(e.target.id, "");
+            setStorage(e.id, "");
     });
 
     //Loop through all checkboxes. Set element checked property to matching ID from local storage
-    $("input[type=checkbox]").each(function (e) {
-        if (e.target === undefined)
-            return;
-        
-        refVal = getStorage(e.target.id);
+    elements = d.querySelectorAll("input[type=checkbox]");
+    Array.prototype.forEach.call(elements, e => {
+        refVal = getStorage(e.id);
 
         //If no value in local storage then set to 0
-        refVal = (refVal === null) ? refVal = "0" : refVal = "1";
+        refVal = (refVal === null) ? "0" : "1";
 
         //Set checkbox checked property and set into local storage
-        e.target.checked = (refVal === "1") ? true : false;
-        setStorage(e.target.id, refVal);
+        e.checked = (refVal === "1") ? true : false;
+        setStorage(e.id, refVal);
     });
 }
 
@@ -276,9 +282,9 @@ function loadDateRange() {
     var r2 = DateRange(d, day, 0);
     var r3 = DateRange(d, day, 7);
     var strHTML = '<strong>Week Of:</strong><br>';
-    strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week1">' + r1 + '</label>';
-    strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week2">' + r2 + '</label>';
-    strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek($(this).attr(\'id\'));"><label for="week3">' + r3 + '</label>';
+    strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
+    strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
+    strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek(\'week3\');"><label for="week3">' + r3 + '</label>';
     byID("WeekOf").innerHTML = strHTML;
     if (getStorage("WeekOf") === null) {
         setStorage("WeekOf", "");
@@ -418,7 +424,7 @@ function loadTeamValues(area) {
         case "4":
             strHTML += '<strong>Team:</strong><br>';
             for (i = 0; i < 8; i++) {
-                strHTML += '<input type="radio" id="team' + area + i + '" name="team" value="' + area + i + '" onclick="setTeamSelection($(this).attr(\'id\'));"><label for="team' + area + i + '">' + area + i + '</label>';
+                strHTML += '<input type="radio" id="team' + area + i + '" name="team" value="' + area + i + '" onclick="setTeamSelection(\'team' + area + i + '\');"><label for="team' + area + i + '">' + area + i + '</label>';
             }
             byID("insertTeam").innerHTML = strHTML;
             break;
@@ -426,7 +432,7 @@ function loadTeamValues(area) {
             var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
             strHTML += '<strong>Team:</strong><br>';
             for (i = 0; i < 17; i++) {
-                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection($(this).attr(\'id\'))";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
+                strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '" onclick="setTeamSelection(\'team' + teams[i] + '\')";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
             }
             byID("insertTeam").innerHTML = strHTML;
             break;
@@ -527,12 +533,11 @@ function checkRouteValue() {
     }
 
     //Loop through EQ/L checkboxes and enable/disable them
-    for (i = 2; i < 7; i++) {
-        $(".eqpt").each(function () {
-            this.checked = false;
-            this.disabled = !bln;
-        });
-    }
+    var elements= d.querySelectorAll(".eqpt");
+    Array.prototype.forEach.call(elements, function (e) {
+        e.checked = false;
+        e.disabled = !bln;
+    });
 }
 
 //CHECK DAILY LEAVE VALUES AND THEN DISABLE/ENABLE CHECKBOXES AND TEXTBOXES AS NECESSARY
@@ -550,26 +555,26 @@ function toggleADLeave(day) {
     var bln = (getStorage(day + "LeaveAD") === "0") ? false : true;
 
     //Loop through each element for that day to toggle disabled property
-    $("input[id*=" + day + "], select[id*=" + day + "]").each(function () {
-        
-        if (this.id === day + "LeaveSelectAD" || this.id === day + "LeaveAD") return;
+    var elements= d.querySelectorAll("input[id*=" + day + "], select[id*=" + day + "]");
+    Array.prototype.forEach.call(elements, (e) => {        
+        if (e.id === day + "LeaveSelectAD" || e.id === day + "LeaveAD") return;
 
         //If element does not have .nofocus then disable/enable
-        if (this.classList.contains("nofocus")) {
-            this.disabled = bln;
+        if (e.classList.contains("nofocus")) {
+            e.disabled = bln;
         }
 
         //Change element's background color
-        this.style.backgroundColor = (bln) ? "lightgrey" : "white";
+        e.style.backgroundColor = (bln) ? "lightgrey" : "white";
 
         //Set value into local storage
         if (bln) {
-            this.value = "";
-            setStorage(this.id, "");
+            e.value = "";
+            setStorage(e.id, "");
         }
-        if (this.checked && bln) {
-            this.checked = false;
-            setStorage(this.id, 0);
+        if (e.checked && bln) {
+            e.checked = false;
+            setStorage(e.id, 0);
         }
     });
 }
@@ -589,37 +594,47 @@ function positionChange() {
 //CLEAR ROUTE COUNTS AND PUPIL TIME DATA
 function clearRouteFields() {
     var i = 0,
-        j = 0;
+        elements= "";
 
     //Loop through days of the week
     for (i = 1; i < 6; i++) {
-        $("input[id*='AM" + i + "Ct']").each(function () {
-            this.value = "";
-            setStorage(this.id, "");
+        elements= d.querySelectorAll("input[id*='AM" + i + "Ct']");
+        Array.prototype.forEach.call(elements, function (e) {
+            e.value = "";
+            setStorage(e.id, "");
         });
-        $("input[id*='PM" + i + "Ct']").each(function () {
-            this.value = "";
-            setStorage(this.id, "");
+        
+        elements= d.querySelectorAll("input[id*='PM" + i + "Ct']");
+        Array.prototype.forEach.call(elements, function (e) {
+            e.value = "";
+            setStorage(e.id, "");
         });
     }
 
     for (i = 1; i < 3; i++) {
-        $("input[id*='PS" + i + "Ct']").each(function () {
-            this.value = "";
-            setStorage(e.target.id, "");
+        elements= d.querySelectorAll("input[id*='PS" + i + "Ct']");
+        Array.prototype.forEach.call(elements, function (e) {
+            e.value = "";
+            setStorage(e.id, "");
         });
-        $("input[id*='SH" + i + "Ct']").each(function () {
-            this.value = "";
-            setStorage(this.id, "");
+            
+        elements= d.querySelectorAll("input[id*='SH" + i + "Ct']");
+        Array.prototype.forEach.call(elements, function (e) {
+            e.value = "";
+            setStorage(e.id, "");
         });
-        $("input[id*='LR" + i + "Ct']").each(function () {
-            this.value = "";
-            setStorage(this.id, "");
+            
+        elements= d.querySelectorAll("input[id*='LR" + i + "Ct']");
+        Array.prototype.forEach.call(elements, function (e) {
+            e.value = "";
+            setStorage(e.id, "");
         });
     }
-    $("input", $('#PupilCounts')).each(function () {
-        this.value = "";
-        setStorage(this.id, "");
+    
+    elements= byID("PupilCounts").getElementsByTagName("input");
+    Array.prototype.forEach.call(elements, function (e) {
+        e.value = "";
+        setStorage(e.id, "");
     });
 }
 
@@ -633,7 +648,7 @@ function countOtherWork(refID) {
     //Loop through each day of the week
     for (i = 0; i < 7; i++) {
         for (num; num < 30; num++) {
-            if (!byID(days[i] + "Select" + num).length > 0)
+            if (!byID(days[i] + "Select" + num))
                 continue;
 
             if (byID(days[i] + "Select" + num).value !== "")
@@ -657,7 +672,7 @@ function countFieldTrips(refID) {
     //Loop through each day of the week
     for (i = 0; i < 7; i++) {
         for (num; num < 35; num++) {
-            if (!byID(days[i] + "Voucher" + num).length > 0)
+            if (!byID(days[i] + "Voucher" + num))
                 continue;
 
             if (byID(days[i] + "Voucher" + num).value !== "")
@@ -732,7 +747,7 @@ function openTimeSelector(refID, optVal) {
         byID("meridiem" + optVal).innerHTML = mer;
     } else {
         if (!blnPupil) {
-            mins = round5(Number(byID("minutes").text()));
+            mins = round5(Number(byID("minutes").innerHTML));
             if (mins < 10 && mins > -1) {
                 mins = "0" + mins.toString();
             } else if (mins === 60) {
@@ -812,7 +827,7 @@ function addOtherWork(refID) {
     //Exit function if count is 10
     if (countOW === 30) return;
 
-    var strHTML = '<div class="tinycard bg-teal2" id="' + dayVal + 'OWDiv' + countOW + '"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'OWTrash' + countOW + '" onclick="clearOtherField(e.target.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '" onclick="checkboxFunctions(e.target.id);"><label class="lblBtnFalse" for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '" onclick="checkboxEQL(e.target.id);"><label class="lblBtnFalse" for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.target.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.target.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
+    var strHTML = '<div class="tinycard bg-teal2" id="' + dayVal + 'OWDiv' + countOW + '"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'OWTrash' + countOW + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '" onclick="checkboxFunctions(this.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '" onclick="checkboxEQL(this.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
     byID(refID + "2").insertAdjacentHTML('beforebegin',strHTML);
 }
 
@@ -823,20 +838,20 @@ function addFieldTrip(refID) {
     //Exit function if count is 5
     if (countFT === 35) return;
 
-    var strHTML = '<div class="tinycard bg-teal3" id="' + dayVal + 'FTDiv' + countFT + '"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'FTTrash' + countFT + '" onclick="clearOtherField(e.target.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><label class="lblBtnFalse" for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.target.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.target.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
+    var strHTML = '<div class="tinycard bg-teal3" id="' + dayVal + 'FTDiv' + countFT + '"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'FTTrash' + countFT + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
     byID(refID + "2").insertAdjacentHTML('beforebegin',strHTML);
 }
 
 function getMissingOW(day) {
     for (var i = 20; i < 30; i++) {
-        if (!byID(day + "OWDiv" + i).length)
+        if (!byID(day + "OWDiv" + i))
             return i;
     }
 }
 
 function getMissingFT(day) {
     for (var i = 30; i < 35; i++) {
-        if (!byID(day + "FTDiv" + i).length)
+        if (!byID(day + "FTDiv" + i))
             return i;
     }
 }
@@ -1009,7 +1024,7 @@ function testLeave() {
                 if (byID("LeaveSelect" + j).value !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
             }
-            if (byID("LeaveAD").prop("checked")) {
+            if (byID("LeaveAD").checked) {
                 if (byID("LeaveSelectAD").value === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
@@ -1176,9 +1191,9 @@ function checkOtherWorkVal() {
             if (!byID(days[i] + "Time" + j))
                 continue;
 
-            if (byID(days[i] + "Select" + j) === "FYI") {
+            if (byID(days[i] + "Select" + j).value === "FYI") {
                 otherWorkTime(days[i], j, true);
-            } else if (byID(days[i] + "Select" + i) === null) {
+            } else if (byID(days[i] + "Select" + i).value === null) {
                 byID(days[i] + "Select" + i).value = "";
                 otherWorkTime(days[i], j, false);
             } else {
@@ -1228,7 +1243,7 @@ function runCopyRoutine() {
     do {
         k++;
         bln = false;
-        if (byID(days[k] + "LeaveAD").prop("checked"))
+        if (byID(days[k] + "LeaveAD").checked)
             bln = true;
     }
     while (bln && k < 7);
@@ -1256,7 +1271,7 @@ function runPupilCopyRoutine() {
     do {
         k++;
         bln = false;
-        if (byID(days[k] + "LeaveAD").prop("checked"))
+        if (byID(days[k] + "LeaveAD").checked)
             bln = true;
     } while (bln && k < 7);
 
@@ -1268,3 +1283,570 @@ function runPupilCopyRoutine() {
     byID(days[k] + "TimeC").value = byID(days[i] + "TimeC").value; //= )).trigger("change");
     byID(days[k] + "TimeD").value = byID(days[i] + "TimeD").value;// = )).trigger("change");
 }
+
+/*          *** CALCULATIONS ***       */
+
+//TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
+function textboxUpdate(refID) {
+  
+    //Check if field is used for pupil time, return if true
+    if (isNaN(refID.substr(7,2)))
+        return;
+    
+    if (refID.indexOf("Sup") > -1) {
+        textboxUpdateSup(refID);
+        return;
+    }
+    
+    //Check for overlapping times
+    checkOverlap(refID);
+    
+    //Calculate the difference in time
+    calculateDiff(refID);
+    
+    getDailyTotals();
+    
+    if (refID.substr(7,2) > 19 && refID.substr(7,2) < 30) {
+		countOtherWork(refID);
+	}
+    
+    if (refID.substr(7,2) > 29 && refID.substr(7,2) < 35) {
+		countFieldTrips(refID);
+	}
+    setLocalStorage(refID);
+}
+
+//CHECK FOR OVERLAPPING TIME VALUES
+function checkOverlap(refID) {
+	"use strict";
+    
+    //Define variables
+    var thisStart, thisEnd, numVal, bln = false, day, newStart, newEnd, i = 11, max = 43;
+    
+    //If element has no value then return
+    if (byID(refID).value === "") 
+        return;
+    
+    //Initialize variables
+    thisStart = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value);
+    thisEnd = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value);
+    numVal = Number(refID.substr(7, 2));
+    day = refID.substr(0,3);
+    
+    if (day === "Sat" || day === "Sun") {
+        max = 35;
+        i = 20;
+    }
+    
+    for (i; i < max; i++) {
+        if (i === numVal)
+            i++;
+        
+        //If the timefield does not exist then move to next i
+        if (!byID(day + "Time" + i)) 
+            continue;
+        
+        //Initialize newStart and newEnd
+        newStart = convertToMinutes(byID(day + "Time" + i + "S").value);
+        newEnd = convertToMinutes(byID(day + "Time" + i + "E").value);
+        
+        //If both newStart and newEnd are blank then move to next i
+        if (newStart === 0 && newEnd === 0) 
+            continue;
+        
+        if (newStart === thisStart) 
+            bln = true;
+       
+        if (thisStart > 0 && thisStart > newStart && thisStart < newEnd)
+            bln = true;
+                
+        if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd)
+            bln = true;
+
+        if (thisStart === newStart) 
+            bln = true;
+
+        if (thisEnd === newEnd) 
+            bln = true;
+
+        if (thisStart < newStart && thisEnd > newEnd) 
+            bln = true;
+    }
+    
+    //If bln is true then there is an overlap
+    if (bln) {
+        openPopUp("<p>Overlap error</p>");
+        byID(refID).value = "";
+    }
+}
+
+//ROUND TO THE NEAREST 5
+function round5(x) {
+	"use strict";
+    return Math.round(x / 5) * 5;
+}
+
+//CONVERT TIME COMPLETELY TO MINUTES
+function convertToMinutes(s1) {
+	"use strict";
+    if (s1 === "" || s1 === null || s1 === undefined) {
+		return 0;
+	}
+    
+    var h = s1.substring(0, s1.indexOf(":"));
+    if (h === "12" && s1.indexOf("AM") > 0) {
+		h = 0;
+	}
+    h = h * 60;
+    
+    var m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
+        b = m + h;
+    
+    if (s1.indexOf("PM") > 0 && h !== 720) {
+		b = b + 720;
+	}
+    
+    return b;
+}
+
+//CALCULATE DIFFERENCE BETWEEN START AND END TIME
+function calculateDiff(refID) {
+    "use strict";
+    //If refID is null or undefined then exit function
+	if (refID === null || refID === undefined)
+        return;
+    
+    //Declare variables and initialize values
+    var startTime = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value),
+        endTime = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value),
+        num = Number(refID.substr(7, 2)),
+        timeDiff = 0,
+        totalID = refID.substr(0, refID.length - 1);
+
+    //If end time is less than start time then pop up error message
+    if ((endTime < startTime) && (endTime !== 0)) {
+        openPopUp("<p>End time is less than start time</p>");
+        byID(refID).value = "";
+    } else {
+        if (endTime === 0) 
+            endTime = startTime;
+
+        timeDiff = endTime - startTime;
+        
+        if (num > 29)
+            byID(totalID).value = convertTotal(timeDiff);
+        else
+            byID(totalID).value = calculateTotal(timeDiff);
+    }
+    //Set value of total into storage
+    setStorage(totalID, byID(totalID).value);
+}
+
+//RETURN TIME AS H:MM FORMAT
+function calculateTotal(refVal) {
+    "use strict";
+	var hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min < 10) {
+        totalVal = hour + ":0" + min;
+    } else {
+        totalVal = hour + ":" + min;
+    }
+    return totalVal;
+}
+
+//RETURN TIME AS H.MM FORMAT
+function convertTotal(refVal) {
+    "use strict";
+	var hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min === 0 || min === 5) {
+        min = "00";
+    } else if (min === 10 || min === 15 || min === 20) {
+        min = "25";
+    } else if (min === 25 || min === 30 || min === 35) {
+        min = "50";
+    } else if (min === 40 || min === 45 || min === 50) {
+        min = "75";
+    } else if (min === 55) {
+        min = "00";
+        hour = hour + 1;
+    }
+    totalVal = hour + "." + min;
+    totalVal = setToFixed(totalVal);
+    return totalVal;
+}
+
+//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
+function setToFixed(refVal) {
+    refVal = Number(refVal);
+    if (refVal === 0) {
+        return "";
+    }
+    refVal = Number(refVal).toFixed(2);
+    return refVal;
+}
+
+//CALCULATE DAILY RUN TIME
+function dailyRuns(day) {
+	"use strict";
+    if (day === "Sat" || day === "Sun")
+        return;
+    
+    var sum = 0;
+    for (var i = 11; i < 18; i++) {
+        sum += convertToMinutes(byID(day + "Time" + i).value);
+    }
+    sum = calculateTotal(sum);
+    sum = (sum === "0:00") ? "" : sum;
+    byID(day + "RunTotal").value = sum;
+    setStorage(day + "RunTotal", sum);
+}
+
+//Other Work Times
+function dailyOther(day) {
+	"use strict";
+    //Declare variables and initialize values
+    var sum = 0, selectVal;
+    
+    for (var i = 20; i < 30; i++) {
+        if (!byID(day + "Time" + i))
+            continue;
+        
+        selectVal = byID(day + "Select" + i).value;
+        sum += (selectVal !== "CBK" && selectVal !== "ES0" && selectVal !== "ES2") ? convertToMinutes(byID(day + "Time" + i).value) : 0;
+    }
+    sum = calculateTotal(sum);
+    sum = (sum === "0:00") ? "" : sum;
+    byID(day + "OtherTotal").value = sum;
+    setStorage(day + "OtherTotal", sum);
+}
+
+//Total up Specialty Pay
+function sumCPay() {
+	"use strict";
+    var c1 = 0,
+        c3 = 0,
+        i = 0,
+        j = 20,
+        sum = 0,
+        selectVal;
+    
+    for (i; i < 7; i++) {
+        for (j; j < 30; j++) {
+            if (!byID(days[i] + "Time" + j))
+                continue;
+
+            selectVal = byID(days[i] + "Select" + j).value;
+            c1 += (selectVal === "CBK") ? 240 : 0;
+            c3 += (selectVal === "ES0") ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
+            c3 += (selectVal === "ES2") ? convertToMinutes(byID(days[i] + "Time" + j).value) + 120 : 0;
+            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
+        }
+    }
+
+    c1 = (c1 === 0) ? "" : convertTotal(c1);
+    setStorage("TotalC1", c1);
+    byID("TotalC1").value = c1;
+
+    sum = convertTotal(sum);
+    setStorage("TotalHW", sum);
+    byID("TotalHW").value = sum;
+    
+    c3 = (c3 === 0) ? "" : convertTotal(c3);
+    setStorage("TotalC3", c3);
+    byID("TotalC3").value = c3;
+}
+
+//Field Trip Times
+function dailyFT(day) {
+    "use strict";
+    //Declare variables and initialize values
+    var sum = 0;
+    
+    for (var i = 30; i < 35; i++) {
+        if (!byID(day + "Time" + i))
+            continue;
+        
+        sum += Number(byID(day + "Time" + i).value);
+    }
+    sum = setToFixed(sum);
+    byID(day + "FTTotal").value = sum;
+    setStorage(day + "FTTotal", sum);
+}
+
+//Lift Time
+function dailyLift(day) {
+	"use strict";
+    var sum = 0,
+		i = 0;
+    
+    if (day === "Sat" || day === "Sun")
+        return;
+    
+    //If EQ/L is checked, total up run, pac, shuttles, late run time
+    if (byID(day + "Lift11").checked) {
+        for (i = 11; i < 18; i++) {
+            sum += convertToMinutes(byID(day + "Time" + i).value);
+        }
+    }
+    //If Other Work EQ/L is checked, add the time
+    for (i = 20; i < 30; i++) {
+        if (!byID(day + "Time" + i))
+            continue;
+        
+        if (byID(day + "Lift" + i).checked) 
+            sum += convertToMinutes(byID(day + "Time" + i).value);
+    }
+    
+    //If EQ/L is checked for field trips, add time
+    for (i = 30; i < 35; i++) {
+        if (!byID(day + "Time" + i))
+            continue;
+        
+        if (byID(day + "Lift" + i).checked) 
+            sum += (Number(byID(day + "Time" + i).value) * 60);
+    }
+    sum = calculateTotal(sum);
+    sum = (sum === "0:00") ? "" : sum;
+    byID(day + "LiftTotal").value = sum;
+    setStorage(day + "LiftTotal", sum);
+}
+
+//Daily leave checkboxes
+function checkLeaveToggle (refID) {
+	"use strict";
+    var day = refID.substr(0, 3);
+    checkAllDayLeave(day);
+}
+
+//Toggle lift checkboxes on/off, set them in storage and run totals
+function checkboxEQL(refID) {
+	"use strict";
+    var blnmatch = false,
+		bln = false,
+		day = refID.substr(0, 3),
+		i = 0,
+		array = [day + "Lift11", day + "Lift12", day + "Lift13", day + "Lift14", day + "Lift15", day + "Lift16", day + "Lift17"];
+
+    for (i; i < 7; i++) {
+        if (array[i] === refID) {
+            bln = (byID(refID).checked) ? true : false;
+            blnmatch = true;
+            break;
+        }
+    }
+    if (blnmatch) {
+        for (i = 0; i < 7; i++) {
+            byID(array[i]).prop("checked", bln);
+            setStorage(array[i], (bln) ? "1" : "0");
+        }
+    } else {
+        bln = (byID(refID).checked) ? true : false;
+        setStorage(refID, (bln) ? "1" : "0");
+    }
+
+    dailyLift(day);
+    getWeeklyTotals();
+}
+
+//Load nav bar, figure out which day it is and then set that day as visible
+function loadNavBar() {
+	"use strict";
+    var d = new Date(),
+		day = d.getDay();
+    if (day === 6) {
+        day = 0;
+    } else {
+        day = day + 1;
+    }
+    toggleDay(day);
+}
+
+//On span click, make next day visible and hide other days
+function moveRightNavBar() {
+	"use strict";
+    var i = 0;
+    for (i = 0; i < 7; i++) {
+        if (byID(fullday[i]).is(":visible")) {
+            byID(fullday[i]).hide();
+            if (i === 6) {
+                toggleDay(i - 6);
+            } else {
+                toggleDay(i + 1);
+            }
+            break;
+        }
+    }
+    
+}
+
+//On span click, make previous day visible and hide other days
+function moveLeftNavBar() {
+	"use strict";
+    for (var i = 0; i < 7; i++) {
+        if (byID(fullday[i]).is(":visible")) {
+            byID(fullday[i]).hide();
+            if (i === 0) {
+                toggleDay(i + 6);
+            } else {
+                toggleDay(i - 1);
+            }
+            break;
+        }
+    }
+}
+
+function togglePupilCounts (day, intDay) {
+    var i = 0,
+        j = 0,
+        bln = false;
+    
+    for (i = 2; i < 7; i++) {
+        bln = false;
+        if (days[i] === day) {
+            bln = true;
+        }
+        if (getStorage("Position").indexOf("Driver") >= 0) {
+            if (intDay > 1 && intDay < 6) {
+                byID("AMPupilcopy").style.display = "flex";
+                byID("PMPupilcopy").style.display = "flex";
+            } else {
+                byID("AMPupilcopy").style.display = "none";
+                byID("PMPupilcopy").style.display = "none";
+            }
+            $(".att").each(function() {
+                $(this).style.display = "flex";
+            });
+        } else {
+            bln = false;
+            byID("AMPupilcopy").style.display = "none";
+            byID("PMPupilcopy").style.display = "none";
+            $(".att").each(function() {
+                this.style.display = "none";
+            });
+        }
+        for (j = 1; j < 6; j++) {
+            byID(days[i] + "AM" + j + "Ct").style.display = (bln) ? "flex" : "none";
+            byID(days[i] + "PM" + j + "Ct").style.display = (bln) ? "flex" : "none";
+        }
+        for (j = 1; j < 3; j++) {
+            byID(days[i] + "PS" + j + "Ct").style.display = (bln) ? "flex" : "none";
+            byID(days[i] + "SH" + j + "Ct").style.display = (bln) ? "flex" : "none";
+            byID(days[i] + "LR" + j + "Ct").style.display = (bln) ? "flex" : "none";
+        }
+        byID(days[i] + "TimeAM").style.display = (bln) ? "flex" : "none";
+        byID(days[i] + "TimePM").style.display = (bln) ? "flex" : "none";
+    }
+    
+}
+
+
+//Function for nav bar to show day and change text for arrows
+function toggleDay(x) {
+	"use strict";
+    if (x > 0 && x < 6) {
+        byID(fullday[x]).style.display = "inline-block";
+        byID("prev").innerHTML = days[x - 1] + "-" + getStorage(days[x - 1] + "Date");
+        byID("today").innerHTML = days[x] + "-" + getStorage(days[x] + "Date");
+        byID("next").innerHTML = days[x + 1] + "-" + getStorage(days[x + 1] + "Date");
+    } else if (x === 0) {
+        byID(fullday[x]).style.display = "inline-block";
+        byID("prev").innerHTML = days[x + 6] + "-" + getStorage(days[x + 6] + "Date");
+        byID("today").innerHTML = days[x] + "-" + getStorage(days[x] + "Date");
+        byID("next").innerHTML = days[x + 1] + "-" + getStorage(days[x + 1] + "Date");
+    } else if (x === 6) {
+        byID(fullday[x]).style.display = "inline-block";
+        byID("prev").innerHTML = days[x - 1] + "-" + getStorage(days[x - 1] + "Date");
+        byID("today").innerHTML = days[x] + "-" + getStorage(days[x] + "Date");
+        byID("next").innerHTML = days[x - 6] + "-" + getStorage(days[x - 6] + "Date");
+    }
+    togglePupilCounts(days[x], x);
+}
+
+function getDailyTotals() {
+    for (var i = 0; i < 7; i++) {
+        dailyRuns(days[i]);
+        dailyOther(days[i]);
+        dailyFT(days[i]);
+        dailyLift(days[i]);
+    }
+}
+
+//Run calculations for the whole week and set the values into local storage
+function getWeeklyTotals() {
+    //Declare variables and initialize the values
+    var i = 0, sum = 0, j = 0;
+    
+    //Clear Hours worked
+    byID("TotalHW").value = "";
+    setStorage("TotalHW", "");
+    sumCPay();
+
+    for (i = 2; i < 7; i++) {
+        sum += convertToMinutes(getStorage(days[i] + "RunTotal"));
+    }
+    sum = calculateTotal(sum);
+    sum = (sum === "0:00") ? "" : sum;
+    setStorage("TotalRun", sum);
+    byID("TotalRun").value = sum;
+
+    sum = 0;
+    for (i = 0; i < 7; i++) {
+        sum += convertToMinutes(getStorage(days[i] + "OtherTotal"));
+    }
+    sum = calculateTotal(sum);
+    sum = (sum === "0:00") ? "" : sum;
+    setStorage("TotalOther", sum);
+    byID("TotalOther").value = sum;
+    
+    sum = 0;
+    for (i = 0; i < 7; i++) {
+        sum += Number(getStorage(days[i] + "FTTotal"));
+    }
+    sum = setToFixed(sum);
+    setStorage("TotalFT", sum);
+    byID("TotalFT").value = sum;
+
+    
+    sum = convertToMinutes(getStorage("TotalRun")) + convertToMinutes(getStorage("TotalOther"));
+    sum = Number(convertTotal(sum));
+    sum += Number(getStorage("TotalFT"));
+    sum += Number(byID("TotalHW").value);
+    sum = setToFixed(sum);
+    setStorage("TotalHW", sum);
+    byID("TotalHW").value = sum;
+
+    sum = 0;
+    for (i = 0; i < 7; i++) {
+        sum += convertToMinutes(getStorage(days[i] + "LiftTotal"));
+    }
+    sum = convertTotal(sum);
+    setStorage("TotalS2", sum);
+    byID("TotalS2").value = sum;
+
+    sum = convertToMinutes(getStorage("TotalRun")) + convertToMinutes(getStorage("TotalOther"));
+    sum = convertTotal(sum);
+    setStorage("Total1R", sum);
+
+    sum = 0;
+    //If OJT Trainer is not checked then exit function
+    if (!byID("OJT").checked) 
+        return;
+    
+    for (i = 2; i < 7; i++) {
+        for (j = 11; j < 30; j++) {
+            if (!byID(days[i] + "Time" + j))
+                continue;
+
+            if (byID(days[i] + "OJT" + j).checked)
+                sum += convertToMinutes(byID(days[i] + "Time" + j).value);
+        }
+    }
+    sum = convertTotal(sum);
+    setStorage("TotalS4", sum);
+    byID("TotalS4").value = sum;
+}
+

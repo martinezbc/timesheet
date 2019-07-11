@@ -7,30 +7,30 @@ function clearTimeField (fieldID) {
         clearTimeFieldSup(fieldID);
         return;
     }
-    if (num === "14" || num === "15") {
-        $("#" + day + "LeaveSelect" + num).val("");
+    if (num === "41" || num === "42") {
+        byID(day + "LeaveSelect" + num).value = "";
         setStorage(day + "LeaveSelect" + num, "");
-        $("#" + day + "Time" + num + "E").val("").trigger("change");
-        $("#" + day + "Time" + num + "S").val("").trigger("change");
+        byID(day + "Time" + num + "E").value = "";
+        byID(day + "Time" + num + "S").value = "";
     } else if (num === "AD") {
-        $("#" + day + "LeaveSelectAD").val("");
+        byID(day + "LeaveSelectAD").value = "";
         setStorage(day + "LeaveSelectAD", "");
-        if ($("#" + day + "LeaveAD").prop("checked") === true) {
-            $("#" + day + "LeaveAD").trigger("click");
-        }
+        if (byID(day + "LeaveAD").checked)
+            byID(day + "LeaveAD").trigger("click");
+
     } else if (num === "AM") {
-        $("#" + day + "TimeA").val("");
+        byID(day + "TimeA").value = "";
         setStorage(day + "TimeA", "");
-        $("#" + day + "TimeB").val("");
+        byID(day + "TimeB").value = "";
         setStorage(day + "TimeB", "");
     } else if (num === "PM") {
-        $("#" + day + "TimeC").val("");
+        byID(day + "TimeC").value = "";
         setStorage(day + "TimeC", "");
-        $("#" + day + "TimeD").val("");
+        byID(day + "TimeD").value = "";
         setStorage(day + "TimeD", "");
     } else {
-        $("#" + day + "Time" + num + "E").val("").trigger("change");
-        $("#" + day + "Time" + num + "S").val("").trigger("change");
+        byID(day + "Time" + num + "E").value = "";
+        byID(day + "Time" + num + "S").value = "";
     }
 }
 
@@ -44,43 +44,40 @@ function clearOtherField (fieldID) {
         return;
     }
     if (num.substr(0,1) === "3") {
-        $("#" + day + "To" + num).val("");
         setStorage(day + "To" + num, "");
-        $("#" + day + "From" + num).val("");
         setStorage(day + "From" + num, "");
-        $("#" + day + "Voucher" + num).val("");
         setStorage(day + "Voucher" + num, "");
-        $("#" + day + "Lift" + num).prop("checked", false);
         setStorage(day + "Lift" + num, 0);
-        $("#" + day + "FTDiv" + num).remove();
+        setStorage(day + "Time" + num + "S", "");
+        setStorage(day + "Time" + num + "E", "");
+        setStorage(day + "Time" + num, "");
+        byID(day + "FTDiv" + num).parentNode.removeChild(day + "FTDiv" + num);
     } else if (num.substr(0,1) === "2") {
-        $("#" + day + "Desc" + num).val("");
         setStorage(day + "Desc" + num, "");
-        $("#" + day + "Select" + num).val("");
         setStorage(day + "Select" + num, "");
-        $("#" + day + "Lift" + num).prop("checked", false);
         setStorage(day + "Lift" + num, 0);
-        $("#" + day + "OJT" + num).prop("checked", false);
         setStorage(day + "OJT" + num, 0);
-        otherWorkTime(day, num, false);
-        $("#" + day + "OWDiv" + num).remove();
+        setStorage(day + "Time" + num + "S", "");
+        setStorage(day + "Time" + num + "E", "");
+        setStorage(day + "Time" + num, "");
+        byID(day + "OWDiv" + num).parentNode.removeChild(day + "OWDiv" + num);
     }
 }
 
-function setMeridiem (b) {
+function setMeridiem (optVal) {
     var meridiemText = "",
-        inputMeridiem = $("#meridiem" + b).text();
+        inputMeridiem = byID("meridiem" + optVal).innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
         meridiemText = "AM";
     }
-    $("#meridiem" + b).text(meridiemText);
+    byID("meridiem" + b).innerHTML = meridiemText;
 }
 
 function setMinutes (operator, optVal) {
     var minutesText = "",
-        minutes = Number($("#minutes" + optVal).text());
+        minutes = Number(byID("minutes" + optVal).innerHTML);
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -102,12 +99,12 @@ function setMinutes (operator, optVal) {
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
-    $("#minutes" + optVal).text(minutesText);
+    byID("minutes" + optVal).innerHTML = minutesText;
 }
 
 function setMinutesPupil (operator) {
     var minutesText = "",
-        minutes = Number($("#minutes").text());
+        minutes = Number(byID("minutes").innerHTML);
     if (operator === 1) {
         operator = 1;
     } else if (operator === 2) {
@@ -129,12 +126,12 @@ function setMinutesPupil (operator) {
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
-    $("#minutes").text(minutesText);
+    byID("minutes").innerHTML = minutesText;
 }
 
 function setHours (operator, optVal) {
     var hoursText = "";
-    var hours = Number($("#hours" + optVal).text());
+    var hours = Number(byID("hours" + optVal).innerHTML);
     hoursText = hours + operator;
             
     if (hoursText === 13) {
@@ -154,7 +151,7 @@ function setHours (operator, optVal) {
     } else if (hoursText === 10 && operator === -2) {
         setMeridiem(optVal);
     }
-    $("#hours" + optVal).text(hoursText);
+    byID("hours" + optVal).innerHTML = hoursText;
 }
 
 function changeValue (operator, clicked, optVal, refElement) {
