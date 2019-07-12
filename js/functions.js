@@ -1,5 +1,5 @@
 //WEBSITE INTERACTION SCRIPT
-var d = document;
+const d = document;
 
 var byID = function(id) {
     return d.getElementById(id);
@@ -21,24 +21,24 @@ d.addEventListener('DOMContentLoaded', function() {
     checkRouteValue();
 }, false);
 
-d.querySelector("input[type=checkbox]").addEventListener("click", function() {
-    checkboxFunctions(this.id);
+d.querySelector("input[type=checkbox]").addEventListener("click", e => {
+    checkboxFunctions(e.id);
 });
 
-d.querySelector("input[type=text]").addEventListener("change", function () {
-    inputOnChange(this.id);
+d.querySelector("input[type=text]").addEventListener("change", e => {
+    inputOnChange(e.id);
 });
 
-d.querySelector("input[type=number]").addEventListener("change", function () {
-    inputOnChange(this.id);
+d.querySelector("input[type=number]").addEventListener("change", e => {
+    inputOnChange(e.id);
 });
 
-d.querySelector("input[type=radio]").addEventListener("click", function () {
-    radioOnClick(this.id);
+d.querySelector("input[type=radio]").addEventListener("click", e => {
+    radioOnClick(e.id);
 });
    
-d.querySelector("select").addEventListener("change", function () {
-    selectOnChange(this.id);
+d.querySelector("select").addEventListener("change", e => {
+    selectOnChange(e.id);
 });
    
 byID("closeTime").addEventListener("click", function () {
@@ -46,12 +46,12 @@ byID("closeTime").addEventListener("click", function () {
     showHideModal("timeModal", "none"); 
 });
 
-d.addEventListener("click", function(e) {
+d.addEventListener("click", e => {
     if (e.target.classList.contains("up") || e.target.classList.contains("down") || e.target.classList.contains("up2") || e.target.classList.contains("down2"))
-        timeSelectors(e.target.id);
+        timeSelectors(e.id);
     
     if (e.target.classList.contains("fa-times"))
-        clearTimeField(e.target.id);
+        clearTimeField(e.id);
     
     if (e.target.classList.contains("ow"))
         openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
@@ -63,16 +63,16 @@ d.addEventListener("click", function(e) {
         openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
     
     if (e.target.classList.contains("fa-copy"))
-        copyRoutine(e.target.id);
+        copyRoutine(e.id);
     
     if (e.target.classList.contains("addOW"))
-        addOtherWork(e.target.id);
+        addOtherWork(e.id);
     
     if (e.target.classList.contains("addFT"))
-        addFieldTrip(e.target.id);
+        addFieldTrip(e.id);
     
     if (e.target.classList.contains("addLV"))
-        addLeave(e.target.id);
+        addLeave(e.id);
 });
 
 byID("goTime").addEventListener("click", function () {
@@ -128,27 +128,27 @@ byID("EmpID").addEventListener("keyup", function () {
 });
 
 byID("Veh1").addEventListener("keyup", function () {
-    limitCharacters(this.id, 4);
+    limitCharacters(e.id, 4);
 });
 
 byID("Veh2").addEventListener("keyup", function () {
-    limitCharacters(this.id, 4);
+    limitCharacters(e.id, 4);
 });
 
 byID("Veh3").addEventListener("keyup", function () {
-    limitCharacters(this.id, 4);
+    limitCharacters(e.id, 4);
 });
 
 byID("Veh4").addEventListener("keyup", function () {
-    limitCharacters(this.id, 4);
+    limitCharacters(e.id, 4);
 });
 
 
 //DEFINE PUBLIC VARIABLES
 var activeID = "";
-var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-var fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
+const days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+const fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+const routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
 
 //INPUT TYPE TEXTBOX AND TYPE NUMBER ON CHANGE EVENT
 function inputOnChange(refID) {
@@ -161,7 +161,7 @@ function inputOnChange(refID) {
     }
 
     if (refID.indexOf("Route") > 0) {
-        fixRouteName(this.id);
+        fixRouteName(e.id);
         checkRouteValue();
     }
 
@@ -171,7 +171,7 @@ function inputOnChange(refID) {
 
 //SELECT ON CHANGE EVENT
 function selectOnChange(refID) {
-    setLocalStorage(this.id);
+    setLocalStorage(e.id);
     if (refID.indexOf("Select") === 3) {
         countOtherWork(refID);
         if (byID.value === "FYI") 
@@ -457,7 +457,12 @@ function loadRadioSelection() {
 
     val = getStorage("Team");
     if (val !== "" && val !== null)
-        byID("team" + val).checked = true;
+        if (d.querySelector("#team" + val).length) {
+            byID("team" + val).checked = true;
+        } else {
+            setStorage("Team","");
+        }
+        
 
     val = getStorage("Position");
     if (val !== "" && val !== null) {
@@ -534,7 +539,7 @@ function checkRouteValue() {
 
     //Loop through EQ/L checkboxes and enable/disable them
     var elements= d.querySelectorAll(".eqpt");
-    Array.prototype.forEach.call(elements, function (e) {
+    Array.prototype.forEach.call(elements, e => {
         e.checked = false;
         e.disabled = !bln;
     });
@@ -599,13 +604,13 @@ function clearRouteFields() {
     //Loop through days of the week
     for (i = 1; i < 6; i++) {
         elements= d.querySelectorAll("input[id*='AM" + i + "Ct']");
-        Array.prototype.forEach.call(elements, function (e) {
+        Array.prototype.forEach.call(elements, e => {
             e.value = "";
             setStorage(e.id, "");
         });
         
         elements= d.querySelectorAll("input[id*='PM" + i + "Ct']");
-        Array.prototype.forEach.call(elements, function (e) {
+        Array.prototype.forEach.call(elements, e => {
             e.value = "";
             setStorage(e.id, "");
         });
@@ -613,26 +618,26 @@ function clearRouteFields() {
 
     for (i = 1; i < 3; i++) {
         elements= d.querySelectorAll("input[id*='PS" + i + "Ct']");
-        Array.prototype.forEach.call(elements, function (e) {
+        Array.prototype.forEach.call(elements, e => {
             e.value = "";
             setStorage(e.id, "");
         });
             
         elements= d.querySelectorAll("input[id*='SH" + i + "Ct']");
-        Array.prototype.forEach.call(elements, function (e) {
+        Array.prototype.forEach.call(elements, e => {
             e.value = "";
             setStorage(e.id, "");
         });
             
         elements= d.querySelectorAll("input[id*='LR" + i + "Ct']");
-        Array.prototype.forEach.call(elements, function (e) {
+        Array.prototype.forEach.call(elements, e => {
             e.value = "";
             setStorage(e.id, "");
         });
     }
     
     elements= byID("PupilCounts").getElementsByTagName("input");
-    Array.prototype.forEach.call(elements, function (e) {
+    Array.prototype.forEach.call(elements, e => {
         e.value = "";
         setStorage(e.id, "");
     });
@@ -827,7 +832,7 @@ function addOtherWork(refID) {
     //Exit function if count is 10
     if (countOW === 30) return;
 
-    var strHTML = '<div class="tinycard bg-teal2" id="' + dayVal + 'OWDiv' + countOW + '"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'OWTrash' + countOW + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '" onclick="checkboxFunctions(this.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '" onclick="checkboxEQL(this.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
+    var strHTML = '<div class="tinycard bg-teal2" id="' + dayVal + 'OWDiv' + countOW + '"><div class="row"><div class="category col-11">Other Work&nbsp;<span class="fas fa-question-circle ow"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'OWTrash' + countOW + '" onclick="clearOtherField(e.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-auto"><input type="checkbox" id="' + dayVal + 'OJT' + countOW + '" onclick="checkboxFunctions(e.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'OJT' + countOW + '">OJT</label>&nbsp;<input type="checkbox" id="' + dayVal + 'Lift' + countOW + '" onclick="checkboxEQL(e.id);"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countOW + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><select id="' + dayVal + 'Select' + countOW + '" class="selectwidth"><option value="">--Select work--</option><option value="FYI">FYI</option><option value="OTHR">Other</option><option value="GT">Garage trip</option><option value="FUEL">Fuel</option><option value="RC">Run coverage</option><option value="EQ/L">EQ/L Coverage</option><option value="CPR">CPR/First Aid</option><option value="RCRT">Recertification</option><option value="MTNG">Meeting</option><option value="TRNG">Training</option><option value="MED">Physical/Drug Test</option><option value="CS">Cold start team</option><option value="ES2">2 Hr Delay - Early start</option><option value="ES0">On Time - Early start</option><option value="CBK">Call back</option></select></div></div><div class="row ' + dayVal + 'LV"><input name="' + dayVal + 'Desc' + countOW + '" id="' + dayVal + 'Desc' + countOW + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countOW + 'S" id="' + dayVal + 'Time' + countOW + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + 'E" id="' + dayVal + 'Time' + countOW + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countOW + '" id="' + dayVal + 'Time' + countOW + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearOW' + countOW + '"></span></div></div></div>';
     byID(refID + "2").insertAdjacentHTML('beforebegin',strHTML);
 }
 
@@ -838,7 +843,7 @@ function addFieldTrip(refID) {
     //Exit function if count is 5
     if (countFT === 35) return;
 
-    var strHTML = '<div class="tinycard bg-teal3" id="' + dayVal + 'FTDiv' + countFT + '"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'FTTrash' + countFT + '" onclick="clearOtherField(this.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
+    var strHTML = '<div class="tinycard bg-teal3" id="' + dayVal + 'FTDiv' + countFT + '"><div class="row"><div class="category col-11">Field Trip&nbsp;<span class="fas fa-question-circle ft"></span></div><div class="col-1 center"><span class="fas fa-trash-alt" id="' + dayVal + 'FTTrash' + countFT + '" onclick="clearOtherField(e.id);"></span></div></div><div class="row ' + dayVal + 'LV"><div class="col-8"><input name="' + dayVal + 'Voucher' + countFT + '" id="' + dayVal + 'Voucher' + countFT + '" type="text" class="voucherwidth" placeholder="Voucher"></div><div class="col-4"><input type="checkbox" id="' + dayVal + 'Lift' + countFT + '"><labelementsclass="lblBtnFalse" for="' + dayVal + 'Lift' + countFT + '">EQ/L</label></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'From' + countFT + '" id="' + dayVal + 'From' + countFT + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-12"><input name="' + dayVal + 'To' + countFT + '" id="' + dayVal + 'To' + countFT + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div><div class="row ' + dayVal + 'LV"><div class="col-11"><input type="text" name="' + dayVal + 'Time' + countFT + 'S" id="' + dayVal + 'Time' + countFT + 'S" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + 'E" id="' + dayVal + 'Time' + countFT + 'E" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(e.id);">&nbsp;<input type="text" name="' + dayVal + 'Time' + countFT + '" id="' + dayVal + 'Time' + countFT + '" class="total-time nofocus" disabled></div><div class="col-1"><span class="fas fa-times" id="' + dayVal + 'ClearFT' + countFT + '"></span></div></div></div>';
     byID(refID + "2").insertAdjacentHTML('beforebegin',strHTML);
 }
 
@@ -1703,6 +1708,7 @@ function togglePupilCounts (day, intDay) {
     var i = 0,
         j = 0,
         bln = false;
+    const att = d.querySelector(".att");
     
     for (i = 2; i < 7; i++) {
         bln = false;
@@ -1717,15 +1723,15 @@ function togglePupilCounts (day, intDay) {
                 byID("AMPupilcopy").style.display = "none";
                 byID("PMPupilcopy").style.display = "none";
             }
-            $(".att").each(function() {
-                $(this).style.display = "flex";
+            Array.prototype.forEach.call(att, e => {
+                e.style.display = "flex";
             });
         } else {
             bln = false;
             byID("AMPupilcopy").style.display = "none";
             byID("PMPupilcopy").style.display = "none";
-            $(".att").each(function() {
-                this.style.display = "none";
+            Array.prototype.forEach.call(att, e => {
+                e.style.display = "none";
             });
         }
         for (j = 1; j < 6; j++) {
