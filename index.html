@@ -43,10 +43,17 @@
                 <div class="col-1 right"><span class="fas fa-angle-up spanToggle" id="EmpSpan"></span></div>
             </div>
             <div class="row EmpSpan">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <p id="WeekOf">Select Week:<br></p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
+                    <p><strong>Employee Name: (Last, First MI)</strong><br>
+                        <input type="text" name="EmpName" id="EmpName" class="empname" style="text-align: left;" placeholder="Last name,   First Name   Middle Initial...">
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
                     <p><strong>Area:</strong><br>
                         <input type="radio" id="area1" name="area" value="1">
                         <label for="area1">1</label>
@@ -62,42 +69,32 @@
                         <label for="areaTC">TC</label>
                     </p>
                 </div>
-                <div class="col-md-4" id="">
+                <div class="col-md-6" id="">
                     <p id="insertTeam">Team:<br></p>
                 </div>
             </div>
             <div class="row EmpSpan">
-                <div class="col-md-9">
-                    <p><strong>Employee Name: (Last, First MI)</strong><br>
-                        <input type="text" name="EmpName" id="EmpName" class="empname" style="text-align: left;" placeholder="Last name,   First Name   Middle Initial...">
-                    </p>
-                </div>
-                <div class="col-md-3">
-                    <p><strong>Employee ID:</strong><br><input type="number" name="EmpID" id="EmpID" placeholder="000000"></p>
-                </div>
-            </div>
-            <div class="row EmpSpan">
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <p><strong>Position:</strong><br>
                         <input type="radio" id="posDriver" name="position" value="Driver">
                         <label for="posDriver">Driver</label>
                         <input type="radio" id="posDriverTrainee" name="position" value="Driver Trainee">
                         <label for="posDriverTrainee">Driver Trainee</label>
                         <input type="radio" id="posSubDriver" name="position" value="Sub Driver">
-                        <label for="posSubDriver">Sub Driver</label>
+                        <label for="posSubDriver">Sub Driver</label><br>
                         <input type="radio" id="posAttendant" name="position" value="Attendant">
                         <label for="posAttendant">Attendant</label>
                         <input type="radio" id="posAttendantTrainee" name="position" value="Attendant Trainee">
                         <label for="posAttendantTrainee">Attendant Trainee</label>
                         <input type="radio" id="posSubAttendant" name="position" value="Sub Attendant">
-                        <label for="posSubAttendant">Sub Attendant</label>
+                        <label for="posSubAttendant">Sub Attendant</label><br>
                         <input type="radio" id="posActivityDriver" name="position" value="Activity Driver">
                         <label for="posActivityDriver">Activity Driver</label>
                     </p>
                 </div>
-                <div class="col-md-3">
-                    <input type="checkbox" id="OJT"><label for="OJT">OJT Trainer&nbsp;</label><br>
-                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 100%" placeholder="Trainee's name...">
+                <div class="col-md-6"><p><strong>On-The-Job Training:</strong></p>
+                    <input type="checkbox" id="OJT"><label for="OJT">OJT Trainer&nbsp;</label>&nbsp;&nbsp;
+                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row EmpSpan">

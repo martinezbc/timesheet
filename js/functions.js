@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     checkDailyLeave();
     positionChange();
     checkOtherWorkVal();
-    checkRouteValue();
     loadNavBar();
 }, false);
 
@@ -132,18 +131,7 @@ byID("endValidate").addEventListener("click", function () {
 });
 
 byID("clear").addEventListener("click", function () {
-    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>', "");
-});
-
-byID("EmpID").addEventListener("keyup", function () {
-    limitCharacters("EmpID", 6);
-    
-    var empID = byID("EmpID");
-
-    if (isNaN(empID.value)) {
-        openPopUp("<p class='varp'>Employee ID can only contains numbers.</p>", "");
-        empID.value = "";
-    }
+    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
 });
 
 byID("Veh1").addEventListener("keyup", function () {
@@ -208,8 +196,6 @@ function radioOnClick(e) {
     if (refID.substr(0, 4) === "area") {
         loadTeamValues(refID.substr(4));
         setStorage("Area", refID.substr(4));
-    } else if (refID.substr(0, 3) === "pos" && refID.substr(-3) === "Sup") {
-        setStorage("PositionSup", byID(refID).value);
     } else if (refID.substr(0, 3) === "pos") {
         setStorage("Position", byID(refID).value);
         positionChange();
@@ -220,7 +206,7 @@ function radioOnClick(e) {
 function checkVoucherLength(refID) {
     var refVal = byID(refID).value;
     if (refVal.length !== 6) {
-        openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>", "");
+        openPopUp("<p class='varp'>Only input last 6 digits of voucher number.</p>");
         byID(refID).value = refVal.substr(0, 6);
     }
 }
@@ -251,7 +237,7 @@ function properCase(str) {
 //GO THROUGH LOCAL STORAGE AND SEE WHAT IS ALREADY STORed. LOAD STORED DATA INTO ELEMENTS
 function loadLocalStorage() {
     var refVal = "";
-    var req = ["EmpName", "EmpID", "Area", "Team", "Position", "Veh1", "WeekOf", "EmpInitials"];
+    var req = ["EmpName", "Area", "Team", "Position", "Veh1", "WeekOf", "EmpInitials"];
     
     for (var i = 0; i < req.length; i++) {
         refVal = getStorage(req[i]);
@@ -288,17 +274,17 @@ function loadLocalStorage() {
 
 //POP UP OW MESSAGE
 function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>", "");
+    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
 }
 
 //POP UP FT MESSAGE
 function popUpFT() {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>", "");
+    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
 }
 
 //POP UP CT MESSAGE
 function popUpCT() {
-    openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>", "");
+    openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
 }
 
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
@@ -353,13 +339,10 @@ function loadStoredWeek() {
 }
 
 //SET EACH DAY IN MM/DD FORMAT INTO LOCAL STORAGE
-function storeWeek(refID, optVal) {
-    //Set optVal if provided or default to ""
-    optVal = optVal || "";
-
+function storeWeek(refID) {
     //Store element value in refVal and set into local storage
     var refVal = byID(refID).value;
-    setStorage("WeekOf" + optVal, refVal);
+    setStorage("WeekOf", refVal);
 
     //Store first day of week range in y and shortened date in ny
     var y = refVal.substr(0, 8),
@@ -370,20 +353,18 @@ function storeWeek(refID, optVal) {
         nz = z.substr(0, 5),
         day = new Date(y),
         newDay, sm, sd;
-    setStorage("SatDate" + optVal, ny);
+    setStorage("SatDate", ny);
     for (var i = 0; i < 6; i++) {
         newDay = day.addDays(i + 1);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
-        setStorage(days[i + 1] + "Date" + optVal, sm + "/" + sd);
+        setStorage(days[i + 1] + "Date", sm + "/" + sd);
     }
-    setStorage("FriDate" + optVal, nz);
-    if (optVal === "")
-        loadStoredWeek();
-    else
-        loadSupDates();
+    setStorage("FriDate", nz);
+
+    loadStoredWeek();
 
     loadNavBar();
 }
@@ -621,10 +602,10 @@ function toggleADLeave(day) {
 function positionChange() {
     var bln = (getStorage("Position") === "Activity Driver") ? false : true;
     if (!bln) {
-        byID("PupilCounts").display = "none";
+        byID("PupilCounts").style.display = "none";
         clearRouteFields();
     } else {
-        byID("PupilCounts").display = "flex";
+        byID("PupilCounts").style.display = "inherit";
     }
     checkRouteValue();
 }
@@ -695,7 +676,7 @@ function countOtherWork(refID) {
     }
     //Result of j value
     if (j > 10) {
-        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>", "");
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
         byID(refID).value = "";
         textboxUpdate(refID);
     }
@@ -719,7 +700,7 @@ function countFieldTrips(refID) {
     }
     //Result of j value
     if (j > 5) {
-        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>", "");
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
         byID(refID).value = "";
         textboxUpdate(refID);
     }
@@ -767,8 +748,7 @@ function fixRouteName(refID) {
 
 //POP UP MODALS
 //TIME SELECTOR MODAL
-function openTimeSelector(refID, optVal) {
-    optVal = optVal || "";
+function openTimeSelector(refID) {
     activeID = refID;
     var refVal = byID(activeID).value;
     var blnPupil = false;
@@ -780,9 +760,9 @@ function openTimeSelector(refID, optVal) {
         var hours = refVal.substr(0, refVal.indexOf(":"));
         var mins = refVal.substr(refVal.indexOf(":") + 1, 2);
         var mer = refVal.substr(-2);
-        byID("hours" + optVal).innerHTML = hours;
-        byID("minutes" + optVal).innerHTML = mins;
-        byID("meridiem" + optVal).innerHTML = mer;
+        byID("hours").innerHTML = hours;
+        byID("minutes").innerHTML = mins;
+        byID("meridiem").innerHTML = mer;
     } else {
         if (!blnPupil) {
             mins = round5(Number(byID("minutes").innerHTML));
@@ -794,35 +774,29 @@ function openTimeSelector(refID, optVal) {
             byID("minutes").innerHTML = mins;
         }
     }
-    showHideModal("timeModal" + optVal, "block");
+    showHideModal("timeModal", "block");
 }
 
 //FIELD TRIP MODAL
-function openFTSelector(refVal, optVal) {
-    optVal = (optVal === undefined) ? "" : "Sup";
-    showHideModal("ftModal" + optVal, "block");
+function openFTSelector(refVal) {
+    showHideModal("ftModal", "block");
     activeID = refVal;
-    byID("ftselector" + optVal).value = "";
-    byID("fttype" + optVal).value = "";
+    byID("ftselector").value = "";
+    byID("fttype").value = "";
 }
 
 //OPEN POP UP MODAL FOR ERROR MESSAGES
-function openPopUp(msgVal, optVal) {
-    optVal = (optVal === undefined) ? "" : "Sup";
-    byID("varDiv" + optVal).innerHTML = "";
-    byID("varDiv" + optVal).innerHTML = msgVal;
-    showHideModal("variousModal" + optVal, "block");
+function openPopUp(msgVal) {
+    byID("varDiv").innerHTML = "";
+    byID("varDiv").innerHTML = msgVal;
+    showHideModal("variousModal", "block");
 }
 
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
-function timeSelectors(refID) {
+function timeSelectors(e) {
+    var refID = e.currentTarget.id;
     var strVal = refID.substr(2),
-        operator = "",
-        optVal = "";
-    if (strVal.indexOf("Sup") > 0) {
-        strVal = strVal.replace("Sup", "");
-        optVal = "Sup";
-    }
+        operator = "";
     switch (strVal) {
         case "up":
             operator = 1;
@@ -837,7 +811,7 @@ function timeSelectors(refID) {
             operator = -2;
             break;
     }
-    changeValue(operator, refID, optVal, activeID);
+    changeValue(operator, refID, activeID);
 }
 
 //******************CHECKBOXES******************//
@@ -1000,55 +974,21 @@ function openTimesheet() {
 function runValidations() {
     var val = "";
 
-    if (getStorage("Area") === "TC") //Remove some validations for training center
-        val = testEmpDataTC() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
-    else
-        val = testEmpData("") + testOtherWork() + testFieldTrip() + testLeave() + testStopCounts() + testTimeComplete();
+    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    if (getStorage("Area") !== "TC") {
+        val += testStopCounts();
+    }
 
 
     if (val !== "") {
-        openPopUp(val, '');
+        openPopUp(val);
         return false;
     } else {
         return true;
     }
 }
 
-function testEmpData(optVal) {
-    var val = "";
-
-    //Check selected week
-    if (getStorage("WeekOf" + optVal) === "")
-        val = "<p class='varp'>&bull;Pay week not selected.</p>";
-
-    //Check Area
-    if (getStorage("Area" + optVal) === "")
-        val += "<p class='varp'>&bull;Area not selected.</p>";
-
-    //Check Team
-    if (getStorage("Team" + optVal) === "")
-        val += "<p class='varp'>&bull;Team not selected.</p>";
-
-    //Check employee name
-    if (getStorage("EmpName" + optVal) === "")
-        val += "<p class='varp'>&bull;Employee name not entered</p>";
-
-    //Check employee ID
-    if (getStorage("EmpID" + optVal) === "")
-        val += "<p class='varp'>&bull;Employee ID not entered.</p>";
-
-    //Check position
-    if (getStorage("Position" + optVal) === "")
-        val += "<p class='varp'>&bull;Employee position not selected.</p>";
-
-    //Check vehicle1
-    if (getStorage("Veh1" + optVal) === "")
-        val += "<p class='varp'>&bull;Assigned vehicle not entered.</p>";
-
-    return val;
-}
-
-function testEmpDataTC() {
+function testEmpData() {
     var val = "";
 
     //Check selected week
@@ -1056,11 +996,11 @@ function testEmpDataTC() {
         val = "<p class='varp'>&bull;Pay week not selected.</p>";
 
     //Check Area
-    if (getStorage("Area") === "" || getStorage("Area") === null)
+    if (getStorage("Area") === "")
         val += "<p class='varp'>&bull;Area not selected.</p>";
 
     //Check Team
-    if (getStorage("Team") === "" || getStorage("Team") === null)
+    if (getStorage("Team") === "")
         val += "<p class='varp'>&bull;Team not selected.</p>";
 
     //Check employee name
@@ -1277,7 +1217,7 @@ function testTimeComplete() {
 function limitCharacters(refID, num) {
     var refVal = byID(refID).value;
     if (refVal.length > num) {
-        openPopUp("<p class='varp'>Limit " + num + " characters.</p>", "");
+        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
         byID(refID).value = refVal.substr(0, num);
     }
 }
@@ -1335,9 +1275,9 @@ function otherWorkTime(day, num, bln) {
 function copyRoutine(refID) {
     activeID = refID;
     if (refID === "AMPupilcopy" || refID === "PMPupilcopy")
-        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>', '');
+        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>');
     else
-        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>', '');
+        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>');
 }
 
 function runCopyRoutine() {
@@ -1374,7 +1314,7 @@ function runPupilCopyRoutine() {
         bln = false;
 
     for (var i = 2; i < 6; i++) {
-        if (byID(fullday[i]).is(":visible")) {
+        if (byID(fullday[i]).style.display !== "none") {
             k = i;
             break;
         }
@@ -1763,7 +1703,7 @@ function checkboxEQL(refID) {
     dailyLift(day);
 }
 
-//Load nav bar, figure out which day it is and then set that day as visible
+//GET INTEGER VALUE OF TODAY AND PASS VALUE INTO NAV BAR
 function loadNavBar() {
 	"use strict";
     var d = new Date(),
@@ -1781,8 +1721,8 @@ function moveRightNavBar() {
 	"use strict";
     var i = 0;
     for (i = 0; i < 7; i++) {
-        if (byID(fullday[i]).is(":visible")) {
-            byID(fullday[i]).hide();
+        if (byID(fullday[i]).style.display !== "none") {
+            byID(fullday[i]).style.display = "none";
             if (i === 6) {
                 toggleDay(i - 6);
             } else {
@@ -1798,8 +1738,8 @@ function moveRightNavBar() {
 function moveLeftNavBar() {
 	"use strict";
     for (var i = 0; i < 7; i++) {
-        if (byID(fullday[i]).is(":visible")) {
-            byID(fullday[i]).hide();
+        if (byID(fullday[i]).style.display !== "none") {
+            byID(fullday[i]).style.display = "none";
             if (i === 0) {
                 toggleDay(i + 6);
             } else {
@@ -1810,35 +1750,40 @@ function moveLeftNavBar() {
     }
 }
 
-function togglePupilCounts (day, intDay) {
+function togglePupilCounts (day, x) {
+    //Define variables and initialize
     var i = 0,
         j = 0,
         bln = false;
-    const att = document.querySelector(".att");
-    
+    //Define constant att nodeList
+    const att = document.querySelectorAll(".att");
+    //Get Position value
+    var posVal = getStorage("Position");
+    //Exit function if the position is activity driver
+    if  (posVal === "Activity Driver") return;
+    //Loop through Monday - Friday
     for (i = 2; i < 7; i++) {
-        bln = false;
-        if (days[i] === day) {
-            bln = true;
-        }
-        if (getStorage("Position").indexOf("Driver") >= 0) {
-            if (intDay > 1 && intDay < 6) {
-                byID("AMPupilcopy").style.display = "flex";
-                byID("PMPupilcopy").style.display = "flex";
+        //Set boolean to display/hide fields
+        bln = (days[i] === day) ? true : false;
+        if (posVal.indexOf("Driver") >= 0) {
+            //Hide copy buttons for Saturday, Sunday, and Friday
+            if (x > 1 && x < 6) {
+                byID("AMPupilcopy").style.display = "inline-block";
+                byID("PMPupilcopy").style.display = "inline-block";
             } else {
                 byID("AMPupilcopy").style.display = "none";
                 byID("PMPupilcopy").style.display = "none";
             }
-            Array.prototype.forEach.call(att, e => {
-                e.style.display = "flex";
-            });
+            for (j = 0; j < att.length; j++) {
+                att[j].style.display = "flex";
+            }
         } else {
             bln = false;
             byID("AMPupilcopy").style.display = "none";
             byID("PMPupilcopy").style.display = "none";
-            Array.prototype.forEach.call(att, e => {
-                e.style.display = "none";
-            });
+            for (j = 0; j < att.length; j++) {
+                att[j].style.display = "none";
+            }
         }
         for (j = 1; j < 6; j++) {
             byID(days[i] + "AM" + j + "Ct").style.display = (bln) ? "flex" : "none";
@@ -1856,9 +1801,10 @@ function togglePupilCounts (day, intDay) {
 }
 
 
-//Function for nav bar to show day and change text for arrows
+//CHANGE NAV BAR VALUES DEPENDING ON THE DAY
 function toggleDay(x) {
-	"use strict";
+    "use strict";
+    //Set prev, today, and next text values
     if (x > 0 && x < 6) {
         byID(fullday[x]).style.display = "inline-block";
         byID("prev").innerHTML = days[x - 1] + "-" + getStorage(days[x - 1] + "Date");
@@ -1875,6 +1821,14 @@ function toggleDay(x) {
         byID("today").innerHTML = days[x] + "-" + getStorage(days[x] + "Date");
         byID("next").innerHTML = days[x - 6] + "-" + getStorage(days[x - 6] + "Date");
     }
+    //Loop through all other days and set style display to none
+    for (var i = 0; i < 7; i++) {
+        if (i === x) {
+            continue;
+        }
+        byID(fullday[i]).style.display = "none";
+    }
+    //Toggle pupil count fields
     togglePupilCounts(days[x], x);
 }
 
@@ -2000,8 +1954,7 @@ function clearTimeField (e) {
 }
 
 //CLEAR OTHER WORK FIELDS OR FIELD TRIP FIELDS
-function clearOtherField (e) {
-    var fieldID = e.target.id;
+function clearOtherField (fieldID) {
     "use strict";
     var day = fieldID.substr(0, 3),
         num = fieldID.substr(10);
@@ -2018,7 +1971,7 @@ function clearOtherField (e) {
         setStorage(day + "Time" + num + "S", "");
         setStorage(day + "Time" + num + "E", "");
         setStorage(day + "Time" + num, "");
-        byID(day + "FTDiv" + num).parentNode.removeChild(day + "FTDiv" + num);
+        byID(day + "FTDiv" + num).remove();
     } else if (num.substr(0,1) === "2") {
         setStorage(day + "Desc" + num, "");
         setStorage(day + "Select" + num, "");
@@ -2027,6 +1980,6 @@ function clearOtherField (e) {
         setStorage(day + "Time" + num + "S", "");
         setStorage(day + "Time" + num + "E", "");
         setStorage(day + "Time" + num, "");
-        byID(day + "OWDiv" + num).parentNode.removeChild(day + "OWDiv" + num);
+        byID(day + "OWDiv" + num).remove();
     }
 }
