@@ -17,7 +17,7 @@
     <script src="js/fieldtrip.js"></script>
 </head>
 
-<body onload="insertFTSelect();">
+<body>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
         <div id="navbarmodal" class="dropdown">
@@ -46,7 +46,7 @@
                       var r2 = DateRange(0);
                       var r3 = DateRange(7);
 
-                      var strHTML = '<strong>Week Of:</strong><br>';
+                      var strHTML = '';
                       strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
                       strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
                       strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek(\'week3\');"><label for="week3">' + r3 + '</label>';
@@ -116,7 +116,7 @@
                       for (i = 0; i < 17; i++) {
                           strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '")";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
                       }
-                      strHTML += '</div>'
+                      strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="team" value="TC")";><label for="teamTC">TC</label></div>';
                       document.write(strHTML);
                     </script>
                   </p>
@@ -194,7 +194,7 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att">
+                    <div class="col-5 att hide">
                         <p>Counts</p>
                     </div>
                 </div>
@@ -258,7 +258,7 @@
                         <input type="number" id="FriAM5Ct" class="countwidth hide" placeholder="Fri">
                     </div>
                 </div>
-                <div class="row att">
+                <div class="row att hide">
                     <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
                 <div class="row" id="MonTimeAM">
@@ -307,7 +307,7 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att">
+                    <div class="col-5 att hide">
                         <p>Counts</p>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
                         <input type="number" id="FriPM5Ct" class="countwidth hide" placeholder="Fri">
                     </div>
                 </div>
-                <div class="row att">
+                <div class="row att hide">
                     <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
                 <div class="row" id="MonTimePM">
@@ -420,7 +420,7 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att">
+                    <div class="col-5 att hide">
                         <p>Counts</p>
                     </div>
                 </div>
@@ -1441,6 +1441,7 @@
     </script>
     <script src="js/functions.js"></script>
     <script src="js/timepicker.js"></script>
+    insertFTSelect();
 </body>
 
 </html>
