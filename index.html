@@ -40,7 +40,42 @@
             </div>
             <div class="row EmpSpan">
                 <div class="col-md-6">
-                    <p id="WeekOf">Select Week:<br></p>
+                    <p><strong>Select Week:</strong><br>
+                    <script>
+                      var r1 = DateRange(-7);
+                      var r2 = DateRange(0);
+                      var r3 = DateRange(7);
+
+                      var strHTML = '<strong>Week Of:</strong><br>';
+                      strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
+                      strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
+                      strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek(\'week3\');"><label for="week3">' + r3 + '</label>';
+                      document.write(strHTML);
+
+                      function DateRange(offset) {
+                          var start = new Date();
+                          var end = new Date();
+                          var day = start.getDay();
+                          var sOffset = (day - day) - (day + 1);
+                          sOffset = (sOffset === -7) ? 0 : sOffset;
+                          var eOffset = sOffset + 6;
+                          start.setDate(start.getDate() + (sOffset + offset));
+                          end.setDate(end.getDate() + (eOffset + offset));
+
+                          var sm = start.getMonth() + 1,
+                              sd = start.getDate(),
+                              sy = start.getFullYear().toString().substr(-2);
+                          var em = end.getMonth() + 1,
+                              ed = end.getDate(),
+                              ey = end.getFullYear().toString().substr(-2);
+                          sm = (sm.toString().length === 1) ? "0" + sm : sm;
+                          sd = (sd.toString().length === 1) ? "0" + sd : sd;
+                          em = (em.toString().length === 1) ? "0" + em : em;
+                          ed = (ed.toString().length === 1) ? "0" + ed : ed;
+                          return sm + "/" + sd + "/" + sy + " - " + em + "/" + ed + "/" + ey;
+                        }
+                    </script>
+                  </p>
                 </div>
                 <div class="col-md-6">
                     <p><strong>Employee Name: (Last, First MI)</strong><br>
@@ -66,7 +101,25 @@
                     </p>
                 </div>
                 <div class="col-md-6" id="">
-                    <p id="insertTeam">Team:<br></p>
+                    <p><strong>Team:</strong><br>
+                    <script>
+                      var strHTML = "";
+                      for (var j = 1; j < 5; j++) {
+                        strHTML += '<div class="hide" id="div' + j + '">';
+                        for (var i = 0; i < 8; i++) {
+                            strHTML += '<input type="radio" id="team' + j + i + '" name="team" value="' + j + i + '");"><label for="team' + j + i + '">' + j + i + '</label>';
+                          }
+                          strHTML += '</div>';
+                      }
+                      strHTML += '<div class="hide" id="div7">';
+                      var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
+                      for (i = 0; i < 17; i++) {
+                          strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '")";><label for="team' + teams[i] + '">' + teams[i] + '</label>';
+                      }
+                      strHTML += '</div>'
+                      document.write(strHTML);
+                    </script>
+                  </p>
                 </div>
             </div>
             <div class="row EmpSpan">
@@ -1206,11 +1259,11 @@
                     strHTML += '<div class="category col-11">Other Work&nbsp;';
                     strHTML += '<span class="fas fa-question-circle ow"></span>';
                     strHTML += '</div><div class="col-1 center">';
-                    strHTML += '<span class="fas fa-trash-alt" id="' + $id[1] + '" onclick="clearOtherField(this.id);"></span>';
+                    strHTML += '<span class="fas fa-trash-alt" id="' + $id[1] + '"></span>';
                     strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-auto">';
-                    strHTML += '<input type="checkbox" id="' + $id[2] + '" onclick="checkboxOJT(this.id);">';
+                    strHTML += '<input type="checkbox" id="' + $id[2] + '">';
                     strHTML += '<label class="lblBtnFalse" for="' + $id[2] + '">OJT</label>&nbsp;';
-                    strHTML += '<input type="checkbox" id="' + $id[3] + '" onclick="checkboxEQL(this.id);">';
+                    strHTML += '<input type="checkbox" id="' + $id[3] + '">';
                     strHTML += '<label class="lblBtnFalse" for="' + $id[3] + '">EQ/L</label>';
                     strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
                     strHTML += '<select id="' + $id[4] + '" class="selectwidth">';
@@ -1234,8 +1287,8 @@
                     strHTML += '<div class="row ' + days[i] + 'LV">';
                     strHTML += '<input id="' + $id[5] + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
                     strHTML += '</div><div class="row ' + days[i] + 'LV"><div class="col-11">';
-                    strHTML += '<input type="text" id="' + $id[6] + '" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;';
-                    strHTML += '<input type="text" id="' + $id[7] + '" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;';
+                    strHTML += '<input type="text" id="' + $id[6] + '" class="timewidth" placeholder="- - : - -">&nbsp;';
+                    strHTML += '<input type="text" id="' + $id[7] + '" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" id="' + $id[8] + '" class="total-time nofocus" disabled>';
                     strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + $id[9] + '"></span></div></div></div>';
                     document.write(strHTML);
@@ -1252,19 +1305,19 @@
                   strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
                   strHTML += '<span class="fas fa-question-circle ft"></span>';
                   strHTML += '</div><div class="col-1 center">';
-                  strHTML += '<span class="fas fa-trash-alt" id="' + $id[1] + '" onclick="clearOtherField(this.id);"></span>';
+                  strHTML += '<span class="fas fa-trash-alt" id="' + $id[1] + '"></span>';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-8">';
                   strHTML += '<input id="' + $id[3] + '" type="text" class="voucherwidth" placeholder="Voucher">';
                   strHTML += '</div><div class="col-4">';
-                  strHTML += '<input type="checkbox" id="' + $id[2] + '" onclick="checkboxEQL(this.id)">';
+                  strHTML += '<input type="checkbox" id="' + $id[2] + '">';
                   strHTML += '<label class="lblBtnFalse" for="' + $id[2] + '">EQ/L</label>';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
-                  strHTML += '<input id="' + $id[5] + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth" onclick="openFTSelector(this.id)">';
+                  strHTML += '<input id="' + $id[5] + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
-                  strHTML += '<input id="' + $id[4] + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth" onclick="openFTSelector(this.id)">';
+                  strHTML += '<input id="' + $id[4] + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
-                  strHTML += '<input type="text" id="' + $id[6] + '" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;';
-                  strHTML += '<input type="text" id="' + $id[7] + '" class="timewidth" placeholder="- - : - -" onclick="openTimeSelector(this.id);">&nbsp;';
+                  strHTML += '<input type="text" id="' + $id[6] + '" class="timewidth" placeholder="- - : - -">&nbsp;';
+                  strHTML += '<input type="text" id="' + $id[7] + '" class="timewidth" placeholder="- - : - -">&nbsp;';
                   strHTML += '<input type="text" id="' + $id[8] + '" class="total-time nofocus" disabled>';
                   strHTML += '</div><div class="col-1">';
                   strHTML += '<span class="fas fa-times" id="' + $id[9] + '"></span>';
