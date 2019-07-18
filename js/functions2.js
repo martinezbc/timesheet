@@ -232,71 +232,12 @@ byID("goFT").addEventListener("click", function () {
 
 
 
-function loadDateRange() {
-    "use strict";
-    var refDate = getStorage("WeekOf");
-    if (getStorage("WeekOf") === null) {
-        setStorage("WeekOf", "");
-    }
-    if (refDate === byID("week1").value) {
-        byID("week1").checked = true;
-        storeWeek("week1");
-    } else if (refDate === byID("week3").value) {
-        byID("week3").checked = true;
-        storeWeek("week3");
-    } else {
-        byID("week2").checked = true;
-        storeWeek("week2");
-    }
-    
-    loadStoredWeek();
-}
-
-//LOADS DATES FROM STORAGE INTO DATE TEXT FIELDS
-function loadStoredWeek() {
-    if (getStorage("SatDate") !== null)
-        for (var i = 0; i < 7; i++)
-            byID(days[i] + "Date").innerHTML = getStorage(days[i] + "Date");
-}
 
 
 
-//SET EACH DAY IN MM/DD FORMAT INTO LOCAL STORAGE
-function storeWeek(refID) {
-    //Store element value in refVal and set into local storage
-    var refVal = byID(refID).value;
-    setStorage("WeekOf", refVal);
 
-    //Store first day of week range in y and shortened date in ny
-    var y = refVal.substr(0, 8),
-        ny = y.substr(0, 5);
 
-    //Store second day of week range in z and shortened date in nz
-    var z = refVal.substr(11),
-        nz = z.substr(0, 5),
-        day = new Date(y),
-        newDay, sm, sd;
-    setStorage("SatDate", ny);
-    for (var i = 0; i < 6; i++) {
-        newDay = day.addDays(i + 1);
-        sm = newDay.getMonth() + 1;
-        sd = newDay.getDate();
-        sm = (sm.toString().length === 1) ? "0" + sm : sm;
-        sd = (sd.toString().length === 1) ? "0" + sd : sd;
-        setStorage(days[i + 1] + "Date", sm + "/" + sd);
-    }
-    setStorage("FriDate", nz);
-    loadStoredWeek();
-    loadNavBar();
-}
 
-//DATEADD FUNCTION
-Date.prototype.addDays = function (x) {
-    "use strict";
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + x);
-    return date;
-};
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE OR SET VALUES FROM LOCAL STORAGE INTO ELEMENTS
 function loadLocalStorage() {
@@ -726,28 +667,7 @@ function setTeamSelection(refID) {
     setStorage("Team", refID.substr(4));
 }
 
-//FIND STORED VALUE FOR AREA, TEAM AND POSITION AND LOAD INTO RADIO SELECTION
-function loadRadioSelection() {
-    var val = getStorage("Area");
-    if (val !== "" && val !== null)
-        byID("area" + val).checked = true;
 
-
-    val = getStorage("Team");
-    if (val !== "" && val !== null)
-        if (document.querySelector("#team" + val).length) {
-            byID("team" + val).checked = true;
-        } else {
-            setStorage("Team","");
-        }
-
-
-    val = getStorage("Position");
-    if (val !== "" && val !== null) {
-        val = val.replace(" ", "");
-        byID("pos" + val).checked = true;
-    }
-}
 
 //GET VALUE OF OJT CHECKBOX AND THEN TOGGLE ALL OTHER OJT CHECKBOXES
 function checkOJTData() {
