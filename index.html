@@ -15,6 +15,10 @@
     <link href="css/color.css" rel="stylesheet" type="text/css">
     <!--Javascript-->
     <script src="js/fieldtrip.js"></script>
+    <script>
+        const days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+        const fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    </script>
 </head>
 
 <body>
@@ -194,108 +198,33 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att hide">
+                    <div class="col-5 hide" id="divAMCt">
                         <p>Counts</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="AMRoute1" class="routewidth" placeholder="1st bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonAM1Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueAM1Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedAM1Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuAM1Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriAM1Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="AMRoute2" class="routewidth" placeholder="2nd bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonAM2Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueAM2Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedAM2Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuAM2Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriAM2Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="AMRoute3" class="routewidth" placeholder="3rd bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonAM3Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueAM3Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedAM3Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuAM3Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriAM3Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="AMRoute4" class="routewidth" placeholder="4th bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonAM4Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueAM4Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedAM4Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuAM4Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriAM4Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="AMRoute5" class="routewidth" placeholder="5th bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonAM5Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueAM5Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedAM5Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuAM5Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriAM5Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row att hide">
-                    <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
-                </div>
-                <div class="row" id="MonTimeAM">
-                    <div class="col-11">
-                        <input name="MonTimeA" id="MonTimeA" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTimeB" id="MonTimeB" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearPTAM"></span></div>
-                </div>
-                <div class="row" id="TueTimeAM">
-                    <div class="col-11">
-                        <input name="TueTimeA" id="TueTimeA" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="TueTimeB" id="TueTimeB" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="TueClearPTAM"></span></div>
-                </div>
-                <div class="row" id="WedTimeAM">
-                    <div class="col-11">
-                        <input name="WedTimeA" id="WedTimeA" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTimeB" id="WedTimeB" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearPTAM"></span></div>
-                </div>
-                <div class="row" id="ThuTimeAM">
-                    <div class="col-11">
-                        <input name="ThuTimeA" id="ThuTimeA" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTimeB" id="ThuTimeB" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearPTAM"></span></div>
-                </div>
-                <div class="row" id="FriTimeAM">
-                    <div class="col-11">
-                        <input name="FriTimeA" id="FriTimeA" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTimeB" id="FriTimeB" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearPTAM"></span></div>
-                </div>
+                <script>
+                    var strHTML = "";
+                    var plhldr = ["", "1st bell", "2nd bell", "3rd bell", "4th bell", "5th bell"];
+                    for (var i = 1; i < 6; i++) {
+                        strHTML += '<div class="row"><div class="col-7">';
+                        strHTML += '<input type="text" id="AMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
+                        strHTML += '</div><div class="col-5">';
+                        for (var j = 2; j < 7; j++) {
+                            strHTML += '<div class="hide" id="div' + days[j] + 'AM' + i + 'Ct">';
+                            strHTML += '<input type="number" id="' + days[j] + 'AM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
+                        }
+                        strHTML += '</div></div>';    
+                    }
+                    strHTML += '<div class="row hide" id="divAMPupilTime">';
+                    strHTML += '<p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p></div>';
+                    for (var j = 2; j < 7; j++) {
+                        strHTML += '<div class="row hide" id="' + days[j] + 'TimeAM"><div class="col-11">';
+                        strHTML += '<input id="' + days[j] + 'TimeA" type="text" class="timewidth" placeholder="- - : - -">&nbsp;';
+                        strHTML += '<input id="' + days[j] + 'TimeB" type="text" class="timewidth" placeholder="- - : - -">';
+                        strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[j] + 'ClearPTAM"></span></div></div>';
+                    }
+                    document.write(strHTML);
+                </script>
             </div>
             <div class="tinycard bg-teal1 pupilcard PupilSpan">
                 <div class="row">
@@ -307,108 +236,33 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att hide">
+                    <div class="col-5 hide" id="divPMCt">
                         <p>Counts</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PMRoute1" class="routewidth" placeholder="1st bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPM1Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePM1Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPM1Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPM1Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPM1Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PMRoute2" class="routewidth" placeholder="2nd bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPM2Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePM2Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPM2Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPM2Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPM2Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PMRoute3" class="routewidth" placeholder="3rd bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPM3Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePM3Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPM3Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPM3Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPM3Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PMRoute4" class="routewidth" placeholder="4th bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPM4Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePM4Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPM4Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPM4Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPM4Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PMRoute5" class="routewidth" placeholder="5th bell">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPM5Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePM5Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPM5Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPM5Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPM5Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row att hide">
-                    <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
-                </div>
-                <div class="row" id="MonTimePM">
-                    <div class="col-11">
-                        <input name="MonTimeA" id="MonTimeC" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="MonTimeB" id="MonTimeD" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearPTPM"></span></div>
-                </div>
-                <div class="row" id="TueTimePM">
-                    <div class="col-11">
-                        <input name="TueTimeA" id="TueTimeC" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="TueTimeB" id="TueTimeD" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="TueClearPTPM"></span></div>
-                </div>
-                <div class="row" id="WedTimePM">
-                    <div class="col-11">
-                        <input name="WedTimeA" id="WedTimeC" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="WedTimeB" id="WedTimeD" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearPTPM"></span></div>
-                </div>
-                <div class="row" id="ThuTimePM">
-                    <div class="col-11">
-                        <input name="ThuTimeA" id="ThuTimeC" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="ThuTimeB" id="ThuTimeD" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearPTPM"></span></div>
-                </div>
-                <div class="row" id="FriTimePM">
-                    <div class="col-11">
-                        <input name="FriTimeA" id="FriTimeC" type="text" class="timewidth" placeholder="- - : - -">
-                        <input name="FriTimeB" id="FriTimeD" type="text" class="timewidth" placeholder="- - : - -">
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearPTPM"></span></div>
-                </div>
+                <script>
+                    var strHTML = "";
+                    var plhldr = ["", "1st bell", "2nd bell", "3rd bell", "4th bell", "5th bell"];
+                    for (var i = 1; i < 6; i++) {
+                        strHTML += '<div class="row"><div class="col-7">';
+                        strHTML += '<input type="text" id="PMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
+                        strHTML += '</div><div class="col-5">';
+                        for (var j = 2; j < 7; j++) {
+                            strHTML += '<div class="hide" id="div' + days[j] + 'PM' + i + 'Ct">';
+                            strHTML += '<input type="number" id="' + days[j] + 'PM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
+                        }
+                        strHTML += '</div></div>';    
+                    }
+                    strHTML += '<div class="row hide" id="divPMPupilTime">';
+                    strHTML += '<p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p></div>';
+                    for (var j = 2; j < 7; j++) {
+                        strHTML += '<div class="row hide" id="' + days[j] + 'TimePM"><div class="col-11">';
+                        strHTML += '<input id="' + days[j] + 'TimeC" type="text" class="timewidth" placeholder="- - : - -">&nbsp;';
+                        strHTML += '<input id="' + days[j] + 'TimeD" type="text" class="timewidth" placeholder="- - : - -">';
+                        strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[j] + 'ClearPTPM"></span></div></div>';
+                    }
+                    document.write(strHTML);
+                </script>
             </div>
             <div class="bg-teal1 tinycard pupilcard PupilSpan">
                 <div class="row">
@@ -420,92 +274,50 @@
                     <div class="col-7">
                         <p>Route Name</p>
                     </div>
-                    <div class="col-5 att hide">
+                    <div class="col-5 hide" id="divPSCt">
                         <p>Counts</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PSRoute1" class="routewidth" placeholder="pac/ps">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPS1Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePS1Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPS1Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPS1Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPS1Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="PSRoute2" class="routewidth" placeholder="pac/ps">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonPS2Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TuePS2Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedPS2Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuPS2Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriPS2Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Shuttles</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="SHRoute1" class="routewidth" placeholder="shuttle">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonSH1Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueSH1Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedSH1Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuSH1Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriSH1Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="SHRoute2" class="routewidth" placeholder="shuttle">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonSH2Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueSH2Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedSH2Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuSH2Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriSH2Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Late Runs</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="LRRoute1" class="routewidth" placeholder="late run">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonLR1Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueLR1Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedLR1Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuLR1Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriLR1Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-7">
-                        <input type="text" id="LRRoute2" class="routewidth" placeholder="late run">
-                    </div>
-                    <div class="col-5">
-                        <input type="number" id="MonLR2Ct" class="countwidth hide" placeholder="Mon">
-                        <input type="number" id="TueLR2Ct" class="countwidth hide" placeholder="Tue">
-                        <input type="number" id="WedLR2Ct" class="countwidth hide" placeholder="Wed">
-                        <input type="number" id="ThuLR2Ct" class="countwidth hide" placeholder="Thu">
-                        <input type="number" id="FriLR2Ct" class="countwidth hide" placeholder="Fri">
-                    </div>
-                </div>
+                <script>
+                    var strHTML = "";
+                    for (var i = 1; i < 3; i++) {
+                        strHTML += '<div class="row"><div class="col-7">';
+                        strHTML += '<input type="text" id="PSRoute' + i + '" class="routewidth" placeholder="pac/ps">';
+                        strHTML += '</div><div class="col-5">';
+                        for (var j = 2; j < 7; j++) {
+                            strHTML += '<div class="hide" id="div' + days[j] + 'PS' + i + 'Ct">';
+                            strHTML += '<input type="number" id="' + days[j] + 'PS' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
+                        }
+                        strHTML += '</div></div>';    
+                    }
+                    
+                    strHTML += '<div class="row"><div class="col-12">';
+                    strHTML += '<p class="category">Shuttles</p></div></div>';
+                    for (var i = 1; i < 3; i++) {
+                        strHTML += '<div class="row"><div class="col-7">';
+                        strHTML += '<input type="text" id="SHRoute' + i + '" class="routewidth" placeholder="shuttle">';
+                        strHTML += '</div><div class="col-5">';
+                        for (var j = 2; j < 7; j++) {
+                            strHTML += '<div class="hide" id="div' + days[j] + 'SH' + i + 'Ct">';
+                            strHTML += '<input type="number" id="' + days[j] + 'SH' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
+                        }
+                        strHTML += '</div></div>';    
+                    }
+                    
+                    strHTML += '<div class="row"><div class="col-12">';
+                    strHTML += '<p class="category">Late Runs</p></div></div>';
+                    for (var i = 1; i < 3; i++) {
+                        strHTML += '<div class="row"><div class="col-7">';
+                        strHTML += '<input type="text" id="LRRoute' + i + '" class="routewidth" placeholder="late run">';
+                        strHTML += '</div><div class="col-5">';
+                        for (var j = 2; j < 7; j++) {
+                            strHTML += '<div class="hide" id="div' + days[j] + 'LR' + i + 'Ct">';
+                            strHTML += '<input type="number" id="' + days[j] + 'LR' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
+                        }
+                        strHTML += '</div></div>';    
+                    }
+                    document.write(strHTML);
+                </script>
             </div>
         </div>
         <div id="Saturday" class="card hide">
@@ -1081,8 +893,6 @@
             </div>
         </div>
         <script>
-            var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-            var fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
             var strHTML = "";
             var i = 0;
             var j = 0;
