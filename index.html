@@ -16,8 +16,8 @@
     <!--Javascript-->
     <script src="js/fieldtrip.js"></script>
     <script>
-        const days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
-        const fullday = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     </script>
 </head>
 
@@ -53,7 +53,6 @@
                       var strHTML = '';
                       strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
                       strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
-                      strHTML += '<input type="radio" id="week3" name="weekof" value="' + r3 + '" onclick="storeWeek(\'week3\');"><label for="week3">' + r3 + '</label>';
                       document.write(strHTML);
 
                       function DateRange(offset) {
@@ -209,7 +208,7 @@
                         strHTML += '<div class="row"><div class="col-7">';
                         strHTML += '<input type="text" id="AMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
                         strHTML += '</div><div class="col-5">';
-                        for (var j = 2; j < 7; j++) {
+                        for (var j = 1; j < 6; j++) {
                             strHTML += '<div class="hide" id="div' + days[j] + 'AM' + i + 'Ct">';
                             strHTML += '<input type="number" id="' + days[j] + 'AM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
@@ -217,7 +216,7 @@
                     }
                     strHTML += '<div class="row hide" id="divAMPupilTime">';
                     strHTML += '<p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p></div>';
-                    for (var j = 2; j < 7; j++) {
+                    for (var j = 1; j < 6; j++) {
                         strHTML += '<div class="row hide" id="' + days[j] + 'TimeAM"><div class="col-11">';
                         strHTML += '<input id="' + days[j] + 'TimeA" type="text" class="timewidth" placeholder="- - : - -">&nbsp;';
                         strHTML += '<input id="' + days[j] + 'TimeB" type="text" class="timewidth" placeholder="- - : - -">';
@@ -247,7 +246,7 @@
                         strHTML += '<div class="row"><div class="col-7">';
                         strHTML += '<input type="text" id="PMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
                         strHTML += '</div><div class="col-5">';
-                        for (var j = 2; j < 7; j++) {
+                        for (var j = 1; j <6; j++) {
                             strHTML += '<div class="hide" id="div' + days[j] + 'PM' + i + 'Ct">';
                             strHTML += '<input type="number" id="' + days[j] + 'PM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
@@ -255,7 +254,7 @@
                     }
                     strHTML += '<div class="row hide" id="divPMPupilTime">';
                     strHTML += '<p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p></div>';
-                    for (var j = 2; j < 7; j++) {
+                    for (var j = 1; j <6; j++) {
                         strHTML += '<div class="row hide" id="' + days[j] + 'TimePM"><div class="col-11">';
                         strHTML += '<input id="' + days[j] + 'TimeC" type="text" class="timewidth" placeholder="- - : - -">&nbsp;';
                         strHTML += '<input id="' + days[j] + 'TimeD" type="text" class="timewidth" placeholder="- - : - -">';
@@ -284,7 +283,7 @@
                         strHTML += '<div class="row"><div class="col-7">';
                         strHTML += '<input type="text" id="PSRoute' + i + '" class="routewidth" placeholder="pac/ps">';
                         strHTML += '</div><div class="col-5">';
-                        for (var j = 2; j < 7; j++) {
+                        for (var j = 1; j < 6; j++) {
                             strHTML += '<div class="hide" id="div' + days[j] + 'PS' + i + 'Ct">';
                             strHTML += '<input type="number" id="' + days[j] + 'PS' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
@@ -297,7 +296,7 @@
                         strHTML += '<div class="row"><div class="col-7">';
                         strHTML += '<input type="text" id="SHRoute' + i + '" class="routewidth" placeholder="shuttle">';
                         strHTML += '</div><div class="col-5">';
-                        for (var j = 2; j < 7; j++) {
+                        for (var j = 1; j < 6; j++) {
                             strHTML += '<div class="hide" id="div' + days[j] + 'SH' + i + 'Ct">';
                             strHTML += '<input type="number" id="' + days[j] + 'SH' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
@@ -310,7 +309,7 @@
                         strHTML += '<div class="row"><div class="col-7">';
                         strHTML += '<input type="text" id="LRRoute' + i + '" class="routewidth" placeholder="late run">';
                         strHTML += '</div><div class="col-5">';
-                        for (var j = 2; j < 7; j++) {
+                        for (var j = 1; j < 6; j++) {
                             strHTML += '<div class="hide" id="div' + days[j] + 'LR' + i + 'Ct">';
                             strHTML += '<input type="number" id="' + days[j] + 'LR' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
@@ -898,7 +897,7 @@
             var j = 0;
             var $id;
 
-            for (i = 2; i < 7; i++) {
+            for (i = 1; i < 6; i++) {
               strHTML = "";
               strHTML += '<div id="' + fullday[i] + '" class="card hide">';
               strHTML += '<div class="row">';

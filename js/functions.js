@@ -3,11 +3,20 @@ document.addEventListener('DOMContentLoaded', function() {
     initialLoad();
 });
 
-var byID = function(id) {
+/* *** *** ADD EVENT LISTENER *** *** */
+//Area selection
+var radioarea = document.querySelectorAll("input[name='area']");
+for (var i = 0; i < radioarea.length; i++) {
+    radioarea[i].addEventListener("click", radioAreaSelect);
+}
+/* *** *** ADD EVENT LISTENER *** *** */
+
+
+function byID(id) {
     return document.getElementById(id);
 }
                           
-var initialLoad = function() {
+function initialLoad() {
     loadLocalStorage();
     var refDate = new Date();
     var day = refDate.getDay();
@@ -15,7 +24,7 @@ var initialLoad = function() {
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
-var loadLocalStorage = function() {
+function loadLocalStorage() {
     var val = "";
     var elements = document.querySelectorAll("input[type='checkbox']");
     for (var i = 0; i < elements.length; i++) {
@@ -40,6 +49,8 @@ function loadRadioSelection() {
     if (getStorage("Area") === null) setStorage("Area", "");
     var val = getStorage("Area");
     if (val !== "") byID("area" + val).checked = true;
+    
+    loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
     if (getStorage("Team") === null) setStorage("Team", "");
@@ -60,14 +71,28 @@ function loadRadioSelection() {
     if (val !== "" && val === byID("week1").value) {
         byID("week1").checked = true;
         storeWeek("week1");
-    } else if (val !== "" && val === byID("week3").value) {
-        byID("week3").checked = true;
-        storeWeek("week3");
     } else {
         byID("week2").checked = true;
         setStorage("WeekOf", byID("week2").value);
         storeWeek("week2");
     }
+}
+
+//LOADS TEAM VALUES INTO #Team USING AREA SELECTION
+function loadTeamValues() {
+    "use strict";
+    var area = getStorage("Area");
+    if (area === null || area === "") return;
+    
+    var areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
+    for (var i = 0; i < areadiv.length; i++) {
+        if ("div" + area === areadiv[i]) {
+            showHide(areadiv[i], true);
+        } else {
+            showHide(areadiv[i], false);
+        }
+    }
+    if (area === "TC") byID("teamTC").checked = true;
 }
 
 //LOADS DATES FROM STORAGE INTO DATE TEXT FIELDS
@@ -87,18 +112,20 @@ function storeWeek(refID) {
 
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
-        theDay = new Date(endDate), sm, sd;
+        theDay = new Date(startDate), sm, sd;
     
     setStorage("SatDate", startDate.substr(0,5));
-    for (var i = 0; i < 6; i++) {
-        newDay = theDay.addDays(i + 1);
+    setStorage("FriDate", endDate.substr(0,5));
+    
+    for (var i = 5; i >= 0; i--) {
+        newDay = theDay.addDays(i + 2);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
         setStorage(days[i + 1] + "Date", sm + "/" + sd);
     }
-    setStorage("FriDate", endDate.substr(0,5));
+    
     loadStoredWeek();
 }
 
@@ -151,14 +178,14 @@ function getStorage(refID) {
 }
 
 //TOGGLE DAILY COUNTS IN THE PUPIL COUNTS SECTION
-var togglePupilCounts = function(x) {
+function togglePupilCounts(x) {
     //Declare boolean used to add or remove class
     var bln = false;
     //Declare boolean for Position
     var pos = "Driver"; //getStorage("Position");
     var blnPos = (pos === "Driver" || pos === "Driver Trainee" || pos === "Sub Driver") ? true : false;
     //Loop through days array
-    for (var j = 2; j < 7; j++) {
+    for (var j = 1; j < 6; j++) {
         bln = (x === j) ? true : false;
         bln = (blnPos) ? bln : false;
         for (var i = 1; i < 6; i++) {
@@ -219,7 +246,7 @@ function moveLeftNavBar() {
 }
 
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-var showHide = function(refID, bln) {
+function showHide(refID, bln) {
     var el = byID(refID);
     //(Show the element) ? remove hide : add hide
     if (bln) {
@@ -234,4 +261,10 @@ var showHide = function(refID, bln) {
             setStorage(refID, "");
         }
     }
+}
+
+//SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
+function radioAreaSelect(e) {
+    setStorage("Area", e.currentTarget.value);
+    loadTeamValues();
 }
