@@ -1,7 +1,6 @@
 //WEBSITE INTERACTION SCRIPT
 var i = 0;
-var activeID = "";
-var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
+
 
 
 
@@ -108,31 +107,9 @@ for (i = 0; i < select.length; i++) {
     select[i].addEventListener("change", selectOnChange);
 }
 
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    setLocalStorage(e.id);
-    if (refID.indexOf("Select") === 3) {
-        countOtherWork(refID);
-        if (byID.value === "FYI")
-            otherWorkTime(refID.substr(0, 3), refID.substr(9), true);
-        else
-            otherWorkTime(refID.substr(0, 3), refID.substr(9), false);
-    }
-}
 
-byID("closeFT").addEventListener("click", function () {
-    byID(activeID).disabled = false;
-    showHideModal("ftModal", "none");
-});
 
-byID("endVarious").addEventListener("click", function () {
-    showHideModal("variousModal", "none");
-});
 
-byID("endValidate").addEventListener("click", function () {
-    showHideModal("validateModal", "none");
-});
 
 byID("clear").addEventListener("click", function () {
     openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
@@ -154,10 +131,7 @@ byID("Veh4").addEventListener("keyup", function () {
     limitCharacters(e.id, 4);
 });
 
-byID("closeTime").addEventListener("click", function () {
-    byID(activeID).disabled = false;
-    showHideModal("timeModal", "none");
-});
+
 
 const timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
 for (i = 0; i < timeArrows.length; i++) {
@@ -174,61 +148,11 @@ for (i = 0; i < faCopy.length; i++) {
     faCopy[i].addEventListener("click", copyRoutine);
 }
 
-const ow = document.querySelectorAll(".ow");
-for (i = 0; i < ow.length; i++) {
-    ow[i].addEventListener("click", popUpOW);
-}
 
-const ft = document.querySelectorAll(".ft");
-for (i = 0; i < ft.length; i++) {
-    ft[i].addEventListener("click", popUpFT);
-}
 
-const addOW = document.querySelectorAll(".addOW");
-for (i = 0; i < addOW.length; i++) {
-    addOW[i].addEventListener("click", addOtherWork);
-}
 
-const addFT = document.querySelectorAll(".addFT");
-for (i = 0; i < addFT.length; i++) {
-    addFT[i].addEventListener("click", addFieldTrip);
-}
 
-const addLV = document.querySelectorAll(".addLV");
-for (i = 0; i < addLV.length; i++) {
-    addLV[i].addEventListener("click", addLeave);
-}
 
-const faTrashAlt = document.querySelectorAll(".fa-trash-alt");
-for (i = 0; i < faTrashAlt.length; i++) {
-    faTrashAlt[i].addEventListener("click", removeOWFT);
-}
-
-byID("ctspan").addEventListener("click", popUpCT);
-
-byID("goTime").addEventListener("click", function () {
-    var timetext = byID("hours").innerHTML;
-    timetext += ":" + byID("minutes").innerHTML;
-    timetext += " " + byID("meridiem").innerHTML;
-    byID(activeID).disabled = false;
-    byID(activeID).value = timetext;
-    showHideModal("timeModal", "none");
-    textboxUpdate(activeID);
-});
-
-byID("goFT").addEventListener("click", function () {
-    var ftText = "";
-    if (byID("ftselector").value !== null)
-        ftText = byID("ftselector").value;
-    else
-        ftText = byID("fttype").value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
-    setStorage(activeID, ftText);
-    showHideModal("ftModal", "none");
-});
 
 
 
@@ -456,102 +380,7 @@ function clearRouteFields() {
     }
 }
 
-//POP UP OW MESSAGE
-function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
-}
 
-//POP UP FT MESSAGE
-function popUpFT() {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
-}
-
-//POP UP CT MESSAGE
-function popUpCT() {
-    openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
-}
-
-//CHANGE TO PROPER CASE
-function properCase(str) {
-    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
-        return txtVal.toUpperCase();
-    });
-}
-
-//TOGGLE OTHER WORK FIELDS
-function addOtherWork(e) {
-    var refID = e.currentTarget.id;
-    var dayVal = refID.substr(0, 3);
-    var countOW = getMissingOW(dayVal);
-    if (countOW === 30) return;
-    byID(dayVal + "OWDiv" + countOW).classList.remove("hide");
-}
-
-//TOGGLE FIELD TRIP FIELDS
-function addFieldTrip(e) {
-    var refID = e.currentTarget.id;
-    var dayVal = refID.substr(0, 3);
-    var countFT = getMissingFT(dayVal);
-
-    //Exit function if count is 5
-    if (countFT === 35) return;
-    byID(dayVal + "FTDiv" + countFT).classList.remove("hide");
-}
-
-//TOGGLE OTHER WORK AND FIELD TRIP FIELDS OFF
-function removeOWFT(e) {
-    var refID = e.currentTarget.id;
-    var x = refID.substr(-2);
-    var type = refID.substr(3,2);
-    var dayVal = refID.substr(0, 3);
-
-    byID(dayVal + type + "Div" + x).classList.add("hide");
-}
-
-//FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
-function getMissingOW(day) {
-    for (var i = 20; i < 30; i++) {
-        if (byID(day + "OWDiv" + i).classList.contains("hide")) {
-            return i;
-          }
-    }
-    //If statement didnt' find a match, return 30
-    return 30;
-}
-
-//FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
-function getMissingFT(day) {
-    for (var i = 30; i < 35; i++) {
-        if (byID(day + "FTDiv" + i).classList.contains("hide")) {
-            return i;
-          }
-    }
-    //if statement didn't find a match, return 35
-    return 35;
-}
-
-//SHOW THE LEAVE SECTION
-function addLeave(e) {
-    var refID = e.currentTarget.id;
-    var dayVal = refID.substr(0, 3);
-    if (byID(dayVal + "Leave40").classList.contains("hide")) {
-        byID(dayVal + "Leave40").classList.remove("hide");
-        byID(dayVal + "Leave41").classList.remove("hide");
-        byID(dayVal + "Leave42").classList.remove("hide");
-    } else {
-        byID(dayVal + "Leave40").classList.add("hide");
-        byID(dayVal + "Leave41").classList.add("hide");
-        byID(dayVal + "Leave42").classList.add("hide");
-    }
-
-}
-
-//OPEN POP UP MODAL FOR ERROR MESSAGES
-function openPopUp(msgVal) {
-    byID("varDiv").innerHTML = "";
-    byID("varDiv").innerHTML = msgVal;
-    showHideModal("variousModal", "block");
-}
 
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
@@ -850,43 +679,9 @@ function fixRouteName(refID) {
 }
 
 //POP UP MODALS
-//TIME SELECTOR MODAL
-function openTimeSelector(refID) {
-    activeID = refID;
-    var refVal = byID(activeID).value;
-    var blnPupil = false;
-    if (activeID.substr(-1) === "A" || activeID.substr(-1) === "B" || activeID.substr(-1) === "C" || activeID.substr(-1) === "D")
-        blnPupil = true;
 
-    //if active element has data already, break time into hours, minutes, and meridiem and load into spans
-    if (refVal !== "" && refVal !== null) {
-        var hours = refVal.substr(0, refVal.indexOf(":"));
-        var mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        var mer = refVal.substr(-2);
-        byID("hours").innerHTML = hours;
-        byID("minutes").innerHTML = mins;
-        byID("meridiem").innerHTML = mer;
-    } else {
-        if (!blnPupil) {
-            mins = round5(Number(byID("minutes").innerHTML));
-            if (mins < 10 && mins > -1) {
-                mins = "0" + mins.toString();
-            } else if (mins === 60) {
-                mins = "55";
-            }
-            byID("minutes").innerHTML = mins;
-        }
-    }
-    showHideModal("timeModal", "block");
-}
 
-//FIELD TRIP MODAL
-function openFTSelector(refVal) {
-    showHideModal("ftModal", "block");
-    activeID = refVal;
-    byID("ftselector").value = "";
-    byID("fttype").value = "";
-}
+
 
 
 
@@ -1167,16 +962,7 @@ function limitCharacters(refID, num) {
     }
 }
 
-//CLEAR LOCAL STORAGE AND RELOAD PAGE
-function clearFields() {
-    window.localStorage.clear();
-    location.reload();
-}
 
-//OPEN SUPPLEMENT IN SAME WINDOW
-function openSupplement() {
-    window.open("index2.html", "_self");
-}
 
 //IF SELECT EQUALS FYI THEN DISABLE TIME FIELDS
 function checkOtherWorkVal() {
@@ -1373,11 +1159,7 @@ function checkOverlap(refID) {
     }
 }
 
-//ROUND TO THE NEAREST 5
-function round5(x) {
-	"use strict";
-    return Math.round(x / 5) * 5;
-}
+
 
 //CONVERT TIME COMPLETELY TO MINUTES
 function convertToMinutes(s1) {
