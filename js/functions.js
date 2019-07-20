@@ -26,6 +26,12 @@ for (i = 0; i < radiopos.length; i++) {
     radiopos[i].addEventListener("change", radioPositionSelect);
 }
 
+//Position selection
+var radioweek = document.querySelectorAll("#week1, #week2");
+for (i = 0; i < radioweek.length; i++) {
+    radioweek[i].addEventListener("change", storeWeek(radioweek[i].id));
+}
+
 //OJT checked
 var chkOJT = document.querySelectorAll("input[name='chkOJT']");
 for (i = 0; i < chkOJT.length; i++) {
@@ -145,6 +151,43 @@ var select = document.querySelectorAll("select");
 for (i = 0; i < select.length; i++) {
     select[i].addEventListener("change", selectOnChange);
 }
+
+//Textbox on change
+var textbox = document.querySelectorAll("input[type='text'], input[type='number']");
+for (i = 0; i < textbox.length; i++) {
+    textbox[i].addEventListener("change", textboxOnChange);
+}
+
+//Veh textbox keyup
+var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
+for (i = 0; i < veh.length; i++) {
+    veh[i].addEventListener("keyup", function(e) {
+        limitCharacters(e.currentTarget.id, 4);
+    });
+}
+
+//Up and Down arrow on click
+var timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
+for (i = 0; i < timeArrows.length; i++) {
+    timeArrows[i].addEventListener("click", timeSelectors);
+}
+
+//Times on click
+//var faTimes = document.querySelectorAll(".fa-times");
+//for (i = 0; i < faTimes.length; i++) {
+//    faTimes[i].addEventListener("click", clearTimeField);
+//}
+
+//Copy on click
+//var faCopy = document.querySelectorAll(".fa-copy");
+//for (i = 0; i < faCopy.length; i++) {
+//    faCopy[i].addEventListener("click", copyRoutine);
+//}
+
+//Clear on click
+byID("clear").addEventListener("click", function () {
+    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
+});
 /* *** *** ADD EVENT LISTENER *** *** */
 
 
@@ -251,13 +294,13 @@ function storeWeek(refID) {
 
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
-        theDay = new Date(startDate), sm, sd;
+        newDay = new Date(startDate), sm, sd;
     
     setStorage("SatDate", startDate.substr(0,5));
     setStorage("FriDate", endDate.substr(0,5));
     
     for (var i = 4; i >= 0; i--) {
-        newDay = theDay.addDays(i + 1);
+        newDay = addDate(newDay, i + 1);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -269,12 +312,11 @@ function storeWeek(refID) {
 }
 
 //DATEADD FUNCTION
-Date.prototype.addDays = function (x) {
-    "use strict";
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + x);
-    return date;
-};
+function addDate(date, days) {
+  var copy = new Date(Number(date))
+  copy.setDate(date.getDate() + days)
+  return copy
+}
 
 //CHANGE NAV BAR VALUES DEPENDING ON THE DAY
 function toggleDay(x) {
@@ -566,13 +608,15 @@ function addLeave(e) {
     var refID = e.currentTarget.id;
     var dayVal = refID.substr(0, 3);
     if (byID(dayVal + "Leave40").classList.contains("hide")) {
-        byID(dayVal + "Leave40").classList.remove("hide");
-        byID(dayVal + "Leave41").classList.remove("hide");
-        byID(dayVal + "Leave42").classList.remove("hide");
+        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
+        showHide(dayVal + "Leave40", true);
+        showHide(dayVal + "Leave41", true);
+        showHide(dayVal + "Leave42", true);
     } else {
-        byID(dayVal + "Leave40").classList.add("hide");
-        byID(dayVal + "Leave41").classList.add("hide");
-        byID(dayVal + "Leave42").classList.add("hide");
+        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave';
+        showHide(dayVal + "Leave40", false);
+        showHide(dayVal + "Leave41", false);
+        showHide(dayVal + "Leave42", false);
     }
 
 }
@@ -610,6 +654,28 @@ function openTimeSelector(e) {
         }
     }
     showHide("timeModal", true);
+}
+
+//ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
+function timeSelectors(e) {
+    var refID = e.currentTarget.id;
+    var strVal = refID.substr(2),
+        operator = "";
+    switch (strVal) {
+        case "up":
+            operator = 1;
+            break;
+        case "down":
+            operator = -1;
+            break;
+        case "up2":
+            operator = 2;
+            break;
+        case "down2":
+            operator = -2;
+            break;
+    }
+    changeValue(operator, refID, activeID);
 }
 
 //ROUND TO THE NEAREST 5
@@ -676,6 +742,15 @@ function selectOnChange(e) {
     }
 }
 
+//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
+function textboxOnChange(e) {
+    var refID = e.currentTarget.id;
+    if (refID === "Trainee" || refID === "EmpName") {
+        byID(refID).value = properCase(e.currentTarget.value);
+    }
+    setStorage(refID, e.currentTarget.value);
+}
+
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
     if (byID(refID).type === "checkbox") {
@@ -686,3 +761,267 @@ function resetElement(refID) {
         setStorage(refID, "");
     }
 }
+
+//******************VALIDATION AND COMPLETION******************//
+function completeTimesheet() {
+    var bln = runValidations();
+    if (!bln)
+        return;
+
+    showHideModal("validateModal", "block");
+    byID("EmpInitials").focus();
+}
+
+function openTimesheet() {
+    var emp = "";
+    emp = byID("EmpInitials").value;
+    emp = emp.toUpperCase();
+    setStorage("EmpInitials", emp);
+
+    showHideModal("validateModal", "none");
+    if (emp !== "")
+        window.open("preview.html", "_self");
+}
+
+function runValidations() {
+    var val = "";
+
+    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    if (getStorage("Area") !== "TC") {
+        val += testStopCounts();
+    }
+
+
+    if (val !== "") {
+        openPopUp(val);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function testEmpData() {
+    var val = "";
+
+    //Check selected week
+    if (getStorage("WeekOf") === "")
+        val = "<p class='varp'>&bull;Pay week not selected.</p>";
+
+    //Check Area
+    if (getStorage("Area") === "")
+        val += "<p class='varp'>&bull;Area not selected.</p>";
+
+    //Check Team
+    if (getStorage("Team") === "")
+        val += "<p class='varp'>&bull;Team not selected.</p>";
+
+    //Check employee name
+    if (getStorage("EmpName") === "")
+        val += "<p class='varp'>&bull;Employee name not entered</p>";
+
+    //Check position
+    if (getStorage("Position") === "")
+        val += "<p class='varp'>&bull;Employee position not selected.</p>";
+
+    return val;
+}
+
+function testFieldTrip() {
+    var val = "";
+
+    //Check field trips
+    for (var i = 0; i < 7; i++) {
+        for (var j = 11; j < 14; j++) {
+            if (byID("Time" + j).value === "") { //Time is blank
+                if (byID("Voucher" + j).value !== "" || byID("From" + j).value !== "" || byID("To" + j).value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
+
+            } else { //Time is not blank
+                if (byID("Voucher" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
+
+                if (byID("From" + j).value === "" || byID("To" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
+            }
+        }
+    }
+    return val;
+}
+
+function testOtherWork() {
+    var val = "";
+
+    for (var i = 0; i < 7; i++) {
+        for (var j = 8; j < 11; j++) {
+            if (byID("Time" + j).value !== "") { //Time is not blank
+                if (byID("Select" + j).value === "") { //Select IS blank
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
+                }
+                if ((byID("Select" + j).value === "OT" || byID("Select" + j).value === "FYI") && byID("Desc" + j).value === "") { //Other or FYI selected but description field is blank
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
+                }
+                if (byID("Select" + j).value === "" && byID("Desc" + j).value !== "") { //Nothing selected and description field has text
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
+                }
+            } else { //Time is blank
+                if (byID("Select" + j).value !== "" || byID("Desc" + j).value !== "") { //Category IS selected OR Description field is NOT blank
+                    if (!byID("Select" + j).value === "FYI") { //Category is NOT FYI
+                        val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
+                    }
+                }
+            }
+        }
+    }
+
+    return val;
+}
+
+function testLeave() {
+    var val = "";
+
+    for (var i = 2; i < 7; i++) {
+        for (var j = 14; j < 16; j++) {
+            if (byID("Time" + j).value !== "") {
+                if (byID("LeaveSelect" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+            } else {
+                if (byID("LeaveSelect" + j).value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
+            }
+            if (byID("LeaveAD").checked) {
+                if (byID("LeaveSelectAD").value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+            } else {
+                if (byID("LeaveSelectAD").value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
+            }
+        }
+    }
+    return val;
+}
+
+function testStopCounts() {
+    var val = "",
+        pos = getStorage("Position");
+
+    //Validate stop counts
+    if (pos === "Driver" || pos === "Sub Driver" || pos === "Driver Trainee") {
+        for (var i = 2; i < 7; i++) {
+
+            if (!testRegPupil(days[i], 1, "AM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+
+            if (!testRegCounts(days[i], 1, "AM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": AM time entered with no routes specified.</p>";
+
+            if (!testRegPupil(days[i], 2, "PM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PM pupil counts not completed.</p>";
+
+            if (!testRegCounts(days[i], 2, "PM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PM time entered with no routes specified.</p>";
+
+            if (!testSpecPupil(days[i], 3, "PS", 1) || !testSpecPupil(days[i], 4, "PS", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 3, "PS", 1) || !testSpecCounts(days[i], 4, "PS", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS time entered with no routes specified.</p>";
+
+            if (!testSpecPupil(days[i], 5, "SH", 1) || !testSpecPupil(days[i], 6, "SH", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 5, "SH", 1) || !testSpecCounts(days[i], 6, "SH", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle time entered with no shuttle specified.</p>";
+
+
+            if (!testSpecPupil(days[i], 7, "LR", 1) || !testSpecPupil(days[i], 7, "LR", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Late run pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 7, "LR", 1) && !testSpecCounts(days[i], 7, "LR", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Late run time entered with no route specified.</p>";
+        }
+    }
+    return val;
+}
+
+function testRegPupil(day, x, mer) {
+    for (var j = 1; j < 6; j++) {
+        if (byID(day + "Time" + x).value === "")
+            continue;
+
+        if (byID(mer + "Route" + j).value === "")
+            continue;
+
+        if (byID(day + mer + j + "Ct").value === "")
+            return false;
+    }
+    return true;
+}
+
+function testRegCounts(day, x, mer) {
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    for (var i = 1; i < 6; i++) {
+        if (byID(mer + "Route" + i).value !== "")
+            return true;
+    }
+    return false;
+}
+
+function testSpecPupil(day, x, route, j) {
+
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    if (byID(route + "Route" + j).value === "")
+        return true;
+
+    if (byID(day + route + j + "Ct").value === "")
+        return false;
+
+    return true;
+}
+
+function testSpecCounts(day, x, route, j) {
+
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    if (byID(route + "Route" + j).value !== "")
+        return true;
+
+    return false;
+}
+
+
+
+function testAMPMRoute(day, num) {
+    var bln = true,
+        bln2 = true,
+        val = "",
+        i = 0,
+        j = 0;
+
+    for (j = 1; j < 6; j++) {
+        if (byID(day + "Time" + num).value !== "" && byID("AMRoute" + j).value !== "" && byID(day + "AM" + j + "Ct").value === "")
+            bln = false;
+
+        if (byID(day + "Time1").value !== "" && byID("input[id*='AMRoute']").value === "")
+            bln2 = false;
+    }
+    if (!bln)
+        val += "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+}
+
+
+function testTimeComplete() {
+    var val = "";
+    for (var i = 0; i < 7; i++) {
+        for (var j = 1; j < 15; j++) {
+            if (byID(days[i] + "Time" + j + "S").value !== "" && byID(days[i] + "Time" + j + "E").value === "")
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
+        }
+    }
+    return val;
+}
+//******************VALIDATION AND COMPLETION******************//

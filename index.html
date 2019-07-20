@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-md-6">
                     <p><strong>Employee Name: (Last, First MI)</strong><br>
-                        <input type="text" name="EmpName" id="EmpName" class="empname" style="text-align: left;" placeholder="Last name,   First Name   Middle Initial...">
+                        <input type="text" id="EmpName" class="empname" style="text-align: left;width:100%" placeholder="Last name,   First Name   Middle Initial...">
                     </p>
                 </div>
             </div>
@@ -151,13 +151,13 @@
             </div>
             <div class="row EmpSpan">
                 <div class="col-md-2">
-                    <p><strong>Vehicle:</strong><br><input type="number" name="Veh1" id="Veh1" style="width: 100px;" placeholder="0000"></p>
+                    <p><strong>Vehicle:</strong><br><input type="number" id="Veh1" style="width: 100px;" placeholder="0000"></p>
                 </div>
                 <div class="col-md-6">
                     <p><strong>Spare Vehicles:</strong><br>
-                        <input type="number" name="Veh2" id="Veh2" style="width: 100px;" placeholder="0000">
-                        <input type="number" name="Veh3" id="Veh3" style="width: 100px;" placeholder="0000">
-                        <input type="number" name="Veh4" id="Veh4" style="width: 100px;" placeholder="0000"></p>
+                        <input type="number" id="Veh2" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh3" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh4" style="width: 100px;" placeholder="0000"></p>
                 </div>
             </div>
         </div>
@@ -924,7 +924,7 @@
               strHTML += '<p class="dailytotal">equipment</p>';
               strHTML += '</div></div>';
               strHTML += '<div class="row addLV" id="' + days[i] + 'LVAdd">';
-              strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>';
+              strHTML += '<p class="category" id="' + days[i] + 'LvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>';
               strHTML += '</div>';
               strHTML += '<div class="tinycard bg-gold hide" id="' + days[i] + 'Leave40">';
               strHTML += '<div class="row"><div class="col-12">';
@@ -1118,7 +1118,7 @@
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-8">';
                   strHTML += '<input id="' + $id[3] + '" type="text" class="voucherwidth" placeholder="Voucher">';
                   strHTML += '</div><div class="col-4">';
-                  strHTML += '<input type="checkbox" name="chkEQL" id="' + $id[2] + '">';
+                  strHTML += '<input type="checkbox" id="' + $id[2] + '">';
                   strHTML += '<label class="lblBtnFalse" for="' + $id[2] + '">EQ/L</label>';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
                   strHTML += '<input id="' + $id[5] + '" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
