@@ -601,6 +601,29 @@ function fixRouteName(refID) {
 
 //POP UP MODALS
 
+        /* When the user clicks on the button,
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("navdropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(e) {
+            var refID = e.target.id;
+            if (refID !== 'navbtn') {
+                if (e.target.classList.contains('show')) {
+                    e.target.classList.toggle("show");
+                }
+            }
+        }
+        window.ontouchstart = function(event) {
+            var refID = e.target.id;
+            if (refID !== 'navbtn') {
+                if (e.target.classList.contains('show')) {
+                    e.target.classList.toggle("show");
+                }
+            }
+        }
 
 
 
@@ -613,14 +636,6 @@ function fixRouteName(refID) {
 
 
 
-//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
-function limitCharacters(refID, num) {
-    var refVal = byID(refID).value;
-    if (refVal.length > num) {
-        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
-        byID(refID).value = refVal.substr(0, num);
-    }
-}
 
 
 

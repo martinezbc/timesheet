@@ -51,8 +51,8 @@
                       var r3 = DateRange(7);
 
                       var strHTML = '';
-                      strHTML += '<input type="radio" id="week1" name="weekof" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
-                      strHTML += '<input type="radio" id="week2" name="weekof" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
+                      strHTML += '<input type="radio" id="week1" name="WeekOf" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
+                      strHTML += '<input type="radio" id="week2" name="WeekOf" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
                       document.write(strHTML);
 
                       function DateRange(offset) {
@@ -89,17 +89,17 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Area:</strong><br>
-                        <input type="radio" id="area1" name="area" value="1">
+                        <input type="radio" id="area1" name="Area" value="1">
                         <label for="area1">1</label>
-                        <input type="radio" id="area2" name="area" value="2">
+                        <input type="radio" id="area2" name="Area" value="2">
                         <label for="area2">2</label>
-                        <input type="radio" id="area3" name="area" value="3">
+                        <input type="radio" id="area3" name="Area" value="3">
                         <label for="area3">3</label>
-                        <input type="radio" id="area4" name="area" value="4">
+                        <input type="radio" id="area4" name="Area" value="4">
                         <label for="area4">4</label>
-                        <input type="radio" id="area7" name="area" value="7">
+                        <input type="radio" id="area7" name="Area" value="7">
                         <label for="area7">7</label>
-                        <input type="radio" id="areaTC" name="area" value="TC">
+                        <input type="radio" id="areaTC" name="Area" value="TC">
                         <label for="areaTC">TC</label>
                     </p>
                 </div>
@@ -110,16 +110,16 @@
                       for (var j = 1; j < 5; j++) {
                         strHTML += '<div class="hide" id="div' + j + '">';
                         for (var i = 0; i < 8; i++) {
-                            strHTML += '<input type="radio" id="team' + j + i + '" name="team" value="' + j + i + '");"><label for="team' + j + i + '">' + j + i + '</label>&nbsp;';
+                            strHTML += '<input type="radio" id="team' + j + i + '" name="Team" value="' + j + i + '");"><label for="team' + j + i + '">' + j + i + '</label>&nbsp;';
                           }
                           strHTML += '</div>';
                       }
                       strHTML += '<div class="hide" id="div7">';
                       var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
                       for (i = 0; i < 17; i++) {
-                          strHTML += '<input type="radio" id="team' + teams[i] + '" name="team" value="' + teams[i] + '")";><label for="team' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
+                          strHTML += '<input type="radio" id="team' + teams[i] + '" name="Team" value="' + teams[i] + '")";><label for="team' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
                       }
-                      strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="team" value="TC")";><label for="teamTC">TC</label></div>';
+                      strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="Team" value="TC")";><label for="teamTC">TC</label></div>';
                       document.write(strHTML);
                     </script>
                   </p>
@@ -128,19 +128,19 @@
             <div class="row EmpSpan">
                 <div class="col-md-6">
                     <p><strong>Position:</strong><br>
-                        <input type="radio" id="posDriver" name="position" value="Driver">
+                        <input type="radio" id="posDriver" name="Position" value="Driver">
                         <label for="posDriver">Driver</label>
-                        <input type="radio" id="posDriverTrainee" name="position" value="Driver Trainee">
+                        <input type="radio" id="posDriverTrainee" name="Position" value="Driver Trainee">
                         <label for="posDriverTrainee">Driver Trainee</label>
-                        <input type="radio" id="posSubDriver" name="position" value="Sub Driver">
+                        <input type="radio" id="posSubDriver" name="Position" value="Sub Driver">
                         <label for="posSubDriver">Sub Driver</label><br>
-                        <input type="radio" id="posAttendant" name="position" value="Attendant">
+                        <input type="radio" id="posAttendant" name="Position" value="Attendant">
                         <label for="posAttendant">Attendant</label>
-                        <input type="radio" id="posAttendantTrainee" name="position" value="Attendant Trainee">
+                        <input type="radio" id="posAttendantTrainee" name="Position" value="Attendant Trainee">
                         <label for="posAttendantTrainee">Attendant Trainee</label>
-                        <input type="radio" id="posSubAttendant" name="position" value="Sub Attendant">
+                        <input type="radio" id="posSubAttendant" name="Position" value="Sub Attendant">
                         <label for="posSubAttendant">Sub Attendant</label><br>
-                        <input type="radio" id="posActivityDriver" name="position" value="Activity Driver">
+                        <input type="radio" id="posActivityDriver" name="Position" value="Activity Driver">
                         <label for="posActivityDriver">Activity Driver</label>
                     </p>
                 </div>
@@ -319,578 +319,84 @@
                 </script>
             </div>
         </div>
-        <div id="Saturday" class="card hide">
-            <div class="row">
-                <div class="col-12">
-                    <p class="daily">SATURDAY-<span id="SatDate"></span></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <input type="text" id="SatOtherTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">other work</p>
-                </div>
-                <div class="col-auto">
-                    <input type="text" id="SatFTTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">field trip</p>
-                </div>
-                <div class="col-auto">
-                    <input type="text" id="SatLiftTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">total</p>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanOW20"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW20">
-                    <div class="col-12">
-                        <label for="SatLift20"><input type="checkbox" name="chkEQL" id="SatLift20">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW20">
-                    <div class="col-11">
-                        <select id="SatSelect20" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SatBanOW20"></span></div>
-                </div>
-                <div class="row SatLV SatSpanOW20">
-                    <div class="col-12">
-                        <input name="SatDesc20" id="SatDesc20" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW20">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime20S" id="SatTime20S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime20E" id="SatTime20E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime20" id="SatTime20" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SatClearOW20"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanOW21"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW21">
-                    <div class="col-12">
-                        <label for="SatLift21"><input type="checkbox" name="chkEQL" id="SatLift21">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW21">
-                    <div class="col-11">
-                        <select id="SatSelect21" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1 right"><span class="fas fa-ban" id="SatBanOW21"></span></div>
-                </div>
-                <div class="row SatLV SatSpanOW21">
-                    <div class="col-12">
-                        <input name="SatDesc21" id="SatDesc21" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW21">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime21S" id="SatTime21S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime21E" id="SatTime21E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime21" id="SatTime21" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1 right"><span class="fas fa-times" id="SatClearOW21"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanOW22"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW22">
-                    <div class="col-12">
-                        <label for="SatLift22"><input type="checkbox" name="chkEQL" id="SatLift22">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW22">
-                    <div class="col-11">
-                        <select id="SatSelect22" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SatBanOW22"></span></div>
-                </div>
-                <div class="row SatLV SatSpanOW22">
-                    <div class="col-12">
-                        <input name="SatDesc22" id="SatDesc22" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanOW22">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime22S" id="SatTime22S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime22E" id="SatTime22E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime22" id="SatTime22" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SatClearOW22"></span></div>
-                </div>
-            </div>
-            <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanFT30"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT30">
-                    <div class="col-4">
-                        <label for="SatLift30"><input type="checkbox" name="chkEQL" id="SatLift30">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SatVoucher30" id="SatVoucher30" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SatBanFT30"></span></div>
-                </div>
-                <div class="row SatLV SatSpanFT30">
-                    <div class="col-12">
-                        <input name="SatFrom30" id="SatFrom30" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT30">
-                    <div class="col-12">
-                        <input name="SatTo30" id="SatTo30" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT30">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime30S" id="SatTime30S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime30E" id="SatTime30E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime30" id="SatTime30" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SatClearFT30"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanFT31"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT31">
-                    <div class="col-4">
-                        <label for="SatLift31"><input type="checkbox" name="chkEQL" id="SatLift31">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SatVoucher31" id="SatVoucher31" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SatBanFT31"></span></div>
-                </div>
-                <div class="row SatLV SatSpanFT31">
-                    <div class="col-12">
-                        <input name="SatFrom31" id="SatFrom31" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT31">
-                    <div class="col-12">
-                        <input name="SatTo31" id="SatTo31" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT31">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime31S" id="SatTime31S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime31E" id="SatTime31E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime31" id="SatTime31" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SatClearFT12"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SatSpanFT32"></span>
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT32">
-                    <div class="col-4">
-                        <label for="SatLift32"><input type="checkbox" name="chkEQL" id="SatLift32">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SatVoucher32" id="SatVoucher32" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SatBanFT32"></span></div>
-                </div>
-                <div class="row SatLV SatSpanFT32">
-                    <div class="col-12">
-                        <input name="SatFrom32" id="SatFrom32" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT32">
-                    <div class="col-12">
-                        <input name="SatTo32" id="SatTo32" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SatLV SatSpanFT32">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SatTime32S" id="SatTime32S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SatTime32E" id="SatTime32E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SatTime32" id="SatTime32" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SatClearFT32"></span></div>
-                </div>
-            </div>
-        </div>
-        <div id="Sunday" class="card hide">
-            <div class="row">
-                <div class="col-12">
-                    <p class="daily">SUNDAY-<span id="SunDate"></span></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <input type="text" id="SunOtherTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">other work</p>
-                </div>
-                <div class="col-auto">
-                    <input type="text" id="SunFTTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">field trip</p>
-                </div>
-                <div class="col-auto">
-                    <input type="text" id="SunLiftTotal" class="totalwidth nofocus" disabled>
-                    <p class="dailytotal">equipment</p>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanOW20"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW20">
-                    <div class="col-12">
-                        <label for="SunLift20"><input type="checkbox" name="chkEQL" id="SunLift20">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW20">
-                    <div class="col-11">
-                        <select id="SunSelect20" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SunBanOW20"></span></div>
-                </div>
-                <div class="row SunLV SunSpanOW20">
-                    <div class="col-12">
-                        <input name="SunDesc20" id="SunDesc20" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW20">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime20S" id="SunTime20S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime20E" id="SunTime20E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime20" id="SunTime20" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SunClearOW20"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanOW21"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW21">
-                    <div class="col-12">
-                        <label for="SunLift21"><input type="checkbox" name="chkEQL" id="SunLift21">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW21">
-                    <div class="col-11">
-                        <select id="SunSelect21" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>n>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1 right"><span class="fas fa-ban" id="SunBanOW21"></span></div>
-                </div>
-                <div class="row SunLV SunSpanOW21">
-                    <div class="col-12">
-                        <input name="SunDesc21" id="SunDesc21" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW21">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime21S" id="SunTime21S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime21E" id="SunTime21E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime21" id="SunTime21" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1 right"><span class="fas fa-times" id="SunClearOW21"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal2">
-                <div class="row">
-                    <div class="col-8">
-                        <p class="category">Other Work</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ow"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanOW22"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW22">
-                    <div class="col-12">
-                        <label for="SunLift22"><input type="checkbox" name="chkEQL" id="SunLift22">EQ/L</label>&nbsp;&nbsp;
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW22">
-                    <div class="col-11">
-                        <select id="SunSelect22" class="selectwidth">
-                            <option value="">--Select work--</option>
-                            <option value="FYI">FYI</option>
-                            <option value="OTHR">Other</option>
-                            <option value="GT">Garage trip</option>
-                            <option value="FUEL">Fuel</option>
-                            <option value="RC">Run coverage</option>
-                            <option value="EQ/L">EQ/L Coverage</option>
-                            <option value="MTNG">Meeting</option>
-                            <option value="TRNG">Training</option>
-                            <option value="MED">Physical/Drug Test</option>
-                            <option value="CS">Cold start team</option>
-                            <option value="CBK">Call back</option>
-                        </select>
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SunBanOW22"></span></div>
-                </div>
-                <div class="row SunLV SunSpanOW22">
-                    <div class="col-12">
-                        <input name="SunDesc22" id="SunDesc22" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanOW22">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime22S" id="SunTime22S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime22E" id="SunTime22E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime22" id="SunTime22" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SunClearOW22"></span></div>
-                </div>
-            </div>
-            <hr>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanFT30"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT30">
-                    <div class="col-4">
-                        <label for="SunLift30"><input type="checkbox" name="chkEQL" id="SunLift30">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SunVoucher30" id="SunVoucher30" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SunBanFT30"></span></div>
-                </div>
-                <div class="row SunLV SunSpanFT30">
-                    <div class="col-12">
-                        <input name="SunFrom30" id="SunFrom30" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT30">
-                    <div class="col-12">
-                        <input name="SunTo30" id="SunTo30" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT30">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime30S" id="SunTime30S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime30E" id="SunTime30E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime30" id="SunTime30" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SunClearFT30"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanFT31"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT31">
-                    <div class="col-4">
-                        <label for="SunLift31"><input type="checkbox" name="chkEQL" id="SunLift31">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SunVoucher31" id="SunVoucher31" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SunBanFT31"></span></div>
-                </div>
-                <div class="row SunLV SunSpanFT31">
-                    <div class="col-12">
-                        <input name="SunFrom31" id="SunFrom31" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT31">
-                    <div class="col-12">
-                        <input name="SunTo31" id="SunTo31" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT12">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime31S" id="SunTime31S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime31E" id="SunTime31E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime31" id="SunTime31" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SunClearFT31"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal3">
-                <div class="row">
-                    <div class="category col-8">Field Trip</div>
-                    <div class="col-2 right">
-                        <span class="fas fa-question-circle ft"></span>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="fas fa-angle-up spanToggle" id="SunSpanFT32"></span>
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT32">
-                    <div class="col-4">
-                        <label for="SunLift32"><input type="checkbox" name="chkEQL" id="SunLift32">EQ/L</label>
-                    </div>
-                    <div class="col-7 center">
-                        <input name="SunVoucher32" id="SunVoucher32" type="text" class="voucherwidth" placeholder="Voucher">
-                    </div>
-                    <div class="col-1"><span class="fas fa-ban" id="SunBanFT32"></span></div>
-                </div>
-                <div class="row SunLV SunSpanFT32">
-                    <div class="col-12">
-                        <input name="SunFrom32" id="SunFrom32" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT32">
-                    <div class="col-12">
-                        <input name="SunTo32" id="SunTo32" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
-                    </div>
-                </div>
-                <div class="row SunLV SunSpanFT32">
-                    <div class="col-11">
-                        <input type="text" name="txtTime" name="SunTime32S" id="SunTime32S" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="txtTime" name="SunTime32E" id="SunTime32E" class="timewidth" placeholder="- - : - -">
-                        <input type="text" name="SunTime32" id="SunTime32" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="SunClearFT32"></span></div>
-                </div>
-            </div>
-        </div>
+        <script>
+            var strHTML = "";
+            for (var i = 6; i >= 0; i -= 6) {
+                strHTML += '<div id="' + fullday[i] + '" class="card hide">';
+                strHTML += '<div class="row"><div class="col-12">';
+                strHTML += '<p class="daily">' + fullday[i].toUpperCase() + '-<span id="' + days[i] + 'Date"></span></p>'; 
+                strHTML += '</div></div><div class="row"><div class="col-auto">';
+                strHTML += '<input type="text" id="' + days[i] + 'OtherTotal" class="totalwidth nofocus" disabled>';
+                strHTML += '<p class="dailytotal">other work</p>';
+                strHTML += '</div><div class="col-auto">';
+                strHTML += '<input type="text" id="' + days[i] + 'FTTotal" class="totalwidth nofocus" disabled>';
+                strHTML += '<p class="dailytotal">field trip</p>';
+                strHTML += '</div><div class="col-auto">';
+                strHTML += '<input type="text" id="' + days[i] + 'LiftTotal" class="totalwidth nofocus" disabled>';
+                strHTML += '<p class="dailytotal">total</p></div></div>';
+                strHTML += '<div class="row addOW" id="' + days[i] + 'OWAdd">';
+                strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
+                for (var j = 20; j < 23; j++) {
+                    strHTML += '<div class="tinycard bg-teal2 hide" id="' + days[i] + 'OWDiv' + j + '">';
+                    strHTML += '<div class="row">';
+                    strHTML += '<div class="category col-11">Other Work&nbsp;';
+                    strHTML += '<span class="fas fa-question-circle ow"></span>';
+                    strHTML += '</div><div class="col-1 center">';
+                    strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'OWTrash' + j + '"></span></div></div>';
+                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '" disabled><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>&nbsp;&nbsp;';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '<select name="selectOW" id="' + days[i] + 'Select' + j + '" class="selectwidth">';
+                    strHTML += '<option value="">--Select work--</option>';
+                    strHTML += '<option value="FYI">FYI</option>';
+                    strHTML += '<option value="OTHR">Other</option>';
+                    strHTML += '<option value="GT">Garage trip</option>';
+                    strHTML += '<option value="FUEL">Fuel</option>';
+                    strHTML += '<option value="RC">Run coverage</option>';
+                    strHTML += '<option value="EQ/L">EQ/L Coverage</option>';
+                    strHTML += '<option value="MTNG">Meeting</option>';
+                    strHTML += '<option value="TRNG">Training</option>';
+                    strHTML += '<option value="MED">Physical/Drug Test</option>';
+                    strHTML += '<option value="CS">Cold start team</option>';
+                    strHTML += '<option value="CBK">Call back</option>';
+                    strHTML += '</select></div>';
+                    strHTML += '</div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '<input id="' + days[i] + 'Desc' + j + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-11">';
+                    strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
+                    strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;'
+                    strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';
+                    strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearOW' + j + '"></span></div></div></div>';
+                }
+                strHTML += '<hr>';
+                strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div><hr>';
+                strHTML += '<div class="row addFT" id="' + days[i] + 'FTAdd">';
+                strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
+                for (j = 30; j < 33; j++) {
+                    strHTML += '<div class="tinycard bg-teal3 hide" id="' + days[i] + 'FTDiv' + j + '">';
+                    strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
+                    strHTML += '<span class="fas fa-question-circle ft"></span>';
+                    strHTML += '</div><div class="col-1 center">';
+                    strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'FTTrash' + j + '"></span></div></div>';
+                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-4">';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '"><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>';
+                    strHTML += '</div><div class="col-7 center">';
+                    strHTML += '<input name="" id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
+                    strHTML += '</div><div class="col-1"></div></div>';
+                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
+                    strHTML += '<input name="txtFT" id="' + days[i] + 'From' + j + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
+                    strHTML += '<input name="txtFT" id="' + days[i] + 'To' + j + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-11">';
+                    strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
+                    strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;';
+                    strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';
+                    strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearFT' + j + '"></span></div></div></div>';
+                }
+                strHTML += '</div>';
+                document.write(strHTML);
+            }
+        </script>
         <script>
             var strHTML = "";
             var i = 0;
@@ -1059,11 +565,9 @@
               strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG17"></span></div>';
               strHTML += '</div></div><hr><div class="row addOW" id="' + days[i] + 'OWAdd">';
               strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
-              document.write(strHTML);
                 for (j = 20; j < 30; j++) {
                     $id = [days[i] + 'OWDiv' + j, days[i] + 'OWTrash' + j, days[i] + 'OJT' + j, days[i] + 'Lift' + j, days[i] + 'Select' + j, days[i] + 'Desc' + j, days[i] + 'Time' + j + 'S', days[i] + 'Time' + j + 'E', days[i] + 'Time' + j, days[i] + 'ClearOW' + j];
-                    strHTML = "";
-                    strHTML = '<div class="tinycard bg-teal2 hide" id="' + $id[0] + '">';
+                    strHTML += '<div class="tinycard bg-teal2 hide" id="' + $id[0] + '">';
                     strHTML += '<div class="row">';
                     strHTML += '<div class="category col-11">Other Work&nbsp;';
                     strHTML += '<span class="fas fa-question-circle ow"></span>';
@@ -1072,10 +576,10 @@
                     strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-auto">';
                     strHTML += '<input type="checkbox" name="chkOJT" id="' + $id[2] + '">';
                     strHTML += '<label class="lblBtnFalse" for="' + $id[2] + '">OJT</label>&nbsp;';
-                    strHTML += '<input type="checkbox" id="' + $id[3] + '">';
+                    strHTML += '<input type="checkbox" id="' + $id[3] + '" disabled>';
                     strHTML += '<label class="lblBtnFalse" for="' + $id[3] + '">EQ/L</label>';
                     strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
-                    strHTML += '<select id="' + $id[4] + '" class="selectwidth">';
+                    strHTML += '<select name="selectOW" id="' + $id[4] + '" class="selectwidth">';
                     strHTML += '<option value="">--Select work--</option>';
                     strHTML += '<option value="FYI">FYI</option>';
                     strHTML += '<option value="OTHR">Other</option>';
@@ -1100,27 +604,22 @@
                     strHTML += '<input type="text" name="txtTime" id="' + $id[7] + '" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" id="' + $id[8] + '" class="total-time nofocus" disabled>';
                     strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + $id[9] + '"></span></div></div></div>';
-                    document.write(strHTML);
                 }
-                strHTML = "";
                 strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div><hr>';
                 strHTML += '<div class="row addFT" id="' + days[i] + 'FTAdd">';
                 strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
-                document.write(strHTML);
                 for (j = 30; j < 35; j++) {
                   $id = [days[i] + 'FTDiv' + j, days[i] + 'FTTrash' + j, days[i] + 'Lift' + j, days[i] + 'Voucher' + j, days[i] + 'To' + j, days[i] + 'From' + j, days[i] + 'Time' + j + 'S', days[i] + 'Time' + j + 'E', days[i] + 'Time' + j, days[i] + 'ClearFT' + j];
-                  strHTML = "";
-                  strHTML = '<div class="tinycard bg-teal3 hide" id="' + $id[0] + '">';
+                  strHTML += '<div class="tinycard bg-teal3 hide" id="' + $id[0] + '">';
                   strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
                   strHTML += '<span class="fas fa-question-circle ft"></span>';
                   strHTML += '</div><div class="col-1 center">';
                   strHTML += '<span class="fas fa-trash-alt" id="' + $id[1] + '"></span>';
-                  strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-8">';
+                  strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-4">';
+                  strHTML += '<input type="checkbox" id="' + $id[2] + '"><label class="lblBtnFalse" for="' + $id[2] + '">EQ/L</label></div><div class="col-7 center">';
                   strHTML += '<input id="' + $id[3] + '" type="text" class="voucherwidth" placeholder="Voucher">';
-                  strHTML += '</div><div class="col-4">';
-                  strHTML += '<input type="checkbox" id="' + $id[2] + '">';
-                  strHTML += '<label class="lblBtnFalse" for="' + $id[2] + '">EQ/L</label>';
-                  strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
+                  strHTML += '</div><div class="col-1"></div>';
+                  strHTML += '</div><div class="row ' + days[i] + 'LV"><div class="col-12">';
                   strHTML += '<input id="' + $id[5] + '" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
                   strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
                   strHTML += '<input id="' + $id[4] + '" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
@@ -1131,9 +630,7 @@
                   strHTML += '</div><div class="col-1">';
                   strHTML += '<span class="fas fa-times" id="' + $id[9] + '"></span>';
                   strHTML += '</div></div></div>';
-                  document.write(strHTML);
                 }
-                strHTML = "";
                 strHTML += '</div><div class="row" id="' + days[i] + 'FTAdd2"></div></div>';
                 document.write(strHTML);
             }
@@ -1223,32 +720,6 @@
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
-    <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-            document.getElementById("navdropdown").classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(e) {
-            var refID = e.target.id;
-            if (refID !== 'navbtn') {
-                if (e.target.classList.contains('show')) {
-                    e.target.classList.toggle("show");
-                }
-            }
-        }
-        window.ontouchstart = function(event) {
-            var refID = e.target.id;
-            if (refID !== 'navbtn') {
-                if (e.target.classList.contains('show')) {
-                    e.target.classList.toggle("show");
-                }
-            }
-        }
-
-    </script>
     <script src="js/functions.js"></script>
     <script src="js/timepicker.js"></script>
 </body>

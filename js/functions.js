@@ -7,30 +7,40 @@ document.addEventListener('DOMContentLoaded', function() {
     initialLoad();
 });
 
-/* *** *** ADD EVENT LISTENER *** *** */
+/****************************************EVENT LISTENERS****************************************/
+//Checkbox on click store into local storage
+var checkbox = document.querySelectorAll("input[type='checkbox']");
+for (var i = 0; i < checkbox.length; i++) {
+    checkbox[i].addEventListener("click", storeCheckboxValue);
+}
+
+//Radio on change store into local storage
+var radio = document.querySelectorAll("input[type='radio']");
+for (var i = 0; i < radio.length; i++) {
+    radio[i].addEventListener("change", storeRadioValue);
+}
+
+//Textbox on change
+var textbox = document.querySelectorAll("input[type='text'], input[type='number']");
+for (i = 0; i < textbox.length; i++) {
+    textbox[i].addEventListener("change", textboxOnChange);
+}
+
+//Make selection on select element
+var select = document.querySelectorAll("select");
+for (i = 0; i < select.length; i++) {
+    select[i].addEventListener("change", selectOnChange);
+}
+
 //Area selection
 var radioarea = document.querySelectorAll("input[name='area']");
-for (var i = 0; i < radioarea.length; i++) {
+for (i = 0; i < radioarea.length; i++) {
     radioarea[i].addEventListener("change", radioAreaSelect);
 }
 
-//Team selection
-var radioteam = document.querySelectorAll("input[name='team']");
-for (i = 0; i < radioteam.length; i++) {
-    radioteam[i].addEventListener("change", radioTeamSelect);
-}
-
 //Position selection
-var radiopos = document.querySelectorAll("input[name='position']");
-for (i = 0; i < radiopos.length; i++) {
-    radiopos[i].addEventListener("change", radioPositionSelect);
-}
-
-//Position selection
-var radioweek = document.querySelectorAll("#week1, #week2");
-for (i = 0; i < radioweek.length; i++) {
-    radioweek[i].addEventListener("change", storeWeek(radioweek[i].id));
-}
+byID("week1").addEventListener("change", updateWeek);
+byID("week2").addEventListener("change", updateWeek);
 
 //OJT checked
 var chkOJT = document.querySelectorAll("input[name='chkOJT']");
@@ -41,7 +51,7 @@ for (i = 0; i < chkOJT.length; i++) {
 //EQL checked
 var chkEQL = document.querySelectorAll("input[name='chkEQL']");
 for (i = 0; i < chkEQL.length; i++) {
-    chkEQL[i].addEventListener("click", checkEQL);
+    chkEQL[i].addEventListener("click", loadEQL);
 }
 
 //Add Other Work click
@@ -115,7 +125,7 @@ byID("endValidate").addEventListener("click", function () {
 
 //If route name is updated, store name and then run loadEQL
 for (i = 0; i < routes.length; i++) {
-    byID(routes[i]).addEventListener("change", storeRouteName);
+    byID(routes[i]).addEventListener("change", loadEQL);
 }
 
 //Click on pupil counts question mark
@@ -132,31 +142,7 @@ byID("goTime").addEventListener("click", function () {
 });
 
 //Click on checkmark on field trip selector
-byID("goFT").addEventListener("click", function () {
-    var ftText = "";
-    if (byID("ftselector").value !== null)
-        ftText = byID("ftselector").value;
-    else
-        ftText = byID("fttype").value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
-    setStorage(activeID, ftText);
-    showHide("ftModal", false);
-});
-
-//Make selection on select element
-var select = document.querySelectorAll("select");
-for (i = 0; i < select.length; i++) {
-    select[i].addEventListener("change", selectOnChange);
-}
-
-//Textbox on change
-var textbox = document.querySelectorAll("input[type='text'], input[type='number']");
-for (i = 0; i < textbox.length; i++) {
-    textbox[i].addEventListener("change", textboxOnChange);
-}
+byID("goFT").addEventListener("click", storeFTVal);
 
 //Veh textbox keyup
 var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
@@ -188,13 +174,59 @@ for (i = 0; i < timeArrows.length; i++) {
 byID("clear").addEventListener("click", function () {
     openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
 });
-/* *** *** ADD EVENT LISTENER *** *** */
 
+var selectOW = document.querySelectorAll("select[name='selectOW']");
+for (i = 0; i < selectOW.length; i++) {
+    selectOW[i].addEventListener("change", selectOWChange);
+}
+/****************************************EVENT LISTENERS****************************************/
 
+/****************************************LOCAL STORAGE****************************************/
+//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
+function setStorage(refID, val) {
+    localStorage.setItem(refID, val);
+}
+
+//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
+function getStorage(refID) {
+    return localStorage.getItem(refID);
+}
+
+//STORE CHECKBOX VALUE
+function storeCheckboxValue(e) {
+    setStorage(e.currentTarget.id, (e.currentTarget.checked) ? "1" : "0");
+}
+
+//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
+function textboxOnChange(e) {
+    var refID = e.currentTarget.id;
+    if (refID === "Trainee" || refID === "EmpName") {
+        byID(refID).value = properCase(e.currentTarget.value);
+    }
+    if (refID.indexOf("Route") > 0) {
+        byID(refID).value = byID(refID).value.toUpperCase();
+    }
+    setStorage(refID, e.currentTarget.value);
+}
+
+//SET POSITION SELECTION
+function storeRadioValue(e) {
+    setStorage(e.currentTarget.name, e.currentTarget.value);
+}
+
+//SELECT ON CHANGE EVENT
+function selectOnChange(e) {
+    var refID = e.currentTarget.id;
+    setStorage(refID, e.currentTarget.value);
+}
+/****************************************LOCAL STORAGE****************************************/
+
+//SHORTEN DOCUMENT.GETELEMENTBYID
 function byID(id) {
     return document.getElementById(id);
 }
-                          
+                        
+//FIRST FUNCTION TO LOAD
 function initialLoad() {
     loadLocalStorage();
     var refDate = new Date();
@@ -294,13 +326,13 @@ function storeWeek(refID) {
 
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
-        newDay = new Date(startDate), sm, sd;
+        satDate = new Date(startDate), sm, sd;
     
     setStorage("SatDate", startDate.substr(0,5));
     setStorage("FriDate", endDate.substr(0,5));
     
     for (var i = 4; i >= 0; i--) {
-        newDay = addDate(newDay, i + 1);
+        newDay = addDate(satDate, i + 1);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -309,6 +341,28 @@ function storeWeek(refID) {
     }
     
     loadStoredWeek();
+}
+
+//SET DAYS WHEN WEEK IS CHANGED
+function updateWeek(e) {
+    var refID = e.currentTarget.id;
+    storeWeek(refID);
+    var day = byID("today").innerHTML;
+    day = day.substr(0,3);
+    for (var i = 0; i < 7; i++) {
+        if (day === days[i]) {
+            toggleDay(i);
+            break;
+        }
+    }
+    for (i = 1; i < 6; i++) {
+        for (var j = 20; j < 30; j++) {
+            byID(days[i] + "OWTrash" + j).click();
+        }
+        for (j = 30; j < 35; j++) {
+            byID(days[i] + "FTTrash" + j).click();
+        }
+    }
 }
 
 //DATEADD FUNCTION
@@ -367,8 +421,8 @@ function loadOJT() {
     var ojt = document.querySelectorAll("input[name='chkOJT']");
     for (var i = 0; i < ojt.length; i++) {
         if (ojt[i].id === "OJT") continue;
+        if (ojt[i].checked && !bln) ojt[i].click();
         ojt[i].disabled = !bln;
-        if (!bln) resetElement(ojt[i].id);
     }
 }
 
@@ -378,8 +432,8 @@ function loadEQL() {
     
     var eql = document.querySelectorAll("input[name='chkEQL']");
     for (var i = 0; i < eql.length; i++) {
+        if (eql[i].checked && !bln) eql[i].click();
         eql[i].disabled = !bln;
-        if (!bln) resetElement(eql[i].id);
     }
 }
 
@@ -396,20 +450,12 @@ function toggleOWFT(refID) {
     }
 }
 
-//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage(refID, val) {
-    localStorage.setItem(refID, val);
-}
-
-//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
-function getStorage(refID) {
-    return localStorage.getItem(refID);
-}
-
 //TOGGLE DAILY COUNTS IN THE PUPIL COUNTS SECTION
 function togglePupilCounts(x) {
     //Declare boolean used to add or remove class
     var bln = false;
+    //Declare boolean for weekend
+    var blnSS = (x === 6 || x === 0) ? true : false;
     //Declare boolean for Position
     var pos = "Driver"; //getStorage("Position");
     var blnPos = (pos === "Driver" || pos === "Driver Trainee" || pos === "Sub Driver") ? true : false;
@@ -429,11 +475,11 @@ function togglePupilCounts(x) {
         showHide(days[j] + "TimeAM", bln);
         showHide(days[j] + "TimePM", bln);
     }
-    showHide("divAMCt", blnPos);
-    showHide("divPMCt", blnPos);
-    showHide("divPSCt", blnPos);
-    showHide("divAMPupilTime", blnPos);
-    showHide("divPMPupilTime", blnPos);
+    showHide("divAMCt", (blnSS) ? false : blnPos);
+    showHide("divPMCt", (blnSS) ? false : blnPos);
+    showHide("divPSCt", (blnSS) ? false : blnPos);
+    showHide("divAMPupilTime", (blnSS) ? false : blnPos);
+    showHide("divPMPupilTime", (blnSS) ? false : blnPos);
 }
 
 //MOVE NAV BAR TO THE RIGHT
@@ -482,40 +528,20 @@ function showHide(refID, bln) {
         if (el.classList.contains("hide")) el.classList.remove("hide");    
     } else {
         if (!el.classList.contains("hide")) el.classList.add("hide");
-        resetElement(refID);
     }
 }
 
 //SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
 function radioAreaSelect(e) {
-    setStorage("Area", e.currentTarget.value);
     setStorage("Team", "");
     loadTeamValues();
-}
-
-//SET TEAM SELECTION
-function radioTeamSelect(e) {
-    setStorage("Team", e.currentTarget.value);
-}
-
-//SET POSITION SELECTION
-function radioPositionSelect(e) {
-    setStorage("Position", e.currentTarget.value);
 }
 
 //OJT CHECKBOX CLICK
 function checkOJT(e) {
     var refID = e.currentTarget.id;
-    setStorage(refID, (e.currentTarget.checked) ? "1" : "0");
     if (refID === "OJT") loadOJT();
     //ELSE CALCULATE OJT TIME
-}
-
-//EQL CHECKBOX CLICK
-function checkEQL(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, (e.currentTarget.checked) ? "1" : "0");
-    loadEQL();
 }
 
 //CHECK ROUTES ENTERED TO SEE IF EQ/L EXISTS
@@ -536,6 +562,15 @@ function properCase(str) {
     return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
         return txtVal.toUpperCase();
     });
+}
+
+//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
+function limitCharacters(refID, num) {
+    var refVal = byID(refID).value;
+    if (refVal.length > num) {
+        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
+        byID(refID).value = refVal.substr(0, num);
+    }
 }
 
 //TOGGLE OTHER WORK FIELDS
@@ -573,17 +608,20 @@ function removeOWFT(e) {
     } else if (type === "OW") {
         resetElement(dayVal + "Select" + x);
         resetElement(dayVal + "Desc" + x);
+        if (dayVal !== "Sat" && dayVal !== "Sun")
+            resetElement(dayVal + "OJT" + x);
+        byID(dayVal + "Lift" + x).disabled = true;
     }
     resetElement(dayVal + "Time" + x + "S");
     resetElement(dayVal + "Time" + x + "E");
     resetElement(dayVal + "Time" + x);
-    resetElement(dayVal + "OJT" + x);
     resetElement(dayVal + "Lift" + x);
 }
 
 //FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
 function getMissingOW(day) {
     for (var i = 20; i < 30; i++) {
+        if ((day === "Sat" || day === "Sun") && i === 23) return 30;
         if (byID(day + "OWDiv" + i).classList.contains("hide")) {
             return i;
           }
@@ -595,6 +633,7 @@ function getMissingOW(day) {
 //FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
 function getMissingFT(day) {
     for (var i = 30; i < 35; i++) {
+        if ((day === "Sat" || day === "Sun") && i === 33) return 35;
         if (byID(day + "FTDiv" + i).classList.contains("hide")) {
             return i;
           }
@@ -692,13 +731,19 @@ function openFTSelector(e) {
     byID("fttype").value = "";
 }
 
-//STORE ROUTE INFO AND THEN RUN ROUTE CHECK
-function storeRouteName(e) {
-    var val = e.currentTarget.value;
-    val = val.toUpperCase();
-    e.currentTarget.value = val;
-    setStorage(e.currentTarget.id, e.currentTarget.value);
-    loadEQL();
+//STORE SELECTION FROM FIELD TRIP MODAL
+function storeFTVal() {
+    var ftText = "";
+    if (byID("ftselector").value !== null)
+        ftText = byID("ftselector").value;
+    else
+        ftText = byID("fttype").value;
+
+    ftText = ftText.substr(0, 30);
+    byID(activeID).value = ftText;
+    byID(activeID).disabled = false;
+    setStorage(activeID, ftText);
+    showHide("ftModal", false);
 }
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
@@ -733,24 +778,6 @@ function openPopUp(msgVal) {
     showHide("variousModal", true);
 }
 
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, e.currentTarget.value);
-    if (refID.indexOf("Select") === 3) {
-        //something about other work
-    }
-}
-
-//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
-function textboxOnChange(e) {
-    var refID = e.currentTarget.id;
-    if (refID === "Trainee" || refID === "EmpName") {
-        byID(refID).value = properCase(e.currentTarget.value);
-    }
-    setStorage(refID, e.currentTarget.value);
-}
-
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
     if (byID(refID).type === "checkbox") {
@@ -762,7 +789,22 @@ function resetElement(refID) {
     }
 }
 
-//******************VALIDATION AND COMPLETION******************//
+//ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
+function selectOWChange(e) {
+    var refID = e.currentTarget.id;
+    var refVal = e.currentTarget.value;
+    switch (refVal) {
+        case "EQ/L":
+            byID(refID.substr(0,3) + "Lift" + refID.substr(9)).disabled = false;
+            byID(refID.substr(0,3) + "Lift" + refID.substr(9)).checked = true;
+            break;
+        default:
+            byID(refID.substr(0,3) + "Lift" + refID.substr(9)).checked = false;
+            byID(refID.substr(0,3) + "Lift" + refID.substr(9)).disabled = true;
+    }
+}
+
+/****************************************VALIDATION AND COMPLETION****************************************/
 function completeTimesheet() {
     var bln = runValidations();
     if (!bln)
@@ -1024,4 +1066,4 @@ function testTimeComplete() {
     }
     return val;
 }
-//******************VALIDATION AND COMPLETION******************//
+/****************************************ALIDATION AND COMPLETION****************************************/
