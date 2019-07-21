@@ -33,7 +33,7 @@ for (i = 0; i < select.length; i++) {
 }
 
 //Area selection
-var radioarea = document.querySelectorAll("input[name='area']");
+var radioarea = document.querySelectorAll("input[name='Area']");
 for (i = 0; i < radioarea.length; i++) {
     radioarea[i].addEventListener("change", radioAreaSelect);
 }
