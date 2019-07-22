@@ -511,53 +511,6 @@ function toggleADLeave(day) {
 
 
 
-//CHECK NUMBER OF OTHER WORK ENTRIES, IF MORE THAN 10 THEN GIVE POP UP ERROR MESSAGE
-function countOtherWork(refID) {
-    var j = 0,
-        i = 0,
-        num = 20;
-
-    //Loop through each day of the week
-    for (i = 0; i < 7; i++) {
-        for (num; num < 30; num++) {
-            if (!byID(days[i] + "Select" + num))
-                continue;
-
-            if (byID(days[i] + "Select" + num).value !== "")
-                j++;
-        }
-    }
-    //Result of j value
-    if (j > 10) {
-        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
-        byID(refID).value = "";
-        textboxUpdate(refID);
-    }
-}
-
-//CHECK NUMBER OF FIELD TRIP ENTRIES, IF MORE THAN 5 THEN GIVE POP UP ERROR MESSAGE
-function countFieldTrips(refID) {
-    var j = 0,
-        i = 0,
-        num = 30;
-
-    //Loop through each day of the week
-    for (i = 0; i < 7; i++) {
-        for (num; num < 35; num++) {
-            if (!byID(days[i] + "Voucher" + num))
-                continue;
-
-            if (byID(days[i] + "Voucher" + num).value !== "")
-                j++;
-        }
-    }
-    //Result of j value
-    if (j > 5) {
-        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
-        byID(refID).value = "";
-        textboxUpdate(refID);
-    }
-}
 
 //TOGGLE MODAL USING ELEMENT ID AND STYLE PARAMETER
 function showHideModal(refID, strStyle) {

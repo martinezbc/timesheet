@@ -869,6 +869,44 @@ function runPupilCopyRoutine() {
     return str;
 }
 
+//CHECK NUMBER OF OTHER WORK ENTRIES, IF MORE THAN 10 THEN GIVE POP UP ERROR MESSAGE
+function countOtherWork(refID) {
+    var count = 0;
+
+    //Loop through each day of the week
+    for (var i = 0; i < 7; i++) {
+        for (var j = 0; j < 30; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j === 23) break;
+            if (byID(days[i] + "Select" + j).value !== "") count++;
+        }
+    }
+    
+    //Result of count
+    if (count > 10) {
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
+        byID(refID).value = "";
+    }
+}
+
+//CHECK NUMBER OF FIELD TRIP ENTRIES, IF MORE THAN 5 THEN GIVE POP UP ERROR MESSAGE
+function countFieldTrips(refID) {
+    var count = 0;
+
+    //Loop through each day of the week
+    for (var i = 0; i < 7; i++) {
+        for (var j = 0; j < 35; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j === 33) break;
+            if (byID(days[i] + "Voucher" + j).value !== "") count++;
+        }
+    }
+    //Result of count
+    if (count > 5) {
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
+        byID(refID).value = "";
+    }
+}
+
+
 /****************************************VALIDATION AND COMPLETION****************************************/
 function completeTimesheet() {
     var bln = runValidations();

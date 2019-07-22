@@ -13,6 +13,7 @@ function timeCalculation(refID) {
     calculateDiff(refID);
 
     getDailyTotals();
+    getWeeklyTotals();
 
     if (refID.substr(7,2) > 19 && refID.substr(7,2) < 30) {
 		countOtherWork(refID);
@@ -50,6 +51,7 @@ function checkOverlap(refID) {
 
     for (i; i < max; i++) {
         if (i === numVal) i++;
+        i = (i === 18) ? 20 : i;
         i = ((day === "Sat" || day === "Sun") && i === 23) ? 30 : i;
         i = (i === 35) ? 41 : i;
 
@@ -180,8 +182,7 @@ function setToFixed(refVal) {
 //CALCULATE DAILY RUN TIME
 function dailyRuns(day) {
 	"use strict";
-    if (day === "Sat" || day === "Sun")
-        return;
+    if (day === "Sat" || day === "Sun") return;
 
     var sum = 0;
     for (var i = 11; i < 18; i++) {
@@ -193,16 +194,14 @@ function dailyRuns(day) {
     setStorage(day + "RunTotal", sum);
 }
 
-//Other Work Times
+//CALCULATE DAILY OTHER WORK TIME
 function dailyOther(day) {
 	"use strict";
     //Declare variables and initialize values
     var sum = 0, selectVal;
 
     for (var i = 20; i < 30; i++) {
-        if (!byID(day + "Time" + i))
-            continue;
-
+        if ((day === "Sat" || day === "Sun") && i === 23) break;
         selectVal = byID(day + "Select" + i).value;
         sum += (selectVal !== "CBK" && selectVal !== "ES0" && selectVal !== "ES2") ? convertToMinutes(byID(day + "Time" + i).value) : 0;
     }
@@ -212,7 +211,7 @@ function dailyOther(day) {
     setStorage(day + "OtherTotal", sum);
 }
 
-//Total up Specialty Pay
+//CALCULATE CALLBACK TIME
 function sumCPay() {
 	"use strict";
     var c1 = 0,
@@ -224,9 +223,7 @@ function sumCPay() {
 
     for (i; i < 7; i++) {
         for (j; j < 30; j++) {
-            if (!byID(days[i] + "Time" + j))
-                continue;
-
+            if ((days[i] === "Sat" || days[i] === "Sun") && j === 23) break;
             selectVal = byID(days[i] + "Select" + j).value;
             c1 += (selectVal === "CBK") ? 240 : 0;
             c3 += (selectVal === "ES0") ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
@@ -248,16 +245,14 @@ function sumCPay() {
     byID("TotalC3").value = c3;
 }
 
-//Field Trip Times
+//CALCULATE DAILY FIELD TRIP TIME
 function dailyFT(day) {
     "use strict";
     //Declare variables and initialize values
     var sum = 0;
 
     for (var i = 30; i < 35; i++) {
-        if (!byID(day + "Time" + i))
-            continue;
-
+        if ((day === "Sat" || day === "Sun") && i === 33) break;
         sum += Number(byID(day + "Time" + i).value);
     }
     sum = setToFixed(sum);
@@ -265,37 +260,29 @@ function dailyFT(day) {
     setStorage(day + "FTTotal", sum);
 }
 
-//Lift Time
+//CALCULATE DAILY EQ/L TIME
 function dailyLift(day) {
 	"use strict";
     var sum = 0,
 		i = 0;
 
-    if (day === "Sat" || day === "Sun")
-        return;
-
     //If EQ/L is checked, total up run, pac, shuttles, late run time
-    if (byID(day + "Lift11").checked) {
+    if (day !== "Sat" && day !== "Sun" && byID(day + "Lift11").checked) {
         for (i = 11; i < 18; i++) {
             sum += convertToMinutes(byID(day + "Time" + i).value);
         }
     }
+    
     //If Other Work EQ/L is checked, add the time
     for (i = 20; i < 30; i++) {
-        if (!byID(day + "Time" + i))
-            continue;
-
-        if (byID(day + "Lift" + i).checked)
-            sum += convertToMinutes(byID(day + "Time" + i).value);
+        if ((day === "Sat" || day === "Sun") && i === 23) break;
+        sum += (byID(day + "Lift" + i).checked) ? convertToMinutes(byID(day + "Time" + i).value) : 0;
     }
 
     //If EQ/L is checked for field trips, add time
     for (i = 30; i < 35; i++) {
-        if (!byID(day + "Time" + i))
-            continue;
-
-        if (byID(day + "Lift" + i).checked)
-            sum += (Number(byID(day + "Time" + i).value) * 60);
+        if ((day === "Sat" || day === "Sun") && i === 33) break;
+        sum += (byID(day + "Lift" + i).checked) ? (Number(byID(day + "Time" + i).value) * 60) : 0;
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
@@ -339,8 +326,6 @@ function checkboxEQL(refID) {
     dailyLift(day);
 }
 
-
-
 function getDailyTotals() {
     for (var i = 0; i < 7; i++) {
         dailyRuns(days[i]);
@@ -360,7 +345,7 @@ function getWeeklyTotals() {
     setStorage("TotalHW", "");
     sumCPay();
 
-    for (i = 2; i < 7; i++) {
+    for (i = 1; i < 6; i++) {
         sum += convertToMinutes(getStorage(days[i] + "RunTotal"));
     }
     sum = calculateTotal(sum);
@@ -411,13 +396,10 @@ function getWeeklyTotals() {
     if (!byID("OJT").checked)
         return;
 
-    for (i = 2; i < 7; i++) {
+    for (i = 1; i < 6; i++) {
         for (j = 11; j < 30; j++) {
-            if (!byID(days[i] + "Time" + j))
-                continue;
-
-            if (byID(days[i] + "OJT" + j).checked)
-                sum += convertToMinutes(byID(days[i] + "Time" + j).value);
+            j = (j === 18) ? 20 : j;
+            sum += (byID(days[i] + "OJT" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
         }
     }
     sum = convertTotal(sum);
