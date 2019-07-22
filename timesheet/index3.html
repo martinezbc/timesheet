@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transportation Weekly Report</title>
+    <!--Stylesheet-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="css/bootstrap-grid.css" rel="stylesheet" type="text/css">
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/color.css" rel="stylesheet" type="text/css">
+    <style>
+        .spin {
+            -webkit-animation:spin 4s linear infinite;
+            -moz-animation:spin 4s linear infinite;
+            animation:spin 4s linear infinite;
+        }
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    </style>
+    <script>
+        function redirect() {
+            setTimeout(function () {
+                window.open('https://www.fcps.edu/current-employees/employee-resources/transportation-weekly-report', '_self');
+            }, 5000);
+        }
+    </script>
+</head>
+<body onload="redirect();">
+<div class="card center">
+<p><span id="spin" class="fas fa-spinner spin"></span>Redirecting to <a href="https://www.fcps.edu/current-employees/employee-resources/transportation-weekly-report">https://www.fcps.edu/current-employees/employee-resources/transportation-weekly-report</a></p>
+</div>
+</body>
+</html>
