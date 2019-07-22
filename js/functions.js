@@ -1,6 +1,7 @@
 //DECLARE VARIABLES
 var activeID = "";
 var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
+var eventChange = new Event("change");
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function() {
@@ -138,6 +139,7 @@ byID("goTime").addEventListener("click", function () {
     timetext += " " + byID("meridiem").innerHTML;
     byID(activeID).disabled = false;
     byID(activeID).value = timetext;
+    byID(activeID).dispatchEvent(eventChange);
     showHide("timeModal", false);
     timeCalculation(activeID);
 });

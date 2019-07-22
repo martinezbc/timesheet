@@ -61,12 +61,20 @@ function checkOverlap(refID) {
         if (newStart === 0) continue;
         
         newEnd = convertToMinutes(byID(day + "Time" + i + "E").value);
-        bln = (newStart === thisStart) ? true : false;
-        bln = (thisStart > 0 && thisStart > newStart && thisStart < newEnd) ? true : false;
-        bln = (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) ? true : false;
-        bln = (thisStart === newStart) ? true : false;
-        bln = (thisEnd === newEnd) ? true : false;
-        bln = (thisStart < newStart && thisEnd > newEnd) ? true : false;
+        if (newStart === thisStart) {
+            bln = true;  
+        } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
+            bln = true;
+        } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
+            bln = true;
+        } else if (thisStart === newStart) {
+            bln = true;
+        } else if (thisEnd === newEnd) {
+            bln = true;
+        } else if (thisStart < newStart && thisEnd > newEnd) {
+            bln = true;
+        }
+        if (bln) break;
     }
 
     //If bln is true then there is an overlap
@@ -103,23 +111,21 @@ function convertToMinutes(s1) {
 function calculateDiff(refID) {
     "use strict";
     //If refID is null or undefined then exit function
-	if (refID === null || refID === undefined)
-        return;
+	if (refID === null || refID === undefined) return;
 
     //Declare variables and initialize values
-    var startTime = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value),
-        endTime = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value),
-        num = Number(refID.substr(7, 2)),
-        timeDiff = 0,
-        totalID = refID.substr(0, refID.length - 1);
+    var startTime = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value);
+    var endTime = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value);
+    var num = Number(refID.substr(7, 2));
+    var timeDiff = 0;
+    var totalID = refID.substr(0, refID.length - 1);
 
     //If end time is less than start time then pop up error message
     if ((endTime < startTime) && (endTime !== 0)) {
         openPopUp("<p>End time is less than start time</p>");
         byID(refID).value = "";
     } else {
-        if (endTime === 0)
-            endTime = startTime;
+        if (endTime === 0) endTime = startTime;
 
         timeDiff = endTime - startTime;
 
@@ -143,6 +149,7 @@ function calculateTotal(refVal) {
     } else {
         totalVal = hour + ":" + min;
     }
+    totalVal = (totalVal === "0:00") ? "" : totalVal;
     return totalVal;
 }
 
