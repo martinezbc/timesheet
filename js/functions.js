@@ -139,6 +139,7 @@ byID("goTime").addEventListener("click", function () {
     byID(activeID).disabled = false;
     byID(activeID).value = timetext;
     showHide("timeModal", false);
+    timeCalculation(activeID);
 });
 
 //Click on checkmark on field trip selector
@@ -165,10 +166,10 @@ for (i = 0; i < timeArrows.length; i++) {
 //}
 
 //Copy on click
-//var faCopy = document.querySelectorAll(".fa-copy");
-//for (i = 0; i < faCopy.length; i++) {
-//    faCopy[i].addEventListener("click", copyRoutine);
-//}
+var faCopy = document.querySelectorAll(".fa-copy");
+for (i = 0; i < faCopy.length; i++) {
+    faCopy[i].addEventListener("click", copyRoutine);
+}
 
 //Clear on click
 byID("clear").addEventListener("click", function () {
@@ -802,6 +803,70 @@ function selectOWChange(e) {
             byID(refID.substr(0,3) + "Lift" + refID.substr(9)).checked = false;
             byID(refID.substr(0,3) + "Lift" + refID.substr(9)).disabled = true;
     }
+}
+
+//COPY ROUTINE FOR REGULAR WORK HOURS
+function copyRoutine(e) {
+    var refID = e.currentTarget.id;
+    activeID = refID;
+    var str = "";
+    if (refID === "AMPupilcopy" || refID === "PMPupilcopy") {
+        str = runPupilCopyRoutine();
+        openPopUp('<p class="varp">Pupil time copied to the following day(s): ' + str + '.</p>');
+    } else {
+        str = runCopyRoutine();
+        openPopUp('<p class="varp">REGULAR WORK HOURS COPIED TO THE NEXT AVAILABLE DAY.</p>');
+    }
+}
+
+//COPY REGULAR RUN TIME TO OTHER DAYS
+function runCopyRoutine() {
+    showHide("variousModal", false);
+    var j = 0,
+        k = 0,
+        bln = false;
+
+    for (var i = 1; i < 5; i++) {
+        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+    
+    k++;
+    for (k; k < 6; k++) {
+        bln = (byID(days[k] + "LeaveAD").checked) ? true : false;
+        if (bln) continue;
+        for (j = 11; j < 18; j++) {
+            byID(days[k] + "Time" + j + "S").value = byID(days[i] + "Time" + j + "S").value; //= )).trigger("change");
+            byID(days[k] + "Time" + j + "E").value = byID(days[i] + "Time" + j + "E").value; //= )).trigger("change");
+        }
+        str += ", " + days[i];
+    }
+}
+
+//COPY PUPIL TIME TO OTHER DAYS
+function runPupilCopyRoutine() {
+    showHide("variousModal", false);
+    var k = 0,
+        bln = false,
+        str = "";
+
+    for (var i = 1; i < 5; i++) {
+        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+
+    k++;
+    for (k; k < 6; k++) {
+        bln = (byID(days[k] + "LeaveAD").checked) ? true : false;
+        if (bln) continue;
+        byID(days[k] + "TimeA").value = byID(days[i] + "TimeA").value;
+        byID(days[k] + "TimeB").value = byID(days[i] + "TimeB").value;
+        byID(days[k] + "TimeC").value = byID(days[i] + "TimeC").value;
+        byID(days[k] + "TimeD").value = byID(days[i] + "TimeD").value;
+        str += ", " + days[k];
+    }
+    str = (str !== "") ? str.substr(2) : "";
+    return str;
 }
 
 /****************************************VALIDATION AND COMPLETION****************************************/

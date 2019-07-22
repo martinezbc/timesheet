@@ -627,18 +627,6 @@ function fixRouteName(refID) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 //IF SELECT EQUALS FYI THEN DISABLE TIME FIELDS
 function checkOtherWorkVal() {
     var i = 0,
@@ -677,71 +665,9 @@ function otherWorkTime(day, num, bln) {
     }
 }
 
-//COPY ROUTINE FOR REGULAR WORK HOURS
-function copyRoutine(e) {
-    refID = e.currentTarget.id;
-    activeID = refID;
-    if (refID === "AMPupilcopy" || refID === "PMPupilcopy")
-        openPopUp('<p class="varp">Do you want to copy the pupil time onto the next day?<span class="close fas fa-check-circle fa-lg" id="goPupilCopy" style="color:green;" onclick="runPupilCopyRoutine()";></span></p>');
-    else
-        openPopUp('<p class="varp">Do you want to copy all regular work hours onto the next day?<span class="close fas fa-check-circle fa-lg" id="goCopy" style="color:green;" onclick="runCopyRoutine()";></span></p>');
-}
 
-function runCopyRoutine() {
-    showHideModal("variousModal", "none");
-    var j = 0,
-        k = 0,
-        bln = false,
-        i = 0;
 
-    for (i = 2; i < 6; i++) {
-        if (activeID.substr(0, 3) === days[i])
-            j = i;
-    }
-    k = j;
-    do {
-        k++;
-        bln = false;
-        if (byID(days[k] + "LeaveAD").checked)
-            bln = true;
-    }
-    while (bln && k < 7);
-    if (k === 7)
-        return;
 
-    for (i = 1; i < 8; i++) {
-        byID(days[k] + "Time" + i + "S").value = byID(days[j] + "Time" + i + "S").value; //= )).trigger("change");
-        byID(days[k] + "Time" + i + "E").value = byID(days[j] + "Time" + i + "E").value; //= )).trigger("change");
-    }
-}
-
-function runPupilCopyRoutine() {
-    showHideModal("variousModal", "none");
-    var k = 0,
-        bln = false;
-
-    for (var i = 2; i < 6; i++) {
-        if (!byID(fullday[i]).classList.contains("hide")) {
-            k = i;
-            break;
-        }
-    }
-
-    do {
-        k++;
-        bln = false;
-        if (byID(days[k] + "LeaveAD").checked)
-            bln = true;
-    } while (bln && k < 7);
-
-    if (k === 7)
-        return;
-
-    byID(days[k] + "TimeA").value = byID(days[i] + "TimeA").value; //.trigger("change");
-    byID(days[k] + "TimeB").value = byID(days[i] + "TimeB").value; //= )).trigger("change");
-    byID(days[k] + "TimeC").value = byID(days[i] + "TimeC").value; //= )).trigger("change");
-    byID(days[k] + "TimeD").value = byID(days[i] + "TimeD").value;// = )).trigger("change");
-}
 
 /*          *** CALCULATIONS ***       */
 
