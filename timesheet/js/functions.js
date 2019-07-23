@@ -240,7 +240,7 @@ function selectOnChange(e) {
 function byID(id) {
     return document.getElementById(id);
 }
-
+                        
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
     loadLocalStorage();
@@ -258,9 +258,9 @@ function loadLocalStorage() {
     for (var i = 0; i < elements.length; i++) {
         val = (getStorage(elements[i].id) === null) ? "0" : getStorage(elements[i].id);
         elements[i].checked = (val === "1") ? true : false;
-        setStorage(elements[i].id, val);
+        setStorage(elements[i].id, val);        
     }
-
+    
     elements = document.querySelectorAll("input[type='text'], input[type='number'], select");
     for (i = 0; i < elements.length; i++) {
         val = (getStorage(elements[i].id) === null) ? "" : getStorage(elements[i].id);
@@ -268,7 +268,7 @@ function loadLocalStorage() {
         setStorage(elements[i], val);
         toggleOWFT(elements[i].id);
     }
-
+    
     loadRadioSelection();
 }
 
@@ -278,7 +278,7 @@ function loadRadioSelection() {
     if (getStorage("Area") === null) setStorage("Area", "");
     var val = getStorage("Area");
     if (val !== "") byID("area" + val).checked = true;
-
+    
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
@@ -293,7 +293,7 @@ function loadRadioSelection() {
         val = val.replace(" ", "");
         byID("pos" + val).checked = true;
     }
-
+    
     //Load weekof from local storage and set radio selection
     if (getStorage("WeekOf") === null) setStorage("WeekOf", "");
     val = getStorage("WeekOf");
@@ -312,7 +312,7 @@ function loadTeamValues() {
     "use strict";
     var area = getStorage("Area");
     if (area === null || area === "") return;
-
+    
     var areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
     for (var i = 0; i < areadiv.length; i++) {
         if ("div" + area === areadiv[i]) {
@@ -342,10 +342,10 @@ function storeWeek(refID) {
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
         satDate = new Date(startDate), sm, sd;
-
+    
     setStorage("SatDate", startDate.substr(0,5));
     setStorage("FriDate", endDate.substr(0,5));
-
+    
     for (var i = 4; i >= 0; i--) {
         newDay = addDate(satDate, i + 1);
         sm = newDay.getMonth() + 1;
@@ -354,7 +354,7 @@ function storeWeek(refID) {
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
         setStorage(days[i] + "Date", sm + "/" + sd);
     }
-
+    
     loadStoredWeek();
 }
 
@@ -422,7 +422,7 @@ function loadOJT() {
     var val = getStorage("OJT");
     if (val === null) return;
     var bln = (val === "1") ? true : false;
-
+    
     var t = byID("Trainee");
     if (bln) {
         t.disabled = false;
@@ -432,7 +432,7 @@ function loadOJT() {
         t.style.backgroundColor = "lightgrey";
         resetElement("Trainee");
     }
-
+    
     var ojt = document.querySelectorAll("input[name='chkOJT']");
     for (var i = 0; i < ojt.length; i++) {
         if (ojt[i].id === "OJT") continue;
@@ -445,7 +445,7 @@ function loadOJT() {
 function loadEQL() {
     var bln = routeCheck();
     var val = "";
-
+    
     var eql = document.querySelectorAll("input[name='chkEQL']");
     for (var i = 0; i < eql.length; i++) {
         if (eql[i].checked && !bln) eql[i].click();
@@ -463,7 +463,7 @@ function loadEQL() {
 function toggleEQLReg(e) {
     var bln = (e.currentTarget.checked) ? true : false;
     var day = e.currentTarget.id.substr(0,3);
-
+    
     for (var j = 11; j < 18; j++) {
         byID(day + "Lift" + j).checked = bln;
         setStorage(day + "Lift" + j, (bln) ? "1" : "0");
@@ -494,15 +494,15 @@ function togglePupilCounts(x) {
     var blnSS = (x === 6 || x === 0) ? true : false;
     //Declare boolean for Position
     var pos = getStorage("Position");
-
+    
     if (pos === "Activity Driver") {
         posAD();
         return;
     }
-
+    
     var blnPos = (pos === "Driver" || pos === "Driver Trainee" || pos === "Sub Driver") ? true : false;
     showHide("PupilCounts", true);
-
+    
     //Loop through days array
     for (var j = 1; j < 6; j++) {
         bln = (x === j) ? true : false;
@@ -606,7 +606,7 @@ function showHide(refID, bln) {
     var el = byID(refID);
     //(Show the element) ? remove hide : add hide
     if (bln) {
-        if (el.classList.contains("hide")) el.classList.remove("hide");
+        if (el.classList.contains("hide")) el.classList.remove("hide");    
     } else {
         if (!el.classList.contains("hide")) el.classList.add("hide");
     }
@@ -696,7 +696,7 @@ function removeOWFT(e) {
     }
     resetTime(dayVal, x);
     resetElement(dayVal + "Lift" + x);
-
+    
     getDailyTotals();
     getWeeklyTotals();
 }
@@ -915,7 +915,7 @@ function resetTime(day, num) {
 //ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
 function selectOWChange(e) {
     var refID = e.currentTarget.id;
-    disableOWFields(refID);
+    disableOWFields(refID);    
 }
 
 function disableOWFields(refID) {
@@ -960,7 +960,7 @@ function runCopyRoutine() {
         k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
         if (k === i) break;
     }
-
+    
     k++;
     for (k; k < 6; k++) {
         bln = (byID(days[k] + "LeaveAD").checked) ? true : false;
@@ -1015,7 +1015,7 @@ function countOtherWork(refID) {
             if (byID(days[i] + "Select" + j).value !== "") count++;
         }
     }
-
+    
     //Result of count
     if (count > 10) {
         openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");

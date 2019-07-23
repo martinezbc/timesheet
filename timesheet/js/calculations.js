@@ -60,10 +60,10 @@ function checkOverlap(refID) {
         newStart = convertToMinutes(byID(day + "Time" + i + "S").value);
         //If newStart is blank then move to next i
         if (newStart === 0) continue;
-
+        
         newEnd = convertToMinutes(byID(day + "Time" + i + "E").value);
         if (newStart === thisStart) {
-            bln = true;
+            bln = true;  
         } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
             bln = true;
         } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
@@ -280,7 +280,7 @@ function dailyLift(day) {
             sum += convertToMinutes(byID(day + "Time" + i).value);
         }
     }
-
+    
     //If Other Work EQ/L is checked, add the time
     for (i = 20; i < 30; i++) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;

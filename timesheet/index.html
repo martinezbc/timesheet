@@ -213,7 +213,7 @@
                             strHTML += '<div class="hide" id="div' + days[j] + 'AM' + i + 'Ct">';
                             strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'AM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
-                        strHTML += '</div></div>';
+                        strHTML += '</div></div>';    
                     }
                     strHTML += '<div class="row hide" id="divAMPupilTime">';
                     strHTML += '<p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p></div>';
@@ -251,7 +251,7 @@
                             strHTML += '<div class="hide" id="div' + days[j] + 'PM' + i + 'Ct">';
                             strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'PM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
-                        strHTML += '</div></div>';
+                        strHTML += '</div></div>';    
                     }
                     strHTML += '<div class="row hide" id="divPMPupilTime">';
                     strHTML += '<p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p></div>';
@@ -288,9 +288,9 @@
                             strHTML += '<div class="hide" id="div' + days[j] + 'PS' + i + 'Ct">';
                             strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'PS' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
-                        strHTML += '</div></div>';
+                        strHTML += '</div></div>';    
                     }
-
+                    
                     strHTML += '<div class="row"><div class="col-12">';
                     strHTML += '<p class="category">Shuttles</p></div></div>';
                     for (var i = 1; i < 3; i++) {
@@ -301,9 +301,9 @@
                             strHTML += '<div class="hide" id="div' + days[j] + 'SH' + i + 'Ct">';
                             strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'SH' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
-                        strHTML += '</div></div>';
+                        strHTML += '</div></div>';    
                     }
-
+                    
                     strHTML += '<div class="row"><div class="col-12">';
                     strHTML += '<p class="category">Late Runs</p></div></div>';
                     for (var i = 1; i < 3; i++) {
@@ -314,7 +314,7 @@
                             strHTML += '<div class="hide" id="div' + days[j] + 'LR' + i + 'Ct">';
                             strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'LR' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
                         }
-                        strHTML += '</div></div>';
+                        strHTML += '</div></div>';    
                     }
                     document.write(strHTML);
                 </script>
@@ -325,7 +325,7 @@
             for (var i = 6; i >= 0; i -= 6) {
                 strHTML += '<div id="' + fullday[i] + '" class="card hide">';
                 strHTML += '<div class="row"><div class="col-12">';
-                strHTML += '<p class="daily">' + fullday[i].toUpperCase() + '-<span id="' + days[i] + 'Date"></span></p>';
+                strHTML += '<p class="daily">' + fullday[i].toUpperCase() + '-<span id="' + days[i] + 'Date"></span></p>'; 
                 strHTML += '</div></div><div class="row"><div class="col-auto">';
                 strHTML += '<input type="text" id="' + days[i] + 'OtherTotal" class="totalwidth nofocus" disabled>';
                 strHTML += '<p class="dailytotal">other work</p>';

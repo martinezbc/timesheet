@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transportation Weekly Report</title>
+    <!--Stylesheet-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="css/bootstrap-grid.css" rel="stylesheet" type="text/css">
+    <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/color.css" rel="stylesheet" type="text/css">
+    <!--Javascript-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+    <script src="js/calculation.js"></script>
+    <script src="js/functions.js"></script>
+    <script src="js/fieldtrip.js"></script>
+    <script src="js/timepicker.js"></script>
+    <script src="js/supfunctions.js"></script>
+</head>
+
+<body onload="loadLocalStorage('Sup');">
+    <div class="header">
+        <h1 class="header__title">TRANSPORTATION SUPPLEMENT REPORT</h1>
+        <div id="navbarmodal" class="dropdown">
+            <!--navmodal-->
+            <span class="fas fa-bars dropbtn" id="nav2btn" onclick="myFunction();" ontouchstart="myFunction();"></span>
+            <div class="dropdown-content" id="nav2dropdown">
+                <div class="row" onclick="completeTimesheetSup();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                <div class="row" onclick="location.href='index.html';"><span class="fas fa-home"></span>&nbsp;Home</div>
+                <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="topspacer"></div>
+        <div class="card" id="EmpDataSup">
+            <div class="row">
+                <div class="col-11">
+                    <p class="daily">Employee Information</p>
+                </div>
+                <div class="col-1 right"><span class="fas fa-angle-up spanToggleSup" id="EmpSpanSup"></span></div>
+            </div>
+            <div class="row EmpSpanSup">
+                <div class="col-md-6">
+                    <p id="WeekOfSup">Select Week:<br></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Area:</strong><br>
+                        <input type="text" style="width: 100px;" id="AreaSup">
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p id="insertTeamSup"><strong>Team:</strong><br>
+                        <input type="text" style="width: 100px;" id="TeamSup"></p>
+                </div>
+            </div>
+            <div class="row EmpSpanSup">
+                <div class="col-md-9">
+                    <p><strong>Employee Name:</strong><br>
+                        <input type="text" id="EmpNameSup" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;"></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Employee ID:</strong><br>
+                        <input type="text" id="EmpIDSup" placeholder="000000"></p>
+                </div>
+            </div>
+            <div class="row EmpSpanSup">
+                <div class="col-md-9" id="posdiv">
+                    <p><strong>Position:</strong><br>
+                        <input type="radio" id="posDriverSup" name="position" value="Driver">
+                        <label for="posDriverSup">Driver</label>
+                        <input type="radio" id="posDriverTraineeSup" name="position" value="Driver Trainee">
+                        <label for="posDriverTraineeSup">Driver Trainee</label>
+                        <input type="radio" id="posSubDriverSup" name="position" value="Sub Driver">
+                        <label for="posSubDriverSup">Sub Driver</label>
+                        <input type="radio" id="posAttendantSup" name="position" value="Attendant">
+                        <label for="posAttendantSup">Attendant</label>
+                        <input type="radio" id="posAttendantTraineeSup" name="position" value="Attendant Trainee">
+                        <label for="posAttendantTraineeSup">Attendant Trainee</label>                        
+                        <input type="radio" id="posSubAttendantSup" name="position" value="Sub Attendant">
+                        <label for="posSubAttendantSup">Sub Attendant</label>
+                        <input type="radio" id="posActivityDriverSup" name="position" value="Activity Driver">
+                        <label for="posActivityDriverSup">Activity Driver</label>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <label for="OJTSup">OJT Trainer&nbsp;<input type="checkbox" id="OJTSup"></label><br>
+                    <input type="text" id="TraineeSup" class="left" style="text-align: left;padding-left: 5px;" placeholder="Trainee's name...">
+                </div>
+            </div>
+            <div class="row EmpSpanSup">
+                <div class="col-md-3">
+                    <p><strong>Vehicle:</strong><br>
+                        <input type="text" id="Veh1Sup" style="width: 100px;" placeholder="0000"></p>
+                </div>
+                <div class="col-md-9">
+                    <p><strong>Spare Vehicles:</strong><br>
+                        <input type="text" name="Veh2" id="Veh2Sup" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh3" id="Veh3Sup" style="width: 100px;" placeholder="0000">
+                        <input type="text" name="Veh4" id="Veh4Sup" style="width: 100px;" placeholder="0000"></p>
+                </div>
+            </div>
+        </div>
+        <div id="Supplement" class="card">
+            <div class="tinycard bg-gold">
+                <div class="row">
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-1"><span class="fas fa-angle-up spanToggleSup" id="SupSpanLV15"></span></div>
+                </div>
+                <div class="row SupSpanLV15">
+                    <div class="col-5">
+                        <p><span id="SupLVMon">All Day-Mon</span><input type="checkbox" id="SupLeaveADM"></p>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelectADM">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="SupClearLVADM"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanLV15"><span class="bar"></span></div>
+                <div class="row SupSpanLV15">
+                    <div class="col-5">
+                        <p><span id="SupLVTue">All Day-Tue</span><input type="checkbox" id="SupLeaveADT"></p>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelectADT">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="SupClearLVADT"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanLV15"><span class="bar"></span></div>
+                <div class="row SupSpanLV15">
+                    <div class="col-5">
+                        <p><span id="SupLVWed">All Day-Wed</span><input type="checkbox" id="SupLeaveADW"></p>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelectADW">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="SupClearLVADW"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanLV15"><span class="bar"></span></div>
+                <div class="row SupSpanLV15">
+                    <div class="col-5">
+                        <p><span id="SupLVThu">All Day-Thu</span><input type="checkbox" id="SupLeaveADR"></p>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelectADR">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="SupClearLVADR"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanLV15"><span class="bar"></span></div>
+                <div class="row SupSpanLV15">
+                    <div class="col-5">
+                        <p><span id="SupLVFri">All Day-Fri</span><input type="checkbox" id="SupLeaveADF"></p>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelectADF">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1">
+                        <span class="fas fa-times" id="SupClearLVADF"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tinycard bg-gold">
+                <div class="row">
+                    <div class="col-11">
+                        <p class="category">Leave</p>
+                    </div>
+                    <div class="col-1"><span class="fas fa-angle-up spanToggleSup" id="SupSpanLV16"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-5">
+                        <select id="SupDate15">
+                            <option value="" id="AfterSup15">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelect15">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearLV15"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-12">
+                        <input name="SupTime15S" id="SupTime15S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime15E" id="SupTime15E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime15" id="SupTime15" type="text" class="total-time nofocus" disabled>
+                    </div>
+                </div>
+                <div class="row SupSpanLV16"><span class="bar"></span></div>
+                <div class="row SupSpanLV16">
+                    <div class="col-5">
+                        <select id="SupDate16">
+                            <option value="" id="AfterSup16">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelect16">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearLV16"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-12">
+                        <input name="SupTime16S" id="SupTime16S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime16E" id="SupTime16E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime16" id="SupTime16" type="text" class="total-time nofocus" disabled>
+                    </div>
+                </div>
+                <div class="row SupSpanLV16"><span class="bar"></span></div>
+                <div class="row SupSpanLV16">
+                    <div class="col-5">
+                        <select id="SupDate17">
+                            <option value="" id="AfterSup17">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelect17">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearLV17"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-12">
+                        <input name="SupTime17S" id="SupTime17S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime17E" id="SupTime17E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime17" id="SupTime17" type="text" class="total-time nofocus" disabled>
+                    </div>
+                </div>
+                <div class="row SupSpanLV16"><span class="bar"></span></div>
+                <div class="row SupSpanLV16">
+                    <div class="col-5">
+                        <select id="SupDate18">
+                            <option value="" id="AfterSup18">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelect18">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearLV18"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-12">
+                        <input name="SupTime18S" id="SupTime18S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime18E" id="SupTime18E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime18" id="SupTime18" type="text" class="total-time nofocus" disabled>
+                    </div>
+                </div>
+                <div class="row SupSpanLV16"><span class="bar"></span></div>
+                <div class="row SupSpanLV16">
+                    <div class="col-5">
+                        <select id="SupDate19">
+                            <option value="" id="AfterSup19">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select id="SupLeaveSelect19">
+                            <option value="">--Select Leave--</option>
+                            <option value="SICK-IND">Sick-Indv</option>
+                            <option value="SICK-FAM">Sick-Family</option>
+                            <option value="PERSONAL">Personal</option>
+                            <option value="LWOP">LWOP</option>
+                            <option value="CIVIL">Civil</option>
+                            <option value="SICK-FMLA">FMLA</option>
+                            <option value="SICK-INJ">Injury</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearLV19"></span></div>
+                </div>
+                <div class="row SupSpanLV16">
+                    <div class="col-12">
+                        <input name="SupTime19S" id="SupTime19S" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime19E" id="SupTime19E" type="text" class="timewidth" placeholder="- - : - -">&nbsp;
+                        <input name="SupTime19" id="SupTime19" type="text" class="total-time nofocus" disabled>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW0"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW0">
+                    <div class="col-6">
+                        <select id="SupDate0">
+                            <option value="" id="AfterSup0">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift0"><input type="checkbox" id="SupLift0">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT0"><input type="checkbox" id="SupOJT0">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW0">
+                    <div class="col-11">
+                        <select id="SupSelect0" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW0"></span></div>
+                </div>
+                <div class="row SupSpanOW0">
+                    <input name="SupDesc0" id="SupDesc0" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW0">
+                    <div class="col-11">
+                        <input type="text" name="SupTime0S" id="SupTime0S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime0E" id="SupTime0E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime0" id="SupTime0" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW0"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW1"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW1">
+                    <div class="col-6">
+                        <select id="SupDate1">
+                            <option value="" id="AfterSup1">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift1"><input type="checkbox" id="SupLift1">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT1"><input type="checkbox" id="SupOJT1">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW1">
+                    <div class="col-11">
+                        <select id="SupSelect1" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW1"></span></div>
+                </div>
+                <div class="row SupSpanOW1">
+                    <input name="SupDesc1" id="SupDesc1" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW1">
+                    <div class="col-11">
+                        <input type="text" name="SupTime1S" id="SupTime1S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime1E" id="SupTime1E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime1" id="SupTime1" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW1"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW2"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW2">
+                    <div class="col-6">
+                        <select id="SupDate2">
+                            <option value="" id="AfterSup2">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift2"><input type="checkbox" id="SupLift2">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT2"><input type="checkbox" id="SupOJT2">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW2">
+                    <div class="col-11">
+                        <select id="SupSelect2" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW2"></span></div>
+                </div>
+                <div class="row SupSpanOW2">
+                    <input name="SupDesc2" id="SupDesc2" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW2">
+                    <div class="col-11">
+                        <input type="text" name="SupTime2S" id="SupTime2S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime2E" id="SupTime2E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime2" id="SupTime2" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW2"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW3"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW3">
+                    <div class="col-6">
+                        <select id="SupDate3">
+                            <option value="" id="AfterSup3">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift3"><input type="checkbox" id="SupLift3">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT3"><input type="checkbox" id="SupOJT3">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW3">
+                    <div class="col-11">
+                        <select id="SupSelect3" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col34"><span class="fas fa-ban" id="SupBanOW3"></span></div>
+                </div>
+                <div class="row SupSpanOW3">
+                    <input name="SupDesc3" id="SupDesc3" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW3">
+                    <div class="col-11">
+                        <input type="text" name="SupTime3S" id="SupTime3S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime3E" id="SupTime3E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime3" id="SupTime3" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW3"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW4"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW4">
+                    <div class="col-6">
+                        <select id="SupDate4">
+                            <option value="" id="AfterSup4">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift4"><input type="checkbox" id="SupLift4">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT4"><input type="checkbox" id="SupOJT4">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW4">
+                    <div class="col-11">
+                        <select id="SupSelect4" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW4"></span></div>
+                </div>
+                <div class="row SupSpanOW4">
+                    <input name="SupDesc4" id="SupDesc4" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW4">
+                    <div class="col-11">
+                        <input type="text" name="SupTime4S" id="SupTime4S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime4E" id="SupTime4E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime4" id="SupTime4" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW4"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW5"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW5">
+                    <div class="col-6">
+                        <select id="SupDate5">
+                            <option value="" id="AfterSup5">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift5"><input type="checkbox" id="SupLift5">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT5"><input type="checkbox" id="SupOJT5">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW5">
+                    <div class="col-11">
+                        <select id="SupSelect5" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW5"></span></div>
+                </div>
+                <div class="row SupSpanOW5">
+                    <input name="SupDesc5" id="SupDesc5" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW5">
+                    <div class="col-11">
+                        <input type="text" name="SupTime5S" id="SupTime5S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime5E" id="SupTime5E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime5" id="SupTime5" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW5"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW6"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW6">
+                    <div class="col-6">
+                        <select id="SupDate6">
+                            <option value="" id="AfterSup6">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift6"><input type="checkbox" id="SupLift6">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT6"><input type="checkbox" id="SupOJT6">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW6">
+                    <div class="col-11">
+                        <select id="SupSelect6" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW6"></span></div>
+                </div>
+                <div class="row SupSpanOW6">
+                    <input name="SupDesc6" id="SupDesc6" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW6">
+                    <div class="col-11">
+                        <input type="text" name="SupTime6S" id="SupTime6S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime6E" id="SupTime6E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime6" id="SupTime6" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW6"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW7"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW7">
+                    <div class="col-6">
+                        <select id="SupDate7">
+                            <option value="" id="AfterSup7">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift7"><input type="checkbox" id="SupLift7">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT7"><input type="checkbox" id="SupOJT7">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW7">
+                    <div class="col-11">
+                        <select id="SupSelect7" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW7"></span></div>
+                </div>
+                <div class="row SupSpanOW7">
+                    <input name="SupDesc7" id="SupDesc7" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW7">
+                    <div class="col-11">
+                        <input type="text" name="SupTime7S" id="SupTime7S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime7E" id="SupTime7E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime7" id="SupTime7" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW7"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW8"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW8">
+                    <div class="col-6">
+                        <select id="SupDate8">
+                            <option value="" id="AfterSup8">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift8"><input type="checkbox" id="SupLift8">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT8"><input type="checkbox" id="SupOJT8">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW8">
+                    <div class="col-11">
+                        <select id="SupSelect8" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW8"></span></div>
+                </div>
+                <div class="row SupSpanOW8">
+                    <input name="SupDesc8" id="SupDesc8" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW8">
+                    <div class="col-11">
+                        <input type="text" name="SupTime8S" id="SupTime8S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime8E" id="SupTime8E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime8" id="SupTime8" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW8"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal2">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Other Work</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ow"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanOW9"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanOW9">
+                    <div class="col-6">
+                        <select id="SupDate9">
+                            <option value="" id="AfterSup9">Select Date...</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupLift9"><input type="checkbox" id="SupLift9">EQ/L</label>
+                    </div>
+                    <div class="col-3">
+                        <label for="SupOJT9"><input type="checkbox" id="SupOJT9">OJT</label>
+                    </div>
+                </div>
+                <div class="row SupSpanOW9">
+                    <div class="col-11">
+                        <select id="SupSelect9" class="selectwidth">
+                            <option value="">--Select work--</option>
+                            <option value="FYI">FYI</option>
+                            <option value="OTHR">Other</option>
+                            <option value="GT">Garage trip</option>
+                            <option value="FUEL">Fuel</option>
+                            <option value="RC">Run coverage</option>
+                            <option value="CPR">CPR/First Aid</option>
+                            <option value="RCRT">Recertification</option>
+                            <option value="MTNG">Meeting</option>
+                            <option value="TRNG">Training</option>
+                            <option value="MED">Physical/Drug Test</option>
+                            <option value="CS">Cold start team</option>
+                            <option value="ES2">2 Hr Delay - Early start</option>
+                            <option value="ES0">On Time - Early start</option>
+                            <option value="CBK">Call back</option>
+                        </select>
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanOW9"></span></div>
+                </div>
+                <div class="row SupSpanOW9">
+                    <input name="SupDesc9" id="SupDesc9" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">
+                </div>
+                <div class="row SupSpanOW9">
+                    <div class="col-11">
+                        <input type="text" name="SupTime9S" id="SupTime9S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime9E" id="SupTime9E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime9" id="SupTime9" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearOW9"></span></div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="tinycard bg-teal3">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanFT10"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanFT10">
+                    <div class="col-12">
+                        <select id="SupDate10">
+                            <option value="" id="AfterSup10">Select Date...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row SupSpanFT10">
+                    <div class="col-4">
+                        <label for="SupLift10"><input type="checkbox" id="SupLift10">EQ/L</label>
+                    </div>
+                    <div class="col-7 center">
+                        <input name="SupVoucher10" id="SupVoucher10" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanFT10"></span></div>
+                </div>
+                <div class="row SupSpanFT10">
+                    <div class="col-12">
+                        <input name="SupFrom10" id="SupFrom10" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
+                </div>
+                <div class="row SupSpanFT10">
+                    <input name="SupTo10" id="SupTo10" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SupSpanFT10">
+                    <div class="col-11">
+                        <input type="text" name="SupTime10S" id="SupTime10S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime10E" id="SupTime10E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime10" id="SupTime10" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearFT10"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal3">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanFT11"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanFT11">
+                    <div class="col-12">
+                        <select id="SupDate11">
+                            <option value="" id="AfterSup11">Select Date...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row SupSpanFT11">
+                    <div class="col-4">
+                        <label for="SupLift11"><input type="checkbox" id="SupLift11">EQ/L</label>
+                    </div>
+                    <div class="col-7 center">
+                        <input name="SupVoucher11" id="SupVoucher11" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanFT11"></span></div>
+                </div>
+                <div class="row SupSpanFT11">
+                    <div class="col-12">
+                        <input name="SupFrom11" id="SupFrom11" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
+                </div>
+                <div class="row SupSpanFT11">
+                    <input name="SupTo11" id="SupTo11" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SupSpanFT11">
+                    <div class="col-11">
+                        <input type="text" name="SupTime11S" id="SupTime11S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime11E" id="SupTime11E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime11" id="SupTime11" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearFT11"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal3">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanFT12"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanFT12">
+                    <div class="col-12">
+                        <select id="SupDate12">
+                            <option value="" id="AfterSup12">Select Date...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row SupSpanFT12">
+                    <div class="col-4">
+                        <label for="SupLift12"><input type="checkbox" id="SupLift12">EQ/L</label>
+                    </div>
+                    <div class="col-7 center">
+                        <input name="SupVoucher12" id="SupVoucher12" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanFT12"></span></div>
+                </div>
+                <div class="row SupSpanFT12">
+                    <div class="col-12">
+                        <input name="SupFrom12" id="SupFrom12" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
+                </div>
+                <div class="row SupSpanFT12">
+                    <input name="SupTo12" id="SupTo12" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SupSpanFT12">
+                    <div class="col-11">
+                        <input type="text" name="SupTime12S" id="SupTime12S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime12E" id="SupTime12E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime12" id="SupTime12" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearFT12"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal3">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanFT13"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanFT13">
+                    <div class="col-12">
+                        <select id="SupDate13">
+                            <option value="" id="AfterSup13">Select Date...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row SupSpanFT13">
+                    <div class="col-4">
+                        <label for="SupLift13"><input type="checkbox" id="SupLift13">EQ/L</label>
+                    </div>
+                    <div class="col-7 center">
+                        <input name="SupVoucher13" id="SupVoucher13" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanFT13"></span></div>
+                </div>
+                <div class="row SupSpanFT13">
+                    <div class="col-12">
+                        <input name="SupFrom13" id="SupFrom13" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
+                </div>
+                <div class="row SupSpanFT13">
+                    <input name="SupTo13" id="SupTo13" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SupSpanFT13">
+                    <div class="col-11">
+                        <input type="text" name="SupTime13S" id="SupTime13S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime13E" id="SupTime13E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime13" id="SupTime13" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearFT13"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal3">
+                <div class="row">
+                    <div class="col-8">
+                        <p class="category">Field Trip</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-question-circle ft"></span>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="fas fa-angle-up spanToggleSup" id="SupSpanFT14"></span>
+                    </div>
+                </div>
+                <div class="row SupSpanFT14">
+                    <div class="col-12">
+                        <select id="SupDate14">
+                            <option value="" id="AfterSup14">Select Date...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row SupSpanFT14">
+                    <div class="col-4">
+                        <label for="SupLift14"><input type="checkbox" id="SupLift14">EQ/L</label>
+                    </div>
+                    <div class="col-7 center">
+                        <input name="SupVoucher14" id="SupVoucher14" type="text" class="voucherwidth" placeholder="Voucher">
+                    </div>
+                    <div class="col-1"><span class="fas fa-ban" id="SupBanFT14"></span></div>
+                </div>
+                <div class="row SupSpanFT14">
+                    <div class="col-12">
+                        <input name="SupFrom14" id="SupFrom14" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">
+                    </div>
+                </div>
+                <div class="row SupSpanFT14">
+                    <input name="SupTo14" id="SupTo14" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">
+                </div>
+                <div class="row SupSpanFT14">
+                    <div class="col-11">
+                        <input type="text" name="SupTime14S" id="SupTime14S" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime14E" id="SupTime14E" class="timewidth" placeholder="- - : - -">
+                        <input type="text" name="SupTime14" id="SupTime14" class="total-time" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="SupClearFT14"></span></div>
+                </div>
+            </div>
+        </div>
+        <!-- The Time Selector -->
+        <div id="timeModalSup" class="modal">
+            <div class="modal-content">
+                <p class="modal-title">Time Selector<span class="close fas fa-times-circle fa-lg" id="closeTimeSup" style="float: right;"></span></p>
+                <div style="text-align: center;">
+                    <ul>
+                        <li class="center">
+                            <span class="fas fa-angle-double-up up2" id="hrup2Sup"></span><span class="fas fa-angle-up up" id="hrupSup"></span><span class="timepicker-hours" id="hoursSup">1</span><span class="fas fa-angle-down down" id="hrdownSup"></span><span class="fas fa-angle-double-down down2" id="hrdown2Sup"></span>
+                        </li>
+                        <li class="center middle">:</li>
+                        <li class="center">
+                            <span class="fas fa-angle-double-up up2" id="mnup2Sup"></span><span class="fas fa-angle-up up" id="mnupSup"></span><span class="timepicker-minutes" id="minutesSup">00</span><span class="fas fa-angle-down down" id="mndownSup"></span><span class="fas fa-angle-double-down down2" id="mndown2Sup"></span>
+                        </li>
+                        <li class="center">
+                            <span class="fas fa-angle-up up" id="mrupSup"></span><span class="timepicker-meridiem" id="meridiemSup">AM</span><span class="fas fa-angle-down down" id="mrdownSup"></span>
+                        </li>
+                        <li>
+                            <span class="close fas fa-check-circle fa-lg" id="goTimeSup" style="color:green;float:right;"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottomspacer"></div>
+    </div>
+    <div class="footer bg-burntred">
+        <div class="row total-line">
+            <div class="col-3 footer_col">
+                <p class="footer_p">OTHER<br><input type="text" id="TotalOtherSup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">FIELD TRIP<br><input type="text" id="TotalFTSup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">WORKED<br><input type="text" id="TotalHWSup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">OJT<br><input type="text" id="TotalS4Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">EQUIPMENT<br><input type="text" id="TotalS2Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">C3<br><input type="text" id="TotalC3Sup" class="footer-box" disabled></p>
+            </div>
+            <div class="col-3 footer_col">
+                <p class="footer_p">C1<br><input type="text" id="TotalC1Sup" class="footer-box" disabled></p>
+            </div>
+        </div>
+    </div>
+    <!-- The Field Trip Picker -->
+    <div id="ftModalSup" class="modal">
+        <div class="modal-content" style="max-width: 600px">
+            <div class="row">
+                <p>Type:&nbsp;</p><input id="fttypeSup" type="text" style="width: 200px;text-align: left;">
+                <p id="ftinputSup">&nbsp;&nbsp;Or Select:&nbsp;</p>&nbsp;&nbsp;
+                <span class="close fa fa-check-circle fa-lg" id="goFTSup" style="color:green;margin-top: 3px"></span>&nbsp;
+                <span class="close fa fa-times-circle fa-lg" id="closeFTSup" style="margin-top: 3px"></span>
+            </div>
+        </div>
+    </div>
+    <!-- The Confirmation Modal -->
+    <div id="variousModalSup" class="modal" style="padding-top: 15%;">
+        <div class="modal-content" style="width: 500px;">
+            <span class="close fas fa-times-circle fa-lg" id="closeVariousSup" style="float:right;"></span>
+            <p id="varDivSup"></p>
+        </div>
+    </div>
+    <!-- The Final Validation Modal -->
+    <div id="validateModalSup" class="modal" style="padding-top: 15%;">
+        <div class="modal-content" style="width: 500px;">
+            <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;" onclick="showHideModal('validateModalSup', 'none');"></span>
+            <p>VALIDATION SUCCESSFUL</p>
+            <p>
+                <label for="EmpInitialsSup">Initial Below:<br>
+                    <input type="text" id="EmpInitialsSup" onkeypress="limitCharacters('EmpInitialsSup', 5);"></label>
+                <span class="close fas fa-check-circle fa-lg" id="goConfirmSup" style="color:green;" onclick="openTimesheetSup()"></span>
+            </p>
+            <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
+        </div>
+    </div>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("nav2dropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target.id !== 'nav2btn') {
+                if ($("#nav2dropdown").hasClass('show')) {
+                    $("#nav2dropdown").removeClass('show');
+                }
+            }
+        }
+        window.ontouchstart = function(event) {
+            if (event.target.id !== 'nav2btn') {
+                if ($("#nav2dropdown").hasClass('show')) {
+                    $("#nav2dropdown").removeClass('show');
+                }
+            }
+        }
+    </script>
+</body></html>

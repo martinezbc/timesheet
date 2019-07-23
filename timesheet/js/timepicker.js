@@ -30,7 +30,7 @@ function setMinutes (operator) {
         minutesText = 60 + Number(minutesText)
         setHours(-1);
     }
-
+    
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
@@ -57,7 +57,7 @@ function setMinutesPupil (operator) {
         minutesText = Number(minutesText) - 60;
         setHours(1, "");
     }
-
+    
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
@@ -68,7 +68,7 @@ function setHours (operator) {
     var hoursText = "";
     var hours = Number(byID("hours").innerHTML);
     hoursText = hours + operator;
-
+            
     if (hoursText === 13) {
         hoursText = "1";
         if (operator === 2) {
@@ -93,7 +93,7 @@ function changeValue (operator, clicked, refElement) {
     "use strict";
     var x = refElement.substr(-1);
     var blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
-
+    
     var str = clicked.substr(0,2);
     switch (str) {
         case "hr":
