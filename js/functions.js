@@ -1,30 +1,47 @@
 //DECLARE VARIABLES
 var activeID = "";
 var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
+var eventChange = new Event("change");
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function() {
     initialLoad();
 });
 
-/* *** *** ADD EVENT LISTENER *** *** */
+/****************************************EVENT LISTENERS****************************************/
+//Checkbox on click store into local storage
+var checkbox = document.querySelectorAll("input[type='checkbox']");
+for (var i = 0; i < checkbox.length; i++) {
+    checkbox[i].addEventListener("click", storeCheckboxValue);
+}
+
+//Radio on change store into local storage
+var radio = document.querySelectorAll("input[type='radio']");
+for (var i = 0; i < radio.length; i++) {
+    radio[i].addEventListener("change", storeRadioValue);
+}
+
+//Textbox on change
+var textbox = document.querySelectorAll("input[type='text'], input[type='number']");
+for (i = 0; i < textbox.length; i++) {
+    textbox[i].addEventListener("change", textboxOnChange);
+}
+
+//Make selection on select element
+var select = document.querySelectorAll("select");
+for (i = 0; i < select.length; i++) {
+    select[i].addEventListener("change", selectOnChange);
+}
+
 //Area selection
-var radioarea = document.querySelectorAll("input[name='area']");
-for (var i = 0; i < radioarea.length; i++) {
+var radioarea = document.querySelectorAll("input[name='Area']");
+for (i = 0; i < radioarea.length; i++) {
     radioarea[i].addEventListener("change", radioAreaSelect);
 }
 
-//Team selection
-var radioteam = document.querySelectorAll("input[name='team']");
-for (i = 0; i < radioteam.length; i++) {
-    radioteam[i].addEventListener("change", radioTeamSelect);
-}
-
-//Position selection
-var radiopos = document.querySelectorAll("input[name='position']");
-for (i = 0; i < radiopos.length; i++) {
-    radiopos[i].addEventListener("change", radioPositionSelect);
-}
+//Week selection
+byID("week1").addEventListener("change", updateWeek);
+byID("week2").addEventListener("change", updateWeek);
 
 //OJT checked
 var chkOJT = document.querySelectorAll("input[name='chkOJT']");
@@ -32,10 +49,16 @@ for (i = 0; i < chkOJT.length; i++) {
     chkOJT[i].addEventListener("click", checkOJT);
 }
 
+//Position changed
+var position = document.querySelectorAll("input[name='Position']");
+for (i = 0; i < position.length; i++) {
+    position[i].addEventListener("change", positionChange);
+}
+
 //EQL checked
 var chkEQL = document.querySelectorAll("input[name='chkEQL']");
 for (i = 0; i < chkEQL.length; i++) {
-    chkEQL[i].addEventListener("click", checkEQL);
+    chkEQL[i].addEventListener("click", toggleEQLReg);
 }
 
 //Add Other Work click
@@ -71,6 +94,12 @@ for (i = 0; i < txtTime.length; i++) {
 var txtFT = document.querySelectorAll("input[name='txtFT']");
 for (i = 0; i < txtFT.length; i++) {
     txtFT[i].addEventListener("click", openFTSelector);
+}
+
+//Click in count fields to open Pupil Counter
+var txtCount = document.querySelectorAll("input[name='txtCT']");
+for (i = 0; i < txtCount.length; i++) {
+    txtCount[i].addEventListener("click", openPupilCounter);
 }
 
 //Click on other work question mark
@@ -109,7 +138,7 @@ byID("endValidate").addEventListener("click", function () {
 
 //If route name is updated, store name and then run loadEQL
 for (i = 0; i < routes.length; i++) {
-    byID(routes[i]).addEventListener("change", storeRouteName);
+    byID(routes[i]).addEventListener("change", loadEQL);
 }
 
 //Click on pupil counts question mark
@@ -122,36 +151,97 @@ byID("goTime").addEventListener("click", function () {
     timetext += " " + byID("meridiem").innerHTML;
     byID(activeID).disabled = false;
     byID(activeID).value = timetext;
+    byID(activeID).dispatchEvent(eventChange);
     showHide("timeModal", false);
+    timeCalculation(activeID);
 });
 
 //Click on checkmark on field trip selector
-byID("goFT").addEventListener("click", function () {
-    var ftText = "";
-    if (byID("ftselector").value !== null)
-        ftText = byID("ftselector").value;
-    else
-        ftText = byID("fttype").value;
+byID("goFT").addEventListener("click", storeFTVal);
 
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
-    setStorage(activeID, ftText);
-    showHide("ftModal", false);
+//Veh textbox keyup
+var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
+for (i = 0; i < veh.length; i++) {
+    veh[i].addEventListener("keyup", function(e) {
+        limitCharacters(e.currentTarget.id, 4);
+    });
+}
+
+//Up and Down arrow on click
+var timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
+for (i = 0; i < timeArrows.length; i++) {
+    timeArrows[i].addEventListener("click", timeSelectors);
+}
+
+//Times on click
+var faTimes = document.querySelectorAll(".fa-times");
+for (i = 0; i < faTimes.length; i++) {
+    faTimes[i].addEventListener("click", clearTimeField);
+}
+
+//Copy on click
+var faCopy = document.querySelectorAll(".fa-copy");
+for (i = 0; i < faCopy.length; i++) {
+    faCopy[i].addEventListener("click", copyRoutine);
+}
+
+//Clear on click
+byID("clear").addEventListener("click", function () {
+    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
 });
 
-//Make selection on select element
-var select = document.querySelectorAll("select");
-for (i = 0; i < select.length; i++) {
-    select[i].addEventListener("change", selectOnChange);
+var selectOW = document.querySelectorAll("select[name='selectOW']");
+for (i = 0; i < selectOW.length; i++) {
+    selectOW[i].addEventListener("change", selectOWChange);
 }
-/* *** *** ADD EVENT LISTENER *** *** */
+/****************************************EVENT LISTENERS****************************************/
 
+/****************************************LOCAL STORAGE****************************************/
+//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
+function setStorage(refID, val) {
+    localStorage.setItem(refID, val);
+}
 
+//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
+function getStorage(refID) {
+    return localStorage.getItem(refID);
+}
+
+//STORE CHECKBOX VALUE
+function storeCheckboxValue(e) {
+    setStorage(e.currentTarget.id, (e.currentTarget.checked) ? "1" : "0");
+}
+
+//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
+function textboxOnChange(e) {
+    var refID = e.currentTarget.id;
+    if (refID === "Trainee" || refID === "EmpName") {
+        byID(refID).value = properCase(e.currentTarget.value);
+    }
+    if (refID.indexOf("Route") > 0) {
+        byID(refID).value = byID(refID).value.toUpperCase();
+    }
+    setStorage(refID, e.currentTarget.value);
+}
+
+//SET RADIO SELECTION
+function storeRadioValue(e) {
+    setStorage(e.currentTarget.name, e.currentTarget.value);
+}
+
+//SELECT ON CHANGE EVENT
+function selectOnChange(e) {
+    var refID = e.currentTarget.id;
+    setStorage(refID, e.currentTarget.value);
+}
+/****************************************LOCAL STORAGE****************************************/
+
+//SHORTEN DOCUMENT.GETELEMENTBYID
 function byID(id) {
     return document.getElementById(id);
 }
-                          
+                        
+//FIRST FUNCTION TO LOAD
 function initialLoad() {
     loadLocalStorage();
     var refDate = new Date();
@@ -251,13 +341,13 @@ function storeWeek(refID) {
 
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
-        theDay = new Date(startDate), sm, sd;
+        satDate = new Date(startDate), sm, sd;
     
     setStorage("SatDate", startDate.substr(0,5));
     setStorage("FriDate", endDate.substr(0,5));
     
     for (var i = 4; i >= 0; i--) {
-        newDay = theDay.addDays(i + 1);
+        newDay = addDate(satDate, i + 1);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -268,13 +358,34 @@ function storeWeek(refID) {
     loadStoredWeek();
 }
 
+//SET DAYS WHEN WEEK IS CHANGED
+function updateWeek(e) {
+    var refID = e.currentTarget.id;
+    storeWeek(refID);
+    var day = byID("today").innerHTML;
+    day = day.substr(0,3);
+    for (var i = 0; i < 7; i++) {
+        if (day === days[i]) {
+            toggleDay(i);
+            break;
+        }
+    }
+    for (i = 1; i < 6; i++) {
+        for (var j = 20; j < 30; j++) {
+            byID(days[i] + "OWTrash" + j).click();
+        }
+        for (j = 30; j < 35; j++) {
+            byID(days[i] + "FTTrash" + j).click();
+        }
+    }
+}
+
 //DATEADD FUNCTION
-Date.prototype.addDays = function (x) {
-    "use strict";
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + x);
-    return date;
-};
+function addDate(date, days) {
+  var copy = new Date(Number(date))
+  copy.setDate(date.getDate() + days)
+  return copy
+}
 
 //CHANGE NAV BAR VALUES DEPENDING ON THE DAY
 function toggleDay(x) {
@@ -325,20 +436,41 @@ function loadOJT() {
     var ojt = document.querySelectorAll("input[name='chkOJT']");
     for (var i = 0; i < ojt.length; i++) {
         if (ojt[i].id === "OJT") continue;
+        if (ojt[i].checked && !bln) ojt[i].click();
         ojt[i].disabled = !bln;
-        if (!bln) resetElement(ojt[i].id);
     }
 }
 
 //LOAD EQ/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
 function loadEQL() {
     var bln = routeCheck();
+    var val = "";
     
     var eql = document.querySelectorAll("input[name='chkEQL']");
     for (var i = 0; i < eql.length; i++) {
+        if (eql[i].checked && !bln) eql[i].click();
         eql[i].disabled = !bln;
-        if (!bln) resetElement(eql[i].id);
     }
+    for (i = 0; i < 7; i++) {
+        for (var j = 20; j < 30; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j > 22) continue;
+            disableOWFields(days[i] + "Select" + j);
+        }
+    }
+}
+
+//IF EQ/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
+function toggleEQLReg(e) {
+    var bln = (e.currentTarget.checked) ? true : false;
+    var day = e.currentTarget.id.substr(0,3);
+    
+    for (var j = 11; j < 18; j++) {
+        byID(day + "Lift" + j).checked = bln;
+        setStorage(day + "Lift" + j, (bln) ? "1" : "0");
+    }
+    loadEQL();
+    getDailyTotals();
+    getWeeklyTotals();
 }
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
@@ -354,23 +486,23 @@ function toggleOWFT(refID) {
     }
 }
 
-//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage(refID, val) {
-    localStorage.setItem(refID, val);
-}
-
-//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
-function getStorage(refID) {
-    return localStorage.getItem(refID);
-}
-
 //TOGGLE DAILY COUNTS IN THE PUPIL COUNTS SECTION
 function togglePupilCounts(x) {
     //Declare boolean used to add or remove class
     var bln = false;
+    //Declare boolean for weekend
+    var blnSS = (x === 6 || x === 0) ? true : false;
     //Declare boolean for Position
-    var pos = "Driver"; //getStorage("Position");
+    var pos = getStorage("Position");
+    
+    if (pos === "Activity Driver") {
+        posAD();
+        return;
+    }
+    
     var blnPos = (pos === "Driver" || pos === "Driver Trainee" || pos === "Sub Driver") ? true : false;
+    showHide("PupilCounts", true);
+    
     //Loop through days array
     for (var j = 1; j < 6; j++) {
         bln = (x === j) ? true : false;
@@ -387,11 +519,48 @@ function togglePupilCounts(x) {
         showHide(days[j] + "TimeAM", bln);
         showHide(days[j] + "TimePM", bln);
     }
-    showHide("divAMCt", blnPos);
-    showHide("divPMCt", blnPos);
-    showHide("divPSCt", blnPos);
-    showHide("divAMPupilTime", blnPos);
-    showHide("divPMPupilTime", blnPos);
+    showHide("divAMCt", (blnSS) ? false : blnPos);
+    showHide("divPMCt", (blnSS) ? false : blnPos);
+    showHide("divPSCt", (blnSS) ? false : blnPos);
+    showHide("divAMPupilTime", (blnSS) ? false : blnPos);
+    showHide("divPMPupilTime", (blnSS) ? false : blnPos);
+}
+
+//TOGGLE PUPIL COUNTS ON POSITION CHANGE
+function positionChange(e) {
+    for (var i = 0; i < 7; i++) {
+        if (byID("today").innerHTML.substr(0,3) === days[i]) break;
+    }
+    togglePupilCounts(i);
+}
+
+//TOGGLE PUPIL COUNTS WHEN ACTIVITY DRIVER
+function posAD() {
+    for (var j = 1; j < 6; j++) {
+        if (j < 6) {
+            resetElement("AMRoute" + j);
+            resetElement("PMRoute" + j);
+        }
+        if (j < 3) {
+            resetElement("PSRoute" + j);
+            resetElement("SHRoute" + j);
+            resetElement("LRRoute" + j);
+        }
+        for (var i = 1; i < 6; i++) {
+            resetElement("div" + days[j] + "AM" + i + "Ct");
+            resetElement("div" + days[j] + "PM" + i + "Ct");
+            if (i < 3) {
+                resetElement(days[j] + "PS" + i + "Ct");
+                resetElement(days[j] + "SH" + i + "Ct");
+                resetElement(days[j] + "LR" + i + "Ct");
+            }
+        }
+        resetElement(days[j] + "TimeA");
+        resetElement(days[j] + "TimeB");
+        resetElement(days[j] + "TimeC");
+        resetElement(days[j] + "TimeD");
+    }
+    showHide("PupilCounts", false);
 }
 
 //MOVE NAV BAR TO THE RIGHT
@@ -440,40 +609,21 @@ function showHide(refID, bln) {
         if (el.classList.contains("hide")) el.classList.remove("hide");    
     } else {
         if (!el.classList.contains("hide")) el.classList.add("hide");
-        resetElement(refID);
     }
 }
 
 //SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
 function radioAreaSelect(e) {
-    setStorage("Area", e.currentTarget.value);
     setStorage("Team", "");
     loadTeamValues();
-}
-
-//SET TEAM SELECTION
-function radioTeamSelect(e) {
-    setStorage("Team", e.currentTarget.value);
-}
-
-//SET POSITION SELECTION
-function radioPositionSelect(e) {
-    setStorage("Position", e.currentTarget.value);
 }
 
 //OJT CHECKBOX CLICK
 function checkOJT(e) {
     var refID = e.currentTarget.id;
-    setStorage(refID, (e.currentTarget.checked) ? "1" : "0");
     if (refID === "OJT") loadOJT();
-    //ELSE CALCULATE OJT TIME
-}
-
-//EQL CHECKBOX CLICK
-function checkEQL(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, (e.currentTarget.checked) ? "1" : "0");
-    loadEQL();
+    getDailyTotals();
+    getWeeklyTotals();
 }
 
 //CHECK ROUTES ENTERED TO SEE IF EQ/L EXISTS
@@ -494,6 +644,15 @@ function properCase(str) {
     return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
         return txtVal.toUpperCase();
     });
+}
+
+//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
+function limitCharacters(refID, num) {
+    var refVal = byID(refID).value;
+    if (refVal.length > num) {
+        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
+        byID(refID).value = refVal.substr(0, num);
+    }
 }
 
 //TOGGLE OTHER WORK FIELDS
@@ -531,17 +690,46 @@ function removeOWFT(e) {
     } else if (type === "OW") {
         resetElement(dayVal + "Select" + x);
         resetElement(dayVal + "Desc" + x);
+        if (dayVal !== "Sat" && dayVal !== "Sun")
+            resetElement(dayVal + "OJT" + x);
+        byID(dayVal + "Lift" + x).disabled = true;
     }
-    resetElement(dayVal + "Time" + x + "S");
-    resetElement(dayVal + "Time" + x + "E");
-    resetElement(dayVal + "Time" + x);
-    resetElement(dayVal + "OJT" + x);
+    resetTime(dayVal, x);
     resetElement(dayVal + "Lift" + x);
+    
+    getDailyTotals();
+    getWeeklyTotals();
+}
+
+//CLEAR TIME FIELDS
+function clearTimeField (e) {
+    var fieldID = e.target.id;
+    var day = fieldID.substr(0, 3),
+        num = fieldID.substr(10);
+
+    if (num === "41" || num === "42") {
+        resetElement(day + "LeaveSelect" + num);
+        resetTime(day, num);
+    } else if (num === "AD") {
+        resetElement(day + "LeaveSelectAD");
+        resetElement(day + "LeaveAD");
+    } else if (num === "AM") {
+        resetElement(day + "TimeA");
+        resetElement(day + "TimeB");
+    } else if (num === "PM") {
+        resetElement(day + "TimeC");
+        resetElement(day + "TimeD");
+    } else {
+        resetTime(day, num);
+    }
+    getDailyTotals();
+    getWeeklyTotals();
 }
 
 //FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
 function getMissingOW(day) {
     for (var i = 20; i < 30; i++) {
+        if ((day === "Sat" || day === "Sun") && i === 23) return 30;
         if (byID(day + "OWDiv" + i).classList.contains("hide")) {
             return i;
           }
@@ -553,6 +741,7 @@ function getMissingOW(day) {
 //FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
 function getMissingFT(day) {
     for (var i = 30; i < 35; i++) {
+        if ((day === "Sat" || day === "Sun") && i === 33) return 35;
         if (byID(day + "FTDiv" + i).classList.contains("hide")) {
             return i;
           }
@@ -566,13 +755,15 @@ function addLeave(e) {
     var refID = e.currentTarget.id;
     var dayVal = refID.substr(0, 3);
     if (byID(dayVal + "Leave40").classList.contains("hide")) {
-        byID(dayVal + "Leave40").classList.remove("hide");
-        byID(dayVal + "Leave41").classList.remove("hide");
-        byID(dayVal + "Leave42").classList.remove("hide");
+        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
+        showHide(dayVal + "Leave40", true);
+        showHide(dayVal + "Leave41", true);
+        showHide(dayVal + "Leave42", true);
     } else {
-        byID(dayVal + "Leave40").classList.add("hide");
-        byID(dayVal + "Leave41").classList.add("hide");
-        byID(dayVal + "Leave42").classList.add("hide");
+        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave';
+        showHide(dayVal + "Leave40", false);
+        showHide(dayVal + "Leave41", false);
+        showHide(dayVal + "Leave42", false);
     }
 
 }
@@ -612,6 +803,28 @@ function openTimeSelector(e) {
     showHide("timeModal", true);
 }
 
+//ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
+function timeSelectors(e) {
+    var refID = e.currentTarget.id;
+    var strVal = refID.substr(2),
+        operator = "";
+    switch (strVal) {
+        case "up":
+            operator = 1;
+            break;
+        case "down":
+            operator = -1;
+            break;
+        case "up2":
+            operator = 2;
+            break;
+        case "down2":
+            operator = -2;
+            break;
+    }
+    changeValue(operator, refID, activeID);
+}
+
 //ROUND TO THE NEAREST 5
 function round5(x) {
 	"use strict";
@@ -626,13 +839,26 @@ function openFTSelector(e) {
     byID("fttype").value = "";
 }
 
-//STORE ROUTE INFO AND THEN RUN ROUTE CHECK
-function storeRouteName(e) {
-    var val = e.currentTarget.value;
-    val = val.toUpperCase();
-    e.currentTarget.value = val;
-    setStorage(e.currentTarget.id, e.currentTarget.value);
-    loadEQL();
+//STORE SELECTION FROM FIELD TRIP MODAL
+function storeFTVal() {
+    var ftText = "";
+    if (byID("ftselector").value !== null)
+        ftText = byID("ftselector").value;
+    else
+        ftText = byID("fttype").value;
+
+    ftText = ftText.substr(0, 30);
+    byID(activeID).value = ftText;
+    byID(activeID).disabled = false;
+    setStorage(activeID, ftText);
+    showHide("ftModal", false);
+}
+
+//FIELD TRIP MODAL
+function openPupilCounter(e) {
+    activeID = e.currentTarget.id;
+    e.currentTarget.disabled = true;
+    showHide("countModal", true);
 }
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
@@ -667,15 +893,6 @@ function openPopUp(msgVal) {
     showHide("variousModal", true);
 }
 
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, e.currentTarget.value);
-    if (refID.indexOf("Select") === 3) {
-        //something about other work
-    }
-}
-
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
     if (byID(refID).type === "checkbox") {
@@ -686,3 +903,405 @@ function resetElement(refID) {
         setStorage(refID, "");
     }
 }
+
+//RESET TIME FIELDS
+function resetTime(day, num) {
+    var refID = day + "Time" + num;
+    resetElement(refID + "E");
+    resetElement(refID + "S");
+    resetElement(refID);
+}
+
+//ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
+function selectOWChange(e) {
+    var refID = e.currentTarget.id;
+    disableOWFields(refID);    
+}
+
+function disableOWFields(refID) {
+    var refVal = byID(refID).value;
+    var day = refID.substr(0,3);
+    var x = refID.substr(9);
+    var bln = (refVal === "FYI") ? true : false;
+    byID(day + "Time" + x + "S").disabled = bln;
+    byID(day + "Time" + x + "E").disabled = bln;
+    byID(day + "Time" + x + "S").style.backgroundColor = (bln) ? "lightgrey" : "white";
+    byID(day + "Time" + x + "E").style.backgroundColor = (bln) ? "lightgrey" : "white";
+    byID(day + "Time" + x).style.backgroundColor = (bln) ? "lightgrey" : "white";
+
+    bln = (refVal === "EQ/L") ? true : false;
+    byID(day + "Lift" + x).checked = bln;
+    byID(day + "Lift" + x).disabled = !bln;
+    setStorage(day + "Lift" + x, (bln) ? "1" : "0");
+}
+
+//COPY ROUTINE FOR REGULAR WORK HOURS
+function copyRoutine(e) {
+    var refID = e.currentTarget.id;
+    activeID = refID;
+    var str = "";
+    if (refID === "AMPupilcopy" || refID === "PMPupilcopy") {
+        str = runPupilCopyRoutine();
+        openPopUp('<p class="varp">Pupil time copied to the following day(s): ' + str + '.</p>');
+    } else {
+        str = runCopyRoutine();
+        openPopUp('<p class="varp">Regular work hours copied to the following day(s): ' + str + '.</p>');
+    }
+}
+
+//COPY REGULAR RUN TIME TO OTHER DAYS
+function runCopyRoutine() {
+    showHide("variousModal", false);
+    var k = 0,
+        bln = false;
+    var str = "";
+
+    for (var i = 1; i < 5; i++) {
+        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+    
+    k++;
+    for (k; k < 6; k++) {
+        bln = (byID(days[k] + "LeaveAD").checked) ? true : false;
+        if (bln) continue;
+        for (var j = 11; j < 18; j++) {
+            byID(days[k] + "Time" + j + "S").value = byID(days[i] + "Time" + j + "S").value;
+            byID(days[k] + "Time" + j + "S").dispatchEvent(eventChange);
+            byID(days[k] + "Time" + j + "E").value = byID(days[i] + "Time" + j + "E").value;
+            byID(days[k] + "Time" + j + "E").dispatchEvent(eventChange);
+            timeCalculation(days[k] + "Time" + j + "E");
+        }
+        str += ", " + days[k];
+    }
+    str = (str !== "") ? str.substr(2) : "";
+    return str;
+}
+
+//COPY PUPIL TIME TO OTHER DAYS
+function runPupilCopyRoutine() {
+    showHide("variousModal", false);
+    var k = 0,
+        bln = false,
+        str = "";
+
+    for (var i = 1; i < 5; i++) {
+        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+
+    k++;
+    for (k; k < 6; k++) {
+        bln = (byID(days[k] + "LeaveAD").checked) ? true : false;
+        if (bln) continue;
+        byID(days[k] + "TimeA").value = byID(days[i] + "TimeA").value;
+        byID(days[k] + "TimeB").value = byID(days[i] + "TimeB").value;
+        byID(days[k] + "TimeC").value = byID(days[i] + "TimeC").value;
+        byID(days[k] + "TimeD").value = byID(days[i] + "TimeD").value;
+        str += ", " + days[k];
+    }
+    str = (str !== "") ? str.substr(2) : "";
+    return str;
+}
+
+//CHECK NUMBER OF OTHER WORK ENTRIES, IF MORE THAN 10 THEN GIVE POP UP ERROR MESSAGE
+function countOtherWork(refID) {
+    var count = 0;
+
+    //Loop through each day of the week
+    for (var i = 0; i < 7; i++) {
+        for (var j = 0; j < 30; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j === 23) break;
+            if (byID(days[i] + "Select" + j).value !== "") count++;
+        }
+    }
+    
+    //Result of count
+    if (count > 10) {
+        openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
+        byID(refID).value = "";
+    }
+}
+
+//CHECK NUMBER OF FIELD TRIP ENTRIES, IF MORE THAN 5 THEN GIVE POP UP ERROR MESSAGE
+function countFieldTrips(refID) {
+    var count = 0;
+
+    //Loop through each day of the week
+    for (var i = 0; i < 7; i++) {
+        for (var j = 0; j < 35; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j === 33) break;
+            if (byID(days[i] + "Voucher" + j).value !== "") count++;
+        }
+    }
+    //Result of count
+    if (count > 5) {
+        openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
+        byID(refID).value = "";
+    }
+}
+
+
+/****************************************VALIDATION AND COMPLETION****************************************/
+function completeTimesheet() {
+    var bln = runValidations();
+    if (!bln)
+        return;
+
+    showHideModal("validateModal", "block");
+    byID("EmpInitials").focus();
+}
+
+function openTimesheet() {
+    var emp = "";
+    emp = byID("EmpInitials").value;
+    emp = emp.toUpperCase();
+    setStorage("EmpInitials", emp);
+
+    showHideModal("validateModal", "none");
+    if (emp !== "")
+        window.open("preview.html", "_self");
+}
+
+function runValidations() {
+    var val = "";
+
+    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    if (getStorage("Area") !== "TC") {
+        val += testStopCounts();
+    }
+
+
+    if (val !== "") {
+        openPopUp(val);
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function testEmpData() {
+    var val = "";
+
+    //Check selected week
+    if (getStorage("WeekOf") === "")
+        val = "<p class='varp'>&bull;Pay week not selected.</p>";
+
+    //Check Area
+    if (getStorage("Area") === "")
+        val += "<p class='varp'>&bull;Area not selected.</p>";
+
+    //Check Team
+    if (getStorage("Team") === "")
+        val += "<p class='varp'>&bull;Team not selected.</p>";
+
+    //Check employee name
+    if (getStorage("EmpName") === "")
+        val += "<p class='varp'>&bull;Employee name not entered</p>";
+
+    //Check position
+    if (getStorage("Position") === "")
+        val += "<p class='varp'>&bull;Employee position not selected.</p>";
+
+    return val;
+}
+
+function testFieldTrip() {
+    var val = "";
+
+    //Check field trips
+    for (var i = 0; i < 7; i++) {
+        for (var j = 11; j < 14; j++) {
+            if (byID("Time" + j).value === "") { //Time is blank
+                if (byID("Voucher" + j).value !== "" || byID("From" + j).value !== "" || byID("To" + j).value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
+
+            } else { //Time is not blank
+                if (byID("Voucher" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
+
+                if (byID("From" + j).value === "" || byID("To" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
+            }
+        }
+    }
+    return val;
+}
+
+function testOtherWork() {
+    var val = "";
+
+    for (var i = 0; i < 7; i++) {
+        for (var j = 8; j < 11; j++) {
+            if (byID("Time" + j).value !== "") { //Time is not blank
+                if (byID("Select" + j).value === "") { //Select IS blank
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
+                }
+                if ((byID("Select" + j).value === "OT" || byID("Select" + j).value === "FYI") && byID("Desc" + j).value === "") { //Other or FYI selected but description field is blank
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
+                }
+                if (byID("Select" + j).value === "" && byID("Desc" + j).value !== "") { //Nothing selected and description field has text
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
+                }
+            } else { //Time is blank
+                if (byID("Select" + j).value !== "" || byID("Desc" + j).value !== "") { //Category IS selected OR Description field is NOT blank
+                    if (!byID("Select" + j).value === "FYI") { //Category is NOT FYI
+                        val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
+                    }
+                }
+            }
+        }
+    }
+
+    return val;
+}
+
+function testLeave() {
+    var val = "";
+
+    for (var i = 2; i < 7; i++) {
+        for (var j = 14; j < 16; j++) {
+            if (byID("Time" + j).value !== "") {
+                if (byID("LeaveSelect" + j).value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+            } else {
+                if (byID("LeaveSelect" + j).value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
+            }
+            if (byID("LeaveAD").checked) {
+                if (byID("LeaveSelectAD").value === "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
+            } else {
+                if (byID("LeaveSelectAD").value !== "")
+                    val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
+            }
+        }
+    }
+    return val;
+}
+
+function testStopCounts() {
+    var val = "",
+        pos = getStorage("Position");
+
+    //Validate stop counts
+    if (pos === "Driver" || pos === "Sub Driver" || pos === "Driver Trainee") {
+        for (var i = 2; i < 7; i++) {
+
+            if (!testRegPupil(days[i], 1, "AM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+
+            if (!testRegCounts(days[i], 1, "AM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": AM time entered with no routes specified.</p>";
+
+            if (!testRegPupil(days[i], 2, "PM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PM pupil counts not completed.</p>";
+
+            if (!testRegCounts(days[i], 2, "PM"))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PM time entered with no routes specified.</p>";
+
+            if (!testSpecPupil(days[i], 3, "PS", 1) || !testSpecPupil(days[i], 4, "PS", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 3, "PS", 1) || !testSpecCounts(days[i], 4, "PS", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS time entered with no routes specified.</p>";
+
+            if (!testSpecPupil(days[i], 5, "SH", 1) || !testSpecPupil(days[i], 6, "SH", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 5, "SH", 1) || !testSpecCounts(days[i], 6, "SH", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle time entered with no shuttle specified.</p>";
+
+
+            if (!testSpecPupil(days[i], 7, "LR", 1) || !testSpecPupil(days[i], 7, "LR", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Late run pupil counts not completed.</p>";
+
+            if (!testSpecCounts(days[i], 7, "LR", 1) && !testSpecCounts(days[i], 7, "LR", 2))
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Late run time entered with no route specified.</p>";
+        }
+    }
+    return val;
+}
+
+function testRegPupil(day, x, mer) {
+    for (var j = 1; j < 6; j++) {
+        if (byID(day + "Time" + x).value === "")
+            continue;
+
+        if (byID(mer + "Route" + j).value === "")
+            continue;
+
+        if (byID(day + mer + j + "Ct").value === "")
+            return false;
+    }
+    return true;
+}
+
+function testRegCounts(day, x, mer) {
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    for (var i = 1; i < 6; i++) {
+        if (byID(mer + "Route" + i).value !== "")
+            return true;
+    }
+    return false;
+}
+
+function testSpecPupil(day, x, route, j) {
+
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    if (byID(route + "Route" + j).value === "")
+        return true;
+
+    if (byID(day + route + j + "Ct").value === "")
+        return false;
+
+    return true;
+}
+
+function testSpecCounts(day, x, route, j) {
+
+    if (byID(day + "Time" + x).value === "")
+        return true;
+
+    if (byID(route + "Route" + j).value !== "")
+        return true;
+
+    return false;
+}
+
+
+
+function testAMPMRoute(day, num) {
+    var bln = true,
+        bln2 = true,
+        val = "",
+        i = 0,
+        j = 0;
+
+    for (j = 1; j < 6; j++) {
+        if (byID(day + "Time" + num).value !== "" && byID("AMRoute" + j).value !== "" && byID(day + "AM" + j + "Ct").value === "")
+            bln = false;
+
+        if (byID(day + "Time1").value !== "" && byID("input[id*='AMRoute']").value === "")
+            bln2 = false;
+    }
+    if (!bln)
+        val += "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
+}
+
+
+function testTimeComplete() {
+    var val = "";
+    for (var i = 0; i < 7; i++) {
+        for (var j = 1; j < 15; j++) {
+            if (byID(days[i] + "Time" + j + "S").value !== "" && byID(days[i] + "Time" + j + "E").value === "")
+                val += "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
+        }
+    }
+    return val;
+}
+/****************************************ALIDATION AND COMPLETION****************************************/
