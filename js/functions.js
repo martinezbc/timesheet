@@ -265,7 +265,7 @@ function loadLocalStorage() {
     for (i = 0; i < elements.length; i++) {
         val = (getStorage(elements[i].id) === null) ? "" : getStorage(elements[i].id);
         elements[i].value = val;
-        setStorage(elements[i], val);
+        setStorage(elements[i].id, val);
         toggleOWFT(elements[i].id);
     }
 
@@ -1048,7 +1048,7 @@ function completeTimesheet() {
     if (!bln)
         return;
 
-    showHideModal("validateModal", "block");
+    showHide("validateModal", true);
     byID("EmpInitials").focus();
 }
 
@@ -1058,7 +1058,7 @@ function openTimesheet() {
     emp = emp.toUpperCase();
     setStorage("EmpInitials", emp);
 
-    showHideModal("validateModal", "none");
+    showHide("validateModal", false);
     if (emp !== "")
         window.open("preview.html", "_self");
 }
@@ -1111,16 +1111,17 @@ function testFieldTrip() {
 
     //Check field trips
     for (var i = 0; i < 7; i++) {
-        for (var j = 11; j < 14; j++) {
-            if (byID("Time" + j).value === "") { //Time is blank
-                if (byID("Voucher" + j).value !== "" || byID("From" + j).value !== "" || byID("To" + j).value !== "")
+        for (var j = 30; j < 35; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j > 32) break;
+            if (byID(days[i] + "Time" + j).value === "") { //Time is blank
+                if (byID(days[i] + "Voucher" + j).value !== "" || byID(days[i] + "From" + j).value !== "" || byID(days[i] + "To" + j).value !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
 
             } else { //Time is not blank
-                if (byID("Voucher" + j).value === "")
+                if (byID(days[i] + "Voucher" + j).value === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher number cannot be blank.</p>";
 
-                if (byID("From" + j).value === "" || byID("To" + j).value === "")
+                if (byID(days[i] + "From" + j).value === "" || byID(days[i] + "To" + j).value === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: From and To location cannot be blank.</p>";
             }
         }
@@ -1132,20 +1133,21 @@ function testOtherWork() {
     var val = "";
 
     for (var i = 0; i < 7; i++) {
-        for (var j = 8; j < 11; j++) {
-            if (byID("Time" + j).value !== "") { //Time is not blank
-                if (byID("Select" + j).value === "") { //Select IS blank
+        for (var j = 20; j < 30; j++) {
+            if ((days[i] === "Sat" || days[i] === "Sun") && j > 22) break;
+            if (byID(days[i] + "Time" + j).value !== "") { //Time is not blank
+                if (byID(days[i] + "Select" + j).value === "") { //Select IS blank
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
                 }
-                if ((byID("Select" + j).value === "OT" || byID("Select" + j).value === "FYI") && byID("Desc" + j).value === "") { //Other or FYI selected but description field is blank
+                if ((byID(days[i] + "Select" + j).value === "OT" || byID(days[i] + "Select" + j).value === "FYI") && byID(days[i] + "Desc" + j).value === "") { //Other or FYI selected but description field is blank
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
                 }
-                if (byID("Select" + j).value === "" && byID("Desc" + j).value !== "") { //Nothing selected and description field has text
+                if (byID(days[i] + "Select" + j).value === "" && byID(days[i] + "Desc" + j).value !== "") { //Nothing selected and description field has text
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description entered without category selection.</p>";
                 }
             } else { //Time is blank
-                if (byID("Select" + j).value !== "" || byID("Desc" + j).value !== "") { //Category IS selected OR Description field is NOT blank
-                    if (!byID("Select" + j).value === "FYI") { //Category is NOT FYI
+                if (byID(days[i] + "Select" + j).value !== "" || byID(days[i] + "Desc" + j).value !== "") { //Category IS selected OR Description field is NOT blank
+                    if (!byID(days[i] + "Select" + j).value === "FYI") { //Category is NOT FYI
                         val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
                     }
                 }
@@ -1159,20 +1161,20 @@ function testOtherWork() {
 function testLeave() {
     var val = "";
 
-    for (var i = 2; i < 7; i++) {
-        for (var j = 14; j < 16; j++) {
-            if (byID("Time" + j).value !== "") {
-                if (byID("LeaveSelect" + j).value === "")
+    for (var i = 1; i < 6; i++) {
+        for (var j = 41; j < 43; j++) {
+            if (byID(days[i] + "Time" + j).value !== "") {
+                if (byID(days[i] + "LeaveSelect" + j).value === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID("LeaveSelect" + j).value !== "")
+                if (byID(days[i] + "LeaveSelect" + j).value !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
             }
-            if (byID("LeaveAD").checked) {
-                if (byID("LeaveSelectAD").value === "")
+            if (byID(days[i] + "LeaveAD").checked) {
+                if (byID(days[i] + "LeaveSelectAD").value === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID("LeaveSelectAD").value !== "")
+                if (byID(days[i] + "LeaveSelectAD").value !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
             }
         }
@@ -1186,37 +1188,37 @@ function testStopCounts() {
 
     //Validate stop counts
     if (pos === "Driver" || pos === "Sub Driver" || pos === "Driver Trainee") {
-        for (var i = 2; i < 7; i++) {
+        for (var i = 1; i < 6; i++) {
 
-            if (!testRegPupil(days[i], 1, "AM"))
+            if (!testRegPupil(days[i], 11, "AM"))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": AM pupil counts not completed.</p>";
 
-            if (!testRegCounts(days[i], 1, "AM"))
+            if (!testRegCounts(days[i], 11, "AM"))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": AM time entered with no routes specified.</p>";
 
-            if (!testRegPupil(days[i], 2, "PM"))
+            if (!testRegPupil(days[i], 12, "PM"))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": PM pupil counts not completed.</p>";
 
-            if (!testRegCounts(days[i], 2, "PM"))
+            if (!testRegCounts(days[i], 12, "PM"))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": PM time entered with no routes specified.</p>";
 
-            if (!testSpecPupil(days[i], 3, "PS", 1) || !testSpecPupil(days[i], 4, "PS", 2))
+            if (!testSpecPupil(days[i], 13, "PS", 1) || !testSpecPupil(days[i], 14, "PS", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS pupil counts not completed.</p>";
 
-            if (!testSpecCounts(days[i], 3, "PS", 1) || !testSpecCounts(days[i], 4, "PS", 2))
+            if (!testSpecCounts(days[i], 13, "PS", 1) || !testSpecCounts(days[i], 14, "PS", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": PAC/PS time entered with no routes specified.</p>";
 
-            if (!testSpecPupil(days[i], 5, "SH", 1) || !testSpecPupil(days[i], 6, "SH", 2))
+            if (!testSpecPupil(days[i], 15, "SH", 1) || !testSpecPupil(days[i], 16, "SH", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle pupil counts not completed.</p>";
 
-            if (!testSpecCounts(days[i], 5, "SH", 1) || !testSpecCounts(days[i], 6, "SH", 2))
+            if (!testSpecCounts(days[i], 15, "SH", 1) || !testSpecCounts(days[i], 16, "SH", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Shuttle time entered with no shuttle specified.</p>";
 
 
-            if (!testSpecPupil(days[i], 7, "LR", 1) || !testSpecPupil(days[i], 7, "LR", 2))
+            if (!testSpecPupil(days[i], 17, "LR", 1) || !testSpecPupil(days[i], 17, "LR", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Late run pupil counts not completed.</p>";
 
-            if (!testSpecCounts(days[i], 7, "LR", 1) && !testSpecCounts(days[i], 7, "LR", 2))
+            if (!testSpecCounts(days[i], 17, "LR", 1) && !testSpecCounts(days[i], 17, "LR", 2))
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Late run time entered with no route specified.</p>";
         }
     }
@@ -1296,8 +1298,8 @@ function testAMPMRoute(day, num) {
 
 function testTimeComplete() {
     var val = "";
-    for (var i = 0; i < 7; i++) {
-        for (var j = 1; j < 15; j++) {
+    for (var i = 1; i < 6; i++) {
+        for (var j = 11; j < 17; j++) {
             if (byID(days[i] + "Time" + j + "S").value !== "" && byID(days[i] + "Time" + j + "E").value === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
         }
