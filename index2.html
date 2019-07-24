@@ -25,31 +25,96 @@
             <div class="dropdown-content" id="nav2dropdown">
                 <div class="row" onclick="completeTimesheetSup();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
                 <div class="row" onclick="location.href='index.html';"><span class="fas fa-home"></span>&nbsp;Home</div>
-                <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+                <div class="row" onclick="" id="supclear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
             </div>
         </div>
     </div>
     <div class="main">
         <div class="topspacer"></div>
-        <div class="card" id="EmpDataSup">
+        <div class="card" id="SupEmpData">
             <div class="row">
                 <div class="col-11">
                     <p class="daily">Employee Information</p>
                 </div>
-                <div class="col-1 right"><span class="fas fa-angle-up spanToggleSup" id="EmpSpanSup"></span></div>
+                <div class="col-1 right"><span class="fas fa-angle-up spanToggleSup" id="SupEmpSpan"></span></div>
             </div>
             <div class="row EmpSpanSup">
                 <div class="col-md-6">
-                    <p id="WeekOfSup">Select Week:<br></p>
+                    <p><strong>Select Week:</strong><br>
+                    <script>
+                      var r1 = DateRange(-28);
+                      var r2 = DateRange(-21);
+                      var r3 = DateRange(-14);
+                      var r4 = DateRange(-7);
+
+                      var strHTML = '';
+                      strHTML += '<input type="radio" id="supweek1" name="SupWeekOf" value="' + r1 + '" onclick="storeWeek(\'supweek1\');"><label for="supweek1">' + r1 + '</label>';
+                      strHTML += '<input type="radio" id="supweek2" name="SupWeekOf" value="' + r2 + '" onclick="storeWeek(\'supweek2\');"><label for="supweek2">' + r2 + '</label>';
+                      strHTML += '<input type="radio" id="supweek3" name="SupWeekOf" value="' + r3 + '" onclick="storeWeek(\'supweek3\');"><label for="supweek3">' + r3 + '</label>';
+                      strHTML += '<input type="radio" id="supweek4" name="SupWeekOf" value="' + r4 + '" onclick="storeWeek(\'supweek4\');"><label for="supweek4">' + r4 + '</label>';
+                      document.write(strHTML);
+
+                      function DateRange(offset) {
+                          var start = new Date();
+                          var end = new Date();
+                          var day = start.getDay();
+                          var sOffset = (day - day) - (day + 1);
+                          sOffset = (sOffset === -7) ? 0 : sOffset;
+                          var eOffset = sOffset + 6;
+                          start.setDate(start.getDate() + (sOffset + offset));
+                          end.setDate(end.getDate() + (eOffset + offset));
+
+                          var sm = start.getMonth() + 1,
+                              sd = start.getDate(),
+                              sy = start.getFullYear();
+                          var em = end.getMonth() + 1,
+                              ed = end.getDate(),
+                              ey = end.getFullYear();
+                          sm = (sm.toString().length === 1) ? "0" + sm : sm;
+                          sd = (sd.toString().length === 1) ? "0" + sd : sd;
+                          em = (em.toString().length === 1) ? "0" + em : em;
+                          ed = (ed.toString().length === 1) ? "0" + ed : ed;
+                          return sm + "/" + sd + "/" + sy + " - " + em + "/" + ed + "/" + ey;
+                        }
+                    </script>
+                  </p>
                 </div>
                 <div class="col-md-3">
                     <p><strong>Area:</strong><br>
-                        <input type="text" style="width: 100px;" id="AreaSup">
+                        <input type="radio" id="suparea1" name="SupArea" value="1">
+                        <label for="suparea1">1</label>
+                        <input type="radio" id="suparea2" name="SupArea" value="2">
+                        <label for="suparea2">2</label>
+                        <input type="radio" id="suparea3" name="SupArea" value="3">
+                        <label for="suparea3">3</label>
+                        <input type="radio" id="suparea4" name="SupArea" value="4">
+                        <label for="suparea4">4</label>
+                        <input type="radio" id="suparea7" name="SupArea" value="7">
+                        <label for="suparea7">7</label>
+                        <input type="radio" id="supareaTC" name="SupArea" value="TC">
+                        <label for="supareaTC">TC</label>
                     </p>
                 </div>
                 <div class="col-md-3">
-                    <p id="insertTeamSup"><strong>Team:</strong><br>
-                        <input type="text" style="width: 100px;" id="TeamSup"></p>
+                    <p><strong>Team:</strong><br>
+                    <script>
+                      var strHTML = "";
+                      for (var j = 1; j < 5; j++) {
+                        strHTML += '<div class="hide" id="supdiv' + j + '">';
+                        for (var i = 0; i < 8; i++) {
+                            strHTML += '<input type="radio" id="supteam' + j + i + '" name="SupTeam" value="' + j + i + '");"><label for="supteam' + j + i + '">' + j + i + '</label>&nbsp;';
+                          }
+                          strHTML += '</div>';
+                      }
+                      strHTML += '<div class="hide" id="supdiv7">';
+                      var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
+                      for (i = 0; i < 17; i++) {
+                          strHTML += '<input type="radio" id="supteam' + teams[i] + '" name="SupTeam" value="' + teams[i] + '")";><label for="supteam' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
+                      }
+                      strHTML += '</div><div class="hide" id="supdivTC"><input type="radio" id="supteamTC" name="SupTeam" value="TC")";><label for="supteamTC">TC</label></div>';
+                      document.write(strHTML);
+                    </script>
+                  </p>
                 </div>
             </div>
             <div class="row EmpSpanSup">
@@ -514,6 +579,6 @@
         </div>
     </div>
     <script src="js/calculations.js"></script>
-    <script src="js/functions.js"></script>
+    <script src="js/supfunctions.js"></script>
     <script src="js/timepicker.js"></script>
 </body></html>

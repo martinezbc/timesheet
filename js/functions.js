@@ -194,6 +194,9 @@ var selectOW = document.querySelectorAll("select[name='selectOW']");
 for (i = 0; i < selectOW.length; i++) {
     selectOW[i].addEventListener("change", selectOWChange);
 }
+
+//Click on menu, toggle menu on and off
+window.addEventListener("click", toggleMenu);
 /****************************************EVENT LISTENERS****************************************/
 
 /****************************************LOCAL STORAGE****************************************/
@@ -1038,6 +1041,21 @@ function countFieldTrips(refID) {
     if (count > 5) {
         openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
         byID(refID).value = "";
+    }
+}
+
+//TOGGLE MENU ON AND OFF ON CLICK
+function toggleMenu(e) {
+    //Get ID of whatever triggered click event
+    var refID = e.target.id;
+    
+    //Is nav dropdown hiding?
+    var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
+    
+    if (refID !== "navbtn") {
+        showHide("navdropdown", false);
+    } else {
+        showHide("navdropdown", bln);
     }
 }
 
