@@ -4,7 +4,7 @@ var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRou
 var eventChange = new Event("change");
 
 //INITIAL LOAD
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initialLoad();
 });
 
@@ -47,6 +47,12 @@ byID("week2").addEventListener("change", updateWeek);
 var chkOJT = document.querySelectorAll("input[name='chkOJT']");
 for (i = 0; i < chkOJT.length; i++) {
     chkOJT[i].addEventListener("click", checkOJT);
+}
+
+//Leave checked
+var chkLV = document.querySelectorAll("input[name='chkLV']");
+for (i = 0; i < chkLV.length; i++) {
+    chkLV[i].addEventListener("click", checkLeave);
 }
 
 //Position changed
@@ -162,7 +168,7 @@ byID("goFT").addEventListener("click", storeFTVal);
 //Veh textbox keyup
 var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
 for (i = 0; i < veh.length; i++) {
-    veh[i].addEventListener("keyup", function(e) {
+    veh[i].addEventListener("keyup", function (e) {
         limitCharacters(e.currentTarget.id, 4);
     });
 }
@@ -271,7 +277,7 @@ function loadLocalStorage() {
         setStorage(elements[i].id, val);
         toggleOWFT(elements[i].id);
     }
-
+    toggleLeave();
     loadRadioSelection();
 }
 
@@ -287,7 +293,7 @@ function loadRadioSelection() {
     //Load team from local storage and set radio selection. Only if team belongs to selected area
     if (getStorage("Team") === null) setStorage("Team", "");
     val = getStorage("Team");
-    if (val !== "" && val.substr(0,1) === getStorage("Area")) byID("team" + val).checked = true;
+    if (val !== "" && val.substr(0, 1) === getStorage("Area")) byID("team" + val).checked = true;
 
     //Load position from local storage and set radio selection
     if (getStorage("Position") === null) setStorage("Position", "");
@@ -344,10 +350,11 @@ function storeWeek(refID) {
 
     //Store second day of week range in z and shortened date in nz
     var endDate = refVal.substr(13),
-        satDate = new Date(startDate), sm, sd;
+        satDate = new Date(startDate),
+        sm, sd;
 
-    setStorage("SatDate", startDate.substr(0,5));
-    setStorage("FriDate", endDate.substr(0,5));
+    setStorage("SatDate", startDate.substr(0, 5));
+    setStorage("FriDate", endDate.substr(0, 5));
 
     for (var i = 4; i >= 0; i--) {
         newDay = addDate(satDate, i + 1);
@@ -366,7 +373,7 @@ function updateWeek(e) {
     var refID = e.currentTarget.id;
     storeWeek(refID);
     var day = byID("today").innerHTML;
-    day = day.substr(0,3);
+    day = day.substr(0, 3);
     for (var i = 0; i < 7; i++) {
         if (day === days[i]) {
             toggleDay(i);
@@ -385,9 +392,9 @@ function updateWeek(e) {
 
 //DATEADD FUNCTION
 function addDate(date, days) {
-  var copy = new Date(Number(date))
-  copy.setDate(date.getDate() + days)
-  return copy
+    var copy = new Date(Number(date))
+    copy.setDate(date.getDate() + days)
+    return copy
 }
 
 //CHANGE NAV BAR VALUES DEPENDING ON THE DAY
@@ -465,7 +472,7 @@ function loadEQL() {
 //IF EQ/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
 function toggleEQLReg(e) {
     var bln = (e.currentTarget.checked) ? true : false;
-    var day = e.currentTarget.id.substr(0,3);
+    var day = e.currentTarget.id.substr(0, 3);
 
     for (var j = 11; j < 18; j++) {
         byID(day + "Lift" + j).checked = bln;
@@ -478,14 +485,24 @@ function toggleEQLReg(e) {
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
 function toggleOWFT(refID) {
-    var day = refID.substr(0,3);
+    var day = refID.substr(0, 3);
     var num = "";
-    if (refID.substr(3,5) === "Time3") {
-        num = refID.substr(7,2);
+    if (refID.substr(3, 5) === "Time3") {
+        num = refID.substr(7, 2);
         if (byID(refID).value !== "") showHide(day + "FTDiv" + num, true);
-    } else if (refID.substr(3,7) === "Select2") {
-        num = refID.substr(9,2);
+    } else if (refID.substr(3, 7) === "Select2") {
+        num = refID.substr(9, 2);
         if (byID(refID).value !== "") showHide(day + "OWDiv" + num, true);
+    }
+}
+
+//TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
+function toggleLeave() {
+    var bln = false;
+
+    for (var i = 1; i < 6; i++) {
+        bln = (getStorage(days[i] + "LeaveAD") === "1" || getStorage(days[i] + "Time41") !== "" || getStorage(days[i] + "Time42") !== "") ? true : false;
+        if (bln) byID(days[i] + "LVAdd").click();
     }
 }
 
@@ -532,7 +549,7 @@ function togglePupilCounts(x) {
 //TOGGLE PUPIL COUNTS ON POSITION CHANGE
 function positionChange(e) {
     for (var i = 0; i < 7; i++) {
-        if (byID("today").innerHTML.substr(0,3) === days[i]) break;
+        if (byID("today").innerHTML.substr(0, 3) === days[i]) break;
     }
     togglePupilCounts(i);
 }
@@ -569,7 +586,7 @@ function posAD() {
 //MOVE NAV BAR TO THE RIGHT
 function moveRightNavBar() {
     var current = byID("today").innerHTML;
-    current = current.substr(0,3);
+    current = current.substr(0, 3);
     for (var i = 0; i < 7; i++) {
         if (current === days[i] && i < 6) {
             showHide(fullday[i], false);
@@ -587,8 +604,8 @@ function moveRightNavBar() {
 
 //MOVE NAV BAR TO THE LEFT
 function moveLeftNavBar() {
-	var current = byID("today").innerHTML;
-    current = current.substr(0,3);
+    var current = byID("today").innerHTML;
+    current = current.substr(0, 3);
     for (var i = 0; i < 7; i++) {
         if (current === days[i] && i > 0) {
             showHide(fullday[i], false);
@@ -682,7 +699,7 @@ function addFieldTrip(e) {
 function removeOWFT(e) {
     var refID = e.currentTarget.id;
     var x = refID.substr(-2);
-    var type = refID.substr(3,2);
+    var type = refID.substr(3, 2);
     var dayVal = refID.substr(0, 3);
 
     showHide(dayVal + type + "Div" + x, false);
@@ -705,7 +722,7 @@ function removeOWFT(e) {
 }
 
 //CLEAR TIME FIELDS
-function clearTimeField (e) {
+function clearTimeField(e) {
     var fieldID = e.target.id;
     var day = fieldID.substr(0, 3),
         num = fieldID.substr(10);
@@ -735,7 +752,7 @@ function getMissingOW(day) {
         if ((day === "Sat" || day === "Sun") && i === 23) return 30;
         if (byID(day + "OWDiv" + i).classList.contains("hide")) {
             return i;
-          }
+        }
     }
     //If statement didnt' find a match, return 30
     return 30;
@@ -747,7 +764,7 @@ function getMissingFT(day) {
         if ((day === "Sat" || day === "Sun") && i === 33) return 35;
         if (byID(day + "FTDiv" + i).classList.contains("hide")) {
             return i;
-          }
+        }
     }
     //if statement didn't find a match, return 35
     return 35;
@@ -767,8 +784,37 @@ function addLeave(e) {
         showHide(dayVal + "Leave40", false);
         showHide(dayVal + "Leave41", false);
         showHide(dayVal + "Leave42", false);
+        resetTime(dayVal, 41);
+        resetTime(dayVal, 42);
+        resetElement(dayVal + "LeaveAD");
+        resetElement(dayVal + "LeaveSelectAD");
+        resetElement(dayVal + "LeaveSelect41");
+        resetElement(dayVal + "LeaveSelect42");
     }
 
+}
+
+//TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
+function checkLeave(e) {
+    var refID = e.currentTarget.id;
+    var day = refID.substr(0, 3);
+    var bln = (e.currentTarget.checked) ? true : false;
+
+    showHide(day + "OWAdd", !bln);
+    showHide(day + "FTAdd", !bln);
+    if (bln) {
+        for (var i = 20; i < 30; i++) {
+            byID(day + "OWTrash" + i).click();
+        }
+
+        for (i = 30; i < 35; i++) {
+            byID(day + "FTTrash" + i).click();
+        }
+        for (i = 11; i < 43; i++) {
+            i = (i > 17 && i < 41) ? 41 : i;
+            resetTime(day, i);
+        }
+    }
 }
 
 //TIME SELECTOR MODAL
@@ -830,7 +876,7 @@ function timeSelectors(e) {
 
 //ROUND TO THE NEAREST 5
 function round5(x) {
-	"use strict";
+    "use strict";
     return Math.round(x / 5) * 5;
 }
 
@@ -923,7 +969,7 @@ function selectOWChange(e) {
 
 function disableOWFields(refID) {
     var refVal = byID(refID).value;
-    var day = refID.substr(0,3);
+    var day = refID.substr(0, 3);
     var x = refID.substr(9);
     var bln = (refVal === "FYI") ? true : false;
     byID(day + "Time" + x + "S").disabled = bln;
@@ -960,7 +1006,7 @@ function runCopyRoutine() {
     var str = "";
 
     for (var i = 1; i < 5; i++) {
-        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
 
@@ -989,7 +1035,7 @@ function runPupilCopyRoutine() {
         str = "";
 
     for (var i = 1; i < 5; i++) {
-        k = (byID("today").innerHTML.substr(0,3) === days[i]) ? i : 0;
+        k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
 
@@ -1048,10 +1094,10 @@ function countFieldTrips(refID) {
 function toggleMenu(e) {
     //Get ID of whatever triggered click event
     var refID = e.target.id;
-    
+
     //Is nav dropdown hiding?
     var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
-    
+
     if (refID !== "navbtn") {
         showHide("navdropdown", false);
     } else {
