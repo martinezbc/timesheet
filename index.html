@@ -38,12 +38,11 @@
         <div class="topspacer"></div>
         <div class="card" id="EmpData">
             <div class="row">
-                <div class="col-11">
+                <div class="col-12">
                     <p class="daily">Employee Information</p>
                 </div>
-                <div class="col-1 right"><span class="fas fa-angle-up spanToggle" id="EmpSpan"></span></div>
             </div>
-            <div class="row EmpSpan">
+            <div class="row">
                 <div class="col-md-6">
                     <p><strong>Select Week:</strong><br>
                         <script>
@@ -128,7 +127,7 @@
                     </p>
                 </div>
             </div>
-            <div class="row EmpSpan">
+            <div class="row">
                 <div class="col-md-6">
                     <p><strong>Position:</strong><br>
                         <input type="radio" id="posDriver" name="Position" value="Driver">
@@ -136,13 +135,13 @@
                         <input type="radio" id="posDriverTrainee" name="Position" value="Driver Trainee">
                         <label for="posDriverTrainee">Driver Trainee</label>
                         <input type="radio" id="posSubDriver" name="Position" value="Sub Driver">
-                        <label for="posSubDriver">Sub Driver</label><br>
+                        <label for="posSubDriver">Sub Driver</label>
                         <input type="radio" id="posAttendant" name="Position" value="Attendant">
                         <label for="posAttendant">Attendant</label>
                         <input type="radio" id="posAttendantTrainee" name="Position" value="Attendant Trainee">
                         <label for="posAttendantTrainee">Attendant Trainee</label>
                         <input type="radio" id="posSubAttendant" name="Position" value="Sub Attendant">
-                        <label for="posSubAttendant">Sub Attendant</label><br>
+                        <label for="posSubAttendant">Sub Attendant</label>
                         <input type="radio" id="posActivityDriver" name="Position" value="Activity Driver">
                         <label for="posActivityDriver">Activity Driver</label>
                     </p>
@@ -153,7 +152,7 @@
                     <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
-            <div class="row EmpSpan">
+            <div class="row">
                 <div class="col-md-2">
                     <p><strong>Vehicle:</strong><br><input type="number" id="Veh1" style="width: 100px;" placeholder="0000"></p>
                 </div>
@@ -184,15 +183,12 @@
 
         <div id="PupilCounts" class="card">
             <div class="row">
-                <div class="col-11">
+                <div class="col-12">
                     <p class="daily">PUPIL COUNTS&nbsp;<span class="fas fa-question-circle ct" id="ctspan"></span></p>
                     <p>All drivers and attendants must include their full route names. Special equipment routes are labeled with "EQ" or "L" or both.</p>
                 </div>
-                <div class="col-1 right">
-                    <span class="fas fa-angle-up spanToggle" id="PupilSpan"></span>
-                </div>
             </div>
-            <div class="tinycard bg-teal1 pupilcard PupilSpan">
+            <div class="tinycard bg-teal1 pupilcard">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">Morning Runs</p>
@@ -231,7 +227,7 @@
 
                 </script>
             </div>
-            <div class="tinycard bg-teal1 pupilcard PupilSpan">
+            <div class="tinycard bg-teal1 pupilcard">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">Afternoon Runs</p>
@@ -270,7 +266,7 @@
 
                 </script>
             </div>
-            <div class="bg-teal1 tinycard pupilcard PupilSpan">
+            <div class="bg-teal1 tinycard pupilcard">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">PAC/Preschool</p>
@@ -351,9 +347,9 @@
                     strHTML += '<span class="fas fa-question-circle ow"></span>';
                     strHTML += '</div><div class="col-1 center">';
                     strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'OWTrash' + j + '"></span></div></div>';
-                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '<div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
                     strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '" disabled><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>&nbsp;&nbsp;';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
                     strHTML += '<select name="selectOW" id="' + days[i] + 'Select' + j + '" class="selectwidth">';
                     strHTML += '<option value="">--Select work--</option>';
                     strHTML += '<option value="FYI">FYI</option>';
@@ -368,9 +364,9 @@
                     strHTML += '<option value="CS">Cold start team</option>';
                     strHTML += '<option value="CBK">Call back</option>';
                     strHTML += '</select></div>';
-                    strHTML += '</div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
+                    strHTML += '</div><div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
                     strHTML += '<input id="' + days[i] + 'Desc' + j + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanOW' + j + '"><div class="col-11">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-11">';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;'
                     strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';
@@ -386,16 +382,16 @@
                     strHTML += '<span class="fas fa-question-circle ft"></span>';
                     strHTML += '</div><div class="col-1 center">';
                     strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'FTTrash' + j + '"></span></div></div>';
-                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-8">';
+                    strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-8">';
                     strHTML += '<input name="" id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
                     strHTML += '</div><div class="col-4 center">';
                     strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '"><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>';
                     strHTML += '</div></div>';
-                    strHTML += '<div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
+                    strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
                     strHTML += '<input name="txtFT" id="' + days[i] + 'From' + j + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
                     strHTML += '<input name="txtFT" id="' + days[i] + 'To' + j + '" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV ' + days[i] + 'SpanFT' + j + '"><div class="col-11">';
+                    strHTML += '</div></div><div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-11">';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';
@@ -472,7 +468,7 @@
                 strHTML += '<option value="SICK-FMLA">FMLA</option>';
                 strHTML += '<option value="SICK-INJ">Injury</option>';
                 strHTML += '</select></div></div>';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '<div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time41" type="text" class="total-time nofocus" disabled>';
@@ -491,82 +487,82 @@
                 strHTML += '<option value="SICK-FMLA">FMLA</option>';
                 strHTML += '<option value="SICK-INJ">Injury</option>';
                 strHTML += '</select></div></div>';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '<div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time42" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearLV42"></span>';
                 strHTML += '</div></div></div><hr>';
                 strHTML += '<div class="tinycard bg-teal1">';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Morning Runs</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT11"><label for="' + days[i] + 'OJT11">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift11" class="eqpt"><label for="' + days[i] + 'Lift11">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time11" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG11"></span>';
                 strHTML += '</div></div></div><div class="tinycard bg-teal1">';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Afternoon Runs</p></div>';
                 strHTML += '<div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" name="chkOJT" id="' + days[i] + 'OJT12"><label for="' + days[i] + 'OJT12">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift12" class="eqpt"><label for="' + days[i] + 'Lift12">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time12" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG12"></span>';
                 strHTML += '</div></div></div><div class="tinycard bg-teal1">';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">PAC/Preschool</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT13"><label for="' + days[i] + 'OJT13">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift13" class="eqpt"><label for="' + days[i] + 'Lift13">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time13" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG13"></span></div>';
                 strHTML += '</div></div><div class="tinycard bg-teal1">';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">PAC/Preschool</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT14"><label for="' + days[i] + 'OJT14">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift14" class="eqpt"><label for="' + days[i] + 'Lift14">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV">';
+                strHTML += '</div></div><div class="row">';
                 strHTML += '<div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time14" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG14"></span></div>';
                 strHTML += '</div></div><div class="tinycard bg-teal1">';
-                strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Shuttle</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT15"><label for="' + days[i] + 'OJT15">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift15" class="eqpt"><label for="' + days[i] + 'Lift15">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV">';
+                strHTML += '</div></div><div class="row">';
                 strHTML += '<div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time15" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG15"></span></div>';
-                strHTML += '</div></div><div class="tinycard bg-teal1"><div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '</div></div><div class="tinycard bg-teal1"><div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Shuttle</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT16"><label for="' + days[i] + 'OJT16">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift16" class="eqpt"><label for="' + days[i] + 'Lift16">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time16" type="text" class="total-time nofocus" disabled>';
                 strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG16"></span></div>';
-                strHTML += '</div></div><div class="tinycard bg-teal1"><div class="row ' + days[i] + 'LV"><div class="col-8">';
+                strHTML += '</div></div><div class="tinycard bg-teal1"><div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Late Run</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT17"><label for="' + days[i] + 'OJT17">OJT</label>&nbsp;';
                 strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift17" class="eqpt"><label for="' + days[i] + 'Lift17">EQ/L</label>';
-                strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time17" type="text" class="total-time nofocus" disabled>';
@@ -580,12 +576,12 @@
                     strHTML += '<span class="fas fa-question-circle ow"></span>';
                     strHTML += '</div><div class="col-1 center">';
                     strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'OWTrash' + j + '"></span>';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-auto">';
+                    strHTML += '</div></div><div class="row"><div class="col-auto">';
                     strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT' + j + '">';
                     strHTML += '<label class="lblBtnFalse" for="' + days[i] + 'OJT' + j + '">OJT</label>&nbsp;';
                     strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '" disabled>';
                     strHTML += '<label class="lblBtnFalse" for="' + days[i] + 'Lift' + j + '">EQ/L</label>';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
+                    strHTML += '</div></div><div class="row"><div class="col-12">';
                     strHTML += '<select name="selectOW" id="' + days[i] + 'Select' + j + '" class="selectwidth">';
                     strHTML += '<option value="">--Select work--</option>';
                     strHTML += '<option value="FYI">FYI</option>';
@@ -604,9 +600,9 @@
                     strHTML += '<option value="ES0">On Time - Early start</option>';
                     strHTML += '<option value="CBK">Call back</option>';
                     strHTML += '</select></div></div>';
-                    strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-12">';
+                    strHTML += '<div class="row"><div class="col-12">';
                     strHTML += '<input id="' + days[i] + 'Desc' + j + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                    strHTML += '</div></div><div class="row"><div class="col-11">';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';
@@ -621,16 +617,16 @@
                     strHTML += '<span class="fas fa-question-circle ft"></span>';
                     strHTML += '</div><div class="col-1 center">';
                     strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'FTTrash' + j + '"></span>';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-6">';
+                    strHTML += '</div></div><div class="row"><div class="col-6">';
                     strHTML += '<input id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
                     strHTML += '</div><div class="col-6 center">';
                     strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'OJT' + j + '">OJT</label>&nbsp;'
                     strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'Lift' + j + '">EQ/L</label></div></div>';
-                    strHTML += '<div class="row ' + days[i] + 'LV"><div class="col-12">';
+                    strHTML += '<div class="row"><div class="col-12">';
                     strHTML += '<input id="' + days[i] + 'From' + j + '" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-12">';
+                    strHTML += '</div></div><div class="row"><div class="col-12">';
                     strHTML += '<input id="' + days[i] + 'To' + j + '" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row ' + days[i] + 'LV"><div class="col-11">';
+                    strHTML += '</div></div><div class="row"><div class="col-11">';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;';
                     strHTML += '<input type="text" id="' + days[i] + 'Time' + j + '" class="total-time nofocus" disabled>';

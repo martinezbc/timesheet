@@ -1,18 +1,19 @@
-
 function setMeridiem () {
+    s = (s === undefined) ? "" : "S";
     var meridiemText = "",
-        inputMeridiem = byID("meridiem").innerHTML;
+        inputMeridiem = byID("meridiem" + s).innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
         meridiemText = "AM";
     }
-    byID("meridiem").innerHTML = meridiemText;
+    byID("meridiem" + s).innerHTML = meridiemText;
 }
 
-function setMinutes (operator) {
+function setMinutes (operator, s) {
+    s = (s === undefined) ? "" : "S";
     var minutesText = "",
-        minutes = Number(byID("minutes").innerHTML);
+        minutes = Number(byID("minutes" + s).innerHTML);
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -25,16 +26,16 @@ function setMinutes (operator) {
     minutesText = minutes + operator;
     if (minutesText > 59) {
         minutesText = Number(minutesText) - 60;
-        setHours(1);
+        setHours(1, s);
     } else if (minutesText < 0) {
         minutesText = 60 + Number(minutesText)
-        setHours(-1);
+        setHours(-1, s);
     }
 
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
-    byID("minutes").innerHTML = minutesText;
+    byID("minutes" + s).innerHTML = minutesText;
 }
 
 function setMinutesPupil (operator) {
@@ -64,15 +65,16 @@ function setMinutesPupil (operator) {
     byID("minutes").innerHTML = minutesText;
 }
 
-function setHours (operator) {
+function setHours (operator, s) {
+    s = (s === undefined) ? "" : "S";
     var hoursText = "";
-    var hours = Number(byID("hours").innerHTML);
+    var hours = Number(byID("hours" + s).innerHTML);
     hoursText = hours + operator;
 
     if (hoursText === 13) {
         hoursText = "1";
         if (operator === 2) {
-            setMeridiem();
+            setMeridiem(s);
         }
     } else if (hoursText === 14) {
         hoursText = "2";
@@ -80,32 +82,33 @@ function setHours (operator) {
         hoursText = "12";
     } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
         hoursText = "11";
-        setMeridiem();
+        setMeridiem(s);
     } else if (hoursText === 12 && operator > 0) {
-        setMeridiem();
+        setMeridiem(s);
     } else if (hoursText === 10 && operator === -2) {
-        setMeridiem();
+        setMeridiem(s);
     }
-    byID("hours").innerHTML = hoursText;
+    byID("hours" + s).innerHTML = hoursText;
 }
 
-function changeValue (operator, clicked, refElement) {
+function changeValue (operator, clicked, refElement, s) {
     "use strict";
+    s = (s === undefined) ? "" : "S";
     var x = refElement.substr(-1);
     var blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
 
     var str = clicked.substr(0,2);
     switch (str) {
         case "hr":
-            setHours(operator);
+            setHours(operator, s);
             break;
         case "mn":
             if (blnPupil)
                 setMinutesPupil(operator);
             else
-                setMinutes(operator);
+                setMinutes(operator, s);
             break;
         default:
-            setMeridiem();
+            setMeridiem(s);
     }
 }

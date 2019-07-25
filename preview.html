@@ -47,12 +47,11 @@
 <body>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
-        <p>DOWNLOAD TIMESHEET HERE-></p>
         <div id="navbarmodal" class="dropdown">
             <!--navmodal-->
             
-            <span class="fas fa-bars dropbtn" id="tsbtn" onclick="myFunction();"></span>
-            <div class="dropdown-content" id="tsdropdown">
+            <span class="fas fa-bars dropbtn" id="tsbtn"></span>
+            <div class="dropdown-content hide" id="tsdropdown">
                 <div class="row" onclick="location.href='timesheet.html';"><span class="fas fa-file-download"></span>&nbsp;Download</div>
                 <div class="row" onclick="location.href='index.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
             </div>
@@ -85,6 +84,7 @@
                 document.write(strHTML);
             </script>
         </div>
+    </div>
         
         <script>
             strHTML = '<div class="card">';
@@ -198,7 +198,7 @@
                 strHTML = "";
                 strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Route Time</div></div>';
                 for (var i = 1; i < 6; i++) {
-                    if (i !== 2) {strHTML += '<hr class="border-grey">';}
+                    if (i !== 1) {strHTML += '<hr class="border-grey">';}
                     strHTML += '<div class="row">';
                     strHTML += '<div class="col-sm-1"><p class="bold">' + getStorage(days[i] + "Date") + '</p></div>';
                     strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + getStorage(days[i] + "Time11S") + '&nbsp;&nbsp;' + getStorage(days[i]+ "Time11E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time11") + '</p></div>';
@@ -374,5 +374,34 @@
                 document.write(strHTML);
             </script>    
         </div>
-    </div>
-</body></html>
+    <script>
+        //Click on menu, toggle menu on and off
+        window.addEventListener("click", toggleMenu);
+        //TOGGLE MENU ON AND OFF ON CLICK
+        function toggleMenu(e) {
+            //Get ID of whatever triggered click event
+            var refID = e.target.id;
+
+            //Is nav dropdown hiding?
+            var bln = (document.getElementById("tsdropdown").classList.contains("hide")) ? true : false;
+
+            if (refID !== "tsbtn") {
+                showHide("tsdropdown", false);
+            } else {
+                showHide("tsdropdown", bln);
+            }
+        }
+        
+        //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
+        function showHide(refID, bln) {
+            var el = document.getElementById(refID);
+            //(Show the element) ? remove hide : add hide
+            if (bln) {
+                if (el.classList.contains("hide")) el.classList.remove("hide");
+            } else {
+                if (!el.classList.contains("hide")) el.classList.add("hide");
+            }
+        }
+    </script>
+</body>
+</html>

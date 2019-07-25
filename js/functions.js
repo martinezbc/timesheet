@@ -258,6 +258,7 @@ function initialLoad() {
     toggleDay(day);
     loadOJT();
     loadEQL();
+    loadLeave();
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
@@ -387,6 +388,7 @@ function updateWeek(e) {
         for (j = 30; j < 35; j++) {
             byID(days[i] + "FTTrash" + j).click();
         }
+        resetLeave(days[i]);
     }
 }
 
@@ -466,6 +468,13 @@ function loadEQL() {
             if ((days[i] === "Sat" || days[i] === "Sun") && j > 22) continue;
             disableOWFields(days[i] + "Select" + j);
         }
+    }
+}
+
+//LOAD LEAVE AND TOGGLE FIELDS IF ALL DAY LEAVE IS CHECKED
+function loadLeave() {
+    for (var i = 1; i < 6; i++) {
+        toggleADLeave(days[i] + "LeaveAD");
     }
 }
 
@@ -780,41 +789,99 @@ function addLeave(e) {
         showHide(dayVal + "Leave41", true);
         showHide(dayVal + "Leave42", true);
     } else {
-        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave';
-        showHide(dayVal + "Leave40", false);
-        showHide(dayVal + "Leave41", false);
-        showHide(dayVal + "Leave42", false);
-        resetTime(dayVal, 41);
-        resetTime(dayVal, 42);
-        resetElement(dayVal + "LeaveAD");
-        resetElement(dayVal + "LeaveSelectAD");
-        resetElement(dayVal + "LeaveSelect41");
-        resetElement(dayVal + "LeaveSelect42");
+        resetLeave(dayVal);
     }
 
 }
 
-//TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
+//SEPARATE FUNCTION FOR RESETTING LEAVE
+function resetLeave(day) {
+    byID(day + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave';
+    showHide(day + "Leave40", false);
+    showHide(day + "Leave41", false);
+    showHide(day + "Leave42", false);
+    resetTime(day, 41);
+    resetTime(day, 42);
+    resetElement(day + "LeaveAD");
+    toggleADLeave(day + "LeaveAD");
+    resetElement(day + "LeaveSelectAD");
+    resetElement(day + "LeaveSelect41");
+    resetElement(day + "LeaveSelect42");
+}
+
+//GET ALL DAY LEAVE ON EVENT CLICK
 function checkLeave(e) {
-    var refID = e.currentTarget.id;
+    toggleADLeave(e.currentTarget.id);
+    getDailyTotals();
+    getWeeklyTotals();
+}
+
+//TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
+function toggleADLeave(refID) {
     var day = refID.substr(0, 3);
-    var bln = (e.currentTarget.checked) ? true : false;
+    var bln = (byID(refID).checked) ? true : false;
+    var i = 0;
 
     showHide(day + "OWAdd", !bln);
     showHide(day + "FTAdd", !bln);
     if (bln) {
-        for (var i = 20; i < 30; i++) {
+        //Clear Other work
+        for (i = 20; i < 30; i++)
             byID(day + "OWTrash" + i).click();
-        }
-
-        for (i = 30; i < 35; i++) {
+        //Clear Field Trips
+        for (i = 30; i < 35; i++)
             byID(day + "FTTrash" + i).click();
-        }
-        for (i = 11; i < 43; i++) {
-            i = (i > 17 && i < 41) ? 41 : i;
+        //Clear regular run time
+        for (i = 11; i < 18; i++)
             resetTime(day, i);
+        //Clear partial leave time
+        for (i = 41; i < 43; i++)
+            resetTime(day, i);
+        //Clear pupil counts
+        for (i = 1; i < 6; i++) {
+            resetElement(day + "AM" + i + "Ct");
+            resetElement(day + "PM" + i + "Ct");
+            if (i < 3) {
+                resetElement(day + "PS" + i + "Ct");
+                resetElement(day + "SH" + i + "Ct");
+                resetElement(day + "LR" + i + "Ct");
+            }
+        }
+        resetElement(day + "TimeA");
+        resetElement(day + "TimeB");
+        resetElement(day + "TimeC");
+        resetElement(day + "TimeD");
+    }
+    for (i = 11; i < 18; i++) {
+        byID(day + "Time" + i).style.backgroundColor = (bln) ? "lightgrey" : "white";
+        disableElement(day + "Time" + i + "S", bln);
+        disableElement(day + "Time" + i + "E", bln);
+    }
+    for (i = 41; i < 43; i++) {
+        byID(day + "Time" + i).style.backgroundColor = (bln) ? "lightgrey" : "white";
+        disableElement(day + "Time" + i + "S", bln);
+        disableElement(day + "Time" + i + "E", bln);
+        disableElement(day + "LeaveSelect" + i, bln);
+    }
+    for (i = 1; i < 6; i++) {
+        disableElement(day + "AM" + i + "Ct", bln);
+        disableElement(day + "PM" + i + "Ct", bln);
+        if (i < 3) {
+            disableElement(day + "PS" + i + "Ct", bln);
+            disableElement(day + "SH" + i + "Ct", bln);
+            disableElement(day + "LR" + i + "Ct", bln);
         }
     }
+    disableElement(day + "TimeA", bln);
+    disableElement(day + "TimeB", bln);
+    disableElement(day + "TimeC", bln);
+    disableElement(day + "TimeD", bln);
+}
+
+//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
+function disableElement(refID, bln) {
+    byID(refID).disabled = bln;
+    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";    
 }
 
 //TIME SELECTOR MODAL
@@ -871,7 +938,7 @@ function timeSelectors(e) {
             operator = -2;
             break;
     }
-    changeValue(operator, refID, activeID);
+    changeValue(operator, refID, activeID, "");
 }
 
 //ROUND TO THE NEAREST 5

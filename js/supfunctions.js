@@ -58,9 +58,15 @@ for (i = 0; i < position.length; i++) {
 }
 
 //EQL checked
-var chkEQL = document.querySelectorAll("input[name='chkEQL']");
+var chkEQL = document.querySelectorAll("input[name='chkEQLS']");
 for (i = 0; i < chkEQL.length; i++) {
-    chkEQL[i].addEventListener("click", toggleEQLReg);
+    chkEQL[i].addEventListener("click", toggleEQL);
+}
+
+//All day leave checked
+var chkADLV = document.querySelectorAll("input[name='chkADLV']");
+for (i = 0; i < chkADLV.length; i++) {
+    chkADLV[i].addEventListener("click", toggleLeaveTime);
 }
 
 //Add Other Work click
@@ -242,10 +248,12 @@ function initialLoad() {
         val = (getStorage(elements[i].id) === null) ? "" : getStorage(elements[i].id);
         elements[i].value = val;
         setStorage(elements[i].id, val);
-        toggleOWFT(elements[i].id);
     }
 
     loadRadioSelection();
+    loadOJT();
+    checkOWFT();
+    loadLV();
 }
 
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
@@ -275,16 +283,16 @@ function loadRadioSelection() {
     val = getStorage("WeekOfS");
     if (val !== "" && val === byID("week1S").value) {
         byID("week1S").checked = true;
-        updateWeek(byID("week1S"));
+        updateWeekAll("week1S");
     } else if (val !== "" && val === byID("week2S").value) {
         byID("week2S").checked = true;
-        updateWeek(byID("week2S"));
+        updateWeekAll("week2S");
     } else if (val !== "" && val === byID("week3S").value) {
         byID("week3S").checked = true;
-        updateWeek(byID("week3S"));
+        updateWeekAll("week3S");
     } else if (val !== "" && val === byID("week4S").value) {
         byID("week4S").checked = true;
-        updateWeek(byID("week4S"));
+        updateWeekAll("week4S");
     }
 }
 
@@ -322,7 +330,7 @@ function storeWeek(refID) {
     setStorage("FriDateS", endDate.substr(0, 5));
 
     for (var i = 4; i >= 0; i--) {
-        newDay = addDate(satDate, i + 1);
+        var newDay = addDate(satDate, i + 1);
         sm = newDay.getMonth() + 1;
         sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -333,7 +341,11 @@ function storeWeek(refID) {
 
 //SET DAYS WHEN WEEK IS CHANGED
 function updateWeek(e) {
-    var refID = (e.target === undefined) ? e.id : e.currentTarget.id;
+    var refID = e.currentTarget.id;
+    updateWeekAll(refID);
+}
+
+function updateWeekAll(refID) {
     storeWeek(refID);
     var strHTML = "";
     var val = [];
@@ -351,8 +363,14 @@ function updateWeek(e) {
     strHTML += '<option value="' + val[4] + '">' + val[4] + '</option>';
     strHTML += '<option value="' + val[5] + '">' + val[5] + '</option>';
 
-    for (i = 20; i < 35; i++) {
+    for (i = 20; i < 45; i++) {
+        i = (i === 35) ? 40 : i;
         byID("Date" + i + "S").innerHTML = strHTML;
+        for (var j = 0; j < val.length; j++) {
+            if (val[j] === getStorage("Date" + i + "S")) {
+                byID("Date" + i + "S").value = val[j];
+            }
+        }
     }
 }
 
@@ -388,15 +406,40 @@ function loadOJT() {
 }
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
-function toggleOWFT(refID) {
-    var num = "";
-    if (refID.substr(3, 5) === "Time3") {
-        num = refID.substr(7, 2);
-        if (byID(refID).value !== "") showHide("FTDiv" + num, true);
-    } else if (refID.substr(3, 7) === "Select2") {
-        num = refID.substr(9, 2);
-        if (byID(refID).value !== "") showHide("OWDiv" + num, true);
+function checkOWFT() {
+    var val = "";
+    for (var i = 20; i < 30; i++) {
+        val = getStorage("Date" + i + "S");
+        if (val === "") val = getStorage("Select" + i + "S");
+        if (val === "") val = getStorage("Desc" + i + "S");
+        if (val === "") val = getStorage("Time" + i + "SS");
+        if (val === "") val = getStorage("Time" + i + "ES");
+        if (val === "") val = getStorage("Time" + i + "S");
+        if (val !== "") showHide("OWDiv" + i + "S", true);
     }
+    
+    val = "";
+    for (i = 30; i < 35; i++) {
+        val = getStorage("Date" + i + "S");
+        if (val === "") val = getStorage("Voucher" + i + "S");
+        if (val === "") val = getStorage("From" + i + "S");
+        if (val === "") val = getStorage("To" + i + "S");
+        if (val === "") val = getStorage("Time" + i + "SS");
+        if (val === "") val = getStorage("Time" + i + "ES");
+        if (val === "") val = getStorage("Time" + i + "S");
+        if (val !== "") showHide("FTDiv" + i + "S", true);
+    }
+    
+    val = "";
+    for (i = 40; i < 45; i++) {
+        val = getStorage("Date" + i + "S");
+        if (val === "") val = getStorage("LeaveAD" + i + "S");
+        if (val === "0") val = getStorage("Time" + i + "SS");
+        if (val === "") val = getStorage("Time" + i + "ES");
+        if (val === "") val = getStorage("Time" + i + "S");
+        if (val !== "") showHide("LVDiv" + i + "S", true);
+    }
+    
 }
 
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
@@ -421,7 +464,7 @@ function checkOJT(e) {
     var refID = e.currentTarget.id;
     if (refID === "OJTS") loadOJT();
 
-    getWeeklyTotalsS();
+    getWeeklyTotals();
 }
 
 //CHANGE TO PROPER CASE
@@ -441,16 +484,14 @@ function limitCharacters(refID, num) {
 }
 
 //TOGGLE OTHER WORK FIELDS
-function addOtherWork(e) {
-    var refID = e.currentTarget.id;
+function addOtherWork() {
     var countOW = getMissingOW();
     if (countOW === 30) return;
     showHide("OWDiv" + countOW + "S", true);
 }
 
 //TOGGLE FIELD TRIP FIELDS
-function addFieldTrip(e) {
-    var refID = e.currentTarget.id;
+function addFieldTrip() {
     var countFT = getMissingFT();
 
     //Exit function if count is 5
@@ -466,20 +507,26 @@ function removeOWFT(e) {
 
     showHide(type + "Div" + x + "S", false);
     if (type === "FT") {
+        resetElement("Date" + x + "S");
         resetElement("To" + x + "S");
         resetElement("From" + x + "S");
         resetElement("Voucher" + x + "S");
+        resetElement("Lift" + x + "S");
     } else if (type === "OW") {
+        resetElement("Date" + x + "S");
         resetElement("Select" + x + "S");
         resetElement("Desc" + x + "S");
         resetElement("OJT" + x + "S");
         byID("Lift" + x + "S").disabled = true;
+        resetElement("Lift" + x + "S");
+    } else if (type === "LV") {
+        resetElement("Date" + x + "S");
+        resetElement("LeaveAD" + x + "S");
+        leaveTime("LeaveAD" + x + "S");
+        resetElement("Select" + x + "S");
     }
     resetTime(x);
-    resetElement("Lift" + x + "S");
-
-
-    getWeeklyTotalsS();
+    getWeeklyTotals();
 }
 
 //CLEAR TIME FIELDS
@@ -488,7 +535,7 @@ function clearTimeField(e) {
     var num = fieldID.substr(-3,2);
 
     resetTime(num);
-    getWeeklyTotalsS();
+    getWeeklyTotals();
 }
 
 //FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
@@ -514,21 +561,22 @@ function getMissingFT() {
 }
 
 //SHOW THE LEAVE SECTION
-function addLeave(e) {
-//    var refID = e.currentTarget.id;
-//    var dayVal = refID.substr(0, 3);
-//    if (byID(dayVal + "Leave40").classList.contains("hide")) {
-//        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
-//        showHide(dayVal + "Leave40", true);
-//        showHide(dayVal + "Leave41", true);
-//        showHide(dayVal + "Leave42", true);
-//    } else {
-//        byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave';
-//        showHide(dayVal + "Leave40", false);
-//        showHide(dayVal + "Leave41", false);
-//        showHide(dayVal + "Leave42", false);
-//    }
+function addLeave() {
+    var countOW = getMissingLV();
+    if (countOW === 45) return;
+    showHide("LVDiv" + countOW + "S", true);
+}
 
+
+//FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
+function getMissingLV() {
+    for (var i = 40; i < 45; i++) {
+        if (byID("LVDiv" + i + "S").classList.contains("hide")) {
+            return i;
+        }
+    }
+    //if statement didn't find a match, return 35
+    return 35;
 }
 
 //TIME SELECTOR MODAL
@@ -537,6 +585,8 @@ function openTimeSelector(e) {
     activeID = e.currentTarget.id;
     //Disabled current element
     e.currentTarget.disabled = true;
+    //Check date field first
+    if (!checkOWFTDate(e.currentTarget.id)) return;
     //Get value of element
     var refVal = byID(activeID).value;
     //If value is null then exit function
@@ -562,6 +612,17 @@ function openTimeSelector(e) {
     showHide("timeModalS", true);
 }
 
+//CHECK DATE HAS BEEN SELECTED BEFORE TIME HAS BEEN PUT IN
+function checkOWFTDate(refID) {
+    var x = refID.substr(-4,2);
+    var bln = (byID("Date" + x + "S").value === "") ? false : true;
+    if (!bln) {
+        byID(refID).disabled = false;
+        byID("Date" + x + "S").focus();
+        openPopUp("<p>You must select a date first.</p>");
+    }
+    return bln;
+}
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
     var refID = e.currentTarget.id;
@@ -581,7 +642,7 @@ function timeSelectors(e) {
             operator = -2;
             break;
     }
-    changeValue(operator, refID, activeID);
+    changeValue(operator, refID, activeID, "S");
 }
 
 //ROUND TO THE NEAREST 5
@@ -615,7 +676,12 @@ function storeFTVal() {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    window.localStorage.clear();
+    for (var i = 20; i < 30; i++) {
+        byID("OWTrash" + i + "S").click();
+    }
+    for (var i = 30; i < 35; i++) {
+        byID("FTTrash" + i + "S").click();
+    }
     location.reload();
 }
 
@@ -658,6 +724,7 @@ function resetTime(num) {
 function selectOWChange(e) {
     var refID = e.currentTarget.id;
     disableOWFields(refID);
+    getWeeklyTotals();
 }
 
 function disableOWFields(refID) {
@@ -676,6 +743,11 @@ function disableOWFields(refID) {
     setStorage("Lift" + x + "S", (bln) ? "1" : "0");
 }
 
+//IF EQ/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
+function toggleEQL() {
+    getWeeklyTotals();
+}
+
 //TOGGLE MENU ON AND OFF ON CLICK
 function toggleSupMenu(e) {
     //Get ID of whatever triggered click event
@@ -689,6 +761,33 @@ function toggleSupMenu(e) {
     } else {
         showHide("navdropdownS", bln);
     }
+}
+
+//ALL DAY LEAVE CHECKED, DISABLE TIME FIELDS
+function toggleLeaveTime(e) {
+    var refID = e.currentTarget.id;
+    leaveTime(refID);
+}
+
+function leaveTime(refID) {
+    var bln = (byID(refID).checked) ? true : false;
+    var x = refID.substr(-3,2);
+    if (bln) resetTime(x);
+    disableElement("Time" + x + "SS", bln);
+    disableElement("Time" + x + "ES", bln);
+    byID("Time" + x + "S").style.backgroundColor = (bln) ? "lightgrey" : "white";
+}
+
+function loadLV() {
+    for (var i = 40; i < 45; i++) {
+        leaveTime("LeaveAD" + i + "S");
+    }
+}
+
+//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
+function disableElement(refID, bln) {
+    byID(refID).disabled = bln;
+    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";    
 }
 
 /****************************************VALIDATION AND COMPLETION****************************************/
@@ -709,13 +808,13 @@ function openTimesheet() {
 
     showHide("validateModalS", false);
     if (emp !== "")
-        window.open("suppreview.html", "_self");
+        window.open("previewsup.html", "_self");
 }
 
 function runValidations() {
     var val = "";
 
-    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave();
 
 
     if (val !== "") {
@@ -800,86 +899,318 @@ function testOtherWork() {
 function testLeave() {
     var val = "";
 
-    for (var i = 1; i < 6; i++) {
-        for (var j = 41; j < 43; j++) {
-            if (byID("Time" + j + "S").value !== "") {
-                if (byID("LeaveSelect" + j + "S").value === "")
-                    val += "<p class='varp'>&bull; Leave: Type of leave is required.</p>";
-            } else {
-                if (byID("LeaveSelect" + j + "S").value !== "")
-                    val += "<p class='varp'>&bull; Leave: Leave type selected but no time was entered.</p>";
-            }
-            if (byID("LeaveAD").checked) {
-                if (byID("LeaveSelectAD").value === "")
-                    val += "<p class='varp'>&bull; Leave: Type of leave is required.</p>";
-            } else {
-                if (byID("LeaveSelectAD").value !== "")
-                    val += "<p class='varp'>&bull; Leave: All day leave type selected but checkbox left unchecked.</p>";
-            }
-        }
-    }
+//    for (var i = 1; i < 6; i++) {
+//        for (var j = 41; j < 43; j++) {
+//            if (byID("Time" + j + "S").value !== "") {
+//                if (byID("LeaveSelect" + j + "S").value === "")
+//                    val += "<p class='varp'>&bull; Leave: Type of leave is required.</p>";
+//            } else {
+//                if (byID("LeaveSelect" + j + "S").value !== "")
+//                    val += "<p class='varp'>&bull; Leave: Leave type selected but no time was entered.</p>";
+//            }
+//            if (byID("LeaveAD").checked) {
+//                if (byID("LeaveSelectAD").value === "")
+//                    val += "<p class='varp'>&bull; Leave: Type of leave is required.</p>";
+//            } else {
+//                if (byID("LeaveSelectAD").value !== "")
+//                    val += "<p class='varp'>&bull; Leave: All day leave type selected but checkbox left unchecked.</p>";
+//            }
+//        }
+//    }
     return val;
 }
 
 /****************************************VALIDATION AND COMPLETION****************************************/
 
-//Run calculations for the whole week and set the values into local storage
-function getWeeklyTotalsS() {
-    //Declare variables and initialize the values
-    var i = 0,
-        sum = 0,
-        j = 0;
+//TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
+function timeCalculation(refID) {
 
-    //Clear Hours worked
-    byID("TotalHW").value = "";
-    setStorage("TotalHW", "");
-    sumCPay();
+    //Check for overlapping times
+    checkOverlap(refID);
+    //Calculate the difference in time
+    calculateDiff(refID);
+    //run weekly totals
+    getWeeklyTotals();
+}
 
-    for (j = 20; j < 30; j++) {
-        sum += convertToMinutes(getStorage("Time" + j + "S"));
+//CHECK FOR OVERLAPPING TIME VALUES
+function checkOverlap(refID) {
+	"use strict";
+
+    //Define variables
+    var bln = false, newStart, newEnd;
+
+    //If element has no value then return
+    if (byID(refID).value === "")
+        return;
+
+    //Initialize variables
+    var thisStart = (refID.substr(-2) === "SS")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "SS").value);
+    var thisEnd = (refID.substr(-2) === "ES")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "ES").value);
+    if (thisStart === thisEnd) {
+        openPopUp("<p>Start time cannot match end time.</p>");
+        byID(refID).value = "";
+        return;
+    }
+    var numVal = Number(refID.substr(-4, 2));
+
+    var max = 45;
+    var i = 20;
+
+    for (i; i < max; i++) {
+        i = (i === 35) ? 40 : i;
+        if (i === numVal) i++;
+        if (i === max) break;
+        if (byID("Date" + numVal + "S").value !== byID("Date" + i + "S").value) continue;
+
+        //Initialize newStart and newEnd
+        newStart = convertToMinutes(byID("Time" + i + "SS").value);
+        //If newStart is blank then move to next i
+        if (newStart === 0) continue;
+
+        newEnd = convertToMinutes(byID("Time" + i + "ES").value);
+        if (newStart === thisStart) {
+            bln = true;
+        } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
+            bln = true;
+        } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
+            bln = true;
+        } else if (thisStart === newStart) {
+            bln = true;
+        } else if (thisEnd === newEnd) {
+            bln = true;
+        } else if (thisStart < newStart && thisEnd > newEnd) {
+            bln = true;
+        }
+        if (bln) break;
+    }
+
+    //If bln is true then there is an overlap
+    if (bln) {
+        openPopUp("<p>Overlap error</p>");
+        byID(refID).value = "";
+    }
+}
+
+//CONVERT TIME COMPLETELY TO MINUTES
+function convertToMinutes(s1) {
+	"use strict";
+    if (s1 === "" || s1 === null || s1 === undefined) {
+		return 0;
+	}
+
+    var h = s1.substring(0, s1.indexOf(":"));
+    if (h === "12" && s1.indexOf("AM") > 0) {
+		h = 0;
+	}
+    h = h * 60;
+
+    var m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
+        b = m + h;
+
+    if (s1.indexOf("PM") > 0 && h !== 720) {
+		b = b + 720;
+	}
+
+    return b;
+}
+
+//CALCULATE DIFFERENCE BETWEEN START AND END TIME
+function calculateDiff(refID) {
+    "use strict";
+    //If refID is null or undefined then exit function
+	if (refID === null || refID === undefined) return;
+
+    //Declare variables and initialize values
+    var startTime = (refID.substr(-2) === "SS")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "SS").value);
+    var endTime = (refID.substr(-2) === "ES")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "ES").value);
+    var num = Number(refID.substr(-4, 2));
+    var timeDiff = 0;
+    var totalID = refID.substr(0, refID.length - 2) + "S";
+
+    //If end time is less than start time then pop up error message
+    if ((endTime < startTime) && (endTime !== 0)) {
+        openPopUp("<p>End time is less than start time</p>");
+        byID(refID).value = "";
+    } else {
+        if (endTime === 0) endTime = startTime;
+
+        timeDiff = endTime - startTime;
+
+        if (num > 29)
+            byID(totalID).value = convertTotal(timeDiff);
+        else
+            byID(totalID).value = calculateTotal(timeDiff);
+    }
+    //Set value of total into storage
+    setStorage(totalID, byID(totalID).value);
+}
+
+//RETURN TIME AS H:MM FORMAT
+function calculateTotal(refVal) {
+    "use strict";
+	var hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min < 10) {
+        totalVal = hour + ":0" + min;
+    } else {
+        totalVal = hour + ":" + min;
+    }
+    totalVal = (totalVal === "0:00") ? "" : totalVal;
+    return totalVal;
+}
+
+//RETURN TIME AS H.MM FORMAT
+function convertTotal(refVal) {
+    "use strict";
+	var hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min === 0 || min === 5) {
+        min = "00";
+    } else if (min === 10 || min === 15 || min === 20) {
+        min = "25";
+    } else if (min === 25 || min === 30 || min === 35) {
+        min = "50";
+    } else if (min === 40 || min === 45 || min === 50) {
+        min = "75";
+    } else if (min === 55) {
+        min = "00";
+        hour = hour + 1;
+    }
+    totalVal = hour + "." + min;
+    totalVal = setToFixed(totalVal);
+    return totalVal;
+}
+
+//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
+function setToFixed(refVal) {
+    refVal = Number(refVal);
+    if (refVal === 0) {
+        return "";
+    }
+    refVal = Number(refVal).toFixed(2);
+    return refVal;
+}
+
+//CALCULATE DAILY OTHER WORK TIME
+function supOther() {
+	"use strict";
+    //Declare variables and initialize values
+    var sum = 0, selectVal;
+
+    for (var i = 20; i < 30; i++) {
+        selectVal = byID("Select" + i + "S").value;
+        sum += (selectVal !== "CBK" && selectVal !== "ES0" && selectVal !== "ES2") ? convertToMinutes(byID("Time" + i + "S").value) : 0;
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
-    setStorage("TotalOther", sum);
-    byID("TotalOther").value = sum;
+    return sum;
+}
 
-    sum = 0;
-    for (j = 30; j < 35; j++) {
-        sum += Number(getStorage("Time" + j + "S"));
+//CALCULATE CALLBACK TIME
+function sumCPay() {
+	"use strict";
+    var c1 = 0,
+        c3 = 0,
+        sum = 0,
+        selectVal;
+
+    for (var i = 20; i < 30; i++) {
+        selectVal = byID("Select" + i + "S").value;
+        c1 += (selectVal === "CBK") ? 240 : 0;
+        c3 += (selectVal === "ES0") ? convertToMinutes(byID("Time" + i + "S").value) : 0;
+        c3 += (selectVal === "ES2") ? convertToMinutes(byID("Time" + i + "S").value) + 120 : 0;
+        sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(byID("Time" + i + "S").value) : 0;
+    }
+
+    c1 = (c1 === 0) ? "" : convertTotal(c1);
+    setStorage("TotalC1S", c1);
+    byID("TotalC1S").value = c1;
+
+    sum = convertTotal(sum);
+    setStorage("TotalHWS", sum);
+    byID("TotalHWS").value = sum;
+
+    c3 = (c3 === 0) ? "" : convertTotal(c3);
+    setStorage("TotalC3S", c3);
+    byID("TotalC3S").value = c3;
+}
+
+//CALCULATE DAILY FIELD TRIP TIME
+function supFT() {
+    "use strict";
+    //Declare variables and initialize values
+    var sum = 0;
+
+    for (var i = 30; i < 35; i++) {
+        sum += Number(byID("Time" + i + "S").value);
     }
     sum = setToFixed(sum);
-    setStorage("TotalFT", sum);
-    byID("TotalFT").value = sum;
+    return sum;
+}
+
+//CALCULATE DAILY EQ/L TIME
+function supLift() {
+	"use strict";
+    var sum = 0, sum2 = 0, i = 0;
+
+    for (i = 20; i < 30; i++) {
+        sum += (byID("Lift" + i + "S").checked) ? convertToMinutes(byID("Time" + i + "S").value) : 0;
+    }
+    sum = (convertTotal(sum) === "") ? 0 : convertTotal(sum);    
+    for (i = 30; i < 35; i++) {
+        sum2 += (byID("Lift" + i + "S").checked) ? byID("Time" + i + "S").value : 0;
+    }
+    sum = setToFixed(Number(sum) + Number(sum2));
+    return sum;
+}
+
+//Run calculations for the whole week and set the values into local storage
+function getWeeklyTotals() {
+    //Declare variables and initialize the values
+    var sum = 0,
+        j = 0;
+
+    //Clear Hours worked
+    byID("TotalHWS").value = "";
+    setStorage("TotalHWS", "");
+    sumCPay();
+
+    sum = supOther();
+    setStorage("TotalOtherS", sum);
+    byID("TotalOtherS").value = sum;
+
+    sum = supFT();
+    setStorage("TotalFTS", sum);
+    byID("TotalFTS").value = sum;
 
 
-    sum = convertToMinutes(getStorage("TotalOther"));
+    sum = convertToMinutes(getStorage("TotalOtherS"));
     sum = Number(convertTotal(sum));
-    sum += Number(getStorage("TotalFT"));
-    sum += Number(byID("TotalHW").value);
+    sum += Number(getStorage("TotalFTS"));
+    sum += Number(byID("TotalHWS").value);
     sum = setToFixed(sum);
-    setStorage("TotalHW", sum);
-    byID("TotalHW").value = sum;
+    setStorage("TotalHWS", sum);
+    byID("TotalHWS").value = sum;
 
-    sum = 0;
-    for (j = 20; j < 35; j++) {
-        sum += (byID("Lift" + j + "S").checked) ? convertToMinutes(byID("Time" + j + "S").value) : 0;
-    }
-    sum = convertTotal(sum);
-    setStorage("TotalS2", sum);
-    byID("TotalS2").value = sum;
+    sum = supLift();    
+    setStorage("TotalS2S", sum);
+    byID("TotalS2S").value = sum;
 
-    sum = convertToMinutes(getStorage("TotalOther"));
+    sum = convertToMinutes(getStorage("TotalOtherS"));
     sum = convertTotal(sum);
-    setStorage("Total1R", sum);
+    setStorage("Total1RS", sum);
 
     sum = 0;
     //If OJT Trainer is not checked then exit function
-    if (!byID("OJT").checked) return;
+    if (!byID("OJTS").checked) return;
 
     for (j = 20; j < 35; j++) {
         sum += (byID("OJT" + j + "S").checked) ? convertToMinutes(byID("Time" + j + "S").value) : 0;
     }
     sum = convertTotal(sum);
-    setStorage("TotalS4", sum);
-    byID("TotalS4").value = sum;
+    setStorage("TotalS4S", sum);
+    byID("TotalS4S").value = sum;
 }
