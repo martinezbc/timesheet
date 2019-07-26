@@ -205,51 +205,6 @@ for (i = 0; i < selectOW.length; i++) {
 window.addEventListener("click", toggleMenu);
 /****************************************EVENT LISTENERS****************************************/
 
-/****************************************LOCAL STORAGE****************************************/
-//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage(refID, val) {
-    localStorage.setItem(refID, val);
-}
-
-//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
-function getStorage(refID) {
-    return localStorage.getItem(refID);
-}
-
-//STORE CHECKBOX VALUE
-function storeCheckboxValue(e) {
-    setStorage(e.currentTarget.id, (e.currentTarget.checked) ? "1" : "0");
-}
-
-//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
-function textboxOnChange(e) {
-    var refID = e.currentTarget.id;
-    if (refID === "Trainee" || refID === "EmpName") {
-        byID(refID).value = properCase(e.currentTarget.value);
-    }
-    if (refID.indexOf("Route") > 0) {
-        byID(refID).value = byID(refID).value.toUpperCase();
-    }
-    setStorage(refID, e.currentTarget.value);
-}
-
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    setStorage(e.currentTarget.name, e.currentTarget.value);
-}
-
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, e.currentTarget.value);
-}
-/****************************************LOCAL STORAGE****************************************/
-
-//SHORTEN DOCUMENT.GETELEMENTBYID
-function byID(id) {
-    return document.getElementById(id);
-}
-
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
     loadLocalStorage();
@@ -390,13 +345,6 @@ function updateWeek(e) {
         }
         resetLeave(days[i]);
     }
-}
-
-//DATEADD FUNCTION
-function addDate(date, days) {
-    var copy = new Date(Number(date))
-    copy.setDate(date.getDate() + days)
-    return copy
 }
 
 //CHANGE NAV BAR VALUES DEPENDING ON THE DAY
@@ -629,18 +577,6 @@ function moveLeftNavBar() {
         }
     }
 }
-
-//TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-function showHide(refID, bln) {
-    var el = byID(refID);
-    //(Show the element) ? remove hide : add hide
-    if (bln) {
-        if (el.classList.contains("hide")) el.classList.remove("hide");
-    } else {
-        if (!el.classList.contains("hide")) el.classList.add("hide");
-    }
-}
-
 //SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
 function radioAreaSelect(e) {
     setStorage("Team", "");
@@ -666,22 +602,6 @@ function routeCheck() {
         if (bln) return bln;
     }
     return bln;
-}
-
-//CHANGE TO PROPER CASE
-function properCase(str) {
-    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
-        return txtVal.toUpperCase();
-    });
-}
-
-//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
-function limitCharacters(refID, num) {
-    var refVal = byID(refID).value;
-    if (refVal.length > num) {
-        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
-        byID(refID).value = refVal.substr(0, num);
-    }
 }
 
 //TOGGLE OTHER WORK FIELDS
@@ -878,12 +798,6 @@ function toggleADLeave(refID) {
     disableElement(day + "TimeD", bln);
 }
 
-//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
-function disableElement(refID, bln) {
-    byID(refID).disabled = bln;
-    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";    
-}
-
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
     //Set current element as activeID
@@ -941,12 +855,6 @@ function timeSelectors(e) {
     changeValue(operator, refID, activeID, "");
 }
 
-//ROUND TO THE NEAREST 5
-function round5(x) {
-    "use strict";
-    return Math.round(x / 5) * 5;
-}
-
 //FIELD TRIP MODAL
 function openFTSelector(e) {
     showHide("ftModal", true);
@@ -988,44 +896,9 @@ function openSupplement() {
     window.open("index2.html", "_self");
 }
 
-//POP UP OW MESSAGE
-function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
-}
-
-//POP UP FT MESSAGE
-function popUpFT() {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
-}
-
 //POP UP CT MESSAGE
 function popUpCT() {
     openPopUp("<p class='varp'>&bull;Only record the routes, shuttles, middays, and late runs that are specifically assigned to you.</p><p class='varp'>&bull;Special Equipment pay will only be available if one of your routes ends with an 'L' or an 'EQ'</p><p class='varp'>&bull;Any other route that is covered for another driver and is outside of your regular hours should be recorded in the other work section.</p><p class='varp'>&bull;Record the number of students transported for each route for every day that was driven.</p><p class='varp'>&bull;In the Pupil Time section, enter the first pickup time and last drop off time for both morning and afternoon runs.</p>");
-}
-
-//OPEN POP UP MODAL FOR ERROR MESSAGES
-function openPopUp(msgVal) {
-    byID("varDiv").innerHTML = msgVal;
-    showHide("variousModal", true);
-}
-
-//RESET VALUE OF ELEMENT
-function resetElement(refID) {
-    if (byID(refID).type === "checkbox") {
-        byID(refID).checked = false;
-        setStorage(refID, "0");
-    } else {
-        byID(refID).value = "";
-        setStorage(refID, "");
-    }
-}
-
-//RESET TIME FIELDS
-function resetTime(day, num) {
-    var refID = day + "Time" + num;
-    resetElement(refID + "E");
-    resetElement(refID + "S");
-    resetElement(refID);
 }
 
 //ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK

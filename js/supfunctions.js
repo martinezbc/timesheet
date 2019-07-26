@@ -192,48 +192,6 @@ for (i = 0; i < selectOW.length; i++) {
 window.addEventListener("click", toggleSupMenu);
 /****************************************EVENT LISTENERS****************************************/
 
-/****************************************LOCAL STORAGE****************************************/
-//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage(refID, val) {
-    localStorage.setItem(refID, val);
-}
-
-//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
-function getStorage(refID) {
-    return localStorage.getItem(refID);
-}
-
-//STORE CHECKBOX VALUE
-function storeCheckboxValue(e) {
-    setStorage(e.currentTarget.id, (e.currentTarget.checked) ? "1" : "0");
-}
-
-//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
-function textboxOnChange(e) {
-    var refID = e.currentTarget.id;
-    if (refID === "TraineeS" || refID === "EmpNameS") {
-        byID(refID).value = properCase(e.currentTarget.value);
-    }
-    setStorage(refID, e.currentTarget.value);
-}
-
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    setStorage(e.currentTarget.name, e.currentTarget.value);
-}
-
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    setStorage(refID, e.currentTarget.value);
-}
-/****************************************LOCAL STORAGE****************************************/
-
-//SHORTEN DOCUMENT.GETELEMENTBYID
-function byID(id) {
-    return document.getElementById(id);
-}
-
 function initialLoad() {
     var val = "";
     var elements = document.querySelectorAll("input[type='checkbox']");
@@ -442,17 +400,6 @@ function checkOWFT() {
     
 }
 
-//TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-function showHide(refID, bln) {
-    var el = byID(refID);
-    //(Show the element) ? remove hide : add hide
-    if (bln) {
-        if (el.classList.contains("hide")) el.classList.remove("hide");
-    } else {
-        if (!el.classList.contains("hide")) el.classList.add("hide");
-    }
-}
-
 //SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
 function radioAreaSelect(e) {
     setStorage("TeamS", "");
@@ -465,22 +412,6 @@ function checkOJT(e) {
     if (refID === "OJTS") loadOJT();
 
     getWeeklyTotals();
-}
-
-//CHANGE TO PROPER CASE
-function properCase(str) {
-    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
-        return txtVal.toUpperCase();
-    });
-}
-
-//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
-function limitCharacters(refID, num) {
-    var refVal = byID(refID).value;
-    if (refVal.length > num) {
-        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
-        byID(refID).value = refVal.substr(0, num);
-    }
 }
 
 //TOGGLE OTHER WORK FIELDS
@@ -525,7 +456,7 @@ function removeOWFT(e) {
         leaveTime("LeaveAD" + x + "S");
         resetElement("Select" + x + "S");
     }
-    resetTime(x);
+    resetTime("", x);
     getWeeklyTotals();
 }
 
@@ -534,7 +465,7 @@ function clearTimeField(e) {
     var fieldID = e.target.id;
     var num = fieldID.substr(-3,2);
 
-    resetTime(num);
+    resetTime("", num);
     getWeeklyTotals();
 }
 
@@ -645,12 +576,6 @@ function timeSelectors(e) {
     changeValue(operator, refID, activeID, "S");
 }
 
-//ROUND TO THE NEAREST 5
-function round5(x) {
-    "use strict";
-    return Math.round(x / 5) * 5;
-}
-
 //FIELD TRIP MODAL
 function openFTSelector(e) {
     showHide("ftModalS", true);
@@ -683,41 +608,6 @@ function clearFields() {
         byID("FTTrash" + i + "S").click();
     }
     location.reload();
-}
-
-//POP UP OW MESSAGE
-function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
-}
-
-//POP UP FT MESSAGE
-function popUpFT() {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
-}
-
-//OPEN POP UP MODAL FOR ERROR MESSAGES
-function openPopUp(msgVal) {
-    byID("varDivS").innerHTML = msgVal;
-    showHide("variousModalS", true);
-}
-
-//RESET VALUE OF ELEMENT
-function resetElement(refID) {
-    if (byID(refID).type === "checkbox") {
-        byID(refID).checked = false;
-        setStorage(refID, "0");
-    } else {
-        byID(refID).value = "";
-        setStorage(refID, "");
-    }
-}
-
-//RESET TIME FIELDS
-function resetTime(num) {
-    var refID = "Time" + num;
-    resetElement(refID + "ES");
-    resetElement(refID + "SS");
-    resetElement(refID + "S");
 }
 
 //ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
@@ -772,7 +662,7 @@ function toggleLeaveTime(e) {
 function leaveTime(refID) {
     var bln = (byID(refID).checked) ? true : false;
     var x = refID.substr(-3,2);
-    if (bln) resetTime(x);
+    if (bln) resetTime("", x);
     disableElement("Time" + x + "SS", bln);
     disableElement("Time" + x + "ES", bln);
     byID("Time" + x + "S").style.backgroundColor = (bln) ? "lightgrey" : "white";
@@ -782,12 +672,6 @@ function loadLV() {
     for (var i = 40; i < 45; i++) {
         leaveTime("LeaveAD" + i + "S");
     }
-}
-
-//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
-function disableElement(refID, bln) {
-    byID(refID).disabled = bln;
-    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";    
 }
 
 /****************************************VALIDATION AND COMPLETION****************************************/
