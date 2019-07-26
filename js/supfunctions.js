@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialLoad();
 });
 
-/****************************************EVENT LISTENERS****************************************/
+/********************EVENT LISTENERS********************/
 //Checkbox on click store into local storage
 var checkbox = document.querySelectorAll("input[type='checkbox']");
 for (var i = 0; i < checkbox.length; i++) {
@@ -190,7 +190,7 @@ for (i = 0; i < selectOW.length; i++) {
 }
 
 window.addEventListener("click", toggleSupMenu);
-/****************************************EVENT LISTENERS****************************************/
+/********************EVENT LISTENERS********************/
 
 function initialLoad() {
     var val = "";
@@ -510,39 +510,6 @@ function getMissingLV() {
     return 35;
 }
 
-//TIME SELECTOR MODAL
-function openTimeSelector(e) {
-    //Set current element as activeID
-    activeID = e.currentTarget.id;
-    //Disabled current element
-    e.currentTarget.disabled = true;
-    //Check date field first
-    if (!checkOWFTDate(e.currentTarget.id)) return;
-    //Get value of element
-    var refVal = byID(activeID).value;
-    //If value is null then exit function
-    if (refVal === null) return;
-
-    //if active element has data already, break time into hrs, mins, and mer and load into spans
-    if (refVal !== "") {
-        var hours = refVal.substr(0, refVal.indexOf(":"));
-        var mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        var mer = refVal.substr(-2);
-        byID("hoursS").innerHTML = hours;
-        byID("minutesS").innerHTML = mins;
-        byID("meridiemS").innerHTML = mer;
-    } else {
-        mins = round5(Number(byID("minutesS").innerHTML));
-        if (mins < 10 && mins > -1) {
-            mins = "0" + mins.toString();
-        } else if (mins === 60) {
-            mins = "55";
-        }
-        byID("minutesS").innerHTML = mins;
-    }
-    showHide("timeModalS", true);
-}
-
 //CHECK DATE HAS BEEN SELECTED BEFORE TIME HAS BEEN PUT IN
 function checkOWFTDate(refID) {
     var x = refID.substr(-4,2);
@@ -553,50 +520,6 @@ function checkOWFTDate(refID) {
         openPopUp("<p>You must select a date first.</p>");
     }
     return bln;
-}
-//ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
-function timeSelectors(e) {
-    var refID = e.currentTarget.id;
-    var strVal = refID.substr(2),
-        operator = "";
-    switch (strVal) {
-        case "upS":
-            operator = 1;
-            break;
-        case "downS":
-            operator = -1;
-            break;
-        case "up2S":
-            operator = 2;
-            break;
-        case "down2S":
-            operator = -2;
-            break;
-    }
-    changeValue(operator, refID, activeID, "S");
-}
-
-//FIELD TRIP MODAL
-function openFTSelector(e) {
-    showHide("ftModalS", true);
-    activeID = e.currentTarget.id;
-    byID("ftselectorS").value = "";
-    byID("fttypeS").value = "";
-}
-
-//STORE SELECTION FROM FIELD TRIP MODAL
-function storeFTVal() {
-    var ftText = "";
-    if (byID("ftselectorS").value !== null)
-        ftText = byID("ftselectorS").value;
-    else
-        ftText = byID("fttypeS").value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
-    setStorage(activeID, ftText);
-    showHide("ftModalS", false);
 }
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
@@ -674,7 +597,7 @@ function loadLV() {
     }
 }
 
-/****************************************VALIDATION AND COMPLETION****************************************/
+/********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
     var bln = runValidations();
     if (!bln)
@@ -699,7 +622,6 @@ function runValidations() {
     var val = "";
 
     val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave();
-
 
     if (val !== "") {
         openPopUp(val);
@@ -804,8 +726,8 @@ function testLeave() {
     return val;
 }
 
-/****************************************VALIDATION AND COMPLETION****************************************/
-
+/********************VALIDATION AND COMPLETION********************/
+/********************TIME CALCULATIONS********************/
 //TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
 function timeCalculation(refID) {
 
@@ -876,29 +798,6 @@ function checkOverlap(refID) {
     }
 }
 
-//CONVERT TIME COMPLETELY TO MINUTES
-function convertToMinutes(s1) {
-	"use strict";
-    if (s1 === "" || s1 === null || s1 === undefined) {
-		return 0;
-	}
-
-    var h = s1.substring(0, s1.indexOf(":"));
-    if (h === "12" && s1.indexOf("AM") > 0) {
-		h = 0;
-	}
-    h = h * 60;
-
-    var m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
-        b = m + h;
-
-    if (s1.indexOf("PM") > 0 && h !== 720) {
-		b = b + 720;
-	}
-
-    return b;
-}
-
 //CALCULATE DIFFERENCE BETWEEN START AND END TIME
 function calculateDiff(refID) {
     "use strict";
@@ -928,54 +827,6 @@ function calculateDiff(refID) {
     }
     //Set value of total into storage
     setStorage(totalID, byID(totalID).value);
-}
-
-//RETURN TIME AS H:MM FORMAT
-function calculateTotal(refVal) {
-    "use strict";
-	var hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min < 10) {
-        totalVal = hour + ":0" + min;
-    } else {
-        totalVal = hour + ":" + min;
-    }
-    totalVal = (totalVal === "0:00") ? "" : totalVal;
-    return totalVal;
-}
-
-//RETURN TIME AS H.MM FORMAT
-function convertTotal(refVal) {
-    "use strict";
-	var hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min === 0 || min === 5) {
-        min = "00";
-    } else if (min === 10 || min === 15 || min === 20) {
-        min = "25";
-    } else if (min === 25 || min === 30 || min === 35) {
-        min = "50";
-    } else if (min === 40 || min === 45 || min === 50) {
-        min = "75";
-    } else if (min === 55) {
-        min = "00";
-        hour = hour + 1;
-    }
-    totalVal = hour + "." + min;
-    totalVal = setToFixed(totalVal);
-    return totalVal;
-}
-
-//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
-function setToFixed(refVal) {
-    refVal = Number(refVal);
-    if (refVal === 0) {
-        return "";
-    }
-    refVal = Number(refVal).toFixed(2);
-    return refVal;
 }
 
 //CALCULATE DAILY OTHER WORK TIME
@@ -1098,3 +949,4 @@ function getWeeklyTotals() {
     setStorage("TotalS4S", sum);
     byID("TotalS4S").value = sum;
 }
+/********************TIME CALCULATIONS********************/
