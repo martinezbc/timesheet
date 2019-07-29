@@ -92,7 +92,7 @@ function setMeridiem() {
     byID("meridiem" + S).innerHTML = meridiemText;
 }
 //CHANGE MINUTES BY 5
-function setMinutes(operator, s) {
+function setMinutes(operator, S) {
     S = (S === undefined) ? "" : S;
     var minutesText = "",
         minutes = Number(byID("minutes" + S).innerHTML);
@@ -108,10 +108,10 @@ function setMinutes(operator, s) {
     minutesText = minutes + operator;
     if (minutesText > 59) {
         minutesText = Number(minutesText) - 60;
-        setHours(1, s);
+        setHours(1, S);
     } else if (minutesText < 0) {
         minutesText = 60 + Number(minutesText)
-        setHours(-1, s);
+        setHours(-1, S);
     }
     if (minutesText < 10) 
         minutesText = "0" + minutesText;
@@ -304,7 +304,7 @@ function disableElement(refID, bln) {
 /********************MODAL POP UP MESSAGES********************/
 //POP UP OW MESSAGE
 function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, Shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
 }
 //POP UP FT MESSAGE
 function popUpFT() {
@@ -324,7 +324,7 @@ function convertToMinutes(s1) {
     if (s1 === "" || s1 === null || s1 === undefined)
 		return 0;
     
-    var h = s1.substring(0, s1.indexOf(":"));
+    var h = s1.substring(0, S1.indexOf(":"));
     
     if (h === "12" && s1.indexOf("AM") > 0)
 		h = 0;
