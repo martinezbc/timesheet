@@ -7,7 +7,7 @@ function openTimeSelector(e) {
     //Disabled current element
     e.currentTarget.disabled = true;
     //Check date field first
-    if (!checkOWFTDate(e.currentTarget.id)) return;
+    if (S === "S" && !checkOWFTDate(e.currentTarget.id)) return;
     //Get value of element
     var refVal = byID(activeID).value;
     //If value is null then exit function
@@ -60,7 +60,7 @@ function timeSelectors(e) {
 //TIME UPDATE STARTING FUNCTION
 function changeValue(operator, clicked, refElement, S) {
     "use strict";
-    S = (S === undefined) ? "" : "S";
+    var S = (getFileName() === "index2.html") ? "S" : "";
     var x = refElement.substr(-1);
     var blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
 
@@ -81,7 +81,7 @@ function changeValue(operator, clicked, refElement, S) {
 }
 //CHANGE AM AND PM
 function setMeridiem() {
-    S = (S === undefined) ? "" : "S";
+    S = (S === undefined) ? "" : S;
     var meridiemText = "",
         inputMeridiem = byID("meridiem" + S).innerHTML;
     if (inputMeridiem === "AM") {
@@ -93,7 +93,7 @@ function setMeridiem() {
 }
 //CHANGE MINUTES BY 5
 function setMinutes(operator, s) {
-    S = (S === undefined) ? "" : "S";
+    S = (S === undefined) ? "" : S;
     var minutesText = "",
         minutes = Number(byID("minutes" + S).innerHTML);
     if (operator === 1) {
@@ -146,8 +146,8 @@ function setMinutesPupil(operator) {
     byID("minutes").innerHTML = minutesText;
 }
 //CHANGE HOURS
-function setHours(operator, s) {
-    S = (S === undefined) ? "" : "S";
+function setHours(operator, S) {
+    S = (S === undefined) ? "" : S;
     var hoursText = "";
     var hours = Number(byID("hours" + S).innerHTML);
     hoursText = hours + operator;

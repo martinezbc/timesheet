@@ -102,12 +102,6 @@ for (i = 0; i < txtFT.length; i++) {
     txtFT[i].addEventListener("click", openFTSelector);
 }
 
-//Click in count fields to open Pupil Counter
-var txtCount = document.querySelectorAll("input[name='txtCT']");
-for (i = 0; i < txtCount.length; i++) {
-    txtCount[i].addEventListener("click", openPupilCounter);
-}
-
 //Click on other work question mark
 var ow = document.querySelectorAll(".ow");
 for (i = 0; i < ow.length; i++) {
@@ -796,13 +790,6 @@ function toggleADLeave(refID) {
     disableElement(day + "TimeB", bln);
     disableElement(day + "TimeC", bln);
     disableElement(day + "TimeD", bln);
-}
-
-//FIELD TRIP MODAL
-function openPupilCounter(e) {
-    activeID = e.currentTarget.id;
-    e.currentTarget.disabled = true;
-    showHide("countModal", true);
 }
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
