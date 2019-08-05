@@ -1058,7 +1058,7 @@ function testOtherWork() {
                 }
             } else { //Time is blank
                 if (byID(days[i] + "Select" + j).value !== "" || byID(days[i] + "Desc" + j).value !== "") { //Category IS selected OR Description field is NOT blank
-                    if (!byID(days[i] + "Select" + j).value === "FYI") { //Category is NOT FYI
+                    if (byID(days[i] + "Select" + j).value !== "FYI") { //Category is NOT FYI
                         val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
                     }
                 }
@@ -1221,12 +1221,19 @@ function testTimeComplete() {
 /********************CALCULATIONS********************/
 //TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
 function timeCalculation(refID) {
+    var num = Number(refID.substr(-3,2));
+    
     //Check if field is used for pupil time, return if true
     if (isNaN(refID.substr(7,2)))
         return;
 
-    //Check for overlapping times
-    checkOverlap(refID);
+    //If Field is Other work and EQL is selected, by pass checkOverlap
+    if ((num > 19 && num < 30) && byID(refID.substr(0,3) + "Select" + num).value === "EQL") {
+        //Do nothing
+    } else {
+        //Check for overlapping times
+        checkOverlap(refID);
+    }
 
     //Calculate the difference in time
     calculateDiff(refID);
@@ -1359,12 +1366,24 @@ function dailyOther(day) {
     for (var i = 20; i < 30; i++) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;
         selectVal = byID(day + "Select" + i).value;
-        sum += (selectVal !== "CBK" && selectVal !== "ES0" && selectVal !== "ES2") ? convertToMinutes(byID(day + "Time" + i).value) : 0;
+        sum += dailyOWMinVal(day, selectVal, i);
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
     byID(day + "OtherTotal").value = sum;
     setStorage(day + "OtherTotal", sum);
+}
+
+function dailyOWMinVal(day, selectVal, i) {
+    switch (selectVal) {
+        case "CBK":
+        case "ES0":
+        case "ES2":
+            return 0;
+        case "EQL":
+        default:
+            return convertToMinutes(byID(day + "Time" + i).value);
+    }
 }
 
 //CALCULATE CALLBACK TIME
