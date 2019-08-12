@@ -45,15 +45,22 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Select Week:</strong><br>
+                        <select id="WeekOf"></select>
                         <script>
-                            var r1 = DateRange(-7);
-                            var r2 = DateRange(0);
-                            var r3 = DateRange(7);
+                            var r1 = DateRange(-21);
+                            var r2 = DateRange(-14);
+                            var r3 = DateRange(-7);
+                            var r4 = DateRange(0);
+                            var r5 = DateRange(7);
 
-                            var strHTML = '';
-                            strHTML += '<input type="radio" id="week1" name="WeekOf" value="' + r1 + '" onclick="storeWeek(\'week1\');"><label for="week1">' + r1 + '</label>';
-                            strHTML += '<input type="radio" id="week2" name="WeekOf" value="' + r2 + '" onclick="storeWeek(\'week2\');"><label for="week2">' + r2 + '</label>';
-                            document.write(strHTML);
+                            var strHTML = '<option value="">--Select Week--</option>';
+                            strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
+                            strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
+                            strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
+                            strHTML += '<option value="' + r4 + '">' + dateString(r4) + '</option>';
+                            strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
+                            
+                            document.getElementById("WeekOf").innerHTML = strHTML;
 
                             function DateRange(offset) {
                                 var start = new Date();
@@ -75,7 +82,13 @@
                                 sd = (sd.toString().length === 1) ? "0" + sd : sd;
                                 em = (em.toString().length === 1) ? "0" + em : em;
                                 ed = (ed.toString().length === 1) ? "0" + ed : ed;
-                                return sm + "/" + sd + "/" + sy + " - " + em + "/" + ed + "/" + ey;
+                                return sm + sd + sy + em + ed + ey;
+                            }
+                            
+                            function dateString(strDate) {
+                                var str = strDate.substr(0,2) + "/" + strDate.substr(2,2) + "/" + strDate.substr(4,4) + " - ";
+                                str += strDate.substr(8,2) + "/" + strDate.substr(10,2) + "/" + strDate.substr(12,4);
+                                return str
                             }
 
                         </script>
@@ -336,7 +349,7 @@
                 strHTML += '<input type="text" id="' + days[i] + 'FTTotal" class="totalwidth nofocus" disabled>';
                 strHTML += '<p class="dailytotal">field trip</p>';
                 strHTML += '</div><div class="col-auto">';
-                strHTML += '<input type="text" id="' + days[i] + 'LiftTotal" class="totalwidth nofocus" disabled>';
+                strHTML += '<input type="text" id="' + days[i] + 'QLTotal" class="totalwidth nofocus" disabled>';
                 strHTML += '<p class="dailytotal">equipment</p></div></div>';
                 strHTML += '<div class="row addOW" id="' + days[i] + 'OWAdd">';
                 strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
@@ -348,7 +361,7 @@
                     strHTML += '</div><div class="col-1 center">';
                     strHTML += '<span class="fas fa-trash-alt" id="' + days[i] + 'OWTrash' + j + '"></span></div></div>';
                     strHTML += '<div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
-                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '" disabled><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>&nbsp;&nbsp;';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '" disabled><label for="' + days[i] + 'QL' + j + '">EQ/L</label>&nbsp;&nbsp;';
                     strHTML += '</div></div><div class="row ' + days[i] + 'SpanOW' + j + '"><div class="col-12">';
                     strHTML += '<select name="selectOW" id="' + days[i] + 'Select' + j + '" class="selectwidth">';
                     strHTML += '<option value="">--Select work--</option>';
@@ -373,7 +386,7 @@
                     strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearOW' + j + '"></span></div></div></div>';
                 }
                 strHTML += '<hr>';
-                strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div><hr>';
+                strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div>';
                 strHTML += '<div class="row addFT" id="' + days[i] + 'FTAdd">';
                 strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
                 for (j = 30; j < 33; j++) {
@@ -385,7 +398,7 @@
                     strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-8">';
                     strHTML += '<input name="" id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
                     strHTML += '</div><div class="col-4 center">';
-                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '"><label for="' + days[i] + 'Lift' + j + '">EQ/L</label>';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '"><label for="' + days[i] + 'QL' + j + '">EQ/L</label>';
                     strHTML += '</div></div>';
                     strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
                     strHTML += '<input name="txtFT" id="' + days[i] + 'From' + j + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
@@ -430,7 +443,7 @@
                 strHTML += '<input type="text" id="' + days[i] + 'FTTotal" class="totalwidth nofocus" disabled>';
                 strHTML += '<p class="dailytotal">field trip</p>';
                 strHTML += '</div><div class="col-auto">';
-                strHTML += '<input type="text" id="' + days[i] + 'LiftTotal" class="totalwidth nofocus" disabled>';
+                strHTML += '<input type="text" id="' + days[i] + 'QLTotal" class="totalwidth nofocus" disabled>';
                 strHTML += '<p class="dailytotal">equipment</p>';
                 strHTML += '</div></div>';
                 strHTML += '<div class="row addLV" id="' + days[i] + 'LVAdd">';
@@ -497,7 +510,7 @@
                 strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Morning Runs</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT11"><label for="' + days[i] + 'OJT11">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift11" class="eqpt"><label for="' + days[i] + 'Lift11">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL11" class="eqpt"><label for="' + days[i] + 'QL11">EQ/L</label>';
                 strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -508,7 +521,7 @@
                 strHTML += '<p class="category">Afternoon Runs</p></div>';
                 strHTML += '<div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" name="chkOJT" id="' + days[i] + 'OJT12"><label for="' + days[i] + 'OJT12">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift12" class="eqpt"><label for="' + days[i] + 'Lift12">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL12" class="eqpt"><label for="' + days[i] + 'QL12">EQ/L</label>';
                 strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -519,7 +532,7 @@
                 strHTML += '<p class="category">PAC/Preschool</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT13"><label for="' + days[i] + 'OJT13">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift13" class="eqpt"><label for="' + days[i] + 'Lift13">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL13" class="eqpt"><label for="' + days[i] + 'QL13">EQ/L</label>';
                 strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -530,7 +543,7 @@
                 strHTML += '<p class="category">PAC/Preschool</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT14"><label for="' + days[i] + 'OJT14">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift14" class="eqpt"><label for="' + days[i] + 'Lift14">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL14" class="eqpt"><label for="' + days[i] + 'QL14">EQ/L</label>';
                 strHTML += '</div></div><div class="row">';
                 strHTML += '<div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -541,7 +554,7 @@
                 strHTML += '<div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Shuttle</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT15"><label for="' + days[i] + 'OJT15">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift15" class="eqpt"><label for="' + days[i] + 'Lift15">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL15" class="eqpt"><label for="' + days[i] + 'QL15">EQ/L</label>';
                 strHTML += '</div></div><div class="row">';
                 strHTML += '<div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -552,7 +565,7 @@
                 strHTML += '<p class="category">Shuttle</p>';
                 strHTML += '</div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT16"><label for="' + days[i] + 'OJT16">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift16" class="eqpt"><label for="' + days[i] + 'Lift16">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL16" class="eqpt"><label for="' + days[i] + 'QL16">EQ/L</label>';
                 strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -561,7 +574,7 @@
                 strHTML += '</div></div><div class="tinycard bg-teal1"><div class="row"><div class="col-8">';
                 strHTML += '<p class="category">Late Run</p></div><div class="col-4">';
                 strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT17"><label for="' + days[i] + 'OJT17">OJT</label>&nbsp;';
-                strHTML += '<input type="checkbox" name="chkEQL" id="' + days[i] + 'Lift17" class="eqpt"><label for="' + days[i] + 'Lift17">EQ/L</label>';
+                strHTML += '<input type="checkbox" name="chkQL" id="' + days[i] + 'QL17" class="eqpt"><label for="' + days[i] + 'QL17">EQ/L</label>';
                 strHTML += '</div></div><div class="row"><div class="col-11">';
                 strHTML += '<input id="' + days[i] + 'Time17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
                 strHTML += '<input id="' + days[i] + 'Time17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
@@ -579,8 +592,8 @@
                     strHTML += '</div></div><div class="row"><div class="col-auto">';
                     strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT' + j + '">';
                     strHTML += '<label class="lblBtnFalse" for="' + days[i] + 'OJT' + j + '">OJT</label>&nbsp;';
-                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '" disabled>';
-                    strHTML += '<label class="lblBtnFalse" for="' + days[i] + 'Lift' + j + '">EQ/L</label>';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '" disabled>';
+                    strHTML += '<label class="lblBtnFalse" for="' + days[i] + 'QL' + j + '">EQ/L</label>';
                     strHTML += '</div></div><div class="row"><div class="col-12">';
                     strHTML += '<select name="selectOW" id="' + days[i] + 'Select' + j + '" class="selectwidth">';
                     strHTML += '<option value="">--Select work--</option>';
@@ -621,7 +634,7 @@
                     strHTML += '<input id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
                     strHTML += '</div><div class="col-6 center">';
                     strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'OJT' + j + '">OJT</label>&nbsp;'
-                    strHTML += '<input type="checkbox" id="' + days[i] + 'Lift' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'Lift' + j + '">EQ/L</label></div></div>';
+                    strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'QL' + j + '">EQ/L</label></div></div>';
                     strHTML += '<div class="row"><div class="col-12">';
                     strHTML += '<input id="' + days[i] + 'From' + j + '" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
                     strHTML += '</div></div><div class="row"><div class="col-12">';
@@ -727,6 +740,7 @@
         </div>
     </div>
     <script src="js/script.js"></script>
+    <script src="js/json.js"></script>
     <script src="js/functions.js"></script>
 </body>
 

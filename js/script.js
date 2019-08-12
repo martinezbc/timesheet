@@ -1,101 +1,101 @@
 /********************TIME PICKER********************/
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     //Set current element as activeID
     activeID = e.currentTarget.id;
     //Disabled current element
     e.currentTarget.disabled = true;
     //Check date field first
-    if (S === "S" && !checkOWFTDate(e.currentTarget.id)) return;
+    if (optVal === "S" && !checkOWFTDate(e.currentTarget.id)) return;
     //Get value of element
     var refVal = byID(activeID).value;
     //If value is null then exit function
     if (refVal === null) return;
     //If pupil time element then blnPupil is true
-    var blnPupil = (S === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
+    var blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
     //if active element has data already, break time into hrs, mins, and mer and load into spans
     if (refVal !== "") {
         var hours = refVal.substr(0, refVal.indexOf(":"));
         var mins = refVal.substr(refVal.indexOf(":") + 1, 2);
         var mer = refVal.substr(-2);
-        byID("hours" + S).innerHTML = hours;
-        byID("minutes" + S).innerHTML = mins;
-        byID("meridiem" + S).innerHTML = mer;
+        byID("hours" + optVal).innerHTML = hours;
+        byID("minutes" + optVal).innerHTML = mins;
+        byID("meridiem" + optVal).innerHTML = mer;
     } else {
         if (!blnPupil) {
-            mins = round5(Number(byID("minutes" + S).innerHTML));
+            mins = round5(Number(byID("minutes" + optVal).innerHTML));
             if (mins < 10 && mins > -1) {
                 mins = "0" + mins.toString();
             } else if (mins === 60) {
                 mins = "55";
             }
-            byID("minutes" + S).innerHTML = mins;
+            byID("minutes" + optVal).innerHTML = mins;
         }
     }
-    showHide("timeModal" + S, true);
+    showHide("timeModal" + optVal, true);
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     var refID = e.currentTarget.id;
     var strVal = refID.substr(2),
         operator = "";
     switch (strVal) {
-        case "up" + S:
+        case "up" + optVal:
             operator = 1;
             break;
-        case "down" + S:
+        case "down" + optVal:
             operator = -1;
             break;
-        case "up2" + S:
+        case "up2" + optVal:
             operator = 2;
             break;
-        case "down2" + S:
+        case "down2" + optVal:
             operator = -2;
             break;
     }
-    changeValue(operator, refID, activeID, S);
+    changeValue(operator, refID, activeID, optVal);
 }
 //TIME UPDATE STARTING FUNCTION
-function changeValue(operator, clicked, refElement, S) {
+function changeValue(operator, clicked, refElement, optVal) {
     "use strict";
-    var S = (getFileName() === "index2.html") ? "S" : "";
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     var x = refElement.substr(-1);
     var blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
 
     var str = clicked.substr(0, 2);
     switch (str) {
         case "hr":
-            setHours(operator, S);
+            setHours(operator, optVal);
             break;
         case "mn":
             if (blnPupil)
                 setMinutesPupil(operator);
             else
-                setMinutes(operator, S);
+                setMinutes(operator, optVal);
             break;
         default:
             setMeridiem(S);
     }
 }
 //CHANGE AM AND PM
-function setMeridiem() {
-    S = (S === undefined) ? "" : S;
+function setMeridiem(optVal) {
+    optVal = (optVal === undefined) ? "" : optVal;
     var meridiemText = "",
-        inputMeridiem = byID("meridiem" + S).innerHTML;
+        inputMeridiem = byID("meridiem" + optVal).innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
         meridiemText = "AM";
     }
-    byID("meridiem" + S).innerHTML = meridiemText;
+    byID("meridiem" + optVal).innerHTML = meridiemText;
 }
 //CHANGE MINUTES BY 5
-function setMinutes(operator, S) {
-    S = (S === undefined) ? "" : S;
+function setMinutes(operator, optVal) {
+    optVal = (optVal === undefined) ? "" : optVal;
     var minutesText = "",
-        minutes = Number(byID("minutes" + S).innerHTML);
+        minutes = Number(byID("minutes" + optVal).innerHTML);
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -108,15 +108,15 @@ function setMinutes(operator, S) {
     minutesText = minutes + operator;
     if (minutesText > 59) {
         minutesText = Number(minutesText) - 60;
-        setHours(1, S);
+        setHours(1, optVal);
     } else if (minutesText < 0) {
         minutesText = 60 + Number(minutesText)
-        setHours(-1, S);
+        setHours(-1, optVal);
     }
     if (minutesText < 10) 
         minutesText = "0" + minutesText;
 
-    byID("minutes" + S).innerHTML = minutesText;
+    byID("minutes" + optVal).innerHTML = minutesText;
 }
 //CHANGE MINUTES FOR PUPIL TIME BY 1
 function setMinutesPupil(operator) {
@@ -146,10 +146,10 @@ function setMinutesPupil(operator) {
     byID("minutes").innerHTML = minutesText;
 }
 //CHANGE HOURS
-function setHours(operator, S) {
-    S = (S === undefined) ? "" : S;
+function setHours(operator, optVal) {
+    optVal = (optVal === undefined) ? "" : optVal;
     var hoursText = "";
-    var hours = Number(byID("hours" + S).innerHTML);
+    var hours = Number(byID("hours" + optVal).innerHTML);
     hoursText = hours + operator;
 
     if (hoursText === 13) {
@@ -169,13 +169,15 @@ function setHours(operator, S) {
     } else if (hoursText === 10 && operator === -2) {
         setMeridiem(s);
     }
-    byID("hours" + S).innerHTML = hoursText;
+    byID("hours" + optVal).innerHTML = hoursText;
 }
 /********************TIME PICKER********************/
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage(refID, val) {
-    localStorage.setItem(refID, val);
+function setStorage() {
+    var week = byID("WeekOf").value;
+    objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};
+    localStorage.setItem(week + "Obj", JSON.stringify(objThis));
 }
 //FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
 function getStorage(refID) {
@@ -187,7 +189,15 @@ function storeCheckboxValue(e) {
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
-    setStorage(e.currentTarget.name, e.currentTarget.value);
+    var refID = e.currentTarget.id;
+    if (refID.indexOf("area") > -1) {
+        objThisData.Area = e.currentTarget.value;    
+    } else if (refID.indexOf("team") > -1) {
+        objThisData.Team = e.currentTarget.value;
+    } else if (refID.indexOf("pos") > -1) {
+        objThisData.Position = e.currentTarget.value;
+    }
+    setStorage();
 }
 //SELECT ON CHANGE EVENT
 function selectOnChange(e) {
@@ -195,41 +205,42 @@ function selectOnChange(e) {
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     var refID = e.currentTarget.id;
-    if (refID === "Trainee" + S || refID === "EmpName" + S) {
+    if (refID === "Trainee" + optVal || refID === "EmpName" + optVal) {
         byID(refID).value = properCase(e.currentTarget.value);
     }
-    if (S === "" && refID.indexOf("Route") > 0) {
+    if (optVal === "" && refID.indexOf("Route") > 0) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
-    setStorage(refID, e.currentTarget.value);
+    objThisData[refID] = e.currentTarget.value;
+    setStorage();
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/
 //FIELD TRIP MODAL
 function openFTSelector(e) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
-    showHide("ftModal" + S, true);
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    showHide("ftModal" + optVal, true);
     activeID = e.currentTarget.id;
-    byID("ftselector" + S).value = "";
-    byID("fttype" + S).value = "";
+    byID("ftselector" + optVal).value = "";
+    byID("fttype" + optVal).value = "";
 }
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
-    var S = (getFileName() === "index2.html") ? "S" : "";
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     var ftText = "";
-    if (byID("ftselector" + S).value !== null)
-        ftText = byID("ftselector" + S).value;
+    if (byID("ftselector" + optVal).value !== null)
+        ftText = byID("ftselector" + optVal).value;
     else
-        ftText = byID("fttype" + S).value;
+        ftText = byID("fttype" + optVal).value;
 
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
     byID(activeID).disabled = false;
     setStorage(activeID, ftText);
-    showHide("ftModal" + S, false);
+    showHide("ftModal" + optVal, false);
 }
 /********************FIELD TRIP SELECTOR********************/
 /********************TEXT UPDATES AND LIMITATIONS********************/
@@ -289,11 +300,11 @@ function resetElement(refID) {
 }
 //RESET TIME FIELDS
 function resetTime(day, num) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
-    var refID = (S === "S") ? "Time" + num : day + "Time" + num;
-    resetElement(refID + "E" + S);
-    resetElement(refID + "S" + S);
-    resetElement(refID + S);
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    var refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
+    resetElement(refID + "E" + optVal);
+    resetElement(refID + "S" + optVal);
+    resetElement(refID + optVal);
 }
 //DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
 function disableElement(refID, bln) {
@@ -304,7 +315,7 @@ function disableElement(refID, bln) {
 /********************MODAL POP UP MESSAGES********************/
 //POP UP OW MESSAGE
 function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, Shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, optValhuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
 }
 //POP UP FT MESSAGE
 function popUpFT() {
@@ -312,9 +323,9 @@ function popUpFT() {
 }
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
-    var S = (getFileName() === "index2.html") ? "S" : "";
-    byID("varDiv" + S).innerHTML = msgVal;
-    showHide("variousModal" + S, true);
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    byID("varDiv" + optVal).innerHTML = msgVal;
+    showHide("variousModal" + optVal, true);
 }
 /********************MODAL POP UP MESSAGES********************/
 /********************TIME CALCULATIONS********************/
@@ -324,7 +335,7 @@ function convertToMinutes(s1) {
     if (s1 === "" || s1 === null || s1 === undefined)
 		return 0;
     
-    var h = s1.substring(0, S1.indexOf(":"));
+    var h = s1.substring(0, s1.indexOf(":"));
     
     if (h === "12" && s1.indexOf("AM") > 0)
 		h = 0;

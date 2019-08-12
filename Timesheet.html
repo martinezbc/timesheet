@@ -682,7 +682,7 @@
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
                 hOffset += 2;
-                x = getStorage(days[i] + "Lift11");
+                x = getStorage(days[i] + "QL11");
                 if (x === "1") {
                     imgCheck = getCheckBox();
                 } else {
@@ -910,7 +910,7 @@
                 x = (blnOW) ? getDateField(otherWork[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 32;
-                imgCheck = (blnOW && getStorage(a + "Lift" + b) === "1") ? getCheckBox() : getUncheckBox();
+                imgCheck = (blnOW && getStorage(a + "QL" + b) === "1") ? getCheckBox() : getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 21;
                 pdf.setFontSize(8);
@@ -1057,7 +1057,7 @@
                 x = (blnFT) ? getDateField(fieldTrip[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 35;
-                if (getStorage(fieldTrip[i].substr(0, 3) + "Lift" + fieldTrip[i].substr(7)) === "1") {
+                if (getStorage(fieldTrip[i].substr(0, 3) + "QL" + fieldTrip[i].substr(7)) === "1") {
                     imgCheck = getCheckBox();
                 } else {
                     imgCheck = getUncheckBox();

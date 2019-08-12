@@ -205,7 +205,7 @@
                     strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + getStorage(days[i] + "Time13S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time13E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time13") + '</p></div>';
                     strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + getStorage(days[i] + "Time15S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time15E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time15") + '</p></div></div>';
                     strHTML += '<div class="row"><div class="col-sm-1">';
-                    if (getStorage(days[i] + "Lift1") === "1") {
+                    if (getStorage(days[i] + "QL1") === "1") {
                         strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" checked="checked" disabled></p></div>';
                     } else {
                         strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" disabled></p></div>';
@@ -246,7 +246,7 @@
                         if (i !== 0) {strHTML += '<hr class="border-grey">';}
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
-                        if (getStorage(strDay + "Lift" + strnum) === "1") {
+                        if (getStorage(strDay + "QL" + strnum) === "1") {
                             strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
                             strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
@@ -290,7 +290,7 @@
                         strnum = otherFT[i].substr(7);
                         strHTML += '<div class="row">';
                         strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
-                        if (getStorage(strDay + "Lift" + strnum) === "1") {
+                        if (getStorage(strDay + "QL" + strnum) === "1") {
                             strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
                         } else {
                             strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
