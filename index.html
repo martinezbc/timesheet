@@ -18,7 +18,6 @@
     <script>
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
     </script>
 </head>
 
@@ -43,60 +42,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Select Week:</strong><br>
-                        <select id="WeekOf"></select>
-                        <script>
-                            var r1 = DateRange(-21);
-                            var r2 = DateRange(-14);
-                            var r3 = DateRange(-7);
-                            var r4 = DateRange(0);
-                            var r5 = DateRange(7);
-
-                            var strHTML = '<option value="">--Select Week--</option>';
-                            strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
-                            strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
-                            strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
-                            strHTML += '<option value="' + r4 + '">' + dateString(r4) + '</option>';
-                            strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
-                            
-                            document.getElementById("WeekOf").innerHTML = strHTML;
-
-                            function DateRange(offset) {
-                                var start = new Date();
-                                var end = new Date();
-                                var day = start.getDay();
-                                var sOffset = (day - day) - (day + 1);
-                                sOffset = (sOffset === -7) ? 0 : sOffset;
-                                var eOffset = sOffset + 6;
-                                start.setDate(start.getDate() + (sOffset + offset));
-                                end.setDate(end.getDate() + (eOffset + offset));
-
-                                var sm = start.getMonth() + 1,
-                                    sd = start.getDate(),
-                                    sy = start.getFullYear();
-                                var em = end.getMonth() + 1,
-                                    ed = end.getDate(),
-                                    ey = end.getFullYear();
-                                sm = (sm.toString().length === 1) ? "0" + sm : sm;
-                                sd = (sd.toString().length === 1) ? "0" + sd : sd;
-                                em = (em.toString().length === 1) ? "0" + em : em;
-                                ed = (ed.toString().length === 1) ? "0" + ed : ed;
-                                return sm + sd + sy + em + ed + ey;
-                            }
-                            
-                            function dateString(strDate) {
-                                var str = strDate.substr(0,2) + "/" + strDate.substr(2,2) + "/" + strDate.substr(4,4) + " - ";
-                                str += strDate.substr(8,2) + "/" + strDate.substr(10,2) + "/" + strDate.substr(12,4);
-                                return str
-                            }
-
-                        </script>
-                    </p>
-                </div>
-                <div class="col-md-6">
+                <div class="col-auto"><p class="category" id="PayWeek">Pay Week: </p></div>
+                <div class="col-auto"><input type="button" id="chgWeek"><label for="chgWeek">Change Week</label></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <p><strong>Employee Name: (Last, First MI)</strong><br>
-                        <input type="text" id="EmpName" class="empname" style="text-align: left;width:100%" placeholder="Last name,   First Name   Middle Initial...">
+                        <input type="text" id="EmpName" class="empname" style="text-align: left;width:80%" placeholder="Last name,   First Name   Middle Initial...">
                     </p>
                 </div>
             </div>
@@ -135,7 +87,6 @@
                             }
                             strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="Team" value="TC")";><label for="teamTC">TC</label></div>';
                             document.write(strHTML);
-
                         </script>
                     </p>
                 </div>
@@ -237,7 +188,6 @@
                         strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[j] + 'ClearPTAM"></span></div></div>';
                     }
                     document.write(strHTML);
-
                 </script>
             </div>
             <div class="tinycard bg-teal1 pupilcard">
@@ -276,7 +226,6 @@
                         strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[j] + 'ClearPTPM"></span></div></div>';
                     }
                     document.write(strHTML);
-
                 </script>
             </div>
             <div class="bg-teal1 tinycard pupilcard">
@@ -332,7 +281,6 @@
                         strHTML += '</div></div>';
                     }
                     document.write(strHTML);
-
                 </script>
             </div>
         </div>
@@ -413,7 +361,6 @@
                 strHTML += '</div>';
             }
             document.write(strHTML);
-
         </script>
         <script>
             var strHTML = "";
@@ -650,7 +597,6 @@
                 strHTML += '<div class="row" id="' + days[i] + 'FTAdd2"></div></div>';
             }
             document.write(strHTML);
-
         </script>
         <div class="bottomspacer"></div>
     </div>
@@ -739,9 +685,60 @@
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
+    <!-- Week Seelect Modal -->
+    <div id="weekModal" class="modal hide" style="padding-top: 15%;">
+        <div class="modal-content center" style="width: 500px;">
+            <p>SELECT PAY WEEK</p>
+            <select id="WeekOf"></select>
+            <script>
+                var r1 = DateRange(-21);
+                var r2 = DateRange(-14);
+                var r3 = DateRange(-7);
+                var r4 = DateRange(0);
+                var r5 = DateRange(7);
+
+                var strHTML = '<option value="">--Select Week--</option>';
+                strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
+                strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
+                strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
+                strHTML += '<option value="' + r4 + '">' + dateString(r4) + '</option>';
+                strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
+
+                document.getElementById("WeekOf").innerHTML = strHTML;
+
+                function DateRange(offset) {
+                    var start = new Date();
+                    var end = new Date();
+                    var day = start.getDay();
+                    var sOffset = (day - day) - (day + 1);
+                    sOffset = (sOffset === -7) ? 0 : sOffset;
+                    var eOffset = sOffset + 6;
+                    start.setDate(start.getDate() + (sOffset + offset));
+                    end.setDate(end.getDate() + (eOffset + offset));
+
+                    var sm = start.getMonth() + 1,
+                        sd = start.getDate(),
+                        sy = start.getFullYear();
+                    var em = end.getMonth() + 1,
+                        ed = end.getDate(),
+                        ey = end.getFullYear();
+                    sm = (sm.toString().length === 1) ? "0" + sm : sm;
+                    sd = (sd.toString().length === 1) ? "0" + sd : sd;
+                    em = (em.toString().length === 1) ? "0" + em : em;
+                    ed = (ed.toString().length === 1) ? "0" + ed : ed;
+                    return sm + sd + sy + em + ed + ey;
+                }
+
+                function dateString(strDate) {
+                    var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+                    str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+                    return str
+                }
+            </script>
+            <span class="close fas fa-check-circle fa-lg" id="goWeek" style="color:green;" onclick="changeWeek();"></span>
+        </div>
+    </div>
     <script src="js/script.js"></script>
     <script src="js/json.js"></script>
     <script src="js/functions.js"></script>
-</body>
-
-</html>
+</body></html>

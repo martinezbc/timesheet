@@ -205,6 +205,7 @@ function storeRadioValue(e) {
 //SELECT ON CHANGE EVENT
 function selectOnChange(e) {
     var refID = e.currentTarget.id;
+    if (refID === "WeekOf") return;
     var obj = getDayObj(refID.substr(0,3));
     obj[refID] = e.currentTarget.value;
     setStorage();

@@ -6,12 +6,10 @@ var eventChange = new Event("change");
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function () {
-    initialLoad();
+    showHide("weekModal", true);
 });
 
 /********************EVENT LISTENERS********************/
-//Week selection
-byID("WeekOf").addEventListener("change", initialLoad);
 
 //Checkbox on click store into local storage
 var checkbox = document.querySelectorAll("input[type='checkbox']");
@@ -114,6 +112,10 @@ for (i = 0; i < ft.length; i++) {
     ft[i].addEventListener("click", popUpFT);
 }
 
+byID("chgWeek").addEventListener("click", function() {
+    showHide("weekModal", true);
+});
+
 //Close Time selector
 byID("closeTime").addEventListener("click", function () {
     byID(activeID).disabled = false;
@@ -198,7 +200,13 @@ for (i = 0; i < selectOW.length; i++) {
 //Click on menu, toggle menu on and off
 window.addEventListener("click", toggleMenu);
 /********************EVENT LISTENERS********************/
-
+//SELECT WEEK
+function changeWeek() {
+    if (byID("WeekOf").value === "") return;
+    showHide("weekModal", false);
+    byID("PayWeek").innerHTML = "Pay Week: " + dateString(byID("WeekOf").value);
+    initialLoad();
+}
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
     if (byID("WeekOf").value === "") return;
@@ -499,17 +507,19 @@ function toggleQLReg(e) {
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
 function toggleOWFT() {
     var obj = "";
+    var bln = false;
+    
     for (var i = 0; i < 7; i++) {
         obj = getDayObj(days[i]);
         for (var j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
-            if (obj[days[i] + "Select" + j] !== "" || obj[days[i] + "Desc" + j] !== "" || obj[days[i] + "Time" + j] !== "")
-                showHide(days[i] + "OWDiv" + j, true);
+            bln = (obj[days[i] + "Select" + j] !== "" || obj[days[i] + "Desc" + j] !== "" || obj[days[i] + "Time" + j] !== "") ? true : false
+            showHide(days[i] + "OWDiv" + j, bln);
         }
         for (j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
-            if (obj[days[i] + "Voucher" + j] !== "" || obj[days[i] + "To" + j] !== "" || obj[days[i] + "From" + j] !== "" || obj[days[i] + "Time" + j] !== "")
-                showHide(days[i] + "FTDiv" + j, true);
+            bln = (obj[days[i] + "Voucher" + j] !== "" || obj[days[i] + "To" + j] !== "" || obj[days[i] + "From" + j] !== "" || obj[days[i] + "Time" + j] !== "") ? true : false;
+            showHide(days[i] + "FTDiv" + j, bln);
         }
     }
 }
