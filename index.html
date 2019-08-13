@@ -42,7 +42,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-auto"><p class="category" id="PayWeek">Pay Week: </p></div>
+                <div class="col-auto">
+                    <p class="category" id="PayWeek">Pay Week: </p>
+                </div>
                 <div class="col-auto"><input type="button" id="chgWeek"><label for="chgWeek">Change Week</label></div>
             </div>
             <div class="row">
@@ -688,7 +690,7 @@
     <!-- Week Seelect Modal -->
     <div id="weekModal" class="modal hide" style="padding-top: 15%;">
         <div class="modal-content center" style="width: 500px;">
-            <p>SELECT PAY WEEK</p>
+            <p class="category">SELECT PAY WEEK</p>
             <select id="WeekOf"></select>
             <script>
                 var r1 = DateRange(-21);
@@ -736,6 +738,41 @@
                 }
             </script>
             <span class="close fas fa-check-circle fa-lg" id="goWeek" style="color:green;" onclick="changeWeek();"></span>
+        </div>
+    </div>
+    <!-- The Changes Made Modal -->
+    <div id="changesModal" class="modal hide" style="padding-top: 15%;">
+        <div class="modal-freeze" style="width:90%;">
+            <div class="row">
+                <div class="col-10">
+                    <p class="daily">TUTORIAL</p>
+                </div>
+                <div class="col-2 right">
+                    <span class="close fas fa-times-circle fa-lg" id="endChanges"></span>
+                </div>
+            </div>
+            <div class="row" id="slide1">
+               <div class="col-12">
+                    <p>In order to enable the equipment/lift buttons (Q/L), you must enter in your route number exactly as it is printed on the route sheet.</p>
+                </div>
+                <div class="col-12 center">
+                    <img src="img/imgQL.png" style="border: 1px black solid;" alt="Route equipment example">
+                </div>
+            </div>
+            <div class="row" id="slide2">
+               <div class="col-12">
+                    <p>To add an other work duty, click on Add Other Work and complete the section. Click on Add Field Trip to add a new field trip. If you need to remove an other work duty or a field trip, click the trash can in the corner.</p>
+                </div>
+                <div class="col-12 center">
+                    <img src="img/imgOW.png" alt="Other Work example">
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-12 center">
+                    <span class="fas fa-arrow-circle-left fa-lg" id="chgLeft" style="color:#00677F" onclick="changeModalSlide('l');"></span>
+                    <span class="fas fa-arrow-circle-right fa-lg" id="chgRight" style="color:#00677F" onclick="changeModalSlide('r')"></span>
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/script.js"></script>

@@ -6,6 +6,8 @@ var eventChange = new Event("change");
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function () {
+    showHide("slide2", false);
+    showHide("changesModal", true);
     showHide("weekModal", true);
 });
 
@@ -161,6 +163,10 @@ byID("goTime").addEventListener("click", function() {
 //Click on checkmark on field trip selector
 byID("goFT").addEventListener("click", storeFTVal);
 
+byID("endChanges").addEventListener("click", function () {
+    showHide("changesModal", false);
+});
+
 //Veh textbox keyup
 var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
 for (i = 0; i < veh.length; i++) {
@@ -200,6 +206,17 @@ for (i = 0; i < selectOW.length; i++) {
 //Click on menu, toggle menu on and off
 window.addEventListener("click", toggleMenu);
 /********************EVENT LISTENERS********************/
+
+function changeModalSlide(dir) {
+    if (byID("slide1").classList.contains("hide")) {
+        showHide("slide2", false);
+        showHide("slide1", true);
+    } else {
+        showHide("slide2", true);
+        showHide("slide1", false);
+    }
+}
+
 //SELECT WEEK
 function changeWeek() {
     if (byID("WeekOf").value === "") return;
