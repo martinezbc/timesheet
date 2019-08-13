@@ -76,7 +76,7 @@ function changeValue(operator, clicked, refElement, optVal) {
                 setMinutes(operator, optVal);
             break;
         default:
-            setMeridiem(S);
+            setMeridiem(optVal);
     }
 }
 //CHANGE AM AND PM
@@ -155,7 +155,7 @@ function setHours(operator, optVal) {
     if (hoursText === 13) {
         hoursText = "1";
         if (operator === 2) {
-            setMeridiem(s);
+            setMeridiem(optVal);
         }
     } else if (hoursText === 14) {
         hoursText = "2";
@@ -163,11 +163,11 @@ function setHours(operator, optVal) {
         hoursText = "12";
     } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
         hoursText = "11";
-        setMeridiem(s);
+        setMeridiem(optVal);
     } else if (hoursText === 12 && operator > 0) {
-        setMeridiem(s);
+        setMeridiem(optVal);
     } else if (hoursText === 10 && operator === -2) {
-        setMeridiem(s);
+        setMeridiem(optVal);
     }
     byID("hours" + optVal).innerHTML = hoursText;
 }
@@ -185,7 +185,10 @@ function getStorage(refID) {
 }
 //STORE CHECKBOX VALUE
 function storeCheckboxValue(e) {
-    setStorage(e.currentTarget.id, (e.currentTarget.checked) ? "1" : "0");
+    var refID = e.currentTarget.id;
+    var obj = getDayObj(refID.substr(0,3));
+    obj[refID] = (e.currentTarget.checked) ? true : false;
+    setStorage();
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
@@ -201,19 +204,23 @@ function storeRadioValue(e) {
 }
 //SELECT ON CHANGE EVENT
 function selectOnChange(e) {
-    setStorage(e.currentTarget.id, e.currentTarget.value);
+    var refID = e.currentTarget.id;
+    var obj = getDayObj(refID.substr(0,3));
+    obj[refID] = e.currentTarget.value;
+    setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
     var optVal = (getFileName() === "index2.html") ? "S" : "";
     var refID = e.currentTarget.id;
+    var obj = getDayObj(refID.substr(0,3));
     if (refID === "Trainee" + optVal || refID === "EmpName" + optVal) {
         byID(refID).value = properCase(e.currentTarget.value);
     }
     if (optVal === "" && refID.indexOf("Route") > 0) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
-    objThisData[refID] = e.currentTarget.value;
+    obj[refID] = e.currentTarget.value;
     setStorage();
 }
 /********************LOCAL STORAGE********************/
@@ -230,6 +237,7 @@ function openFTSelector(e) {
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
     var optVal = (getFileName() === "index2.html") ? "S" : "";
+    var obj = getDayObj(activeID.substr(0,3));
     var ftText = "";
     if (byID("ftselector" + optVal).value !== null)
         ftText = byID("ftselector" + optVal).value;
@@ -239,7 +247,7 @@ function storeFTVal() {
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
     byID(activeID).disabled = false;
-    setStorage(activeID, ftText);
+    obj[activeID] = ftText;
     showHide("ftModal" + optVal, false);
 }
 /********************FIELD TRIP SELECTOR********************/
@@ -290,12 +298,13 @@ function showHide(refID, bln) {
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
+    var obj = getDayObj(refID.substr(0,3));
     if (byID(refID).type === "checkbox") {
         byID(refID).checked = false;
-        setStorage(refID, "0");
+        obj[refID] = false;
     } else {
         byID(refID).value = "";
-        setStorage(refID, "");
+        obj[refID] = "";
     }
 }
 //RESET TIME FIELDS
