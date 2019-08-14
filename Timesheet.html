@@ -29,38 +29,48 @@
 </head>
 
 <body>
+  <script src="js/json.js"></script>
+   <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var week = urlParams.toString().replace("WeekOf=","");
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+        objThisData = objThis.Data
+        objThisSat = objThis.Sat;
+        objThisSun = objThis.Sun;
+        objThisMon = objThis.Mon;
+        objThisTue = objThis.Tue;
+        objThisWed = objThis.Wed;
+        objThisThu = objThis.Thu;
+        objThisFri = objThis.Fri;
+    </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
     
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
                 case "Sat":
-                    x = getStorage("SatDate");
+                    x = objThisData.SatDate;
                     break;
                 case "Sun":
-                    x = getStorage("SunDate");
+                    x = objThisData.SunDate;
                     break;
                 case "Mon":
-                    x = getStorage("MonDate");
+                    x = objThisData.MonDate;
                     break;
                 case "Tue":
-                    x = getStorage("TueDate");
+                    x = objThisData.TueDate;
                     break;
                 case "Wed":
-                    x = getStorage("WedDate");
+                    x = objThisData.WedDate;
                     break;
                 case "Thu":
-                    x = getStorage("ThuDate");
+                    x = objThisData.ThuDate;
                     break;
                 case "Fri":
-                    x = getStorage("FriDate");
+                    x = objThisData.FriDate;
                     break;
             }
             return x;
-        }
-        
-        function getStorage(refID) {
-            return localStorage.getItem(refID);
         }
 
         function removeAMPM(x) {
@@ -95,7 +105,7 @@
 //            pdf.setFontStyle("bold");
 //            pdf.setFontSize(12);
 //            hOffset += 62;
-//            x = getStorage("EmpID");
+//            x = objThisData.EmpID");
 //            pdf.text(hOffset, vOffset + 4, x);
             hOffset += 38;
             pdf.setFontSize(10);
@@ -105,7 +115,7 @@
             pdf.text(hOffset, vOffset + 4, "Week Of:");
             pdf.setFontStyle("bold");
             pdf.setFontSize(12);
-            x = getStorage("WeekOf");
+            x = ""; //objThisData.WeekOf;
             pdf.text(hOffset + 45, vOffset + 4, x);
             pdf.setFontSize(10);
 
@@ -126,7 +136,7 @@
             pdf.setFontStyle("bold");
             hOffset += 28;
             pdf.setFontSize(12);
-            x = getStorage("Area");
+            x = objThisData.Area;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -136,7 +146,7 @@
             pdf.setFontStyle("bold");
             hOffset += 32;
             pdf.setFontSize(12);
-            x = getStorage("Team");
+            x = objThisData.Team;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -146,7 +156,7 @@
             pdf.setFontStyle("bold");
             hOffset += 35;
             pdf.setFontSize(12);
-            x = getStorage("EmpName");
+            x = objThisData.EmpName;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -156,7 +166,7 @@
             pdf.setFontStyle("bold");
             pdf.setFontSize(12);
             hOffset += 38;
-            x = getStorage("Veh1");
+            x = objThisData.Veh1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -168,16 +178,16 @@
             pdf.setFontStyle("bold");
             hOffset += 45;
             pdf.setFontSize(12);
-            x = getStorage("Position");
+            x = objThisData.Position;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
             //OJT checkbox
             hOffset += 140;
             pdf.setFontStyle("normal");
-            x = getStorage("OJT");
+            x = objThisData.OJT;
             var imgCheck;
-            if (x === "1") {
+            if (x) {
                 imgCheck = getCheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 12;
@@ -194,8 +204,8 @@
             hOffset += 70;
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
-            if (x === "1") {
-                x = getStorage("Trainee");
+            if (x) {
+                x = objThisData.Trainee;
                 pdf.text(hOffset, vOffset, "(" + x + ")");
             }
 
@@ -206,9 +216,9 @@
             hOffset += 38;
             pdf.setFontSize(12);
             pdf.setFontStyle("bold");
-            x = getStorage("Veh2");
-            x = (getStorage("Veh3") !== "") ? x + " / " + getStorage("Veh3") : x;
-            x = (getStorage("Veh4") !== "") ? x + " / " + getStorage("Veh4") : x;
+            x = objThisData.Veh2;
+            x = (objThisData.Veh3 !== "") ? x + " / " + objThisData.Veh3 : x;
+            x = (objThisData.Veh4 !== "") ? x + " / " + objThisData.Veh4 : x;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -285,33 +295,33 @@
             hOffset += 5;
             pdf.setFontSize(9);
             pdf.setFontStyle("bold");
-            x = getStorage("AMRoute1");
+            x = objThisData.AMRoute1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "AM1Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "AM1Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PMRoute1");
+            x = objThisData.PMRoute1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PM1Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PM1Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PSRoute1");
+            x = objThisData.PSRoute1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PS1Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PS1Ct"]);
             }
 
             vOffset += 15;
@@ -322,33 +332,33 @@
             pdf.setDrawColor(80, 80, 80);
             hOffset += 5;
             pdf.setFontStyle("bold");
-            x = getStorage("AMRoute2");
+            x = objThisData.AMRoute2;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "AM2Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "AM2Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PMRoute2");
+            x = objThisData.PMRoute2;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PM2Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PM2Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PSRoute2");
+            x = objThisData.PSRoute2;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PS2Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PS2Ct"]);
             }
 
             vOffset += 15;
@@ -359,33 +369,33 @@
             pdf.setDrawColor(80, 80, 80);
             hOffset += 5;
             pdf.setFontStyle("bold");
-            x = getStorage("AMRoute3");
+            x = objThisData.AMRoute3;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "AM3Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "AM3Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PMRoute3");
+            x = objThisData.PMRoute3;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PM3Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PM3Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("SHRoute1");
+            x = objThisData.SHRoute1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "SH1Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "SH1Ct"]);
             }
 
             vOffset += 15;
@@ -396,33 +406,33 @@
             pdf.setDrawColor(80, 80, 80);
             hOffset += 5;
             pdf.setFontStyle("bold");
-            x = getStorage("AMRoute4");
+            x = objThisData.AMRoute4;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "AM4Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "AM4Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PMRoute4");
+            x = objThisData.PMRoute4;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PM4Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PM4Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("SHRoute2");
+            x = objThisData.SHRoute2;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "SH2Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "SH2Ct"]);
             }
 
             vOffset += 15;
@@ -433,35 +443,35 @@
             pdf.setDrawColor(80, 80, 80);
             hOffset += 5;
             pdf.setFontStyle("bold");
-            x = getStorage("AMRoute5");
+            x = objThisData.AMRoute5;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "AM5Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "AM5Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
-            x = getStorage("PMRoute5");
+            x = objThisData.PMRoute5;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "PM5Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "PM5Ct"]);
             }
             hOffset += 30;
             pdf.setFontStyle("bold");
 
-            x = getStorage("LRRoute1");
+            x = objThisData.LRRoute1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             pdf.setFontSize(9);
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "LR1Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "LR1Ct"]);
             }
 
             vOffset += 15;
@@ -478,7 +488,7 @@
             hOffset += 27;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeA"))); 
+                pdf.text(hOffset, vOffset, removeAMPM(objThisData[days[i] + "TimeA"])); 
             }
 
             pdf.setFontSize(9);
@@ -491,7 +501,7 @@
             hOffset += 52;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeC")));
+                pdf.text(hOffset, vOffset, removeAMPM(objThisData[days[i] + "TimeC"]));
             }
             hOffset += 30;
             pdf.setFontSize(9);
@@ -499,14 +509,14 @@
 
             pdf.setFillColor(210, 210, 210);
             pdf.rect(hOffset - 8, vOffset - 12, 191, 15, "FD");
-            x = getStorage("LRRoute2");
+            x = objThisData.LRRoute2;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontStyle("normal");
             hOffset += 22;
             pdf.setFontSize(9);
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, getStorage(days[i] + "LR2Ct"));
+                pdf.text(hOffset, vOffset, objThisData[days[i] + "LR2Ct"]);
             }
 
             vOffset += 15;
@@ -516,12 +526,12 @@
             hOffset += 27;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeB")));
+                pdf.text(hOffset, vOffset, removeAMPM(objThisData[days[i] + "TimeB"]));
             }
             hOffset += 52;
             for (i = 2; i < 7; i++) {
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, removeAMPM(getStorage(days[i] + "TimeD")));    
+                pdf.text(hOffset, vOffset, removeAMPM(objThisData[days[i] + "TimeD"]));    
             }
 
             pdf.setFillColor(255, 255, 255);
@@ -587,8 +597,9 @@
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
             
-            
+            var obj = {};
             for (i = 2; i < 7; i++) {
+                obj = getDayObj(days[i]);
                 vOffset += 15;
                 hOffset = margin;
                 pdf.setDrawColor(80, 80, 80);
@@ -602,22 +613,22 @@
 
                 hOffset += 2;
                 pdf.setFontSize(9);
-                x = getStorage(days[i] + "Date");
+                x = objThisData[days[i] + "Date"];
                 pdf.text(hOffset, vOffset, x);
 
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 38;
-                x = getStorage(days[i] + "Time11S");
+                x = obj[days[i] + "Time11S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time11E");
+                x = obj[days[i] + "Time11E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time11");
+                x = obj[days[i] + "Time11"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT11") === "1") {
+                if (obj[days[i] + "OJT11"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -630,16 +641,16 @@
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 37;
-                x = getStorage(days[i] + "Time13S");
+                x = obj[days[i] + "Time13S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time13E");
+                x = obj[days[i] + "Time13E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time13");
+                x = obj[days[i] + "Time13"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT13") === "1") {
+                if (obj[days[i] + "OJT13"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -651,16 +662,16 @@
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 37;
-                x = getStorage(days[i] + "Time15S");
+                x = obj[days[i] + "Time15S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time15E");
+                x = obj[days[i] + "Time15E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time15");
+                x = obj[days[i] + "Time15"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT15") === "1") {
+                if (obj[days[i] + "OJT15"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -682,28 +693,28 @@
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
                 hOffset += 2;
-                x = getStorage(days[i] + "QL11");
-                if (x === "1") {
+                x = obj[days[i] + "QL11"];
+                if (x) {
                     imgCheck = getCheckBox();
                 } else {
                     imgCheck = getUncheckBox();
                 }
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 7, 8, 8);
                 pdf.setFontSize(8);
-                pdf.text(hOffset + 9, vOffset, "EQ/L");
+                pdf.text(hOffset + 9, vOffset, "Q/L");
 
                 pdf.setFontStyle("normal");
                 hOffset += 38;
-                x = getStorage(days[i] + "Time12S");
+                x = obj[days[i] + "Time12S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time12E");
+                x = obj[days[i] + "Time12E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time12");
+                x = obj[days[i] + "Time12"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT12") === "1") {
+                if (obj[days[i] + "OJT12"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -715,16 +726,16 @@
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 37;
-                x = getStorage(days[i] + "Time14S");
+                x = obj[days[i] + "Time14S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time14E");
+                x = obj[days[i] + "Time14E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time14");
+                x = obj[days[i] + "Time14"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT14") === "1") {
+                if (obj[days[i] + "OJT14"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -736,16 +747,16 @@
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 37;
-                x = getStorage(days[i] + "Time16S");
+                x = obj[days[i] + "Time16S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time16E");
+                x = obj[days[i] + "Time16E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time16");
+                x = obj[days[i] + "Time16"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT16") === "1") {
+                if (obj[days[i] + "OJT16"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -757,16 +768,16 @@
                 pdf.setFontStyle("normal");
                 pdf.setFontSize(8);
                 hOffset += 37;
-                x = getStorage(days[i] + "Time17S");
+                x = obj[days[i] + "Time17S"];
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 40;
-                x = getStorage(days[i] + "Time17E");
+                x = obj[days[i] + "Time17E"];
                 pdf.text(hOffset, vOffset, x);
-                x = getStorage(days[i] + "Time17");
+                x = obj[days[i] + "Time17"];
                 hOffset += 42;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(days[i] + "OJT17") === "1") {
+                if (obj[days[i] + "OJT17"]) {
                     x = "**" + x + "**";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 6;
@@ -782,7 +793,7 @@
                 pdf.rect(554, vOffset - 27, 38, 30, "FD");
                 hOffset += 40;
                 pdf.setFontSize(10);
-                x = getStorage(days[i] + "RunTotal");
+                x = obj[days[i] + "RunTotal"];
                 pdf.text(hOffset, vOffset - 8, x);
             }
             
@@ -817,9 +828,10 @@
             var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
             var j = 0;
             for (i = 0; i < 7; i++) {
+                obj = getDayObj(days[i]);
                 for (var k = 20; k < 30; k++) {
-                    if ((days[i] === "Sat" || days[i] === "Sun") && k > 22) break;
-                    if (getStorage(days[i] + "Select" + k) !== "") {
+                    if ((i === 0 || i === 6) && k > 22) continue;
+                    if (obj[days[i] + "Select" + k] !== "") {
                         otherWork[j] = days[i] + "Time" + k;
                         j++;
                     }
@@ -831,15 +843,16 @@
             var leave = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
             j = 0;
             for (i = 0; i < 5; i++) {
-                if (getStorage(daysm[i] + "Time41") !== "") {
+                obj = getDayObj(days[i]);
+                if (obj[daysm[i] + "Time41"] !== "") {
                     leave[j] = daysm[i] + "Time41";
                     j++;
                 }
-                if (getStorage(daysm[i] + "Time42") !== "") {
+                if (obj[daysm[i] + "Time42"] !== "") {
                     leave[j] = daysm[i] + "Time42";
                     j++;
                 }
-                if (getStorage(daysm[i] + "LeaveAD") === "1") {
+                if (obj[daysm[i] + "LeaveAD"]) {
                     leave[j] = daysm[i] + "LeaveAD";
                     j++;
                 }
@@ -856,7 +869,7 @@
             hOffset += 5;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 25;
-            pdf.text(hOffset, vOffset, "EQ/L");
+            pdf.text(hOffset, vOffset, "Q/L");
             hOffset += 29;
             pdf.text(hOffset, vOffset, "Description");
             hOffset += 175;
@@ -898,9 +911,10 @@
                 hOffset += 5;
                 blnOW = (otherWork[i] !== "OW" + i) ? true : false;
                 if (blnOW) {
+                    obj = getDayObj(a);
                     a = otherWork[i].substr(0, 3);
                     b = otherWork[i].substr(7);
-                    c = getStorage(a + "Select" + b);
+                    c = obj[a + "Select" + b];
                     if (c === "ES0" || c === "ES2" || c === "CBK") {
                         pdf.setDrawColor(80, 80, 80);
                         pdf.setFillColor(255, 255, 0);
@@ -910,14 +924,14 @@
                 x = (blnOW) ? getDateField(otherWork[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 32;
-                imgCheck = (blnOW && getStorage(a + "QL" + b) === "1") ? getCheckBox() : getUncheckBox();
+                imgCheck = (blnOW && obj[a + "QL" + b]) ? getCheckBox() : getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 21;
                 pdf.setFontSize(8);
-                x = (blnOW) ? c + " - " + getStorage(a + "Desc" + b) : "";
+                x = (blnOW) ? c + " - " + obj[a + "Desc" + b] : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 175;
-                x = (blnOW) ? getStorage(otherWork[i] + "S") : "";
+                x = (blnOW) ? obj[otherWork[i] + "S"] : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 42;
                 x = (blnOW) ? getStorage(otherWork[i] + "E") : "";
@@ -926,7 +940,7 @@
                 hOffset += 43;
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                if (getStorage(a + "OJT" + b) === "1") {
+                if (getStorage(a + "OJT" + b)) {
                     x = "**" + x + "**";
                     if (blnOW) {
                         pdf.text(hOffset, vOffset, x);
@@ -1004,9 +1018,10 @@
             var fieldTrip = ["FT0", "FT1", "FT2", "FT3", "FT4"];
             j = 0;
             for (i = 0; i < 7; i++) {
+                obj = getDayObj(days[i]);
                 for (var k = 30; k < 35; k++) {
-                    if ((days[i] === "Sat" || days[i] === "Sun") && k > 32) break;
-                    if (getStorage(days[i] + "Time" + k) !== "") {
+                    if ((i === 0 || i === 6) && k > 32) continue;
+                    if (obj[days[i] + "Time" + k] !== "") {
                         fieldTrip[j] = days[i] + "Time" + k;
                         j++;
                     }    
@@ -1023,7 +1038,7 @@
             hOffset += 10;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 28;
-            pdf.text(hOffset, vOffset, "EQ/L");
+            pdf.text(hOffset, vOffset, "Q/L");
             hOffset += 32;
             pdf.text(hOffset, vOffset, "From");
             hOffset += 150;
@@ -1057,7 +1072,7 @@
                 x = (blnFT) ? getDateField(fieldTrip[i]) : "";
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 35;
-                if (getStorage(fieldTrip[i].substr(0, 3) + "QL" + fieldTrip[i].substr(7)) === "1") {
+                if (getStorage(fieldTrip[i].substr(0, 3) + "QL" + fieldTrip[i].substr(7))) {
                     imgCheck = getCheckBox();
                 } else {
                     imgCheck = getUncheckBox();
@@ -1121,7 +1136,7 @@
             pdf.text(hOffset, vOffset + 4, "Employee \nInitials: ");
             hOffset += 50;
             pdf.setFontSize(12);
-            x = getStorage("EmpInitials");
+            x = objThisData.EmpInitials;
             pdf.text(hOffset, vOffset + 12, x);
             pdf.setFontSize(9);
             hOffset += 50;
@@ -1131,16 +1146,16 @@
             hOffset = margin;
             pdf.setFontSize(14);
             hOffset += 8;
-            x = getStorage("TotalRun");
+            x = objThisData.TotalRun;
             pdf.text(hOffset, vOffset, x);
             hOffset += 65;
-            x = getStorage("TotalOther");
+            x = objThisData.TotalOther;
             pdf.text(hOffset, vOffset, x);
             hOffset += 65;
-            x = getStorage("TotalFT");
+            x = objThisData.TotalFT;
             pdf.text(hOffset, vOffset, x);
             hOffset += 60;
-            x = getStorage("TotalHW");
+            x = objThisData.TotalHW;
             pdf.text(hOffset, vOffset, x);
 
 
@@ -1167,34 +1182,34 @@
             hOffset = margin;
             pdf.setFontSize(16);
             hOffset += 22;
-            x = getStorage("Total1R");
+            x = objThisData.Total1R;
             pdf.text(hOffset, vOffset, x);
             hOffset += 118;
-            x = getStorage("OJT");
-            if (x === "1") {
-                pdf.text(hOffset, vOffset, getStorage("TotalS4"));
+            x = objThisData.OJT;
+            if (x) {
+                pdf.text(hOffset, vOffset, objThisData.TotalS4);
             }
             hOffset += 118;
-            x = getStorage("TotalS2");
+            x = objThisData.TotalS2;
             pdf.text(hOffset, vOffset, x);
             hOffset += 118;
-            x = getStorage("TotalC3");
+            x = objThisData.TotalC3;
             pdf.text(hOffset, vOffset, x);
             hOffset += 118;
-            x = getStorage("TotalC1");
+            x = objThisData.TotalC1;
             pdf.text(hOffset, vOffset, x);
 
 
-            x = getStorage("Team");
+            x = objThisData.Team;
 
-            var y = getStorage("WeekOf");
+            var y = objThisData.WeekOf;
             var z = y.substr(11);
             y = y.substr(0, 8);
             z = z.replace("/", "").replace("/", "");
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + getStorage("EmpName").replace(",","").replace(" ","");
+            x = x + "_" + objThisData.EmpName.replace(",","").replace(" ","");
             var fileName = x;
 
             pdf.setProperties({

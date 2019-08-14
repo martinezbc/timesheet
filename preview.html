@@ -37,22 +37,35 @@
         }
     </style>
     <!--Javascript-->
+    <script src="js/json.js"></script>
     <script>
-        function getStorage(refID) {
-            return localStorage.getItem(refID);
+        function downloadTimesheet() {
+            var week = urlParams.toString().replace("WeekOf=","");
+            window.open("timesheet.html?WeekOf=" + week, "_self");
         }
     </script>
 </head>
 
 <body>
+   <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var week = urlParams.toString().replace("WeekOf=","");
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+        objThisData = objThis.Data
+        objThisSat = objThis.Sat;
+        objThisSun = objThis.Sun;
+        objThisMon = objThis.Mon;
+        objThisTue = objThis.Tue;
+        objThisWed = objThis.Wed;
+        objThisThu = objThis.Thu;
+        objThisFri = objThis.Fri;
+    </script>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
-        <div id="navbarmodal" class="dropdown">
-            <!--navmodal-->
-            
-            <span class="fas fa-bars dropbtn" id="tsbtn"></span>
+        <div id="navbarmodal" class="dropdown">            
+            <span class="fas fa-bars dropbtn fa-lg" id="tsbtn"></span>
             <div class="dropdown-content hide" id="tsdropdown">
-                <div class="row" onclick="location.href='timesheet.html';"><span class="fas fa-file-download"></span>&nbsp;Download</div>
+                <div class="row" onclick="downloadTimesheet();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
                 <div class="row" onclick="location.href='index.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
             </div>
         </div>
@@ -64,30 +77,29 @@
         </div>
         <div class="card">
             <script>
-                var strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue">';
+                var strHTML = '<div class="row section__header bg-medblue">';
                 strHTML += '<div class="col-12 bold-lg">Employee Data</div></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + getStorage("Area") + '</p></div>';
+                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + objThisData.Area + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + objThisData.Team + '</p></div>';
                 strHTML += '<div class="col-sm-6"><p class="bold">Name:</p><p>' + objThisData.EmpName + '</p></div>';
                 strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Week Range:</p><p>' + objThisData.WeekOf + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold">Position:</p><p>' + objThisData.Position + '</p></div>';
                 strHTML += '<div class="col-sm-1"><p class="bold">OJT Trainer:</p><p>';
                 if (objThisData.OJT) {
-                    strHTML += '<input type="checkbox" checked="checked" disabled>';
+                    strHTML += '<input id="chkboxojt" type="checkbox" checked="checked" disabled><label for="chkboxojt">EQ/L</label>';
                 } else {
-                    strHTML += '<input type="checkbox" disabled>';
+                    strHTML += '<input id="chkboxojt" type="checkbox" disabled><label for="chkboxojt">EQ/L</label>';
                 }
                 strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + objThisData.Trainee + '</p></div>';
                 strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + objThisData.Veh1 + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + (objThisData.Veh2 !== "") ? objThisData.Veh2 : "") + ((objThisData.Veh3 !== "") ? "/" + objThisData.Veh3 : "") + ((objThisData.Veh4 !== "") ? "/" + objThisData.Veh4 : "") + '</p></div></div>'
+                strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((objThisData.Veh2 !== "") ? objThisData.Veh2 : "") + ((objThisData.Veh3 !== "") ? "/" + objThisData.Veh3 : "") + ((objThisData.Veh4 !== "") ? "/" + objThisData.Veh4 : "") + '</p></div></div>'
                 document.write(strHTML);
             </script>
         </div>
     </div>
         
         <script>
-            strHTML = '<div class="card">';
+            var strHTML = '<div class="card">';
             var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             if (objThisData.Position === "Driver" || objThisData.Position === "Sub Driver" || objThisData.Position === "Driver Trainee") {    
                 strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Pupil Counts</div></div>';
@@ -103,88 +115,88 @@
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + objThisData("AMRoute3") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + objThisData.AMRoute3 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM3Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + objThisData("AMRoute4") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + objThisData.AMRoute4 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM4Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + objThisData("AMRoute5") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + objThisData.AMRoute5 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM5Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeA") + '</p></div>';    
+                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeA"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeB") + '</p></div>';    
+                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeB"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + objThisData("PMRoute1") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + objThisData.PMRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + objThisData("PMRoute2") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + objThisData.PMRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + objThisData("PMRoute3") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + objThisData.PMRoute3 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM3Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + objThisData("PMRoute4") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + objThisData.PMRoute4 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM4Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + objThisData("PMRoute5") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + objThisData.PMRoute5 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM5Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeC") + '</p></div>';    
+                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeC"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeD") + '</p></div>';    
+                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeD"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData("PSRoute1") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PS1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData("PSRoute2") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PS2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData("SHRoute1") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "SH1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData("SHRoute2") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "SH2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData("LRRoute1") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "LR1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData("LRRoute2") + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
                     strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "LR2Ct"] + '</p></div>';    
                 }
@@ -195,40 +207,43 @@
         
         <div class="card">
             <script>
-                strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Route Time</div></div>';
+                var strHTML = '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Route Time</div></div>';
+                var obj = "";
+                
                 for (var i = 1; i < 6; i++) {
+                    obj = getDayObj(days[i]);
                     if (i !== 1) {strHTML += '<hr class="border-grey">';}
                     strHTML += '<div class="row">';
-                    strHTML += '<div class="col-sm-1"><p class="bold">' + getStorage(days[i] + "Date") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + getStorage(days[i] + "Time11S") + '&nbsp;&nbsp;' + getStorage(days[i]+ "Time11E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time11") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + getStorage(days[i] + "Time13S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time13E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time13") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + getStorage(days[i] + "Time15S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time15E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time15") + '</p></div></div>';
+                    strHTML += '<div class="col-sm-1"><p class="bold">' + objThisData[days[i] + "Date"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + obj[days[i] + "Time11S"] + '&nbsp;&nbsp;' + obj[days[i]+ "Time11E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time11"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + obj[days[i] + "Time13S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time13E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time13"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + obj[days[i] + "Time15S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time15E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time15"] + '</p></div></div>';
                     strHTML += '<div class="row"><div class="col-sm-1">';
-                    if (getStorage(days[i] + "QL1") === "1") {
-                        strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" checked="checked" disabled></p></div>';
+                    if (obj[days[i] + "QL1"]) {
+                        strHTML += '<input id="chkbox" type="checkbox" checked="checked" disabled><label for="chkbox">EQ/L</label></div>';
                     } else {
-                        strHTML += '<p class="bold">EQ/L&nbsp;<input type="checkbox" disabled></p></div>';
+                        strHTML += '<input id="chkbox" type="checkbox" disabled><label for="chkbox">EQ/L</label></div>';
                     }
-                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + getStorage(days[i] + "Time12S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time12E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time12") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + getStorage(days[i] + "Time14S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time14E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time14") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + getStorage(days[i] + "Time16S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time16E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time16") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>LR:&nbsp;' + getStorage(days[i] + "Time17S") + '&nbsp;&nbsp;' + getStorage(days[i] + "Time17E") + "&nbsp;&nbsp;" + getStorage(days[i] + "Time17") + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>TOTAL:&nbsp;' + getStorage(days[i] + "RunTotal") + '</p></div></div>';
+                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + obj[days[i] + "Time12S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time12E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time12"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + obj[days[i] + "Time14S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time14E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time14"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + obj[days[i] + "Time16S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time16E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time16"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>LR:&nbsp;' + obj[days[i] + "Time17S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time17E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time17"] + '</p></div>';
+                    strHTML += '<div class="col-sm-2"><p>TOTAL:&nbsp;' + obj[days[i] + "RunTotal"] + '</p></div></div>';
                 }
             document.write(strHTML);
             </script>
         </div>
         <div class="card">
             <script>
-                strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
+                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';;
+                var obj = "";
                 var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
                 var j = 0;
-                for (i = 0; i < 7; i++) {
+                for (var i = 0; i < 7; i++) {
+                    obj = getDayObj(days[i]);
                     for (var k = 20; k < 30; k++) {
-                        if ((days[i] === "Sat" || days[i] === "Sun") && k > 22) break;
-                        if (getStorage(days[i] + "Select" + k) !== "") {
+                        if ((i === 0 || i === 6) && k > 22) continue;
+                        if (obj[days[i] + "Select" + k] !== "") {
                             otherWork[j] = days[i] + "Time" + k;
                             j++;
                         }
@@ -245,17 +260,17 @@
                         strnum = otherWork[i].substr(7);
                         if (i !== 0) {strHTML += '<hr class="border-grey">';}
                         strHTML += '<div class="row">';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
-                        if (getStorage(strDay + "QL" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
+                        if (obj[strDay + "QL" + strnum]) {
+                            strHTML += '<div class="col-sm-1"><input id="chkboxow" type="checkbox" checked="checked" disabled><label for="chkboxow">EQ/L</label></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><input id="chkboxow" type="checkbox" disabled><label for="chkboxow">EQ/L</label></div>';
                         }
-                        strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + getStorage(strDay + "Select" + strnum) + " - " + getStorage(strDay + "Desc" + strnum) + '</p></div>';
+                        strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + obj[strDay + "Select" + strnum] + " - " + obj[strDay + "Desc" + strnum] + '</p></div>';
                         strHTML += '<div class="col-sm-1"><p></p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "S") + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "E") + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i]) + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i] + "S"] + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i] + "E"] + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i]] + '</p></div>';
                         strHTML += '</div>';
                     }
                 }
@@ -264,23 +279,23 @@
         </div>
         <div class="card">
             <script>
-                strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
-
+                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
                 var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+                var obj = "";
                 var j = 0;
-                for (i = 0; i < 7; i++) {
+                for (var i = 0; i < 7; i++) {
+                    obj = getDayObj(days[i]);
                     for (var k = 30; k < 35; k++) {
-                        if ((days[i] === "Sat" || days[i] === "Sun") && k > 32) break;
-                        if (getStorage(days[i] + "Time" + k) !== "") {
+                        if ((i === 0 || i === 6) && k > 32) continue;
+                        if (obj[days[i] + "Time" + k] !== "") {
                             otherFT[j] = days[i] + "Time" + k;
                             j++;
                         }
                     }
                 }
-                strDay = "";
+                var strDay = "";
                 var blnFT = false;
-                strnum = "";
+                var strnum = "";
                 
                 for (i = 0; i < 5; i++) {
                     blnFT = (otherFT[i] !== "FT" + i) ? true : false;
@@ -289,18 +304,18 @@
                         strDay = otherFT[i].substr(0,3);
                         strnum = otherFT[i].substr(7);
                         strHTML += '<div class="row">';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
-                        if (getStorage(strDay + "QL" + strnum) === "1") {
-                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
+                        if (obj[strDay + "QL" + strnum]) {
+                            strHTML += '<div class="col-sm-1"><input id="chkboxft" type="checkbox" checked="checked" disabled><label for="chkboxft">EQ/L</label></div>';
                         } else {
-                            strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><input id="chkboxft" type="checkbox" disabled><label for="chkboxft">EQ/L</label></div>';
                         }
-                        strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + getStorage(strDay + "From" + strnum) + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + getStorage(strDay + "To" + strnum) + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>Voucher:&nbsp;' + getStorage(strDay + "Voucher" + strnum) + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "S") + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "E") + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i]) + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + obj[strDay + "From" + strnum] + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + obj[strDay + "To" + strnum] + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>Voucher:&nbsp;' + obj[strDay + "Voucher" + strnum] + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i] + "S"] + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i] + "E"] + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i]] + '</p></div>';
                         strHTML += '</div>';
                     }
                 }
@@ -309,27 +324,29 @@
         </div>
         <div class="card">
             <script>
-                strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
+                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
                 var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
-                j = 0;
+                var obj = "";
+                var j = 0;
+                
                 for (i = 1; i < 6; i++) {
-                    if (getStorage(days[i] + "Time41") !== "") {
+                    obj = getDayObj(days[i]);
+                    if (obj[days[i] + "Time41"] !== "") {
                         otherLV[j] = days[i] + "Time41";
                         j++;
                     }
-                    if (getStorage(days[i] + "Time42") !== "") {
+                    if (obj[days[i] + "Time42"] !== "") {
                         otherLV[j] = days[i] + "Time42";
                         j++;
                     }
-                    if (getStorage(days[i] + "LeaveAD") === "1") {
+                    if (obj[days[i] + "LeaveAD"] === "1") {
                         otherLV[j] = days[i] + "LeaveAD";
                         j++;
                     }
                 }
-                strDay = "";
+                var strDay = "";
                 var blnLV = false;
-                strnum = "";
+                var strnum = "";
                     
                 for (i = 0; i < 10; i++) {
                     blnLV = (otherLV[i] !== "LV" + i) ? true : false;
@@ -338,18 +355,18 @@
                         strHTML += '<div class="row">';
                         strDay = otherLV[i].substr(0,3);
                         strnum = otherLV[i].substr(-2);
-                        strHTML += '<div class="col-sm-1"><p>' + getStorage(strDay + "Date") + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>' + getStorage(strDay + "LeaveSelect" + strnum) + '</p></div>';
+                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
+                        strHTML += '<div class="col-sm-2"><p>' + obj[strDay + "LeaveSelect" + strnum] + '</p></div>';
                         if (strnum === "AD") {
-                            strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" checked="checked" disabled></p></div>';
+                            strHTML += '<div class="col-sm-1"><input id="allday" type="checkbox" checked="checked" disabled><label for="allday">ALL DAY</label></div>';
                             strHTML += '<div class="col-sm-1"></div>';
                             strHTML += '<div class="col-sm-1"></div>';
                             strHTML += '<div class="col-sm-1"></div></div>';
                         } else {
                             strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" disabled></p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "S") + '</p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "E") + '</p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i]) + '</p></div></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i] + "S"] + '</p></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i] + "E"] + '</p></div>';
+                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i]] + '</p></div></div>';
                         }
                     }
                 }
@@ -358,10 +375,9 @@
         </div>
         <div class="card">
             <script>
-                strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
+                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">REGULAR:&nbsp;' + objThisData.TotalRun + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + objThisData.TotalOther") + '</p></div>';
+                strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + objThisData.TotalOther + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + objThisData.TotalFT + '</p></div>';
                 strHTML += '<div class="col-sm-3"><p class="bold-lg">HOURS WORKED:&nbsp;' + objThisData.TotalHW + '</p></div>';
                 strHTML += '</div><hr class="border-grey"><div class="row">'

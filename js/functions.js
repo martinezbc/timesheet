@@ -1,12 +1,10 @@
 //DECLARE VARIABLES
-var objThis, objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri;
 var activeID = "";
 var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
 var eventChange = new Event("change");
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function () {
-    showHide("slide2", false);
     showHide("changesModal", true);
 });
 
@@ -216,13 +214,18 @@ window.addEventListener("click", toggleMenu);
 
 //TOGGLE BETWEEN TUTORIAL SLIDES
 function changeModalSlide(dir) {
-    if (byID("slide1").classList.contains("hide")) {
-        showHide("slide2", false);
-        showHide("slide1", true);
-    } else {
-        showHide("slide2", true);
-        showHide("slide1", false);
+    var j = 0;
+    for (var i = 1; i < 5; i++) {
+        if (!byID("slide" + i).classList.contains("hide")) break;
     }
+    
+    if (dir === 'r') {
+        j = (i + 1 === 5) ? 1 : i + 1;
+    } else {
+        j = (i - 1 === 0) ? 4 : i - 1;
+    }
+    showHide("slide" + i, false);
+    showHide("slide" + j, true);
 }
 
 //SELECT WEEK
@@ -383,27 +386,6 @@ function storeWeek() {
     //Load data from JSON
     loadLocalStorage();
     loadStoredWeek();
-}
-
-function getDayObj(day) {
-    switch (day) {
-        case "Mon":
-            return objThisMon;
-        case "Tue":
-            return objThisTue;
-        case "Wed":
-            return objThisWed;
-        case "Thu":
-            return objThisThu;
-        case "Fri":
-            return objThisFri;
-        case "Sat":
-            return objThisSat;
-        case "Sun":
-            return objThisSun;
-        default:
-            return objThisData;
-    }
 }
 
 function parseData() {
@@ -1109,7 +1091,7 @@ function openTimesheet() {
 
     showHide("validateModal", false);
     if (emp !== "")
-        window.open("preview.html", "_self");
+        window.open("preview.html?WeekOf=" + byID("WeekOf").value, "_self");
 }
 
 function runValidations() {
@@ -1407,10 +1389,10 @@ function checkOverlap(refID) {
     var i = (day === "Sat" || day === "Sun") ? 20 : 11;
 
     for (i; i < max; i++) {
+        if (i === numVal) i++;
         i = (i === 18) ? 20 : i;
         i = ((day === "Sat" || day === "Sun") && i === 23) ? 30 : i;
         i = (i === 35) ? 41 : i;
-        if (i === numVal) i++;
         if (i === max) break;
 
         //Initialize newStart and newEnd
