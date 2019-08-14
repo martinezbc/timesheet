@@ -19,17 +19,34 @@
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     </script>
+    <style>
+        .spin {
+            -webkit-animation:spin 4s linear infinite;
+            -moz-animation:spin 4s linear infinite;
+            animation:spin 4s linear infinite;
+        }
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    </style>
 </head>
 
 <body>
     <div class="header">
-        <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
-        <div id="navbarmodal" class="dropdown">
-            <span class="fas fa-bars dropbtn" id="navbtn"></span>
-            <div class="dropdown-content hide" id="navdropdown">
-                <div class="row" onclick="completeTimesheet();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
-                <div class="row" onclick="openSupplement()"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
-                <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+        <div class="row">
+            <div class="col-10"><h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1></div>
+            <div class="col-1 right" style="padding-top: 5px;">
+                <span id="spin" class="fas fa-spinner spin fa-lg hide"></span>
+                <span id="save" class="fas fa-save fa-lg"></span>
+            </div>
+            <div class="col-1 dropdown right" style="padding-top: 5px;" id="navbarmodal">
+                <span class="fas fa-bars dropbtn fa-lg" id="navbtn"></span>
+                
+                <div class="dropdown-content hide" id="navdropdown">
+                    <div class="row" onclick="completeTimesheet();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                    <div class="row" onclick="openSupplement()"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
+                    <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+                </div>
             </div>
         </div>
     </div>

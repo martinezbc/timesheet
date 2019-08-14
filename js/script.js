@@ -176,19 +176,29 @@ function setHours(operator, optVal) {
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
     var week = byID("WeekOf").value;
+
+    var keyArr = 0;
+    var key = "";
+    var objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
+    
+    for (var j = 0; j < objArray.length; j++) {
+        keyArr = Object.keys(objArray[j]);
+        for (var i = 0; i < keyArr.length; i++) {
+            key = keyArr[i];
+            if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R" || key === "WeekOf") continue;
+            objArray[j][key] === byID(key).value;
+        }
+    }
+    
     objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};
     localStorage.setItem(week + "Obj", JSON.stringify(objThis));
-}
-//FIND ITEM BY ID IN LOCAL STORAGE AND RETURN VALUE
-function getStorage(refID) {
-    return localStorage.getItem(refID);
 }
 //STORE CHECKBOX VALUE
 function storeCheckboxValue(e) {
     var refID = e.currentTarget.id;
     var obj = getDayObj(refID.substr(0,3));
     obj[refID] = (e.currentTarget.checked) ? true : false;
-    setStorage();
+//    setStorage();
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
@@ -200,7 +210,7 @@ function storeRadioValue(e) {
     } else if (refID.indexOf("pos") > -1) {
         objThisData.Position = e.currentTarget.value;
     }
-    setStorage();
+//    setStorage();
 }
 //SELECT ON CHANGE EVENT
 function selectOnChange(e) {
@@ -208,7 +218,7 @@ function selectOnChange(e) {
     if (refID === "WeekOf") return;
     var obj = getDayObj(refID.substr(0,3));
     obj[refID] = e.currentTarget.value;
-    setStorage();
+//    setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
@@ -222,7 +232,7 @@ function textboxOnChange(e) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
     obj[refID] = e.currentTarget.value;
-    setStorage();
+//    setStorage();
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/

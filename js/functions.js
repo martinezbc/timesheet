@@ -8,7 +8,6 @@ var eventChange = new Event("change");
 document.addEventListener('DOMContentLoaded', function () {
     showHide("slide2", false);
     showHide("changesModal", true);
-    showHide("weekModal", true);
 });
 
 /********************EVENT LISTENERS********************/
@@ -114,6 +113,7 @@ for (i = 0; i < ft.length; i++) {
     ft[i].addEventListener("click", popUpFT);
 }
 
+//Open Change Week Modal
 byID("chgWeek").addEventListener("click", function() {
     showHide("weekModal", true);
 });
@@ -163,9 +163,15 @@ byID("goTime").addEventListener("click", function() {
 //Click on checkmark on field trip selector
 byID("goFT").addEventListener("click", storeFTVal);
 
+//Close Tutorial Modal
 byID("endChanges").addEventListener("click", function () {
     showHide("changesModal", false);
+    byID("WeekOf").value = DateRange(0);
+    changeWeek();
 });
+
+//Show spinner when save is clicked
+byID("save").addEventListener("click", runSave);
 
 //Veh textbox keyup
 var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
@@ -198,6 +204,7 @@ byID("clear").addEventListener("click", function () {
     openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
 });
 
+//Add on Change event listening to Select Other Work
 var selectOW = document.querySelectorAll("select[name='selectOW']");
 for (i = 0; i < selectOW.length; i++) {
     selectOW[i].addEventListener("change", selectOWChange);
@@ -207,6 +214,7 @@ for (i = 0; i < selectOW.length; i++) {
 window.addEventListener("click", toggleMenu);
 /********************EVENT LISTENERS********************/
 
+//TOGGLE BETWEEN TUTORIAL SLIDES
 function changeModalSlide(dir) {
     if (byID("slide1").classList.contains("hide")) {
         showHide("slide2", false);
@@ -219,6 +227,9 @@ function changeModalSlide(dir) {
 
 //SELECT WEEK
 function changeWeek() {
+    window.setInterval(function(){
+      runSave();
+    }, 20000);
     if (byID("WeekOf").value === "") return;
     showHide("weekModal", false);
     byID("PayWeek").innerHTML = "Pay Week: " + dateString(byID("WeekOf").value);
@@ -236,6 +247,15 @@ function initialLoad() {
     loadLeave();
     getDailyTotals();
     getWeeklyTotals();
+}
+function runSave() {
+    setStorage();
+    showHide("save", false);
+    showHide("spin", true);
+    window.setTimeout(function () {
+        showHide("save", true);
+        showHide("spin", false);
+    }, 5000);
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
@@ -319,7 +339,7 @@ function loadTeamValues() {
 
 //LOADS DATES FROM STORAGE INTO DATE TEXT FIELDS
 function loadStoredWeek() {
-    if (objThisData.SatDate !== null)
+    if (objThisData.SatDate !== undefined)
         for (var i = 0; i < 7; i++)
             byID(days[i] + "Date").innerHTML = objThisData[days[i] + "Date"];
 }
@@ -327,38 +347,41 @@ function loadStoredWeek() {
 //SET EACH DAY IN MM/DD FORMAT INTO LOCAL STORAGE
 function storeWeek() {
     var week = byID("WeekOf").value;
-    if (getStorage(week + "Obj") === null) {
+    if (localStorage.getItem(week + "Obj") === null) {
         localStorage.setItem(week + "Obj", JSON.stringify(objNew));
         objThis = objNew;
+        
+        //Parse JSON into objects
+        parseData();
+        
+        //Store first day of week range in y and shortened date in ny
+        var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
+
+        //Store second day of week range in z and shortened date in nz
+        var endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
+            satDate = new Date(startDate),
+            sm, sd;
+
+        objThisData.SatDate = startDate.substr(0, 5);
+        objThisData.FriDate = endDate.substr(0, 5);
+
+        for (var i = 4; i >= 0; i--) {
+            newDay = addDate(satDate, i + 1);
+            sm = newDay.getMonth() + 1;
+            sd = newDay.getDate();
+            sm = (sm.toString().length === 1) ? "0" + sm : sm;
+            sd = (sd.toString().length === 1) ? "0" + sd : sd;
+            objThisData[days[i] + "Date"] = sm + "/" + sd;
+        }
     } else {
-        objThis = JSON.parse(getStorage(week + "Obj"));
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+        
+        //Parse JSON into objects
+        parseData();
     }
     
-    //Parse Data into other objects
-    parseData();
+    //Load data from JSON
     loadLocalStorage();
-        
-    //Store first day of week range in y and shortened date in ny
-    var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
-
-    //Store second day of week range in z and shortened date in nz
-    var endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
-        satDate = new Date(startDate),
-        sm, sd;
-
-    objThisData.SatDate = startDate.substr(0, 5);
-    objThisData.FriDate = endDate.substr(0, 5);
-
-    for (var i = 4; i >= 0; i--) {
-        newDay = addDate(satDate, i + 1);
-        sm = newDay.getMonth() + 1;
-        sd = newDay.getDate();
-        sm = (sm.toString().length === 1) ? "0" + sm : sm;
-        sd = (sd.toString().length === 1) ? "0" + sd : sd;
-        objThisData[days[i] + "Date"] = sm + "/" + sd;
-    }
-
-    setStorage();
     loadStoredWeek();
 }
 
@@ -515,7 +538,6 @@ function toggleQLReg(e) {
         byID(day + "QL" + j).checked = bln;
         obj[day + "QL" + j] = bln;
     }
-    setStorage();
     loadQL();
     getDailyTotals();
     getWeeklyTotals();
@@ -1041,7 +1063,7 @@ function countFieldTrips(refID) {
     //Loop through each day of the week
     for (var i = 0; i < 7; i++) {
         for (var j = 30; j < 35; j++) {
-            if ((days[i] === "Sat" || days[i] === "Sun") && j > 32) continue;
+            if ((i === 0 || i === 6) && j > 32) continue;
             if (byID(days[i] + "Voucher" + j).value !== "") count++;
         }
     }
@@ -1693,8 +1715,6 @@ function getWeeklyTotals() {
     sum = convertTotal(sum);
     objThisData.TotalS4 = sum;
     byID("TotalS4").value = sum;
-    
-    setStorage();
 }
 /********************CALCULATIONS********************/
 
