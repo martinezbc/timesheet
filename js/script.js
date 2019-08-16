@@ -186,6 +186,7 @@ function setStorage() {
         for (var i = 0; i < keyArr.length; i++) {
             key = keyArr[i];
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R" || key === "WeekOf") continue;
+            if (byID(key) === null) continue;
             objArray[j][key] === byID(key).value;
         }
     }

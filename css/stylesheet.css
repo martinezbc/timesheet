@@ -657,3 +657,16 @@ input[type=checkbox]:hover {
 .bold {
     font-weight: bold;
 }
+
+.col-20p {
+    position: relative;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.col-20p {
+  -ms-flex: 0 0 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+}

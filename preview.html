@@ -36,8 +36,6 @@
             font-size: 14px;
         }
     </style>
-    <!--Javascript-->
-    <script src="js/json.js"></script>
     <script>
         function downloadTimesheet() {
             var week = urlParams.toString().replace("WeekOf=","");
@@ -47,6 +45,7 @@
 </head>
 
 <body>
+  <script src="js/json.js"></script>
    <script>
         var urlParams = new URLSearchParams(window.location.search);
         var week = urlParams.toString().replace("WeekOf=","");
@@ -107,98 +106,118 @@
                 strHTML += '<div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">AM 1st Bell:&nbsp;' + objThisData.AMRoute1 + '</p></div>';
                 for (var i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM1Ct"] + '</p></div>';    
+                    var obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">AM 2nd Bell:&nbsp;' + objThisData.AMRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM2Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + objThisData.AMRoute3 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM3Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM3Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + objThisData.AMRoute4 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM4Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM4Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + objThisData.AMRoute5 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "AM5Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM5Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeA"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeA"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeB"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeB"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + objThisData.PMRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM1Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + objThisData.PMRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM2Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + objThisData.PMRoute3 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM3Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM3Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + objThisData.PMRoute4 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM4Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM4Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + objThisData.PMRoute5 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PM5Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM5Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeC"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeC"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + objThisData[days[i] + "TimeD"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeD"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PS1Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PS1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "PS2Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PS2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "SH1Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "SH1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "SH2Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "SH2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><hr class="border-grey"><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute1 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "LR1Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "LR1Ct"] + '</p></div>';    
                 }
                 strHTML += '</div><div class="row">';
                 strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute2 + '</p></div>';
                 for (i = 1; i < 6; i++) {
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + objThisData[days[i] + "LR2Ct"] + '</p></div>';    
+                    obj = getDayObj(days[i]);
+                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "LR2Ct"] + '</p></div>';    
                 }
                 strHTML += '</div></div>'
                 document.write(strHTML);
@@ -383,7 +402,7 @@
                 strHTML += '</div><hr class="border-grey"><div class="row">'
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">1R (Regular):&nbsp;' + objThisData.Total1R + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">S4 (OJT):&nbsp;' + objThisData.TotalS4 + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Equipment):&nbsp;' + objThisData.TotalS2 + '</p></div>';
+                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Equipment):&nbsp;' + objThisData.TotalS2EQ + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">C3 (Weather):&nbsp;' + objThisData.TotalC3 + '</p></div>';
                 strHTML += '<div class="col-sm-2"><p class="bold-lg">C1 (Callback):&nbsp;' + objThisData.TotalC1 + '</p></div>';
                 strHTML += '</div>';

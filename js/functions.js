@@ -46,6 +46,12 @@ for (i = 0; i < chkOJT.length; i++) {
     chkOJT[i].addEventListener("click", checkOJT);
 }
 
+//J checked
+var chkJ = document.querySelectorAll("input[name='chkJ']");
+for (i = 0; i < chkJ.length; i++) {
+    chkJ[i].addEventListener("click", toggleJReg);
+}
+
 //Leave checked
 var chkLV = document.querySelectorAll("input[name='chkLV']");
 for (i = 0; i < chkLV.length; i++) {
@@ -247,6 +253,7 @@ function initialLoad() {
     toggleDay(day);
     loadOJT();
     loadQL();
+    loadJ();
     loadLeave();
     getDailyTotals();
     getWeeklyTotals();
@@ -272,6 +279,7 @@ function loadLocalStorage() {
         for (var i = 0; i < keyArr.length; i++) {
             key = keyArr[i];
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R" || key === "WeekOf") continue;
+            if (byID(key) === null) continue;
             if (objArray[j][key] === true || objArray[j][key] === false) {
                 byID(key).checked = objArray[j][key];    
             } else {
@@ -471,18 +479,6 @@ function loadOJT() {
         if (ojt[i].checked && !bln) ojt[i].click();
         ojt[i].disabled = !bln;
     }
-    
-    var bln = routeCheckJ();
-    var e = "";
-    if (!bln) return;
-    
-    for (i = 1; i < 6; i++) {
-        for (var j = 11; j < 18; j++) {
-            e = byID(days[i] + "OJT" + j);
-            e.disabled = false;
-            e.click();
-        }
-    }
 }
 
 //LOAD Q/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
@@ -491,15 +487,22 @@ function loadQL() {
     var val = "";
 
     var eql = document.querySelectorAll("input[name='chkQL']");
-    for (var i = 0; i < eql.length; i++) {
-        if (eql[i].checked && !bln) eql[i].click();
-        eql[i].disabled = !bln;
+    for (var i = 1; i < 6; i++) {
+        byID(days[i] + "QL11").disabled = !bln;
     }
     for (i = 0; i < 7; i++) {
         for (var j = 20; j < 30; j++) {
             if ((days[i] === "Sat" || days[i] === "Sun") && j > 22) continue;
             disableOWFields(days[i] + "Select" + j);
         }
+    }
+}
+
+function loadJ() {   
+    var bln = routeCheckJ();
+    
+    for (i = 1; i < 6; i++) {
+        byID(days[i] + "J11").disabled = !bln;
     }
 }
 
@@ -516,11 +519,21 @@ function toggleQLReg(e) {
     var day = e.currentTarget.id.substr(0, 3);
     var obj = getDayObj(day);
 
-    for (var j = 11; j < 18; j++) {
-        byID(day + "QL" + j).checked = bln;
-        obj[day + "QL" + j] = bln;
-    }
+    byID(day + "QL11").checked = bln;
+    obj[day + "QL11"] = bln;
     loadQL();
+    getDailyTotals();
+    getWeeklyTotals();
+}
+
+//IF J IS CHECKED, THEN CHECK ALL OF THEM
+function toggleJReg(e) {
+    var bln = (e.currentTarget.checked) ? true : false;
+    var day = e.currentTarget.id.substr(0, 3);
+    var obj = getDayObj(day);
+
+    obj[day + "J11"] = bln;
+    loadJ();
     getDailyTotals();
     getWeeklyTotals();
 }
@@ -687,7 +700,7 @@ function checkOJT(e) {
 
 function routeNameCheck() {
     loadQL();
-    loadOJT();
+    loadJ();
 }
 
 //CHECK ROUTES ENTERED TO SEE IF Q/L EXISTS
@@ -697,7 +710,7 @@ function routeCheck() {
     for (var i = 0; i < routes.length; i++) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.substr(-1) === "L" || val.substr(-1) === "Q") ? true : false;
+        bln = (val.indexOf("L") > 2 || val.indexOf("Q") > 2) ? true : false;
         if (bln) return bln;
     }
     return bln;
@@ -710,7 +723,7 @@ function routeCheckJ() {
     for (var i = 0; i < routes.length; i++) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.substr(-1) === "J") ? true : false;
+        bln = (val.indexOf("J") > 2) ? true : false;
         if (bln) return bln;
     }
     return bln;
@@ -1665,9 +1678,19 @@ function getWeeklyTotals() {
     byID("TotalHW").value = sum;
 
     sum = 0;
-    
     for (i = 0; i < 7; i++) {
-        for (j = 11; j < 35; j++) {
+        if (i > 0 && i < 6 && byID(days[i] + "QL11").checked) {
+            sum += convertToMinutes(byID(days[i] + "Time11").value);
+            sum += convertToMinutes(byID(days[i] + "Time12").value);
+            sum += convertToMinutes(byID(days[i] + "Time13").value);
+            sum += convertToMinutes(byID(days[i] + "Time14").value);
+            sum += convertToMinutes(byID(days[i] + "Time15").value);
+            sum += convertToMinutes(byID(days[i] + "Time16").value);
+            sum += convertToMinutes(byID(days[i] + "Time17").value);
+        }                                    
+            
+        for (j = 20; j < 35; j++) {
+            if (j === 12) j = 20;
             if (j === 18 || j === 19) continue;
             if ((i === 0 || i === 6) && j < 20) continue;
             if ((i === 0 || i === 6) && j > 22 && j < 30) continue;
@@ -1676,8 +1699,24 @@ function getWeeklyTotals() {
         }
     }
     sum = convertTotal(sum);
-    objThisData.TotalS2 = sum;
-    byID("TotalS2").value = sum;
+    objThisData.TotalS2QL = sum;
+    byID("TotalS2QL").value = sum;
+    
+    sum = 0;
+    for (i = 1; i < 6; i++) {
+        if (byID(days[i] + "J11").checked) {
+            sum += convertToMinutes(byID(days[i] + "Time11").value);
+            sum += convertToMinutes(byID(days[i] + "Time12").value);
+            sum += convertToMinutes(byID(days[i] + "Time13").value);
+            sum += convertToMinutes(byID(days[i] + "Time14").value);
+            sum += convertToMinutes(byID(days[i] + "Time15").value);
+            sum += convertToMinutes(byID(days[i] + "Time16").value);
+            sum += convertToMinutes(byID(days[i] + "Time17").value);
+        }                                    
+    }
+    sum = convertTotal(sum);
+    objThisData.TotalS2J = sum;
+    byID("TotalS2J").value = sum;
 
     sum = convertToMinutes(objThisData.TotalRun) + convertToMinutes(objThisData.TotalOther);
     sum = convertTotal(sum);
