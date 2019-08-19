@@ -181,25 +181,20 @@ function setStorage() {
     var key = "";
     var objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
     
-    for (var j = 0; j < objArray.length; j++) {
-        keyArr = Object.keys(objArray[j]);
-        for (var i = 0; i < keyArr.length; i++) {
-            key = keyArr[i];
-            if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R" || key === "WeekOf") continue;
-            if (byID(key) === null) continue;
-            objArray[j][key] === byID(key).value;
-        }
-    }
-    
     objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};
     localStorage.setItem(week + "Obj", JSON.stringify(objThis));
 }
-//STORE CHECKBOX VALUE
-function storeCheckboxValue(e) {
+//SET ELEMENT VALUE INTO OBJECTS
+function setObject(e) {
     var refID = e.currentTarget.id;
+    if (refID === "WeekOf") return;
     var obj = getDayObj(refID.substr(0,3));
-    obj[refID] = (e.currentTarget.checked) ? true : false;
-//    setStorage();
+    if (byID(refID).getAttribute('type') === 'checkbox') {
+        obj[refID] = (e.currentTarget.checked) ? true : false;    
+    } else {
+        obj[refID] = e.currentTarget.value;
+    }
+    setStorage();
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
@@ -211,29 +206,19 @@ function storeRadioValue(e) {
     } else if (refID.indexOf("pos") > -1) {
         objThisData.Position = e.currentTarget.value;
     }
-//    setStorage();
-}
-//SELECT ON CHANGE EVENT
-function selectOnChange(e) {
-    var refID = e.currentTarget.id;
-    if (refID === "WeekOf") return;
-    var obj = getDayObj(refID.substr(0,3));
-    obj[refID] = e.currentTarget.value;
-//    setStorage();
+    setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
     var optVal = (getFileName() === "index2.html") ? "S" : "";
     var refID = e.currentTarget.id;
-    var obj = getDayObj(refID.substr(0,3));
     if (refID === "Trainee" + optVal || refID === "EmpName" + optVal) {
         byID(refID).value = properCase(e.currentTarget.value);
     }
-    if (optVal === "" && refID.indexOf("Route") > 0) {
+    if ((optVal === "" && refID.indexOf("Route") > 0) || refID === "EmpInitials" + optVal) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
-    obj[refID] = e.currentTarget.value;
-//    setStorage();
+    setObject(e);
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/

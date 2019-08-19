@@ -17,18 +17,18 @@
         .bold {
             font-weight: bold;
         }
-        
+
         .bold-lg {
             font-weight: bold;
             font-size: 16px;
         }
-        
+
         .section__header {
             padding: 5px;
             border-radius: 4px;
             margin-top: -2px;
         }
-        
+
         p {
             font-family: 'Rubik';
             text-transform: none;
@@ -38,17 +38,26 @@
     </style>
     <script>
         function downloadTimesheet() {
-            var week = urlParams.toString().replace("WeekOf=","");
+            var week = urlParams.toString().replace("WeekOf=", "");
             window.open("timesheet.html?WeekOf=" + week, "_self");
+        }
+        
+        function dateString(strDate) {
+            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+            return str
         }
     </script>
 </head>
 
 <body>
-  <script src="js/json.js"></script>
-   <script>
+    <script src="js/json.js"></script>
+    <script>
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
         var urlParams = new URLSearchParams(window.location.search);
-        var week = urlParams.toString().replace("WeekOf=","");
+        var week = urlParams.toString().replace("WeekOf=", "");
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
         objThisData = objThis.Data
         objThisSat = objThis.Sat;
@@ -61,7 +70,7 @@
     </script>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
-        <div id="navbarmodal" class="dropdown">            
+        <div id="navbarmodal" class="dropdown">
             <span class="fas fa-bars dropbtn fa-lg" id="tsbtn"></span>
             <div class="dropdown-content hide" id="tsdropdown">
                 <div class="row" onclick="downloadTimesheet();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
@@ -75,368 +84,131 @@
             <div style="font-size: 20px">TIMESHEET PREVIEW - After reviewing data, click on download from the menu bar to create the PDF.</div>
         </div>
         <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue">';
-                strHTML += '<div class="col-12 bold-lg">Employee Data</div></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + objThisData.Area + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + objThisData.Team + '</p></div>';
-                strHTML += '<div class="col-sm-6"><p class="bold">Name:</p><p>' + objThisData.EmpName + '</p></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Week Range:</p><p>' + objThisData.WeekOf + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Position:</p><p>' + objThisData.Position + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p class="bold">OJT Trainer:</p><p>';
-                if (objThisData.OJT) {
-                    strHTML += '<input id="chkboxojt" type="checkbox" checked="checked" disabled><label for="chkboxojt">EQ/L</label>';
-                } else {
-                    strHTML += '<input id="chkboxojt" type="checkbox" disabled><label for="chkboxojt">EQ/L</label>';
-                }
-                strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + objThisData.Trainee + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + objThisData.Veh1 + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((objThisData.Veh2 !== "") ? objThisData.Veh2 : "") + ((objThisData.Veh3 !== "") ? "/" + objThisData.Veh3 : "") + ((objThisData.Veh4 !== "") ? "/" + objThisData.Veh4 : "") + '</p></div></div>'
-                document.write(strHTML);
-            </script>
+            <div class="row">
+                <p class="daily">Employee Data</p>
+            </div>
+            <div class="row">
+                <div class="col-6" id="divpweek"></div>
+                <div class="col-6" id="divpemp"></div>
+            </div>
+            <div class="row">
+                <div class="col-4" id="divparea"></div>
+                <div class="col-4" id="divpteam"></div>
+                <div class="col-4" id="divpposition"></div>
+            </div>
+            <div class="row">
+                <div class="col-2" id="divpojt"></div>
+                <div class="col-4" id="divptrainee"></div>
+                <div class="col-2" id="divpveh1"></div>
+                <div class="col-4" id="divpspares"></div>
+            </div>
         </div>
-    </div>
-        
+        <div class="card">
+            <div class="row">
+                <p class="daily">PUPIL COUNTS</p>
+            </div>
+            <div class="bg-teal1 teenycard" id="divpamruns"></div>
+            <div class="bg-teal1 teenycard" id="divppmruns"></div>
+            <div class="bg-teal1 teenycard" id="divppsshlr"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">Route Time</p>
+            </div>
+            <div class="bg-medblue tinycard" id="divpMon"></div>
+            <div class="bg-medblue tinycard" id="divpTue"></div>
+            <div class="bg-medblue tinycard" id="divpWed"></div>
+            <div class="bg-medblue tinycard" id="divpThu"></div>
+            <div class="bg-medblue tinycard" id="divpFri"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">OTHER WORK</p>
+            </div>
+            <div class="row hide" id="divpow0"></div>
+            <div class="row hide" id="divpow1"></div>
+            <div class="row hide" id="divpow2"></div>
+            <div class="row hide" id="divpow3"></div>
+            <div class="row hide" id="divpow4"></div>
+            <div class="row hide" id="divpow5"></div>
+            <div class="row hide" id="divpow6"></div>
+            <div class="row hide" id="divpow7"></div>
+            <div class="row hide" id="divpow8"></div>
+            <div class="row hide" id="divpow9"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">field trips</p>
+            </div>
+            <div class="row hide" id="divpft0"></div>
+            <div class="row hide" id="divpft1"></div>
+            <div class="row hide" id="divpft2"></div>
+            <div class="row hide" id="divpft3"></div>
+            <div class="row hide" id="divpft4"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">LEAVE</p>
+            </div>
+            <div class="row hide" id="divplv0"></div>
+            <div class="row hide" id="divplv1"></div>
+            <div class="row hide" id="divplv2"></div>
+            <div class="row hide" id="divplv3"></div>
+            <div class="row hide" id="divplv4"></div>
+            <div class="row hide" id="divplv5"></div>
+            <div class="row hide" id="divplv6"></div>
+            <div class="row hide" id="divplv7"></div>
+            <div class="row hide" id="divplv8"></div>
+            <div class="row hide" id="divplv9"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">TOTALS</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" id="divptotalrun"></div>
+                <div class="col-sm-3" id="divptotalother"></div>
+                <div class="col-sm-3" id="divptotalft"></div>
+                <div class="col-sm-3" id="divptotalhw"></div>
+            </div>
+            <hr class="border-grey">
+            <div class="row">
+                <div class="col-sm-2" id="divptotal1r"></div>
+                <div class="col-sm-2" id="divptotals4"></div>
+                <div class="col-sm-2" id="divptotals2ql"></div>
+                <div class="col-sm-2" id="divptotals2j"></div>
+                <div class="col-sm-2" id="divptotalc3"></div>
+                <div class="col-sm-2" id="divptotalc1"></div>
+            </div>
+        </div>
         <script>
-            var strHTML = '<div class="card">';
-            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            if (objThisData.Position === "Driver" || objThisData.Position === "Sub Driver" || objThisData.Position === "Driver Trainee") {    
-                strHTML += '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Pupil Counts</div></div>';
-                strHTML += '<hr class="border-grey">';
-                strHTML += '<div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 1st Bell:&nbsp;' + objThisData.AMRoute1 + '</p></div>';
-                for (var i = 1; i < 6; i++) {
-                    var obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM1Ct"] + '</p></div>';    
+            //Click on menu, toggle menu on and off
+            window.addEventListener("click", toggleMenu);
+            //TOGGLE MENU ON AND OFF ON CLICK
+            function toggleMenu(e) {
+                //Get ID of whatever triggered click event
+                var refID = e.target.id;
+
+                //Is nav dropdown hiding?
+                var bln = (document.getElementById("tsdropdown").classList.contains("hide")) ? true : false;
+
+                if (refID !== "tsbtn") {
+                    showHide("tsdropdown", false);
+                } else {
+                    showHide("tsdropdown", bln);
                 }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 2nd Bell:&nbsp;' + objThisData.AMRoute2 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM2Ct"] + '</p></div>';    
+            }
+
+            //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
+            function showHide(refID, bln) {
+                var el = document.getElementById(refID);
+                //(Show the element) ? remove hide : add hide
+                if (bln) {
+                    if (el.classList.contains("hide")) el.classList.remove("hide");
+                } else {
+                    if (!el.classList.contains("hide")) el.classList.add("hide");
                 }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 3rd Bell:&nbsp;' + objThisData.AMRoute3 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM3Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 4th Bell:&nbsp;' + objThisData.AMRoute4 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM4Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">AM 5th Bell:&nbsp;' + objThisData.AMRoute5 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "AM5Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeA"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeB"] + '</p></div>';    
-                }
-                strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 1st Bell:&nbsp;' + objThisData.PMRoute1 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM1Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 2nd Bell:&nbsp;' + objThisData.PMRoute2 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM2Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 3rd Bell:&nbsp;' + objThisData.PMRoute3 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM3Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 4th Bell:&nbsp;' + objThisData.PMRoute4 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM4Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PM 5th Bell:&nbsp;' + objThisData.PMRoute5 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PM5Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeC"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row"><div class="col-sm-2"></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + obj[days[i] + "TimeD"] + '</p></div>';    
-                }
-                strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute1 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PS1Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">PAC/Preschool:&nbsp;' + objThisData.PSRoute2 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "PS2Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute1 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "SH1Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Shuttle:&nbsp;' + objThisData.SHRoute2 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "SH2Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><hr class="border-grey"><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute1 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "LR1Ct"] + '</p></div>';    
-                }
-                strHTML += '</div><div class="row">';
-                strHTML += '<div class="col-sm-2"><p class="bold">Late Run:&nbsp;' + objThisData.LRRoute2 + '</p></div>';
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    strHTML += '<div class="col-sm-1"><p>' + days[i].substr(0,1) + ':&nbsp;' + obj[days[i] + "LR2Ct"] + '</p></div>';    
-                }
-                strHTML += '</div></div>'
-                document.write(strHTML);
             }
         </script>
-        
-        <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue"><div class="col-12 bold-lg">Route Time</div></div>';
-                var obj = "";
-                
-                for (var i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    if (i !== 1) {strHTML += '<hr class="border-grey">';}
-                    strHTML += '<div class="row">';
-                    strHTML += '<div class="col-sm-1"><p class="bold">' + objThisData[days[i] + "Date"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + obj[days[i] + "Time11S"] + '&nbsp;&nbsp;' + obj[days[i]+ "Time11E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time11"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + obj[days[i] + "Time13S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time13E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time13"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + obj[days[i] + "Time15S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time15E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time15"] + '</p></div></div>';
-                    strHTML += '<div class="row"><div class="col-sm-1">';
-                    if (obj[days[i] + "QL1"]) {
-                        strHTML += '<input id="chkbox" type="checkbox" checked="checked" disabled><label for="chkbox">EQ/L</label></div>';
-                    } else {
-                        strHTML += '<input id="chkbox" type="checkbox" disabled><label for="chkbox">EQ/L</label></div>';
-                    }
-                    strHTML += '<div class="col-sm-2"><p>RG:&nbsp;' + obj[days[i] + "Time12S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time12E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time12"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>PS:&nbsp;' + obj[days[i] + "Time14S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time14E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time14"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>SH:&nbsp;' + obj[days[i] + "Time16S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time16E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time16"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>LR:&nbsp;' + obj[days[i] + "Time17S"] + '&nbsp;&nbsp;' + obj[days[i] + "Time17E"] + "&nbsp;&nbsp;" + obj[days[i] + "Time17"] + '</p></div>';
-                    strHTML += '<div class="col-sm-2"><p>TOTAL:&nbsp;' + obj[days[i] + "RunTotal"] + '</p></div></div>';
-                }
-            document.write(strHTML);
-            </script>
-        </div>
-        <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';;
-                var obj = "";
-                var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
-                var j = 0;
-                for (var i = 0; i < 7; i++) {
-                    obj = getDayObj(days[i]);
-                    for (var k = 20; k < 30; k++) {
-                        if ((i === 0 || i === 6) && k > 22) continue;
-                        if (obj[days[i] + "Select" + k] !== "") {
-                            otherWork[j] = days[i] + "Time" + k;
-                            j++;
-                        }
-                    }
-                }
-                var strDay = "";
-                var blnOW = false;
-                var strnum = "";
-                
-                for (i = 0; i < 10; i++) {
-                    blnOW = (otherWork[i] !== "OW" + i) ? true : false;
-                    if (blnOW) {
-                        strDay = otherWork[i].substr(0,3);
-                        strnum = otherWork[i].substr(7);
-                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
-                        strHTML += '<div class="row">';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
-                        if (obj[strDay + "QL" + strnum]) {
-                            strHTML += '<div class="col-sm-1"><input id="chkboxow" type="checkbox" checked="checked" disabled><label for="chkboxow">EQ/L</label></div>';
-                        } else {
-                            strHTML += '<div class="col-sm-1"><input id="chkboxow" type="checkbox" disabled><label for="chkboxow">EQ/L</label></div>';
-                        }
-                        strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + obj[strDay + "Select" + strnum] + " - " + obj[strDay + "Desc" + strnum] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p></p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i] + "S"] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i] + "E"] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherWork[i]] + '</p></div>';
-                        strHTML += '</div>';
-                    }
-                }
-                document.write(strHTML);
-            </script>
-        </div>
-        <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
-                var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
-                var obj = "";
-                var j = 0;
-                for (var i = 0; i < 7; i++) {
-                    obj = getDayObj(days[i]);
-                    for (var k = 30; k < 35; k++) {
-                        if ((i === 0 || i === 6) && k > 32) continue;
-                        if (obj[days[i] + "Time" + k] !== "") {
-                            otherFT[j] = days[i] + "Time" + k;
-                            j++;
-                        }
-                    }
-                }
-                var strDay = "";
-                var blnFT = false;
-                var strnum = "";
-                
-                for (i = 0; i < 5; i++) {
-                    blnFT = (otherFT[i] !== "FT" + i) ? true : false;
-                    if (blnFT) {
-                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
-                        strDay = otherFT[i].substr(0,3);
-                        strnum = otherFT[i].substr(7);
-                        strHTML += '<div class="row">';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
-                        if (obj[strDay + "QL" + strnum]) {
-                            strHTML += '<div class="col-sm-1"><input id="chkboxft" type="checkbox" checked="checked" disabled><label for="chkboxft">EQ/L</label></div>';
-                        } else {
-                            strHTML += '<div class="col-sm-1"><input id="chkboxft" type="checkbox" disabled><label for="chkboxft">EQ/L</label></div>';
-                        }
-                        strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + obj[strDay + "From" + strnum] + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + obj[strDay + "To" + strnum] + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>Voucher:&nbsp;' + obj[strDay + "Voucher" + strnum] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i] + "S"] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i] + "E"] + '</p></div>';
-                        strHTML += '<div class="col-sm-1"><p>' + obj[otherFT[i]] + '</p></div>';
-                        strHTML += '</div>';
-                    }
-                }
-                document.write(strHTML);
-            </script>
-        </div>
-        <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
-                var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
-                var obj = "";
-                var j = 0;
-                
-                for (i = 1; i < 6; i++) {
-                    obj = getDayObj(days[i]);
-                    if (obj[days[i] + "Time41"] !== "") {
-                        otherLV[j] = days[i] + "Time41";
-                        j++;
-                    }
-                    if (obj[days[i] + "Time42"] !== "") {
-                        otherLV[j] = days[i] + "Time42";
-                        j++;
-                    }
-                    if (obj[days[i] + "LeaveAD"] === "1") {
-                        otherLV[j] = days[i] + "LeaveAD";
-                        j++;
-                    }
-                }
-                var strDay = "";
-                var blnLV = false;
-                var strnum = "";
-                    
-                for (i = 0; i < 10; i++) {
-                    blnLV = (otherLV[i] !== "LV" + i) ? true : false;
-                    if (blnLV) {
-                        if (i !== 0) {strHTML += '<hr class="border-grey">';}
-                        strHTML += '<div class="row">';
-                        strDay = otherLV[i].substr(0,3);
-                        strnum = otherLV[i].substr(-2);
-                        strHTML += '<div class="col-sm-1"><p>' + obj[strDay + "Date"] + '</p></div>';
-                        strHTML += '<div class="col-sm-2"><p>' + obj[strDay + "LeaveSelect" + strnum] + '</p></div>';
-                        if (strnum === "AD") {
-                            strHTML += '<div class="col-sm-1"><input id="allday" type="checkbox" checked="checked" disabled><label for="allday">ALL DAY</label></div>';
-                            strHTML += '<div class="col-sm-1"></div>';
-                            strHTML += '<div class="col-sm-1"></div>';
-                            strHTML += '<div class="col-sm-1"></div></div>';
-                        } else {
-                            strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" disabled></p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i] + "S"] + '</p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i] + "E"] + '</p></div>';
-                            strHTML += '<div class="col-sm-1"><p>' + obj[otherLV[i]] + '</p></div></div>';
-                        }
-                    }
-                }
-                document.write(strHTML);
-            </script>
-        </div>
-        <div class="card">
-            <script>
-                var strHTML = '<div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
-                strHTML += '<div class="col-sm-3"><p class="bold-lg">REGULAR:&nbsp;' + objThisData.TotalRun + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + objThisData.TotalOther + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + objThisData.TotalFT + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold-lg">HOURS WORKED:&nbsp;' + objThisData.TotalHW + '</p></div>';
-                strHTML += '</div><hr class="border-grey"><div class="row">'
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">1R (Regular):&nbsp;' + objThisData.Total1R + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">S4 (OJT):&nbsp;' + objThisData.TotalS4 + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Equipment):&nbsp;' + objThisData.TotalS2EQ + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">C3 (Weather):&nbsp;' + objThisData.TotalC3 + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold-lg">C1 (Callback):&nbsp;' + objThisData.TotalC1 + '</p></div>';
-                strHTML += '</div>';
-                document.write(strHTML);
-            </script>    
-        </div>
-    <script>
-        //Click on menu, toggle menu on and off
-        window.addEventListener("click", toggleMenu);
-        //TOGGLE MENU ON AND OFF ON CLICK
-        function toggleMenu(e) {
-            //Get ID of whatever triggered click event
-            var refID = e.target.id;
-
-            //Is nav dropdown hiding?
-            var bln = (document.getElementById("tsdropdown").classList.contains("hide")) ? true : false;
-
-            if (refID !== "tsbtn") {
-                showHide("tsdropdown", false);
-            } else {
-                showHide("tsdropdown", bln);
-            }
-        }
-        
-        //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-        function showHide(refID, bln) {
-            var el = document.getElementById(refID);
-            //(Show the element) ? remove hide : add hide
-            if (bln) {
-                if (el.classList.contains("hide")) el.classList.remove("hide");
-            } else {
-                if (!el.classList.contains("hide")) el.classList.add("hide");
-            }
-        }
-    </script>
-</body>
-</html>
+        <script src="js/preview.js"></script>
+</body></html>

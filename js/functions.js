@@ -4,16 +4,14 @@ var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRou
 var eventChange = new Event("change");
 
 //INITIAL LOAD
-document.addEventListener('DOMContentLoaded', function () {
-    showHide("changesModal", true);
-});
+document.addEventListener('DOMContentLoaded', () => showHide("changesModal", true));
 
 /********************EVENT LISTENERS********************/
 
 //Checkbox on click store into local storage
 var checkbox = document.querySelectorAll("input[type='checkbox']");
 for (var i = 0; i < checkbox.length; i++) {
-    checkbox[i].addEventListener("click", storeCheckboxValue);
+    checkbox[i].addEventListener("click", setObject);
 }
 
 //Radio on change store into local storage
@@ -31,7 +29,7 @@ for (i = 0; i < textbox.length; i++) {
 //Make selection on select element
 var select = document.querySelectorAll("select");
 for (i = 0; i < select.length; i++) {
-    select[i].addEventListener("change", selectOnChange);
+    select[i].addEventListener("change", setObject);
 }
 
 //Area selection
@@ -118,9 +116,7 @@ for (i = 0; i < ft.length; i++) {
 }
 
 //Open Change Week Modal
-byID("chgWeek").addEventListener("click", function() {
-    showHide("weekModal", true);
-});
+byID("chgWeek").addEventListener("click", () => showHide("weekModal", true));
 
 //Close Time selector
 byID("closeTime").addEventListener("click", function () {
@@ -135,19 +131,14 @@ byID("closeFT").addEventListener("click", function () {
 });
 
 //Close various modal
-byID("endVarious").addEventListener("click", function () {
-    showHide("variousModal", false);
-});
+byID("endVarious").addEventListener("click", () => showHide("variousModal", false));
 
 //Close validation modal
-byID("endValidate").addEventListener("click", function () {
-    showHide("validateModal", false);
-});
+byID("endValidate").addEventListener("click", () => showHide("validateModal", false));
 
 //If route name is updated, store name and then run loadQL
-for (i = 0; i < routes.length; i++) {
+for (i = 0; i < routes.length; i++)
     byID(routes[i]).addEventListener("change", routeNameCheck);
-}
 
 //Click on pupil counts question mark
 byID("ctspan").addEventListener("click", popUpCT);
@@ -173,9 +164,6 @@ byID("endChanges").addEventListener("click", function () {
     byID("WeekOf").value = DateRange(0);
     changeWeek();
 });
-
-//Show spinner when save is clicked
-byID("save").addEventListener("click", runSave);
 
 //Veh textbox keyup
 var veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
@@ -204,9 +192,7 @@ for (i = 0; i < faCopy.length; i++) {
 }
 
 //Clear on click
-byID("clear").addEventListener("click", function () {
-    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
-});
+byID("clear").addEventListener("click", () => openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>'));
 
 //Add on Change event listening to Select Other Work
 var selectOW = document.querySelectorAll("select[name='selectOW']");
@@ -236,9 +222,6 @@ function changeModalSlide(dir) {
 
 //SELECT WEEK
 function changeWeek() {
-    window.setInterval(function(){
-      runSave();
-    }, 20000);
     if (byID("WeekOf").value === "") return;
     showHide("weekModal", false);
     byID("PayWeek").innerHTML = "Pay Week: " + dateString(byID("WeekOf").value);
@@ -355,11 +338,10 @@ function loadStoredWeek() {
             byID(days[i] + "Date").innerHTML = objThisData[days[i] + "Date"];
 }
 
-//SET EACH DAY IN MM/DD FORMAT INTO LOCAL STORAGE
+//GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
 function storeWeek() {
     var week = byID("WeekOf").value;
     if (localStorage.getItem(week + "Obj") === null) {
-        localStorage.setItem(week + "Obj", JSON.stringify(objNew));
         objThis = objNew;
         
         //Parse JSON into objects
@@ -384,13 +366,15 @@ function storeWeek() {
             sd = (sd.toString().length === 1) ? "0" + sd : sd;
             objThisData[days[i] + "Date"] = sm + "/" + sd;
         }
+        loadPrevWeek(week);
+        objThisData.WeekOf = byID("WeekOf").value;
+        setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
         
         //Parse JSON into objects
         parseData();
     }
-    
     //Load data from JSON
     loadLocalStorage();
     loadStoredWeek();
@@ -405,6 +389,60 @@ function parseData() {
     objThisWed = objThis.Wed;
     objThisThu = objThis.Thu;
     objThisFri = objThis.Fri;
+}
+//PULL DATA FROM PREVIOUS WEEK INTO NEW WEEK
+function loadPrevWeek(week) {
+    //Store first day of week range in y and shortened date in ny
+    var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
+    
+    var start = new Date(startDate);
+    var end = new Date();
+    start.setDate(start.getDate() + (-7));
+    end.setDate(start.getDate() + (6));
+
+    var sm = start.getMonth() + 1,
+        sd = start.getDate(),
+        sy = start.getFullYear();
+    var em = end.getMonth() + 1,
+        ed = end.getDate(),
+        ey = end.getFullYear();
+    sm = (sm.toString().length === 1) ? "0" + sm : sm;
+    sd = (sd.toString().length === 1) ? "0" + sd : sd;
+    em = (em.toString().length === 1) ? "0" + em : em;
+    ed = (ed.toString().length === 1) ? "0" + ed : ed;
+    var prevweek = sm + sd + sy + em + ed + ey;
+    if (localStorage.getItem(prevweek + "Obj") === null) return;
+    objTemp = JSON.parse(localStorage.getItem(prevweek + "Obj"));
+    
+    var keyArr = Object.keys(objThisData);
+    for (var i = 0; i < keyArr.length; i++) {
+        objThisData[keyArr[i]] = objTemp.Data[keyArr[i]];        
+    }
+    for (i = 11; i < 18; i++) {
+        objThisMon["MonTime" + i + "S"] = objTemp.Mon["MonTime" + i + "S"];
+        objThisMon["MonTime" + i + "E"] = objTemp.Mon["MonTime" + i + "E"];
+        objThisMon["MonTime" + i] = objTemp.Mon["MonTime" + i];
+    }
+    for (i = 11; i < 18; i++) {
+        objThisTue["TueTime" + i + "S"] = objTemp.Tue["TueTime" + i + "S"];
+        objThisTue["TueTime" + i + "E"] = objTemp.Tue["TueTime" + i + "E"];
+        objThisTue["TueTime" + i] = objTemp.Tue["TueTime" + i];
+    }
+    for (i = 11; i < 18; i++) {
+        objThisWed["WedTime" + i + "S"] = objTemp.Wed["WedTime" + i + "S"];
+        objThisWed["WedTime" + i + "E"] = objTemp.Wed["WedTime" + i + "E"];
+        objThisWed["WedTime" + i] = objTemp.Wed["WedTime" + i];
+    }
+    for (i = 11; i < 18; i++) {
+        objThisThu["ThuTime" + i + "S"] = objTemp.Thu["ThuTime" + i + "S"];
+        objThisThu["ThuTime" + i + "E"] = objTemp.Thu["ThuTime" + i + "E"];
+        objThisThu["ThuTime" + i] = objTemp.Thu["ThuTime" + i];
+    }
+    for (i = 11; i < 18; i++) {
+        objThisFri["FriTime" + i + "S"] = objTemp.Fri["FriTime" + i + "S"];
+        objThisFri["FriTime" + i + "E"] = objTemp.Fri["FriTime" + i + "E"];
+        objThisFri["FriTime" + i] = objTemp.Fri["FriTime" + i];
+    }
 }
 
 //SET DAYS WHEN WEEK IS CHANGED
@@ -925,7 +963,7 @@ function toggleADLeave(refID) {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    window.localStorage.clear();
+    localStorage.removeItem(byID("WeekOf").value + "Obj");
     location.reload();
 }
 

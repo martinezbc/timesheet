@@ -834,7 +834,7 @@ var objNewFri = {
     FriPM3Ct: "",
     FriPM4Ct: "",
     FriPM5Ct: "",
-    riPS1Ct: "",
+    FriPS1Ct: "",
     FriPS2Ct: "",
     FriSH1Ct: "",
     FriSH2Ct: "",
@@ -1004,6 +1004,7 @@ var objNew = {
     Fri: objNewFri
 };
 var objThis, objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri;
+var objTemp, objTempData, objTempSat, objTempSun, objTempMon, objTempTue, objTempWed, objTempThu, objTempFri;
 
 function getDayObj(day) {
     switch (day) {
