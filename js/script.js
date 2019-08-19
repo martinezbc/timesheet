@@ -185,14 +185,13 @@ function setStorage() {
     localStorage.setItem(week + "Obj", JSON.stringify(objThis));
 }
 //SET ELEMENT VALUE INTO OBJECTS
-function setObject(e) {
-    var refID = e.currentTarget.id;
+function setObject(refID) {
     if (refID === "WeekOf") return;
     var obj = getDayObj(refID.substr(0,3));
     if (byID(refID).getAttribute('type') === 'checkbox') {
-        obj[refID] = (e.currentTarget.checked) ? true : false;    
+        obj[refID] = (byID(refID).checked) ? true : false;    
     } else {
-        obj[refID] = e.currentTarget.value;
+        obj[refID] = byID(refID).value;
     }
     setStorage();
 }
@@ -218,7 +217,7 @@ function textboxOnChange(e) {
     if ((optVal === "" && refID.indexOf("Route") > 0) || refID === "EmpInitials" + optVal) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
-    setObject(e);
+    setObject(refID);
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/
@@ -295,14 +294,12 @@ function showHide(refID, bln) {
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
-    var obj = getDayObj(refID.substr(0,3));
     if (byID(refID).type === "checkbox") {
         byID(refID).checked = false;
-        obj[refID] = false;
     } else {
         byID(refID).value = "";
-        obj[refID] = "";
     }
+    setObject(refID);
 }
 //RESET TIME FIELDS
 function resetTime(day, num) {
