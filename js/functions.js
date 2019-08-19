@@ -1482,11 +1482,11 @@ function checkOverlap(refID) {
     var i = (day === "Sat" || day === "Sun") ? 20 : 11;
 
     for (i; i < max; i += 1) {
-        i = (i === 18) ? 20 : i;
-        i = ((day === "Sat" || day === "Sun") && i === 23) ? 30 : i;
-        i = (i === 35) ? 41 : i;
-        if (i === numVal) i += 1;
-        if (i === max) break;
+        if ((day === "Sat" || day === "Sun") && i > 22 && i < 30) continue;
+        if ((day === "Sat" || day === "Sun") && i > 32 && i < 35) continue;
+        if (i === 18 || i === 19) continue;
+        if (i > 34 && i < 41) continue;
+        if (i === numVal) continue;
 
         //Initialize newStart and newEnd
         newStart = convertToMinutes(byID(day + "Time" + i + "S").value);
@@ -1561,6 +1561,7 @@ function dailyRuns(day) {
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
     byID(day + "RunTotal").value = sum;
+    setObject(day + "RunTotal");
 }
 
 //CALCULATE DAILY OTHER WORK TIME
