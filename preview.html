@@ -41,7 +41,7 @@
             var week = urlParams.toString().replace("WeekOf=", "");
             window.open("timesheet.html?WeekOf=" + week, "_self");
         }
-        
+
         function dateString(strDate) {
             var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
@@ -181,34 +181,28 @@
                 <div class="col-sm-2" id="divptotalc1"></div>
             </div>
         </div>
-        <script>
-            //Click on menu, toggle menu on and off
-            window.addEventListener("click", toggleMenu);
-            //TOGGLE MENU ON AND OFF ON CLICK
-            function toggleMenu(e) {
-                //Get ID of whatever triggered click event
-                var refID = e.target.id;
+    </div>
+    <script>
+        //Click on menu, toggle menu on and off
+        window.onclick = function(event) {
+            var bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
 
-                //Is nav dropdown hiding?
-                var bln = (document.getElementById("tsdropdown").classList.contains("hide")) ? true : false;
-
-                if (refID !== "tsbtn") {
-                    showHide("tsdropdown", false);
-                } else {
-                    showHide("tsdropdown", bln);
-                }
+            if (event.target.id !== 'tsbtn') {
+                showHide("tsdropdown", false);
+            } else {
+                showHide("tsdropdown", bln);
             }
+        }
 
-            //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-            function showHide(refID, bln) {
-                var el = document.getElementById(refID);
-                //(Show the element) ? remove hide : add hide
-                if (bln) {
-                    if (el.classList.contains("hide")) el.classList.remove("hide");
-                } else {
-                    if (!el.classList.contains("hide")) el.classList.add("hide");
-                }
+        window.ontouchstart = function(event) {
+            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'tsbtn') {
+                showHide("tsdropdown", false);
+            } else {
+                showHide("tsdropdown", bln);
             }
-        </script>
-        <script src="js/preview.js"></script>
+        }
+    </script>
+    <script src="js/preview.js"></script>
 </body></html>

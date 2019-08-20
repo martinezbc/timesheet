@@ -350,6 +350,10 @@ p {
     cursor: pointer;
 }
 
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 
 
 .dropdown {
@@ -359,6 +363,7 @@ p {
 }
 
 .dropdown-content {
+    display: none;
     position: absolute;
     background-color: #0e657d;
     min-width: 160px;

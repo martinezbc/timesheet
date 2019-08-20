@@ -2,6 +2,13 @@
 var activeID = "";
 var routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
 
+var clickEvent = (function() {
+    if ('ontouchstart' in document.documentElement === true)
+        return 'touchstart';
+    else
+        return 'click';
+})();
+
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function () {
     showHide("changesModal", true)
@@ -212,8 +219,14 @@ for (i = 0; i < selectOW.length; i += 1) {
     selectOW[i].addEventListener("change", selectOWChange);
 }
 
-//Click on menu, toggle menu on and off
-window.addEventListener("click", toggleMenu);
+byID("navbtn").addEventListener("click", function () {
+    showHide("navbtn", true);
+});
+
+byID("divpreview").addEventListener(clickEvent, completeTimesheet);
+
+byID("divsupplement").addEventListener(clickEvent, openSupplement);
+
 /********************EVENT LISTENERS********************/
 
 //TOGGLE BETWEEN TUTORIAL SLIDES
@@ -1004,6 +1017,7 @@ function clearFields() {
 
 //OPEN SUPPLEMENT IN SAME WINDOW
 function openSupplement() {
+    showHide("navdropdown", false);
     window.open("index2.html", "_self");
 }
 
@@ -1149,31 +1163,16 @@ function countFieldTrips(refID) {
     }
 }
 
-//TOGGLE MENU ON AND OFF ON CLICK
-function toggleMenu(e) {
-    //Get ID of whatever triggered click event
-    var refID = e.target.id;
-
-    //Is nav dropdown hiding?
-    var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
-
-    if (refID !== "navbtn") {
-        showHide("navdropdown", false);
-    } else {
-        showHide("navdropdown", bln);
-    }
-}
-
-
 /********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
+    showHide("navdropdown", false);
     if (byID("WeekOf").value === "") return;
     var bln = runValidations();
     if (!bln)
         return;
 
     showHide("validateModal", true);
-    byID("EmpInitials").focus();
+    byID("validateModal").focus();
 }
 
 function openTimesheet() {

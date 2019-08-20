@@ -15,6 +15,7 @@
     <link href="css/color.css" rel="stylesheet" type="text/css">
     <!--Javascript-->
     <script src="js/fieldtrip.js"></script>
+    <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
     <script>
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -38,8 +39,8 @@
             <div class="col-1 dropdown right" style="padding-top: 5px;" id="navbarmodal">
                 <span class="fas fa-bars dropbtn fa-lg" id="navbtn"></span>
                 <div class="dropdown-content hide" id="navdropdown">
-                    <div class="row" onclick="completeTimesheet();"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
-                    <div class="row" onclick="openSupplement()"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
+                    <div class="row" id="divpreview"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                    <div class="row" id="divsupplement"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
                     <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
                 </div>
             </div>
@@ -319,4 +320,26 @@
     <script src="js/script.js"></script>
     <script src="js/json.js"></script>
     <script src="js/functions.js"></script>
+    <script>
+        //Click on menu, toggle menu on and off
+        window.onclick = function(event) {
+            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'navbtn') {
+                showHide("navdropdown", false);
+            } else {
+                showHide("navdropdown", bln);
+            }
+        }
+        
+        window.ontouchstart = function(event) {
+            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'navbtn') {
+                showHide("navdropdown", false);
+            } else {
+                showHide("navdropdown", bln);
+            }
+        }
+        </script>
 </body></html>
