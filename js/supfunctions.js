@@ -57,7 +57,7 @@ for (i = 0; i < position.length; i++) {
 //EQL checked
 var chkEQL = document.querySelectorAll("input[name='chkQLS']");
 for (i = 0; i < chkEQL.length; i++) {
-    chkEQL[i].addEventListener("click", toggleEQL);
+    chkEQL[i].addEventListener("click", toggleQL);
 }
 
 //All day leave checked
@@ -216,7 +216,7 @@ function initialLoad() {
         key = keyArr[i];
         if (key === "AreaS" || key === "TeamS" || key === "PositionS" || key === "Total1RS" || key === "WeekOfS") continue;
         if (byID(key) === null) continue;
-        if (objThis[i] === true || objThis[i] === false) {
+        if (objThis[key] === true || objThis[key] === false) {
             byID(key).checked = objThis[key];    
         } else {
             byID(key).value = objThis[key];
@@ -231,24 +231,40 @@ function initialLoad() {
 
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
 function loadRadioSelection() {
+    var area = objThis.AreaS;
+    var team = objThis.TeamS;
+    var pos = objThis.PositionS;
+    
+    var i = 0;
+    
     //Load area from local storage and set radio selection
-    if (objThis.AreaS === null) objThis.AreaS = "";
-    var val = objThis.AreaS;
-    if (val !== "") byID("area" + val + "S").checked = true;
+    if (area !== "") {
+        byID("area" + area + "S").checked = true;
+    } else {
+        area = document.querySelectorAll("input[name='AreaS']");
+        for (i = 0; i < area.length; i += 1)
+            area[i].checked = false;
+    }
 
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    if (objThis.TeamS === null) objThis.TeamS = "";
-    val = objThis.TeamS;
-    if (val !== "" && val.substr(0, 1) === objThis.AreaS) byID("team" + val + "S").checked = true;
+    if (team !== "" && team.substr(0, 1) === area) {
+        byID("team" + team + "S").checked = true;
+    } else {
+        team = document.querySelectorAll('input[name="TeamS"]');
+        for (i = 0; i < team.length; i += 1)
+            team[i].checked = false;
+    }
 
     //Load position from local storage and set radio selection
-    if (objThis.PositionS === null) objThis.PositionS = "";
-    val = objThis.PositionS;
-    if (val !== "") {
-        val = val.replace(" ", "");
-        byID("pos" + val + "S").checked = true;
+    if (pos !== "") {
+        pos = pos.replace(" ", "");
+        byID("pos" + pos + "S").checked = true;
+    } else {
+        pos = document.querySelectorAll('input[name="PositionS"]');
+        for (i = 0; i < pos.length; i += 1)
+            pos[i].checked = false;
     }
 }
 
@@ -542,8 +558,7 @@ function disableOWFields(refID) {
     objThis["QL" + x + "S"] = bln;
 }
 
-//IF EQ/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
-function toggleEQL() {
+function toggleQL() {
     getWeeklyTotals();
 }
 
@@ -586,7 +601,7 @@ function openTimesheet() {
 
     showHide("validateModalS", false);
     if (emp !== "")
-        window.open("previewsup.html", "_self");
+        window.open("previewsup.html?WeekOf=" + byID("WeekOfS").value, "_self");
 }
 
 function runValidations() {
