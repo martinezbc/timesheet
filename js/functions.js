@@ -81,6 +81,11 @@ for (i = 0; i < chkQL.length; i += 1) {
     chkQL[i].addEventListener("click", toggleQLReg);
 }
 
+var chkFTQL = document.querySelectorAll("input[name='chkFTQL']");
+for (i = 0; i < chkFTQL.length; i += 1) {
+    chkFTQL[i].addEventListener("click", getDailyTotals);
+}
+
 //Add Other Work click
 var addOW = document.querySelectorAll(".addOW");
 for (i = 0; i < addOW.length; i += 1) {
@@ -264,7 +269,6 @@ function initialLoad() {
     loadJ();
     loadLeave();
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
@@ -589,7 +593,6 @@ function toggleQLReg(e) {
     setObject(day + "QL11");
     loadQL();
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //IF J IS CHECKED, THEN CHECK ALL OF THEM
@@ -601,7 +604,6 @@ function toggleJReg(e) {
     setObject(day + "J11");
     loadJ();
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
@@ -761,7 +763,6 @@ function checkOJT(e) {
     var refID = e.currentTarget.id;
     if (refID === "OJT") loadOJT();
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 function routeNameCheck() {
@@ -838,7 +839,6 @@ function removeOWFT(e) {
     resetElement(dayVal + "QL" + x);
 
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //CLEAR TIME FIELDS
@@ -863,7 +863,6 @@ function clearTimeField(e) {
         resetTime(day, num);
     }
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
@@ -924,7 +923,6 @@ function resetLeave(day) {
 function checkLeave(e) {
     toggleADLeave(e.currentTarget.id);
     getDailyTotals();
-    getWeeklyTotals();
 }
 
 //TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
@@ -1444,7 +1442,6 @@ function timeCalculation(refID) {
     calculateDiff(refID);
 
     getDailyTotals();
-    getWeeklyTotals();
 
     if (refID.substr(7,2) > 19 && refID.substr(7,2) < 30) {
 		countOtherWork(refID);
@@ -1643,13 +1640,13 @@ function dailyQL(day) {
 
     //If Other Work Q/L is checked, add the time
     for (i = 20; i < 30; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i === 23) break;
+        if ((day === "Sat" || day === "Sun") && i > 22) continue;
         sum += (byID(day + "QL" + i).checked) ? convertToMinutes(byID(day + "Time" + i).value) : 0;
     }
 
     //If Q/L is checked for field trips, add time
     for (i = 30; i < 35; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i === 33) break;
+        if ((day === "Sat" || day === "Sun") && i > 32) continue;
         sum += (byID(day + "QL" + i).checked) ? (Number(byID(day + "Time" + i).value) * 60) : 0;
     }
     sum = calculateTotal(sum);
@@ -1703,6 +1700,7 @@ function getDailyTotals() {
         dailyFT(days[i]);
         dailyQL(days[i]);
     }
+    getWeeklyTotals();
 }
 
 //Run calculations for the whole week and set the values into local storage
@@ -1769,13 +1767,14 @@ function getWeeklyTotals() {
             sum += convertToMinutes(byID(days[i] + "Time17").value);
         }                                    
             
-        for (j = 20; j < 35; j++) {
-            if (j === 12) j = 20;
-            if (j === 18 || j === 19) continue;
-            if ((i === 0 || i === 6) && j < 20) continue;
-            if ((i === 0 || i === 6) && j > 22 && j < 30) continue;
-            if ((i === 0 || i === 6) && j > 32) continue;
+        for (j = 20; j < 30; j++) {
+            if ((i === 0 || i === 6) && j > 22) continue;
              sum += (byID(days[i] + "QL" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;   
+        }
+        
+        for (j = 30; j < 35; j++) {
+            if ((i === 0 || i === 6) && j > 32) continue;
+             sum += (byID(days[i] + "QL" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0; 
         }
     }
     sum = convertTotal(sum);
@@ -1809,9 +1808,12 @@ function getWeeklyTotals() {
         return;
 
     for (i = 1; i < 6; i += 1) {
-        for (j = 11; j < 35; j++) {
-            j = (j === 18) ? 20 : j;
+        for (j = 11; j < 30; j++) {
+            if (j === 18 || j === 19) continue;
             sum += (byID(days[i] + "OJT" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
+        }
+        for (j = 30; j < 35; j++) {
+            sum += (byID(days[i] + "OJT" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0; 
         }
     }
     sum = convertTotal(sum);

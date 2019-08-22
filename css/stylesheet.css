@@ -290,6 +290,12 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: bold;
 }
 
+.tutorial-cat {
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
 .descwidth {
     width: 258px;
     text-align: left;
@@ -676,4 +682,9 @@ input[type=checkbox]:hover {
   -ms-flex: 0 0 20%;
   flex: 0 0 20%;
   max-width: 20%;
+}
+
+.image {
+    width: 200px;
+    object-fit: scale-down;
 }

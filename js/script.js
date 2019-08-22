@@ -175,36 +175,61 @@ function setHours(operator, optVal) {
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
-    var week = byID("WeekOf").value;
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    var week = byID("WeekOf" + optVal).value;
 
-    var keyArr = 0;
-    var key = "";
-    var objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
+    if (optVal === "") {
+        var objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
+
+        objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};   
+    }
     
-    objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};
     localStorage.setItem(week + "Obj", JSON.stringify(objThis));
 }
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
-    if (refID === "WeekOf") return;
-    var obj = getDayObj(refID.substr(0,3));
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    if (refID === "WeekOf" + optVal) return;
+    
+    var obj = (optVal === "") ? getDayObj(refID.substr(0,3)) : "";
     if (byID(refID).getAttribute('type') === 'checkbox') {
-        obj[refID] = (byID(refID).checked) ? true : false;    
+        if (optVal === "") {
+            obj[refID] = (byID(refID).checked) ? true : false;  
+        } else {
+            objThis[refID] = (byID(refID).checked) ? true : false;
+        } 
     } else {
-        obj[refID] = byID(refID).value;
+        if (optVal === "") {
+            obj[refID] = byID(refID).value;
+        } else {
+            objThis[refID] = byID(refID).value;
+        }
     }
     setStorage();
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
     var refID = e.currentTarget.id;
-    if (refID.indexOf("area") > -1) {
-        objThisData.Area = e.currentTarget.value;    
-    } else if (refID.indexOf("team") > -1) {
-        objThisData.Team = e.currentTarget.value;
-    } else if (refID.indexOf("pos") > -1) {
-        objThisData.Position = e.currentTarget.value;
+    
+    if (optVal === "") {
+        if (refID.indexOf("area") > -1) {
+            objThisData.Area = e.currentTarget.value;    
+        } else if (refID.indexOf("team") > -1) {
+            objThisData.Team = e.currentTarget.value;
+        } else if (refID.indexOf("pos") > -1) {
+            objThisData.Position = e.currentTarget.value;
+        }
+    } else {
+        if (refID.indexOf("area") > -1) {
+            objThis.AreaS = e.currentTarget.value;    
+        } else if (refID.indexOf("team") > -1) {
+            objThis.TeamS = e.currentTarget.value;
+        } else if (refID.indexOf("pos") > -1) {
+            objThis.PositionS = e.currentTarget.value;
+        }
     }
+
     setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
@@ -294,11 +319,27 @@ function showHide(refID, bln) {
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
+    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    var obj = "";
+    
     if (byID(refID).type === "checkbox") {
+        if (optVal === "") {
+            obj = getDayObj(refID.substr(0,3));
+            obj[refID] = false;
+        } else {
+            objThis[refID] = false;
+        }
         byID(refID).checked = false;
     } else {
+        if (optVal === "") {
+            obj = getDayObj(refID.substr(0,3));
+            obj[refID] = "";
+        } else {
+            objThis[refID] = "";
+        }
         byID(refID).value = "";
     }
+    
     setObject(refID);
 }
 //RESET TIME FIELDS

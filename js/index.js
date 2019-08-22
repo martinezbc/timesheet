@@ -173,7 +173,7 @@ for (var i = 6; i >= 0; i -= 6) {
         strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-8">';
         strHTML += '<input name="" id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
         strHTML += '</div><div class="col-4 center">';
-        strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '"><label for="' + days[i] + 'QL' + j + '">Q/L</label>';
+        strHTML += '<input type="checkbox" name="chkFTQL" id="' + days[i] + 'QL' + j + '"><label for="' + days[i] + 'QL' + j + '">Q/L</label>';
         strHTML += '</div></div>';
         strHTML += '<div class="row ' + days[i] + 'SpanFT' + j + '"><div class="col-12">';
         strHTML += '<input name="txtFT" id="' + days[i] + 'From' + j + '" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
@@ -400,7 +400,7 @@ for (i = 1; i < 6; i++) {
         strHTML += '<input id="' + days[i] + 'Voucher' + j + '" type="text" class="voucherwidth" placeholder="Voucher">';
         strHTML += '</div><div class="col-6 center">';
         strHTML += '<input type="checkbox" name="chkOJT" id="' + days[i] + 'OJT' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'OJT' + j + '">OJT</label>&nbsp;'
-        strHTML += '<input type="checkbox" id="' + days[i] + 'QL' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'QL' + j + '">Q/L</label></div></div>';
+        strHTML += '<input type="checkbox" name="chkFTQL" id="' + days[i] + 'QL' + j + '"><label class="lblBtnFalse" for="' + days[i] + 'QL' + j + '">Q/L</label></div></div>';
         strHTML += '<div class="row"><div class="col-12">';
         strHTML += '<input id="' + days[i] + 'From' + j + '" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
         strHTML += '</div></div><div class="row"><div class="col-12">';

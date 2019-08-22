@@ -1,18 +1,19 @@
 //DECLARE VARIABLES
 var activeID = "";
-var eventChange = new Event("change");
 var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 //INITIAL LOAD
 document.addEventListener('DOMContentLoaded', function () {
-    initialLoad();
+    showHide("weekModalS", true);
 });
 
 /********************EVENT LISTENERS********************/
 //Checkbox on click store into local storage
 var checkbox = document.querySelectorAll("input[type='checkbox']");
 for (var i = 0; i < checkbox.length; i++) {
-    checkbox[i].addEventListener("click", storeCheckboxValue);
+    checkbox[i].addEventListener("click", function (e) {
+        setObject(e.currentTarget.id);
+    });
 }
 
 //Radio on change store into local storage
@@ -30,7 +31,9 @@ for (i = 0; i < textbox.length; i++) {
 //Make selection on select element
 var select = document.querySelectorAll("select");
 for (i = 0; i < select.length; i++) {
-    select[i].addEventListener("change", selectOnChange);
+    select[i].addEventListener("change", function (e) {
+        setObject(e.currentTarget.id);
+    });
 }
 
 //Area selection
@@ -38,12 +41,6 @@ var radioarea = document.querySelectorAll("input[name='AreaS']");
 for (i = 0; i < radioarea.length; i++) {
     radioarea[i].addEventListener("change", radioAreaSelect);
 }
-
-//Week selection
-byID("week1S").addEventListener("change", updateWeek);
-byID("week2S").addEventListener("change", updateWeek);
-byID("week3S").addEventListener("change", updateWeek);
-byID("week4S").addEventListener("change", updateWeek);
 
 //OJT checked
 var chkOJT = document.querySelectorAll("input[name='chkOJTS']");
@@ -58,7 +55,7 @@ for (i = 0; i < position.length; i++) {
 }
 
 //EQL checked
-var chkEQL = document.querySelectorAll("input[name='chkEQLS']");
+var chkEQL = document.querySelectorAll("input[name='chkQLS']");
 for (i = 0; i < chkEQL.length; i++) {
     chkEQL[i].addEventListener("click", toggleEQL);
 }
@@ -145,7 +142,7 @@ byID("goTimeS").addEventListener("click", function () {
     timetext += " " + byID("meridiemS").innerHTML;
     byID(activeID).disabled = false;
     byID(activeID).value = timetext;
-    byID(activeID).dispatchEvent(eventChange);
+    setObject(activeID);
     showHide("timeModalS", false);
     timeCalculation(activeID);
 });
@@ -189,23 +186,41 @@ for (i = 0; i < selectOW.length; i++) {
     selectOW[i].addEventListener("change", selectOWChange);
 }
 
-window.addEventListener("click", toggleSupMenu);
+byID("navbtnS").addEventListener("click", function () {
+    showHide("navbtnS", true);
+});
+
+//Open Change Week Modal
+byID("chgWeekS").addEventListener("click", function () {
+    showHide("weekModalS", true)
+});
 /********************EVENT LISTENERS********************/
 
-function initialLoad() {
-    var val = "";
-    var elements = document.querySelectorAll("input[type='checkbox']");
-    for (var i = 0; i < elements.length; i++) {
-        val = (getStorage(elements[i].id) === null) ? "0" : getStorage(elements[i].id);
-        elements[i].checked = (val === "1") ? true : false;
-        setStorage(elements[i].id, val);
-    }
+//SELECT WEEK
+function changeWeek() {
+    if (byID("WeekOfS").value === "") return;
+    showHide("weekModalS", false);
+    byID("PayWeekS").innerHTML = "Pay Week: " + dateString(byID("WeekOfS").value);
+    initialLoad();
+}
 
-    elements = document.querySelectorAll("input[type='text'], select");
-    for (i = 0; i < elements.length; i++) {
-        val = (getStorage(elements[i].id) === null) ? "" : getStorage(elements[i].id);
-        elements[i].value = val;
-        setStorage(elements[i].id, val);
+function initialLoad() {
+    storeWeek();
+    updateWeekAll();
+    var val = "";
+    var keyArr = 0;
+    var key = "";
+    
+    keyArr = Object.keys(objThis);
+    for (var i = 0; i < keyArr.length; i += 1) {
+        key = keyArr[i];
+        if (key === "AreaS" || key === "TeamS" || key === "PositionS" || key === "Total1RS" || key === "WeekOfS") continue;
+        if (byID(key) === null) continue;
+        if (objThis[i] === true || objThis[i] === false) {
+            byID(key).checked = objThis[key];    
+        } else {
+            byID(key).value = objThis[key];
+        }        
     }
 
     loadRadioSelection();
@@ -217,47 +232,30 @@ function initialLoad() {
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
 function loadRadioSelection() {
     //Load area from local storage and set radio selection
-    if (getStorage("AreaS") === null) setStorage("AreaS", "");
-    var val = getStorage("AreaS");
+    if (objThis.AreaS === null) objThis.AreaS = "";
+    var val = objThis.AreaS;
     if (val !== "") byID("area" + val + "S").checked = true;
 
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    if (getStorage("TeamS") === null) setStorage("TeamS", "");
-    val = getStorage("TeamS");
-    if (val !== "" && val.substr(0, 1) === getStorage("AreaS")) byID("team" + val + "S").checked = true;
+    if (objThis.TeamS === null) objThis.TeamS = "";
+    val = objThis.TeamS;
+    if (val !== "" && val.substr(0, 1) === objThis.AreaS) byID("team" + val + "S").checked = true;
 
     //Load position from local storage and set radio selection
-    if (getStorage("PositionS") === null) setStorage("PositionS", "");
-    val = getStorage("PositionS");
+    if (objThis.PositionS === null) objThis.PositionS = "";
+    val = objThis.PositionS;
     if (val !== "") {
         val = val.replace(" ", "");
         byID("pos" + val + "S").checked = true;
-    }
-
-    //Load weekof from local storage and set radio selection
-    if (getStorage("WeekOfS") === null) setStorage("WeekOfS", "");
-    val = getStorage("WeekOfS");
-    if (val !== "" && val === byID("week1S").value) {
-        byID("week1S").checked = true;
-        updateWeekAll("week1S");
-    } else if (val !== "" && val === byID("week2S").value) {
-        byID("week2S").checked = true;
-        updateWeekAll("week2S");
-    } else if (val !== "" && val === byID("week3S").value) {
-        byID("week3S").checked = true;
-        updateWeekAll("week3S");
-    } else if (val !== "" && val === byID("week4S").value) {
-        byID("week4S").checked = true;
-        updateWeekAll("week4S");
     }
 }
 
 //LOADS TEAM VALUES INTO #Team USING AREA SELECTION
 function loadTeamValues() {
     "use strict";
-    var area = getStorage("AreaS");
+    var area = objThis.AreaS;
     if (area === null || area === "") return;
 
     var areadiv = ["div1S", "div2S", "div3S", "div4S", "div7S", "divTCS"];
@@ -272,44 +270,43 @@ function loadTeamValues() {
 }
 
 //SET EACH DAY IN MM/DD FORMAT INTO LOCAL STORAGE
-function storeWeek(refID) {
-    //Store element value in refVal and set into local storage
-    var refVal = byID(refID).value;
+function storeWeek() {
+    var week = byID("WeekOfS").value;
+    if (localStorage.getItem(week + "Obj") === null) {
+        objThis = objNew;
+        
+        //Store first day of week range in y and shortened date in ny
+        var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
 
-    //Store first day of week range in y and shortened date in ny
-    var startDate = refVal.substr(0, 10);
+        //Store second day of week range in z and shortened date in nz
+        var endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
+            satDate = new Date(startDate),
+            sm, sd;
 
-    //Store second day of week range in z and shortened date in nz
-    var endDate = refVal.substr(13),
-        satDate = new Date(startDate),
-        sm, sd;
+        objThis.SatDateS = startDate.substr(0, 5);
+        objThis.FriDateS = endDate.substr(0, 5);
 
-    setStorage("SatDateS", startDate.substr(0, 5));
-    setStorage("FriDateS", endDate.substr(0, 5));
-
-    for (var i = 4; i >= 0; i--) {
-        var newDay = addDate(satDate, i + 1);
-        sm = newDay.getMonth() + 1;
-        sd = newDay.getDate();
-        sm = (sm.toString().length === 1) ? "0" + sm : sm;
-        sd = (sd.toString().length === 1) ? "0" + sd : sd;
-        setStorage(days[i] + "Date" + "S", sm + "/" + sd);
+        for (var i = 4; i >= 0; i--) {
+            newDay = addDate(satDate, i + 1);
+            sm = newDay.getMonth() + 1;
+            sd = newDay.getDate();
+            sm = (sm.toString().length === 1) ? "0" + sm : sm;
+            sd = (sd.toString().length === 1) ? "0" + sd : sd;
+            objThis[days[i] + "DateS"] = sm + "/" + sd;
+        }
+        objThis.WeekOfS = byID("WeekOfS").value;
+        setStorage();
+    } else {
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
     }
 }
 
-//SET DAYS WHEN WEEK IS CHANGED
-function updateWeek(e) {
-    var refID = e.currentTarget.id;
-    updateWeekAll(refID);
-}
-
-function updateWeekAll(refID) {
-    storeWeek(refID);
+function updateWeekAll() {
     var strHTML = "";
     var val = [];
 
     for (var i = 0; i < 7; i++) {
-        val[i] = getStorage(days[i] + "DateS");
+        val[i] = objThis[days[i] + "DateS"];
     }
 
     strHTML += '<option value="" id="After' + i + 'S">Select Date...</option>';
@@ -324,11 +321,6 @@ function updateWeekAll(refID) {
     for (i = 20; i < 45; i++) {
         i = (i === 35) ? 40 : i;
         byID("Date" + i + "S").innerHTML = strHTML;
-        for (var j = 0; j < val.length; j++) {
-            if (val[j] === getStorage("Date" + i + "S")) {
-                byID("Date" + i + "S").value = val[j];
-            }
-        }
     }
 }
 
@@ -341,9 +333,7 @@ function addDate(date, days) {
 
 //LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
 function loadOJT() {
-    var val = getStorage("OJTS");
-    if (val === null) return;
-    var bln = (val === "1") ? true : false;
+    var bln = objThis.OJTS;
 
     var t = byID("TraineeS");
     if (bln) {
@@ -367,34 +357,34 @@ function loadOJT() {
 function checkOWFT() {
     var val = "";
     for (var i = 20; i < 30; i++) {
-        val = getStorage("Date" + i + "S");
-        if (val === "") val = getStorage("Select" + i + "S");
-        if (val === "") val = getStorage("Desc" + i + "S");
-        if (val === "") val = getStorage("Time" + i + "SS");
-        if (val === "") val = getStorage("Time" + i + "ES");
-        if (val === "") val = getStorage("Time" + i + "S");
+        val = objThis["Date" + i + "S"];
+        if (val === "") val = objThis["Select" + i + "S"];
+        if (val === "") val = objThis["Desc" + i + "S"];
+        if (val === "") val = objThis["Time" + i + "SS"];
+        if (val === "") val = objThis["Time" + i + "ES"];
+        if (val === "") val = objThis["Time" + i + "S"];
         if (val !== "") showHide("OWDiv" + i + "S", true);
     }
     
     val = "";
     for (i = 30; i < 35; i++) {
-        val = getStorage("Date" + i + "S");
-        if (val === "") val = getStorage("Voucher" + i + "S");
-        if (val === "") val = getStorage("From" + i + "S");
-        if (val === "") val = getStorage("To" + i + "S");
-        if (val === "") val = getStorage("Time" + i + "SS");
-        if (val === "") val = getStorage("Time" + i + "ES");
-        if (val === "") val = getStorage("Time" + i + "S");
+        val = objThis["Date" + i + "S"];
+        if (val === "") val = objThis["Voucher" + i + "S"];
+        if (val === "") val = objThis["From" + i + "S"];
+        if (val === "") val = objThis["To" + i + "S"];
+        if (val === "") val = objThis["Time" + i + "SS"];
+        if (val === "") val = objThis["Time" + i + "ES"];
+        if (val === "") val = objThis["Time" + i + "S"];
         if (val !== "") showHide("FTDiv" + i + "S", true);
     }
     
     val = "";
     for (i = 40; i < 45; i++) {
-        val = getStorage("Date" + i + "S");
-        if (val === "") val = getStorage("LeaveAD" + i + "S");
-        if (val === "0") val = getStorage("Time" + i + "SS");
-        if (val === "") val = getStorage("Time" + i + "ES");
-        if (val === "") val = getStorage("Time" + i + "S");
+        val = objThis["Date" + i + "S"];
+        if (val === "") val = objThis["LeaveAD" + i + "S"];
+        if (!val) val = objThis["Time" + i + "SS"];
+        if (val === "") val = objThis["Time" + i + "ES"];
+        if (val === "") val = objThis["Time" + i + "S"];
         if (val !== "") showHide("LVDiv" + i + "S", true);
     }
     
@@ -402,7 +392,7 @@ function checkOWFT() {
 
 //SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
 function radioAreaSelect(e) {
-    setStorage("TeamS", "");
+    objThis.TeamS = "";
     loadTeamValues();
 }
 
@@ -442,14 +432,14 @@ function removeOWFT(e) {
         resetElement("To" + x + "S");
         resetElement("From" + x + "S");
         resetElement("Voucher" + x + "S");
-        resetElement("Lift" + x + "S");
+        resetElement("QL" + x + "S");
     } else if (type === "OW") {
         resetElement("Date" + x + "S");
         resetElement("Select" + x + "S");
         resetElement("Desc" + x + "S");
         resetElement("OJT" + x + "S");
-        byID("Lift" + x + "S").disabled = true;
-        resetElement("Lift" + x + "S");
+        byID("QL" + x + "S").disabled = true;
+        resetElement("QL" + x + "S");
     } else if (type === "LV") {
         resetElement("Date" + x + "S");
         resetElement("LeaveAD" + x + "S");
@@ -493,9 +483,9 @@ function getMissingFT() {
 
 //SHOW THE LEAVE SECTION
 function addLeave() {
-    var countOW = getMissingLV();
-    if (countOW === 45) return;
-    showHide("LVDiv" + countOW + "S", true);
+    var countLV = getMissingLV();
+    if (countLV === 45) return;
+    showHide("LVDiv" + countLV + "S", true);
 }
 
 
@@ -507,7 +497,7 @@ function getMissingLV() {
         }
     }
     //if statement didn't find a match, return 35
-    return 35;
+    return 45;
 }
 
 //CHECK DATE HAS BEEN SELECTED BEFORE TIME HAS BEEN PUT IN
@@ -524,12 +514,8 @@ function checkOWFTDate(refID) {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    for (var i = 20; i < 30; i++) {
-        byID("OWTrash" + i + "S").click();
-    }
-    for (var i = 30; i < 35; i++) {
-        byID("FTTrash" + i + "S").click();
-    }
+    showHide("variousModalS", false);
+    localStorage.removeItem(byID("WeekOfS").value + "Obj");
     location.reload();
 }
 
@@ -551,29 +537,14 @@ function disableOWFields(refID) {
     byID("Time" + x + "S").style.backgroundColor = (bln) ? "lightgrey" : "white";
 
     bln = (refVal === "EQ/L") ? true : false;
-    byID("Lift" + x + "S").checked = bln;
-    byID("Lift" + x + "S").disabled = !bln;
-    setStorage("Lift" + x + "S", (bln) ? "1" : "0");
+    byID("QL" + x + "S").checked = bln;
+    byID("QL" + x + "S").disabled = !bln;
+    objThis["QL" + x + "S"] = bln;
 }
 
 //IF EQ/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
 function toggleEQL() {
     getWeeklyTotals();
-}
-
-//TOGGLE MENU ON AND OFF ON CLICK
-function toggleSupMenu(e) {
-    //Get ID of whatever triggered click event
-    var refID = e.target.id;
-
-    //Is nav dropdown hiding?
-    var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
-
-    if (refID !== "navbtnS") {
-        showHide("navdropdownS", false);
-    } else {
-        showHide("navdropdownS", bln);
-    }
 }
 
 //ALL DAY LEAVE CHECKED, DISABLE TIME FIELDS
@@ -611,7 +582,7 @@ function openTimesheet() {
     var emp = "";
     emp = byID("EmpInitialsS").value;
     emp = emp.toUpperCase();
-    setStorage("EmpInitialsS", emp);
+    objThis.EmpInitialsS = emp;
 
     showHide("validateModalS", false);
     if (emp !== "")
@@ -635,23 +606,23 @@ function testEmpData() {
     var val = "";
 
     //Check selected week
-    if (getStorage("WeekOfS") === "")
+    if (objThis.WeekOfS === "")
         val = "<p class='varp'>&bull;Pay week not selected.</p>";
 
     //Check Area
-    if (getStorage("AreaS") === "")
+    if (objThis.AreaS === "")
         val += "<p class='varp'>&bull;Area not selected.</p>";
 
     //Check Team
-    if (getStorage("TeamS") === "")
+    if (objThis.TeamS === "")
         val += "<p class='varp'>&bull;Team not selected.</p>";
 
     //Check employee name
-    if (getStorage("EmpNameS") === "")
+    if (objThis.EmpNameS === "")
         val += "<p class='varp'>&bull;Employee name not entered</p>";
 
     //Check position
-    if (getStorage("PositionS") === "")
+    if (objThis.PositionS === "")
         val += "<p class='varp'>&bull;Employee position not selected.</p>";
 
     return val;
@@ -826,7 +797,7 @@ function calculateDiff(refID) {
             byID(totalID).value = calculateTotal(timeDiff);
     }
     //Set value of total into storage
-    setStorage(totalID, byID(totalID).value);
+    objThis[totalID] = byID(totalID).value;
 }
 
 //CALCULATE DAILY OTHER WORK TIME
@@ -861,15 +832,15 @@ function sumCPay() {
     }
 
     c1 = (c1 === 0) ? "" : convertTotal(c1);
-    setStorage("TotalC1S", c1);
+    objThis.TotalC1S = c1;
     byID("TotalC1S").value = c1;
 
     sum = convertTotal(sum);
-    setStorage("TotalHWS", sum);
+    objThis.TotalHWS = sum;
     byID("TotalHWS").value = sum;
 
     c3 = (c3 === 0) ? "" : convertTotal(c3);
-    setStorage("TotalC3S", c3);
+    objThis.TotalC3S = c3;
     byID("TotalC3S").value = c3;
 }
 
@@ -887,18 +858,17 @@ function supFT() {
 }
 
 //CALCULATE DAILY EQ/L TIME
-function supLift() {
+function supQL() {
 	"use strict";
-    var sum = 0, sum2 = 0, i = 0;
+    var sum = 0;
 
-    for (i = 20; i < 30; i++) {
-        sum += (byID("Lift" + i + "S").checked) ? convertToMinutes(byID("Time" + i + "S").value) : 0;
-    }
-    sum = (convertTotal(sum) === "") ? 0 : convertTotal(sum);    
+    for (var i = 20; i < 30; i++) {
+        sum += (byID("QL" + i + "S").checked) ? convertToMinutes(byID("Time" + i + "S").value) : 0;
+    }   
     for (i = 30; i < 35; i++) {
-        sum2 += (byID("Lift" + i + "S").checked) ? byID("Time" + i + "S").value : 0;
+        sum += (byID("QL" + i + "S").checked) ? (Number(byID("Time" + i + "S").value) * 60) : 0;
     }
-    sum = setToFixed(Number(sum) + Number(sum2));
+    sum = setToFixed(sum);
     return sum;
 }
 
@@ -910,43 +880,43 @@ function getWeeklyTotals() {
 
     //Clear Hours worked
     byID("TotalHWS").value = "";
-    setStorage("TotalHWS", "");
+    objThis.TotalHWS = "";
     sumCPay();
 
     sum = supOther();
-    setStorage("TotalOtherS", sum);
+    objThis.TotalOtherS = sum;
     byID("TotalOtherS").value = sum;
 
     sum = supFT();
-    setStorage("TotalFTS", sum);
+    objThis.TotalFTS = sum;
     byID("TotalFTS").value = sum;
 
-
-    sum = convertToMinutes(getStorage("TotalOtherS"));
+    sum = convertToMinutes(objThis.TotalOtherS);
     sum = Number(convertTotal(sum));
-    sum += Number(getStorage("TotalFTS"));
+    sum += Number(objThis.TotalFTS);
     sum += Number(byID("TotalHWS").value);
     sum = setToFixed(sum);
-    setStorage("TotalHWS", sum);
+    objThis.TotalHWS = sum;
     byID("TotalHWS").value = sum;
 
-    sum = supLift();    
-    setStorage("TotalS2S", sum);
-    byID("TotalS2S").value = sum;
+    sum = supQL();    
+    objThis.TotalS2QLS = sum;
+    byID("TotalS2QLS").value = sum;
 
-    sum = convertToMinutes(getStorage("TotalOtherS"));
+    sum = convertToMinutes(objThis.TotalOtherS);
     sum = convertTotal(sum);
-    setStorage("Total1RS", sum);
+    objThis.Total1RS = sum;
 
     sum = 0;
-    //If OJT Trainer is not checked then exit function
-    if (!byID("OJTS").checked) return;
-
-    for (j = 20; j < 35; j++) {
+    for (j = 20; j < 30; j++) {
         sum += (byID("OJT" + j + "S").checked) ? convertToMinutes(byID("Time" + j + "S").value) : 0;
     }
+     for (j = 30; j < 35; j++) {
+        sum += (byID("OJT" + j + "S").checked) ? (Number(byID("Time" + j + "S").value) * 60) : 0;
+    }
     sum = convertTotal(sum);
-    setStorage("TotalS4S", sum);
+    objThis.TotalS4S = sum;
     byID("TotalS4S").value = sum;
 }
-/********************TIME CALCULATIONS********************/
+    
+//********************TIME CALCULATIONS********************//

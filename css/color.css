@@ -132,6 +132,14 @@
         font-size: 12px;
         margin: -2px 4px 0 0;
     }
+    
+    .tutorial-cat {
+        font-size: 10px;
+    }
+    
+    .image {
+        width: 115px;
+    }
 
     .routewidth {
         width: 80px;
@@ -182,6 +190,13 @@
         font-size: 10px;
     }
     
+    .tutorial-cat {
+        font-size: 12px;
+    }
+    
+    .image {
+        width: 130px;
+    }
     .modal-content li span {
         margin: 0px;
         padding: 15px 5px;
@@ -237,6 +252,14 @@
         font-size: 10px;
     }
     
+    .tutorial-cat {
+        font-size: 13px;
+    }
+    
+    .image {
+        width: 150px;
+    }
+    
     .modal-content li span {
         margin: 0px;
         padding: 10px 5px;
@@ -284,6 +307,14 @@
     .total_col span {
         font-size: 12px;
     }
+    
+    .tutorial-cat {
+        font-size: 15px;
+    }
+    
+    .image {
+        width: 200px;
+    }
 
     .totalwidth {
         width: 100px;
@@ -325,6 +356,13 @@
 
 @media only screen and (min-width: 1250px) {
 
+    .tutorial-cat {
+        font-size: 18px;
+    }
+    
+    .image {
+        width: 300px;
+    }
 
     .header__title {
         font-size: 22px;

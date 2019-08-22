@@ -38,54 +38,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Select Week:</strong><br>
-                        <script>
-                            var r1 = DateRange(-28);
-                            var r2 = DateRange(-21);
-                            var r3 = DateRange(-14);
-                            var r4 = DateRange(-7);
-
-                            var strHTML = '';
-                            strHTML += '<input type="radio" id="week1S" name="WeekOfS" value="' + r1 + '" onclick="storeWeek(\'week1S\');"><label for="week1S">' + r1 + '</label>';
-                            strHTML += '<input type="radio" id="week2S" name="WeekOfS" value="' + r2 + '" onclick="storeWeek(\'week2S\');"><label for="week2S">' + r2 + '</label>';
-                            strHTML += '<input type="radio" id="week3S" name="WeekOfS" value="' + r3 + '" onclick="storeWeek(\'week3S\');"><label for="week3S">' + r3 + '</label>';
-                            strHTML += '<input type="radio" id="week4S" name="WeekOfS" value="' + r4 + '" onclick="storeWeek(\'week4S\');"><label for="week4S">' + r4 + '</label>';
-                            document.write(strHTML);
-
-                            function DateRange(offset) {
-                                var start = new Date();
-                                var end = new Date();
-                                var day = start.getDay();
-                                var sOffset = (day - day) - (day + 1);
-                                sOffset = (sOffset === -7) ? 0 : sOffset;
-                                var eOffset = sOffset + 6;
-                                start.setDate(start.getDate() + (sOffset + offset));
-                                end.setDate(end.getDate() + (eOffset + offset));
-
-                                var sm = start.getMonth() + 1,
-                                    sd = start.getDate(),
-                                    sy = start.getFullYear();
-                                var em = end.getMonth() + 1,
-                                    ed = end.getDate(),
-                                    ey = end.getFullYear();
-                                sm = (sm.toString().length === 1) ? "0" + sm : sm;
-                                sd = (sd.toString().length === 1) ? "0" + sd : sd;
-                                em = (em.toString().length === 1) ? "0" + em : em;
-                                ed = (ed.toString().length === 1) ? "0" + ed : ed;
-                                return sm + "/" + sd + "/" + sy + " - " + em + "/" + ed + "/" + ey;
-                            }
-                        </script>
-                    </p>
+                <div class="col-auto">
+                    <p class="category" id="PayWeekS">Pay Week: </p>
                 </div>
-                <div class="col-md-6">
-                    <p><strong>Employee Name:</strong><br>
-                        <input type="text" id="EmpNameS" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;width:100%"></p>
+                <div class="col-auto"><input type="button" id="chgWeekS"><label for="chgWeekS">Change Week</label></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><b>Employee Name:</b><br>
+                        <input type="text" id="EmpNameS" class="empname" placeholder="Last name, First Name   Middle Initial..." style="text-align: left;width:80%"></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Area:</strong><br>
+                    <p><b>Area:</b><br>
                         <input type="radio" id="area1S" name="AreaS" value="1">
                         <label for="area1S">1</label>
                         <input type="radio" id="area2S" name="AreaS" value="2">
@@ -100,31 +66,11 @@
                         <label for="areaTCS">TC</label>
                     </p>
                 </div>
-                <div class="col-md-6">
-                    <p><strong>Team:</strong><br>
-                        <script>
-                            var strHTML = "";
-                            for (var j = 1; j < 5; j++) {
-                                strHTML += '<div class="hide" id="div' + j + 'S">';
-                                for (var i = 0; i < 8; i++) {
-                                    strHTML += '<input type="radio" id="team' + j + i + 'S" name="TeamS" value="' + j + i + '");"><label for="team' + j + i + 'S">' + j + i + '</label>&nbsp;';
-                                }
-                                strHTML += '</div>';
-                            }
-                            strHTML += '<div class="hide" id="div7S">';
-                            var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
-                            for (i = 0; i < 17; i++) {
-                                strHTML += '<input type="radio" id="team' + teams[i] + 'S" name="TeamS" value="' + teams[i] + '")";><label for="team' + teams[i] + 'S">' + teams[i] + '</label>&nbsp;';
-                            }
-                            strHTML += '</div><div class="hide" id="divTCS"><input type="radio" id="teamTCS" name="TeamS" value="TC")";><label for="teamTCS">TC</label></div>';
-                            document.write(strHTML);
-                        </script>
-                    </p>
-                </div>
+                <div class="col-md-6" id="divSteam"></div>
             </div>
             <div class="row">
                 <div class="col-md-6" id="posdivS">
-                    <p><strong>Position:</strong><br>
+                    <p><b>Position:</b><br>
                         <input type="radio" id="posDriverS" name="PositionS" value="Driver">
                         <label for="posDriverS">Driver</label>
                         <input type="radio" id="posDriverTraineeS" name="PositionS" value="Driver Trainee">
@@ -142,18 +88,18 @@
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>On-The-Job Training:</strong></p>
+                    <p><b>On-The-Job Training:</b></p>
                     <input type="checkbox" name="chkOJTS" id="OJTS"><label for="OJTS">OJT Trainer&nbsp;</label>&nbsp;&nbsp;
                     <input type="text" id="TraineeS" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <p><strong>Vehicle:</strong><br>
+                    <p><b>Vehicle:</b><br>
                         <input type="text" id="Veh1S" style="width: 100px;" placeholder="0000"></p>
                 </div>
                 <div class="col-md-9">
-                    <p><strong>Spare Vehicles:</strong><br>
+                    <p><b>Spare Vehicles:</b><br>
                         <input type="text" id="Veh2S" style="width: 100px;" placeholder="0000">
                         <input type="text" id="Veh3S" style="width: 100px;" placeholder="0000">
                         <input type="text" id="Veh4S" style="width: 100px;" placeholder="0000"></p>
@@ -161,124 +107,32 @@
             </div>
         </div>
         <div id="Supplement" class="card">
+            <div class="row" id="divSLV"></div>
             <hr>
-            <script>
-                var strHTML = "";
-                strHTML += '<div class="row addLV" id="LVAddS">';
-                strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Leave</p></div>';
-                for (var j = 40; j < 45; j++) {
-                    strHTML += '<div class="tinycard bg-teal2 hide" id="LVDiv' + j + 'S">';
-                    strHTML += '<div class="row">';
-                    strHTML += '<div class="category col-11">Leave</div><div class="col-1 center">';
-                    strHTML += '<span class="fas fa-trash-alt" id="LVTrash' + j + 'S"></span></div></div>';
-                    strHTML += '<div class="row"><div class="col-6">';
-                    strHTML += '<select id="Date' + j + 'S"><option value="" id="After' + j + 'S">Select Date...</option></select>';
-                    strHTML += '</div><div class="col-6">';
-                    strHTML += '<input type="checkbox" name="chkADLV" id="LeaveAD' + j + 'S"><label for="LeaveAD' + j + 'S">All Day</label>';
-                    strHTML += '</div></div><div class="row"><div class="col-12">';
-                    strHTML += '<select name="selectLV" id="Select' + j + 'S" class="selectwidth">';
-                    strHTML += '<option value="">--Select leave--</option>';
-                    strHTML += '<option value="SICK-IND">Sick-Indv</option>';
-                    strHTML += '<option value="SICK-FAM">Sick-Family</option>';
-                    strHTML += '<option value="PERSONAL">Personal</option>';
-                    strHTML += '<option value="LWOP">LWOP</option>';
-                    strHTML += '<option value="CIVIL">Civil</option>';
-                    strHTML += '<option value="SICK-FMLA">FMLA</option>';
-                    strHTML += '<option value="SICK-INJ">Injury</option>';
-                    strHTML += '</select></div>';
-                    strHTML += '</div><div class="row"><div class="col-11">';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'SS" class="timewidth" placeholder="- - : - -">&nbsp;';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'ES" class="timewidth" placeholder="- - : - -">&nbsp;'
-                    strHTML += '<input type="text" id="Time' + j + 'S" class="total-time nofocus" disabled>';
-                    strHTML += '</div><div class="col-1"><span class="fas fa-times" id="ClearOW' + j + 'S"></span></div></div></div>';
-                }
-                strHTML += '<hr><div class="row addOW" id="OWAddS">';
-                strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
-                for (j = 20; j < 30; j++) {
-                    strHTML += '<div class="tinycard bg-teal2 hide" id="OWDiv' + j + 'S">';
-                    strHTML += '<div class="row">';
-                    strHTML += '<div class="category col-11">Other Work&nbsp;';
-                    strHTML += '<span class="fas fa-question-circle ow"></span>';
-                    strHTML += '</div><div class="col-1 center">';
-                    strHTML += '<span class="fas fa-trash-alt" id="OWTrash' + j + 'S"></span></div></div>';
-                    strHTML += '<div class="row"><div class="col-6">';
-                    strHTML += '<select id="Date' + j + 'S"><option value="" id="After' + j + 'S">Select Date...</option></select>';
-                    strHTML += '</div><div class="col-6">';
-                    strHTML += '<input type="checkbox" name="chkOJTS" id="OJT' + j + 'S" disabled><label for="OJT' + j + 'S">OJT</label>&nbsp;';
-                    strHTML += '<input type="checkbox" name="chkEQLS" id="Lift' + j + 'S" disabled><label for="Lift' + j + 'S">EQ/L</label>';
-                    strHTML += '</div></div><div class="row"><div class="col-12">';
-                    strHTML += '<select name="selectOW" id="Select' + j + 'S" class="selectwidth">';
-                    strHTML += '<option value="">--Select work--</option>';
-                    strHTML += '<option value="FYI">FYI</option>';
-                    strHTML += '<option value="OTHR">Other</option>';
-                    strHTML += '<option value="GT">Garage trip</option>';
-                    strHTML += '<option value="FUEL">Fuel</option>';
-                    strHTML += '<option value="RC">Run coverage</option>';
-                    strHTML += '<option value="EQ/L">EQ/L Coverage</option>';
-                    strHTML += '<option value="MTNG">Meeting</option>';
-                    strHTML += '<option value="TRNG">Training</option>';
-                    strHTML += '<option value="MED">Physical/Drug Test</option>';
-                    strHTML += '<option value="CS">Cold start team</option>';
-                    strHTML += '<option value="CBK">Call back</option>';
-                    strHTML += '</select></div>';
-                    strHTML += '</div><div class="row"><div class="col-12">';
-                    strHTML += '<input id="Desc' + j + 'S" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
-                    strHTML += '</div></div><div class="row"><div class="col-11">';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'SS" class="timewidth" placeholder="- - : - -">&nbsp;';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'ES" class="timewidth" placeholder="- - : - -">&nbsp;'
-                    strHTML += '<input type="text" id="Time' + j + 'S" class="total-time nofocus" disabled>';
-                    strHTML += '</div><div class="col-1"><span class="fas fa-times" id="ClearOW' + j + 'S"></span></div></div></div>';
-                }
-                strHTML += '<hr>';
-                strHTML += '<div class="row addFT" id="FTAdd">';
-                strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
-                for (j = 30; j < 35; j++) {
-                    strHTML += '<div class="tinycard bg-teal3 hide" id="FTDiv' + j + 'S">';
-                    strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
-                    strHTML += '<span class="fas fa-question-circle ft"></span>';
-                    strHTML += '</div><div class="col-1 center">';
-                    strHTML += '<span class="fas fa-trash-alt" id="FTTrash' + j + 'S"></span></div></div>';
-                    strHTML += '<div class="row"><div class="col-12">';
-                    strHTML += '<select id="Date' + j + 'S"></select>';
-                    strHTML += '</div></div><div class="row"><div class="col-8">';
-                    strHTML += '<input name="" id="Voucher' + j + 'S" type="text" class="voucherwidth" placeholder="Voucher">';
-                    strHTML += '</div><div class="col-4">';
-                    strHTML += '<input type="checkbox" name="chkOJTS" id="OJT' + j + 'S"><label for="OJT' + j + 'S">OJT</label>&nbsp;';
-                    strHTML += '<input type="checkbox" name="chkEQLS" id="Lift' + j + 'S"><label for="Lift' + j + 'S">EQ/L</label>';
-                    strHTML += '</div></div>';
-                    strHTML += '<div class="row"><div class="col-12">';
-                    strHTML += '<input name="txtFT" id="From' + j + 'S" type="text" placeholder="Origin..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row"><div class="col-12">';
-                    strHTML += '<input name="txtFT" id="To' + j + 'S" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">';
-                    strHTML += '</div></div><div class="row"><div class="col-11">';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'SS" class="timewidth" placeholder="- - : - -">&nbsp;';
-                    strHTML += '<input type="text" name="txtTime" id="Time' + j + 'ES" class="timewidth" placeholder="- - : - -">&nbsp;';
-                    strHTML += '<input type="text" id="Time' + j + 'S" class="total-time nofocus" disabled>';
-                    strHTML += '</div><div class="col-1"><span class="fas fa-times" id="ClearFT' + j + 'S"></span></div></div></div>';
-                }
-                strHTML += '</div>';
-                document.write(strHTML);
-            </script>
-
+            <div class="row" id="divSOW"></div>
+            <hr>
+            <div class="row" id="divSFT"></div>
         </div>
         <div class="bottomspacer"></div>
     </div>
     <div class="footer bg-burntred">
         <div class="row total-line">
-            <div class="col-3 footer_col">
+            <div class="col-4 footer_col">
                 <p class="footer_p">OTHER<br><input type="text" id="TotalOtherS" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-4 footer_col">
                 <p class="footer_p">FIELD TRIP<br><input type="text" id="TotalFTS" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-4 footer_col">
                 <p class="footer_p">WORKED<br><input type="text" id="TotalHWS" class="footer-box" disabled></p>
             </div>
+        </div>
+           <div class="row">
             <div class="col-3 footer_col">
                 <p class="footer_p">OJT<br><input type="text" id="TotalS4S" class="footer-box" disabled></p>
             </div>
             <div class="col-3 footer_col">
-                <p class="footer_p">EQUIPMENT<br><input type="text" id="TotalS2S" class="footer-box" disabled></p>
+                <p class="footer_p">EQUIPMENT<br><input type="text" id="TotalS2QLS" class="footer-box" disabled></p>
             </div>
             <div class="col-3 footer_col">
                 <p class="footer_p">C3<br><input type="text" id="TotalC3S" class="footer-box" disabled></p>
@@ -342,6 +196,38 @@
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
+     <!-- Week Seelect Modal -->
+    <div id="weekModalS" class="modal hide">
+        <div class="modal-content center" style="width: 500px;" id="divweekS">
+            <p class="category">SELECT PAY WEEK</p>
+            <select id="WeekOfS"></select>
+            <span class="close fas fa-check-circle fa-lg" id="goWeekS" style="color:green;" onclick="changeWeek();"></span>
+        </div>
+    </div>
+    <script src="js/index2.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/json2.js"></script>
     <script src="js/supfunctions.js"></script>
+    <script>
+        //Click on menu, toggle menu on and off
+        window.onclick = function(event) {
+            var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'navbtnS') {
+                showHide("navdropdownS", false);
+            } else {
+                showHide("navdropdownS", bln);
+            }
+        }
+        
+        window.ontouchstart = function(event) {
+            var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'navbtnS') {
+                showHide("navdropdownS", false);
+            } else {
+                showHide("navdropdownS", bln);
+            }
+        }
+        </script>
 </body></html>
