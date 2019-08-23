@@ -553,10 +553,10 @@ function disableOWFields(refID) {
     byID("Time" + x + "ES").style.backgroundColor = (bln) ? "lightgrey" : "white";
     byID("Time" + x + "S").style.backgroundColor = (bln) ? "lightgrey" : "white";
 
-    bln = (refVal === "EQ/L") ? true : false;
+    bln = (refVal === "Q/L") ? true : false;
     byID("QL" + x + "S").checked = bln;
     byID("QL" + x + "S").disabled = !bln;
-    objThis["QL" + x + "S"] = bln;
+    setObject("QL" + x + "S");
 }
 
 function toggleQL() {
@@ -812,7 +812,7 @@ function calculateDiff(refID) {
             byID(totalID).value = calculateTotal(timeDiff);
     }
     //Set value of total into storage
-    objThis[totalID] = byID(totalID).value;
+    setObject(totalID);
 }
 
 //CALCULATE DAILY OTHER WORK TIME
@@ -872,7 +872,7 @@ function supFT() {
     return sum;
 }
 
-//CALCULATE DAILY EQ/L TIME
+//CALCULATE DAILY Q/L TIME
 function supQL() {
 	"use strict";
     var sum = 0;
@@ -933,6 +933,7 @@ function getWeeklyTotals() {
     sum = convertTotal(sum);
     objThis.TotalS4S = sum;
     byID("TotalS4S").value = sum;
+    setStorage();
 }
     
 //********************TIME CALCULATIONS********************//

@@ -1797,7 +1797,7 @@ function getWeeklyTotals() {
     objThisData.TotalS2J = sum;
     byID("TotalS2J").value = sum;
 
-    sum = convertToMinutes(objThisData.TotalRun) + convertToMinutes(objThisData.TotalOther);
+    sum = convertToMinutes(objThisData.TotalRun) + convertToMinutes(objThisData.TotalOther) + 15;
     sum = convertTotal(sum);
     objThisData.Total1R = sum;
     byID("Total1R").value = sum;
@@ -1819,6 +1819,7 @@ function getWeeklyTotals() {
     sum = convertTotal(sum);
     objThisData.TotalS4 = sum;
     byID("TotalS4").value = sum;
+    setStorage();
 }
 /********************CALCULATIONS********************/
 

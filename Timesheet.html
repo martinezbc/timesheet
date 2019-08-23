@@ -28,7 +28,7 @@
 </head>
 
 <body>
- 
+ <script src="js/fieldtrip.js"></script>
   <script src="js/json.js"></script>
    <script>
        function dateString(strDate) {
@@ -1033,9 +1033,9 @@
             pdf.setDrawColor(80, 80, 80);
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin, vOffset - 12, 572, 24, "FD");
-            pdf.setFontSize(8);
+            pdf.setFontSize(7);
             pdf.setFontStyle("bold");
-            pdf.text(hOffset, vOffset - 2, "FYI - Info Only; OTHR - Other; GT - Garage trip; FUEL - Fuel; RC - Run coverage; CPR - CPR/First Aid; RCRT - Recert; MTNG - Meeting; \nTRNG - Training; CS - Cold start team; MED - Physical or Drug Test; ES2 - 2 Hour Delay Early Start; ES0 - On Time Early Start; CBK - Call back");
+            pdf.text(hOffset, vOffset - 2, "FYI - Info Only; OTHR - Other; GT - Garage trip; FUEL - Fuel; RC - Run coverage; Q/L - Q/L coverage; CPR - CPR/First Aid; RCRT - Recert; MTNG - Meeting; \nTRNG - Training; CS - Cold start team; MED - Physical or Drug Test; ES2 - 2 Hour Delay Early Start; ES0 - On Time Early Start; CBK - Call back");
             pdf.setFontSize(9);
 
             pdf.setDrawColor(80, 80, 80);

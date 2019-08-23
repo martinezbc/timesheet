@@ -28,6 +28,7 @@
 </head>
 
 <body>
+ <script src="js/fieldtrip.js"></script>
   <script src="js/json2.js"></script>
    <script>
        function dateString(strDate) {
@@ -282,20 +283,22 @@
             hOffset = margin;
             pdf.setFillColor(104, 210, 233);
             pdf.rect(margin, vOffset - 12, 50, 30, "FD");
+            pdf.text(margin + 7, vOffset + 1, "AM Pupil\n   Time");
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin + 50, vOffset - 12, 336, 30, "FD");
+            
             
             pdf.setFillColor(104, 210, 233);
             pdf.rect(margin + 190, vOffset - 12, 50, 30, "FD");
             pdf.text(margin + 194, vOffset + 1, "PM Pupil\n   Time")
             
             pdf.setFillColor(210, 210, 210);
-            pdf.rect(margin + 361, vOffset - 12, 191, 15, "FD");
+            pdf.rect(margin + 381, vOffset - 12, 191, 15, "FD");
 
             vOffset += 15;
             hOffset = margin;
             pdf.setFillColor(255, 255, 255);
-            pdf.rect(margin + 361, vOffset - 12, 191, 15, "FD");
+            pdf.rect(margin + 381, vOffset - 12, 191, 15, "FD");
 
             pdf.setDrawColor(80, 80, 80);
             pdf.line(70, routeOffset + 13, 70, vOffset + 6);
@@ -523,9 +526,9 @@
                 //LEAVE
                 if (i > 4) continue;
                 hOffset += 38;
-                blnLV = (leave[i] !== "LV" + i) ? true : false;
+                blnLV = (otherLV[i] !== "LV" + i) ? true : false;
                 if (blnLV === true) {
-                    b = leave[i].substr(-3,2);
+                    b = otherLV[i].substr(-3,2);
                     x = (objThis["Date" + b + "S"]) || "";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 28;
@@ -533,10 +536,10 @@
                     x = objThis["Select" + b + "S"] || "";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 50;
-                    imgCheck = (leave[i].indexOf("Leave") > -1) ? getCheckBox() : getUncheckBox();
+                    imgCheck = (otherLV[i].indexOf("Leave") > -1) ? getCheckBox() : getUncheckBox();
                     pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                     hOffset += 15;
-                    if (leave[i].indexOf("Time") > -1) {
+                    if (otherLV[i].indexOf("Time") > -1) {
                         x = objThis["Time" + b + "SS"] || "";
                         pdf.text(hOffset, vOffset, x);
                         hOffset += 40;
@@ -545,7 +548,7 @@
                         hOffset += 45;
                         pdf.setFontStyle("bold");
                         pdf.setFontSize(9);
-                        x = objThis[leave[i]] || ""; 
+                        x = objThis[otherLV[i]] || ""; 
                         pdf.text(hOffset, vOffset, x);
                     }
                     pdf.setFontStyle("normal");
@@ -558,9 +561,9 @@
             pdf.setDrawColor(80, 80, 80);
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin, vOffset - 12, 572, 24, "FD");
-            pdf.setFontSize(8);
+            pdf.setFontSize(7);
             pdf.setFontStyle("bold");
-            pdf.text(hOffset, vOffset - 2, "FYI - Info Only; OTHR - Other; GT - Garage trip; FUEL - Fuel; RC - Run coverage; CPR - CPR/First Aid; RCRT - Recert; MTNG - Meeting; \nTRNG - Training; CS - Cold start team; MED - Physical or Drug Test; ES2 - 2 Hour Delay Early Start; ES0 - On Time Early Start; CBK - Call back");
+            pdf.text(hOffset, vOffset - 2, "FYI - Info Only; OTHR - Other; GT - Garage trip; FUEL - Fuel; RC - Run coverage; Q/L - Q/L coverage; CPR - CPR/First Aid; RCRT - Recert; MTNG - Meeting; \nTRNG - Training; CS - Cold start team; MED - Physical or Drug Test; ES2 - 2 Hour Delay Early Start; ES0 - On Time Early Start; CBK - Call back");
             pdf.setFontSize(9);
 
             pdf.setDrawColor(80, 80, 80);
