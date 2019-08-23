@@ -14,7 +14,6 @@
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/color.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
-    <script src="js/fieldtrip.js"></script>
     <style>
         .full {
             width: 100%;
@@ -1237,10 +1236,8 @@
             x = objThisData.Total1R;
             pdf.text(hOffset, vOffset, x);
             hOffset += 98;
-            x = objThisData.OJT;
-            if (x) {
-                pdf.text(hOffset, vOffset, objThisData.TotalS4);
-            }
+            x = objThisData.TotalS4;
+            pdf.text(hOffset, vOffset, x);
             hOffset += 98;
             x = objThisData.TotalS2QL;
             pdf.text(hOffset, vOffset, x);
