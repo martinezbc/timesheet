@@ -257,8 +257,9 @@ function openFTSelector(e) {
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
+    var obj;
     var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var obj = getDayObj(activeID.substr(0,3));
+    if (optVal === "") obj = getDayObj(activeID.substr(0,3));
     var ftText = "";
     if (byID("ftselector" + optVal).value !== null)
         ftText = byID("ftselector" + optVal).value;
@@ -268,7 +269,11 @@ function storeFTVal() {
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
     byID(activeID).disabled = false;
-    obj[activeID] = ftText;
+    if (optVal === "") {
+        obj[activeID] = ftText;
+    } else {
+        objThis[activeID] = ftText;
+    }
     showHide("ftModal" + optVal, false);
 }
 /********************FIELD TRIP SELECTOR********************/

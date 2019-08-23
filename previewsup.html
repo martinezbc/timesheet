@@ -36,23 +36,40 @@
             font-size: 14px;
         }
     </style>
-    <!--Javascript-->
     <script>
-        function getStorage(refID) {
-            return localStorage.getItem(refID);
+        function byID(refID) {
+            return document.getElementById(refID);
+        }
+        
+        function downloadTimesheet() {
+            var week = urlParams.toString().replace("WeekOf=", "");
+            window.open("supplement?WeekOf=" + week, "_self");
+        }
+
+        function dateString(strDate) {
+            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+            return str
         }
     </script>
 </head>
 
 <body>
-    <div class="header">
-        <h1 class="header__title">SUPPLEMENTAL WEEKLY REPORT</h1>
-        <div id="navbarmodal" class="dropdown">
-            <!--navmodal-->
+    <script src="js/json.js"></script>
+    <script>
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-            <span class="fas fa-bars dropbtn" id="tsbtn"></span>
-            <div class="dropdown-content hide" id="tsdropdown">
-                <div class="row" onclick="location.href='supplement.html';"><span class="fas fa-file-download"></span>&nbsp;Download</div>
+        var urlParams = new URLSearchParams(window.location.search);
+        var week = urlParams.toString().replace("WeekOf=", "");
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+    </script>
+    <div class="header">
+        <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
+        <div id="navbarmodal" class="dropdown">
+            <span class="fas fa-bars dropbtn fa-lg" id="tsbtnS"></span>
+            <div class="dropdown-content hide" id="tsdropdownS">
+                <div class="row" onclick="downloadTimesheet();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
                 <div class="row" onclick="location.href='index2.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
             </div>
         </div>
@@ -63,192 +80,108 @@
             <div style="font-size: 20px">SUPPLEMENT PREVIEW - After reviewing data, click on download from the menu bar to create the PDF.</div>
         </div>
         <div class="card">
-            <script>
-                var strHTML = "";
-                strHTML += '<div class="row section__header bg-medblue">';
-                strHTML += '<div class="col-12 bold-lg">Employee Data</div></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Area:</p><p>' + getStorage("AreaS") + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Team:</p><p>' + getStorage("TeamS") + '</p></div>';
-                strHTML += '<div class="col-sm-6"><p class="bold">Name:</p><p>' + getStorage("EmpNameS") + '</p></div>';
-                strHTML += '<div class="row"><div class="col-sm-3"><p class="bold">Week Range:</p><p>' + getStorage("WeekOfS") + '</p></div>';
-                strHTML += '<div class="col-sm-3"><p class="bold">Position:</p><p>' + getStorage("PositionS") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p class="bold">OJT Trainer:</p><p>';
-                if (getStorage('OJTS') === '1') {
-                    strHTML += '<input type="checkbox" checked="checked" disabled>';
-                } else {
-                    strHTML += '<input type="checkbox" disabled>';
-                }
-                strHTML += '</p></div><div class="col-sm-2"><p class="bold">Trainee:</p><p>' + getStorage("Trainee") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p class="bold">Vehicle:</p><p>' + getStorage("Veh1S") + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p class="bold">Spares:</p><p>' + ((getStorage("Veh2S") !== "") ? getStorage("Veh2S") : "") + ((getStorage("Veh3S") !== "") ? "/" + getStorage("Veh3S") : "") + ((getStorage("Veh4S") !== "") ? "/" + getStorage("Veh4S") : "") + '</p></div></div>'
-                document.write(strHTML);
-            </script>
+            <div class="row">
+                <p class="daily">Employee Data</p>
+            </div>
+            <div class="row">
+                <div class="col-6" id="divpweek"></div>
+                <div class="col-6" id="divpemp"></div>
+            </div>
+            <div class="row">
+                <div class="col-4" id="divparea"></div>
+                <div class="col-4" id="divpteam"></div>
+                <div class="col-4" id="divpposition"></div>
+            </div>
+            <div class="row">
+                <div class="col-2" id="divpojt"></div>
+                <div class="col-4" id="divptrainee"></div>
+                <div class="col-2" id="divpveh1"></div>
+                <div class="col-4" id="divpspares"></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">OTHER WORK</p>
+            </div>
+            <div class="row hide" id="divpow0"></div>
+            <div class="row hide" id="divpow1"></div>
+            <div class="row hide" id="divpow2"></div>
+            <div class="row hide" id="divpow3"></div>
+            <div class="row hide" id="divpow4"></div>
+            <div class="row hide" id="divpow5"></div>
+            <div class="row hide" id="divpow6"></div>
+            <div class="row hide" id="divpow7"></div>
+            <div class="row hide" id="divpow8"></div>
+            <div class="row hide" id="divpow9"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">field trips</p>
+            </div>
+            <div class="row hide" id="divpft0"></div>
+            <div class="row hide" id="divpft1"></div>
+            <div class="row hide" id="divpft2"></div>
+            <div class="row hide" id="divpft3"></div>
+            <div class="row hide" id="divpft4"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">LEAVE</p>
+            </div>
+            <div class="row hide" id="divplv0"></div>
+            <div class="row hide" id="divplv1"></div>
+            <div class="row hide" id="divplv2"></div>
+            <div class="row hide" id="divplv3"></div>
+            <div class="row hide" id="divplv4"></div>
+            <div class="row hide" id="divplv5"></div>
+            <div class="row hide" id="divplv6"></div>
+            <div class="row hide" id="divplv7"></div>
+            <div class="row hide" id="divplv8"></div>
+            <div class="row hide" id="divplv9"></div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">TOTALS</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" id="divptotalrun"></div>
+                <div class="col-sm-3" id="divptotalother"></div>
+                <div class="col-sm-3" id="divptotalft"></div>
+                <div class="col-sm-3" id="divptotalhw"></div>
+            </div>
+            <hr class="border-grey">
+            <div class="row">
+                <div class="col-sm-2" id="divptotal1r"></div>
+                <div class="col-sm-2" id="divptotals4"></div>
+                <div class="col-sm-2" id="divptotals2ql"></div>
+                <div class="col-sm-2" id="divptotals2j"></div>
+                <div class="col-sm-2" id="divptotalc3"></div>
+                <div class="col-sm-2" id="divptotalc1"></div>
+            </div>
         </div>
     </div>
+    <script src="js/script.js"></script>
     <script>
-        var strHTML = "";
-        strHTML += '<div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Other Work Duties</div></div>';
-        var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
-        var j = 0;
-        for (var i = 20; i < 30; i++) {
-            if (getStorage("Select" + i + "S") !== "") {
-                otherWork[j] = "Time" + i;
-                j++;
-            }
-        }
-        var blnOW = false;
-        var strnum = "";
-
-        for (i = 0; i < 10; i++) {
-            blnOW = (otherWork[i] !== "OW" + i) ? true : false;
-            if (blnOW) {
-                strnum = otherWork[i].substr(-2);
-                if (i !== 0) {
-                    strHTML += '<hr class="border-grey">';
-                }
-                strHTML += '<div class="row">';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage("Date" + strnum + "S") + '</p></div>';
-                if (getStorage("Lift" + strnum + "S") === "1") {
-                    strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
-                } else {
-                    strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
-                }
-                strHTML += '<div class"col-sm-4"><p>Category:&nbsp;' + getStorage("Select" + strnum + "S") + " - " + getStorage("Desc" + strnum + "S") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p></p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "SS") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "ES") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherWork[i] + "S") + '</p></div>';
-                strHTML += '</div>';
-            }
-        }
-        strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Field Trips</div></div>';
-
-        var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
-        var j = 0;
-        for (i = 30; i < 35; i++) {
-            if (getStorage("Time" + i + "S") !== "") {
-                otherFT[j] = "Time" + i;
-                j++;
-            }
-        }
-        strDay = "";
-        var blnFT = false;
-        strnum = "";
-
-        for (i = 0; i < 5; i++) {
-            blnFT = (otherFT[i] !== "FT" + i) ? true : false;
-            if (blnFT) {
-                if (i !== 0) {
-                    strHTML += '<hr class="border-grey">';
-                }
-                strnum = otherFT[i].substr(-2);
-                strHTML += '<div class="row">';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage("Date" + strnum + "S") + '</p></div>';
-                if (getStorage("Lift" + strnum + "S") === "1") {
-                    strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" checked="checked" disabled></p></div>';
-                } else {
-                    strHTML += '<div class="col-sm-1"><p>EQ/L<input type="checkbox" disabled></p></div>';
-                }
-                strHTML += '<div class="col-sm-2"><p>From:&nbsp;' + getStorage("From" + strnum + "S") + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p>To:&nbsp;' + getStorage("To" + strnum + "S") + '</p></div>';
-                strHTML += '<div class="col-sm-2"><p>Voucher:&nbsp;' + getStorage("Voucher" + strnum + "S") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "SS") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "ES") + '</p></div>';
-                strHTML += '<div class="col-sm-1"><p>' + getStorage(otherFT[i] + "S") + '</p></div>';
-                strHTML += '</div>';
-            }
-        }
-        strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Leave</div></div>';
-        var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
-        var lvd = ["M", "T", "W", "R", "F"];
-        var lvday = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-        var k = 0;
-        j = 0;
-        for (k = 0; k < 5; k++) {
-            if (getStorage("LeaveAD" + lvd[k]) === "1") {
-                otherLV[j] = "LeaveAD" + lvd[k];
-                j++;
-            }
-            for (i = 15; i < 20; i++) {
-                if (getStorage("Date" + i) === getStorage(lvday[k] + "Date")) {
-                    otherLV[j] = "Time" + i;
-                    j++;
-                }
-            }
-        }
-        strDay = "";
-        var blnLV = false;
-        strnum = "";
-
-        for (i = 0; i < 10; i++) {
-            blnLV = (otherLV[i] !== "LV" + i) ? true : false;
-            if (blnLV) {
-                if (i !== 0) {
-                    strHTML += '<hr class="border-grey">';
-                }
-                strHTML += '<div class="row">';
-                strDay = otherLV[i].substr(0, 3);
-                strnum = otherLV[i].substr(-3).replace("e", "");
-                if (otherLV[i].indexOf("LeaveAD") > 0) {
-                    strHTML += '<div class="col-sm-1"><p>' + getLVDate(otherLV[i]) + '</p></div>';
-                } else {
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage("Date" + strnum) + '</p></div>';
-                }
-                strHTML += '<div class="col-sm-2"><p>' + getStorage("LeaveSelect" + strnum) + '</p></div>';
-                if (strnum.indexOf("AD") === 0) {
-                    strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" checked="checked" disabled></p></div>';
-                    strHTML += '<div class="col-sm-1"></div>';
-                    strHTML += '<div class="col-sm-1"></div>';
-                    strHTML += '<div class="col-sm-1"></div></div>';
-                } else {
-                    strHTML += '<div class="col-sm-1"><p>All Day<input type="checkbox" disabled></p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "S") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i] + "E") + '</p></div>';
-                    strHTML += '<div class="col-sm-1"><p>' + getStorage(otherLV[i]) + '</p></div></div>';
-                }
-            }
-        }
-        strHTML += '</div><div class="card"><div class="row section__header bg-medblue"><div class="bold-lg">Totals</div></div><div class="row">';
-        strHTML += '<div class="col-sm-3"><p class="bold-lg">OTHER:&nbsp;' + getStorage("TotalOther") + '</p></div>';
-        strHTML += '<div class="col-sm-3"><p class="bold-lg">FIELD TRIP:&nbsp;' + getStorage("TotalFT") + '</p></div>';
-        strHTML += '<div class="col-sm-3"><p class="bold-lg">HOURS WORKED:&nbsp;' + getStorage("TotalHW") + '</p></div>';
-        strHTML += '</div><hr class="border-grey"><div class="row">'
-        strHTML += '<div class="col-sm-2"><p class="bold-lg">1R (Regular):&nbsp;' + getStorage("Total1R") + '</p></div>';
-        strHTML += '<div class="col-sm-2"><p class="bold-lg">S4 (OJT):&nbsp;' + getStorage("TotalS4") + '</p></div>';
-        strHTML += '<div class="col-sm-2"><p class="bold-lg">S2 (Equipment):&nbsp;' + getStorage("TotalS2") + '</p></div>';
-        strHTML += '<div class="col-sm-2"><p class="bold-lg">C3 (Weather):&nbsp;' + getStorage("TotalC3") + '</p></div>';
-        strHTML += '<div class="col-sm-2"><p class="bold-lg">C1 (Callback):&nbsp;' + getStorage("TotalC1") + '</p></div>';
-        strHTML += '</div>';
-        document.write(strHTML);
-    </script>
-        <script>
         //Click on menu, toggle menu on and off
-        window.addEventListener("click", toggleMenu);
-        //TOGGLE MENU ON AND OFF ON CLICK
-        function toggleMenu(e) {
-            //Get ID of whatever triggered click event
-            var refID = e.target.id;
+        window.onclick = function(event) {
+            var bln = (byID("tsdropdownS").classList.contains("hide")) ? true : false;
 
-            //Is nav dropdown hiding?
-            var bln = (document.getElementById("tsdropdown").classList.contains("hide")) ? true : false;
-
-            if (refID !== "tsbtn") {
-                showHide("tsdropdown", false);
+            if (event.target.id !== 'tsbtnS') {
+                showHide("tsdropdownS", false);
             } else {
-                showHide("tsdropdown", bln);
+                showHide("tsdropdownS", bln);
             }
         }
-        
-        //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-        function showHide(refID, bln) {
-            var el = document.getElementById(refID);
-            //(Show the element) ? remove hide : add hide
-            if (bln) {
-                if (el.classList.contains("hide")) el.classList.remove("hide");
+
+        window.ontouchstart = function(event) {
+            var bln = (byID("tsdropdownS").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'tsbtnS') {
+                showHide("tsdropdownS", false);
             } else {
-                if (!el.classList.contains("hide")) el.classList.add("hide");
+                showHide("tsdropdownS", bln);
             }
         }
     </script>
-</body>
-</html>
+    <script src="js/previewsup.js"></script>
+</body></html>

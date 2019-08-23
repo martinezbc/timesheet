@@ -54,10 +54,10 @@ for (i = 0; i < position.length; i++) {
     position[i].addEventListener("change", positionChange);
 }
 
-//EQL checked
-var chkEQL = document.querySelectorAll("input[name='chkQLS']");
-for (i = 0; i < chkEQL.length; i++) {
-    chkEQL[i].addEventListener("click", toggleQL);
+//QL checked
+var chkQL = document.querySelectorAll("input[name='chkQLS']");
+for (i = 0; i < chkQL.length; i++) {
+    chkQL[i].addEventListener("click", toggleQL);
 }
 
 //All day leave checked
@@ -227,6 +227,7 @@ function initialLoad() {
     loadOJT();
     checkOWFT();
     loadLV();
+    getWeeklyTotals();
 }
 
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
@@ -535,7 +536,7 @@ function clearFields() {
     location.reload();
 }
 
-//ENABLE OR DISABLE EQL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
+//ENABLE OR DISABLE QL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
 function selectOWChange(e) {
     var refID = e.currentTarget.id;
     disableOWFields(refID);
@@ -750,10 +751,9 @@ function checkOverlap(refID) {
     var i = 20;
 
     for (i; i < max; i++) {
-        i = (i === 35) ? 40 : i;
-        if (i === numVal) i++;
-        if (i === max) break;
+        if (i > 34 && i < 40) continue;
         if (byID("Date" + numVal + "S").value !== byID("Date" + i + "S").value) continue;
+        if (i === numVal) continue;
 
         //Initialize newStart and newEnd
         newStart = convertToMinutes(byID("Time" + i + "SS").value);
@@ -795,7 +795,7 @@ function calculateDiff(refID) {
     var endTime = (refID.substr(-2) === "ES")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "ES").value);
     var num = Number(refID.substr(-4, 2));
     var timeDiff = 0;
-    var totalID = refID.substr(0, refID.length - 2) + "S";
+    var totalID = "Time" + num + "S";
 
     //If end time is less than start time then pop up error message
     if ((endTime < startTime) && (endTime !== 0)) {
@@ -883,6 +883,7 @@ function supQL() {
     for (i = 30; i < 35; i++) {
         sum += (byID("QL" + i + "S").checked) ? (Number(byID("Time" + i + "S").value) * 60) : 0;
     }
+    sum = convertTotal(sum);
     sum = setToFixed(sum);
     return sum;
 }

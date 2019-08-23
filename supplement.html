@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/bootstrap-grid.css" rel="stylesheet" type="text/css">
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/color.css" rel="stylesheet" type="text/css">
-    <!--Javascript-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
     <script src="js/fieldtrip.js"></script>
     <style>
@@ -29,73 +29,69 @@
 </head>
 
 <body>
-    <iframe class="full" id="tsframe"></iframe>
+ 
+  <script src="js/json.js"></script>
+   <script>
+       function dateString(strDate) {
+            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+            return str
+        }
+        var urlParams = new URLSearchParams(window.location.search);
+        var week = urlParams.toString().replace("WeekOf=","");
+        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+        objThis = objThis.Data
+        objThisSat = objThis.Sat;
+        objThisSun = objThis.Sun;
+        objThisMon = objThis.Mon;
+        objThisTue = objThis.Tue;
+        objThisWed = objThis.Wed;
+        objThisThu = objThis.Thu;
+        objThisFri = objThis.Fri;
+    </script>
+    <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
+    
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
                 case "Sat":
-                    x = getStorage("SatDateS");
-                    break;
+                    x = objThis.SatDate;
+                    breai + "S";
                 case "Sun":
-                    x = getStorage("SunDateS");
-                    break;
+                    x = objThis.SunDate;
+                    breai + "S";
                 case "Mon":
-                    x = getStorage("MonDateS");
-                    break;
+                    x = objThis.MonDate;
+                    breai + "S";
                 case "Tue":
-                    x = getStorage("TueDateS");
-                    break;
+                    x = objThis.TueDate;
+                    breai + "S";
                 case "Wed":
-                    x = getStorage("WedDateS");
-                    break;
+                    x = objThis.WedDate;
+                    breai + "S";
                 case "Thu":
-                    x = getStorage("ThuDateS");
-                    break;
+                    x = objThis.ThuDate;
+                    breai + "S";
                 case "Fri":
-                    x = getStorage("FriDateS");
-                    break;
+                    x = objThis.FriDate;
+                    breai + "S";
             }
             return x;
         }
-        
-        function getStorage(refID) {
-            return localStorage.getItem(refID);
-        }
-        
-        function getLVDate(x) {
-            switch (x) {
-                case "LeaveADM":
-                    x = getStorage("MonDateS");
-                    break;
-                case "LeaveADT":
-                    x = getStorage("TueDateS");
-                    break;
-                case "LeaveADW":
-                    x = getStorage("WedDateS");
-                    break;
-                case "LeaveADR":
-                    x = getStorage("ThuDateS");
-                    break;
-                case "LeaveADF":
-                    x = getStorage("FriDateS");
-                    break;
-            }
-            return x;
-        }
-        
+
         function removeAMPM(x) {
-            return x.replace("AM","").replace("PM","")
+            return x.replace("AM", "").replace("PM", "")
         }
-        
+
         document.addEventListener('DOMContentLoaded', function() {
-            var pdf = jsPDF("p", "pt", "letter"),
-                margin = 20,
+            var pdf = jsPDF("p", "pt", "letter");
+            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+
+            var margin = 20,
                 vOffset = 0,
                 hOffset = 0,
-                x = "";
-            
-            var i = 0;
-            var days = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
+                x = "",
+                i = 0;
 
 
             //********HEADER********//
@@ -103,30 +99,30 @@
             pdf.addImage(imgData, "JPEG", 20, 20, 20, 20);
 
             vOffset = margin + 15;
-            hOffset = 42;
+            hOffset = 45;
             pdf.setFontSize(14);
             pdf.setFontStyle("bold");
-            pdf.text(hOffset, vOffset + 2, "TRANSPORTATION SUPPLEMENT REPORT");
+            pdf.text(hOffset, vOffset + 2, "TRANSPORTATION WEEKLY REPORT");
 
-            hOffset += 295;
+            hOffset += 280;
             pdf.setFontSize(10);
             pdf.setFontStyle("normal");
 //            pdf.text(hOffset, vOffset + 4, "Employee ID:");
 //            pdf.setFontStyle("bold");
 //            pdf.setFontSize(12);
-            hOffset += 34;
-//            hOffset += 60;
-//            x = getStorage("EmpIDS");
+//            hOffset += 62;
+//            x = objThis.EmpID");
 //            pdf.text(hOffset, vOffset + 4, x);
+            hOffset += 38;
             pdf.setFontSize(10);
 
-            hOffset += 48;
+            hOffset += 53;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset + 4, "Week Of:");
             pdf.setFontStyle("bold");
             pdf.setFontSize(12);
-            x = getStorage("WeekOfS");
-            pdf.text(hOffset + 42, vOffset + 4, x);
+            x = dateString(objThis.WeekOf);
+            pdf.text(hOffset + 45, vOffset + 4, x);
             pdf.setFontSize(10);
 
             pdf.setDrawColor(80, 80, 80);
@@ -146,7 +142,7 @@
             pdf.setFontStyle("bold");
             hOffset += 28;
             pdf.setFontSize(12);
-            x = getStorage("AreaS");
+            x = objThis.Area;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -156,7 +152,7 @@
             pdf.setFontStyle("bold");
             hOffset += 32;
             pdf.setFontSize(12);
-            x = getStorage("TeamS");
+            x = objThis.Team;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -166,17 +162,17 @@
             pdf.setFontStyle("bold");
             hOffset += 35;
             pdf.setFontSize(12);
-            x = getStorage("EmpNameS");
+            x = objThis.EmpName;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
             hOffset += 270;
             pdf.setFontStyle("normal");
             pdf.text(hOffset, vOffset, "Vehicle:");
-            pdf.setFontSize(12);
             pdf.setFontStyle("bold");
+            pdf.setFontSize(12);
             hOffset += 38;
-            x = getStorage("Veh1S");
+            x = objThis.Veh1;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -188,22 +184,22 @@
             pdf.setFontStyle("bold");
             hOffset += 45;
             pdf.setFontSize(12);
-            x = getStorage("PositionS");
+            x = objThis.Position;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
             //OJT checkbox
             hOffset += 140;
             pdf.setFontStyle("normal");
-            x = getStorage("OJT");
-            var imgCheck;
-            if (x === "1") {
+            x = objThis.OJT;
+            var imgCheci + "S";
+            if (x) {
                 imgCheck = getCheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
                 hOffset += 12;
                 pdf.text(hOffset - 22, vOffset, "**");
                 pdf.text(hOffset, vOffset, "OJT Trainer **");
-            hOffset += 12;
+                hOffset += 12;
             } else {
                 imgCheck = getUncheckBox();
                 pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
@@ -214,8 +210,8 @@
             hOffset += 70;
             pdf.setFontSize(8);
             pdf.setFontStyle("normal");
-            if (x === "1") {
-                x = getStorage("TraineeS");
+            if (x) {
+                x = objThis.Trainee;
                 pdf.text(hOffset, vOffset, "(" + x + ")");
             }
 
@@ -224,11 +220,11 @@
             pdf.setFontSize(10);
             pdf.text(hOffset, vOffset, "Spares:");
             hOffset += 38;
-            pdf.setFontStyle("bold");
             pdf.setFontSize(12);
-            x = getStorage("Veh2S");
-            x = (getStorage("Veh3S") !== "") ? x + " / " + getStorage("Veh3S") : x;
-            x = (getStorage("Veh4S") !== "") ? x + " / " + getStorage("Veh4S") : x;
+            pdf.setFontStyle("bold");
+            x = objThis.Veh2;
+            x = (objThis.Veh3 !== "") ? x + " / " + objThis.Veh3 : x;
+            x = (objThis.Veh4 !== "") ? x + " / " + objThis.Veh4 : x;
             pdf.text(hOffset, vOffset, x);
             pdf.setFontSize(10);
 
@@ -258,88 +254,341 @@
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin, vOffset - 10, 572, 13, "FD");
             pdf.setFontSize(9);
-            hOffset += 3;
+            hOffset += 5;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             hOffset += 30;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             hOffset += 30;
             pdf.text(hOffset, vOffset, "Route");
-            hOffset += 45;
+            hOffset += 50;
             pdf.text(hOffset, vOffset, "Mon");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Tue");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Wed");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Thu");
-            hOffset += 29;
+            hOffset += 28;
             pdf.text(hOffset, vOffset, "Fri");
             pdf.setFontStyle("normal");
 
-            for (i = 0; i < 5; i++) {
-                vOffset += 15;
-                hOffset = margin;
-                pdf.setDrawColor(80, 80, 80);
-                if (i % 2 === 0) {
-                    pdf.setFillColor(255, 255, 255);    
-                } else {
-                    pdf.setFillColor(210, 210, 210);
-                }
-                pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-                pdf.setDrawColor(80, 80, 80);
-            }
-            
             vOffset += 15;
             hOffset = margin;
-            pdf.setFillColor(104, 210, 233);
-            pdf.rect(margin, vOffset - 12, 45, 30, "FD");
-            pdf.setFillColor(209, 241, 245);
-            pdf.rect(margin + 45, vOffset - 12, 336, 30, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            pdf.setFillColor(255, 255, 255);
+            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            hOffset += 2;
             pdf.setFontSize(9);
             pdf.setFontStyle("bold");
-            pdf.text(margin + 2, vOffset + 1, "AM Pupil\n   Time");
-            
-            pdf.setFillColor(104, 210, 233);
-            pdf.rect(margin + 190, vOffset - 12, 45, 30, "FD");
-            pdf.text(margin + 192, vOffset + 1, "PM Pupil\n   Time")
-            hOffset += 385;
+            x = objThis.AMRoute1;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
 
-            pdf.setFillColor(210, 210, 210);
-            pdf.rect(hOffset - 4, vOffset - 12, 191, 15, "FD");
-            
+                hOffset += 28;
+                x = objThis["AM1Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PMRoute1;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PM1Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PSRoute1;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PS1Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
             vOffset += 15;
             hOffset = margin;
-            hOffset += 355;
-            
-            pdf.setFillColor(255, 255, 255);
-            pdf.rect(hOffset + 26, vOffset - 12, 191, 15, "FD");
-            
             pdf.setDrawColor(80, 80, 80);
-            pdf.line(65, routeOffset + 13, 65, vOffset + 6);
+            pdf.setFillColor(210, 210, 210);
+            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            hOffset += 2;
+            pdf.setFontStyle("bold");
+            x = objThis.AMRoute2;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["AM2Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PMRoute2;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PM2Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PSRoute2;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PS2Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
+            vOffset += 15;
+            hOffset = margin;
+            pdf.setDrawColor(80, 80, 80);
+            pdf.setFillColor(255, 255, 255);
+            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            hOffset += 2;
+            pdf.setFontStyle("bold");
+            x = objThis.AMRoute3;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["AM3Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PMRoute3;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PM3Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.SHRoute1;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["SH1Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
+            vOffset += 15;
+            hOffset = margin;
+            pdf.setDrawColor(80, 80, 80);
+            pdf.setFillColor(210, 210, 210);
+            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            hOffset += 2;
+            pdf.setFontStyle("bold");
+            x = objThis.AMRoute4;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["AM4Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PMRoute4;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PM4Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.SHRoute2;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["SH2Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
+            vOffset += 15;
+            hOffset = margin;
+            pdf.setDrawColor(80, 80, 80);
+            pdf.setFillColor(255, 255, 255);
+            pdf.rect(margin, vOffset - 12, 572, 15, "FD");
+            pdf.setDrawColor(80, 80, 80);
+            hOffset += 2;
+            pdf.setFontStyle("bold");
+            x = objThis.AMRoute5;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["AM5Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+            x = objThis.PMRoute5;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["PM5Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontStyle("bold");
+
+            x = objThis.LRRoute1;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            pdf.setFontSize(9);
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["LR1Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
+            vOffset += 15;
+            hOffset = margin;
+            pdf.setFillColor(104, 210, 233);
+            pdf.rect(margin, vOffset - 12, 50, 30, "FD");
+            pdf.setFillColor(209, 241, 245);
+            pdf.rect(margin + 50, vOffset - 12, 336, 30, "FD");
+            pdf.setFontSize(9);
+            pdf.setFontStyle("bold");
+            pdf.text(margin + 4, vOffset + 1, "AM Pupil\n   Time");
+            pdf.setFontSize(8);
+            pdf.setFontStyle("normal");
+            hOffset += 27;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = removeAMPM(objThis["TimeA"]) || "";
+                pdf.text(hOffset, vOffset, x); 
+            }
+
+            pdf.setFontSize(9);
+            pdf.setFontStyle("bold");
+            pdf.setFillColor(104, 210, 233);
+            pdf.rect(margin + 190, vOffset - 12, 50, 30, "FD");
+            pdf.text(margin + 194, vOffset + 1, "PM Pupil\n   Time")
+            pdf.setFontSize(8);
+            pdf.setFontStyle("normal");
+            hOffset += 52;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = removeAMPM(objThis["TimeC"]) || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 27;
+            pdf.setFontSize(9);
+            pdf.setFontStyle("bold");
+
+            pdf.setFillColor(210, 210, 210);
+            pdf.rect(hOffset - 5, vOffset - 12, 191, 15, "FD");
+            x = objThis.LRRoute2;
+            pdf.text(hOffset, vOffset, x);
+            pdf.setFontStyle("normal");
+            hOffset += 25;
+            pdf.setFontSize(9);
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = objThis["LR2Ct"] || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+
+            vOffset += 15;
+            hOffset = margin;
+            pdf.setFontStyle("normal");
+            pdf.setFontSize(8);
+            hOffset += 27;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = removeAMPM(objThis["TimeB"]) || "";
+                pdf.text(hOffset, vOffset, x);
+            }
+            hOffset += 52;
+            for (i = 1; i < 6; i++) {
+
+                hOffset += 28;
+                x = removeAMPM(objThis["TimeD"]) || "";
+                pdf.text(hOffset, vOffset, x);    
+            }
+
+            pdf.setFillColor(255, 255, 255);
+            pdf.rect(hOffset + 22, vOffset - 12, 191, 15, "FD");
+
+            pdf.setDrawColor(80, 80, 80);
+            pdf.line(70, routeOffset + 13, 70, vOffset + 6);
             pdf.line(210, routeOffset, 210, vOffset + 6);
-            pdf.line(255, routeOffset + 13, 255, vOffset + 6);
+            pdf.line(260, routeOffset + 13, 260, vOffset + 6);
             pdf.line(401, routeOffset, 401, vOffset + 6);
-            pdf.line(447, routeOffset + 13, 447, vOffset + 6);
+            pdf.line(452, routeOffset + 13, 452, vOffset + 6);
 
             //**REGULAR RUNS**//
             vOffset += 13;
@@ -393,50 +642,25 @@
             hOffset += 37;
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
-
-            for (i = 2; i < 7; i++) {
+            
+            var obj = {};
+            for (i = 1; i < 6; i++) {
                 vOffset += 15;
                 hOffset = margin;
                 pdf.setDrawColor(80, 80, 80);
                 if (i % 2 === 0) {
-                    pdf.setFillColor(255, 255, 255);    
+                    pdf.setFillColor(255, 255, 255);
                 } else {
                     pdf.setFillColor(210, 210, 210);
                 }
                 pdf.rect(margin, vOffset - 12, 534, 15, "FD");
-                pdf.setFontStyle("bold");
-
-                hOffset += 2;
-                pdf.setFontSize(9);
-                x = getStorage(days[i] + "DateS");
-                pdf.text(hOffset, vOffset, x);
-
                 vOffset += 15;
                 hOffset = margin;
-                pdf.setDrawColor(80, 80, 80);
-                if (i % 2 === 0) {
-                    pdf.setFillColor(255, 255, 255);    
-                } else {
-                    pdf.setFillColor(210, 210, 210);
-                }
                 pdf.rect(margin, vOffset - 12, 534, 15, "FD");
                 pdf.setDrawColor(80, 80, 80);
-                pdf.setFontSize(9);
-                pdf.setFontStyle("bold");
-                hOffset += 2;
-                imgCheck = getUncheckBox();
-                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 7, 8, 8);
-                pdf.setFontSize(8);
-                pdf.text(hOffset + 9, vOffset, "EQ/L");
-
-                if (i % 2 === 0) {
-                    pdf.setFillColor(255, 255, 255);    
-                } else {
-                    pdf.setFillColor(210, 210, 210);
-                }
-                pdf.rect(554, vOffset - 27, 38, 30, "FD");    
+                pdf.rect(554, vOffset - 27, 38, 30, "FD");
             }
-
+            
             pdf.setDrawColor(80, 80, 80);
             pdf.line(55, vOffset + 6, 55, vTimeStart);
             pdf.line(140, vOffset + 6, 140, vTimeStart + 12);
@@ -467,33 +691,28 @@
             //FIND OTHER WORK DATA
             var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
             var j = 0;
-
-            for (i = 20; i < 30; i++) {
-                if (getStorage("Select" + i + "S") !== "") {
-                    otherWork[j] = "Time" + i;
+            for (var i = 20; i < 30; i++) {
+                if (objThis["Select" + i + "S"] !== "") {
+                    otherWork[j] = "Time" + i + "S";
                     j++;
                 }
             }
 
             //FIND LEAVE TAKEN
-            var leave = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
-            var lvd = ["M", "T", "W", "R", "F"];
-            var lvday = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-            var k = 0;
+            var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4"];
             j = 0;
-            for (k = 0; k < 5; k++) {
-                if (getStorage("LeaveAD" + lvd[k]) === "1") {
-                    leave[j] = "LeaveAD" + lvd[k];
+
+            for (i = 40; i < 45; i++) {
+                if (objThis["Time" + i + "S"] !== "") {
+                    otherLV[j] = "Time" + i + "S";
                     j++;
                 }
-                for (i = 15; i < 20; i++) {
-                    if (getStorage("Date" + i + "S") === getStorage(lvday[k] + "DateS")) {
-                        leave[j] = "Time" + i;
-                        j++;
-                    }
+                if (objThis["LeaveAD" + i + "S"]) {
+                    otherLV[j] = "LeaveAD" + i + "S";
+                    j++;
                 }
             }
-    
+            
             vOffset += 13;
             hOffset = margin;
             pdf.setTextColor(0);
@@ -504,9 +723,9 @@
             pdf.setFontStyle("bold");
             hOffset += 5;
             pdf.text(hOffset, vOffset, "Date");
-            hOffset += 25;
-            pdf.text(hOffset, vOffset, "EQ/L");
-            hOffset += 29;
+            hOffset += 28;
+            pdf.text(hOffset, vOffset, "Q/L");
+            hOffset += 26;
             pdf.text(hOffset, vOffset, "Description");
             hOffset += 175;
             pdf.text(hOffset, vOffset, "Start");
@@ -528,17 +747,18 @@
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
 
-            var b = "",
+            var a = "",
+                b = "",
                 c = "";
             var blnOW = false;
             var blnLV = false;
-
+            
             for (i = 0; i < 10; i++) {
                 vOffset += 15;
                 hOffset = margin;
                 pdf.setDrawColor(80, 80, 80);
-                if (i % 2 === 0) {
-                    pdf.setFillColor(255, 255, 255);    
+                if (i % 2 === 0) { //alternate color backgrounds
+                    pdf.setFillColor(255, 255, 255);
                 } else {
                     pdf.setFillColor(210, 210, 210);
                 }
@@ -546,78 +766,80 @@
                 hOffset += 5;
                 blnOW = (otherWork[i] !== "OW" + i) ? true : false;
                 if (blnOW) {
+                    a = otherWork[i].substr(0, 3);
+                    obj = getDayObj(a);
                     b = otherWork[i].substr(7);
-                    c = getStorage("Select" + b + "S");
+                    c = objThis[a + "Select" + b] || "";
                     if (c === "ES0" || c === "ES2" || c === "CBK") {
                         pdf.setDrawColor(80, 80, 80);
                         pdf.setFillColor(255, 255, 0);
                         pdf.rect(margin, vOffset - 12, 355, 15, "FD");
                     }
-                }
-                x = (blnOW) ? getStorage("Date" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 32;
-                imgCheck = (blnOW && getStorage("Lift" + b + "S") === "1") ? getCheckBox() : getUncheckBox();
-                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                hOffset += 21;
-                pdf.setFontSize(8);
-                x = (blnOW) ? c + " - " + getStorage("Desc" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 175;
-                x = (blnOW) ? getStorage(otherWork[i] + "SS") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 42;
-                x = (blnOW) ? getStorage(otherWork[i] + "ES") : "";
-                pdf.text(hOffset, vOffset, x);
-                x = getStorage(otherWork[i] + "S");
-                hOffset += 43;
-                pdf.setFontSize(9);
-                pdf.setFontStyle("bold");
-                if (getStorage("OJT" + b + "S") === "1") {
-                    x = "**" + x + "**";
-                    if (blnOW) {
+                    x = getDateField(otherWork[i]) || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 32;
+                    imgCheck = (objThis[a + "QL" + b]) ? getCheckBox() : getUncheckBox();
+                    pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                    hOffset += 21;
+                    pdf.setFontSize(8);
+                    x = objThis[a + "Select" + b] || "";
+                    x += " - ";
+                    x += objThis[a + "Desc" + b] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 175;
+                    x = objThis[otherWork[i] + "S"] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 42;
+                    x = objThis[otherWork[i] + "E"] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    x = objThis[otherWork[i]];
+                    hOffset += 43;
+                    pdf.setFontSize(9);
+                    pdf.setFontStyle("bold");
+                    if (objThis[a + "OJT" + b]) {
+                        x = "**" + x + "**";
                         pdf.text(hOffset, vOffset, x);
+                        hOffset += 5;
+                    } else {
+                        hOffset += 7;
+                        pdf.text(hOffset, vOffset, x);
+                        hOffset += -2;
                     }
-                    hOffset += 5;
                 } else {
-                    hOffset += 7;
-                    if (blnOW) {
-                        pdf.text(hOffset, vOffset, x);
-                    }
-                    hOffset += -2;
+                    hOffset += 318;
                 }
                 pdf.setFontStyle("normal");
                 //LEAVE
-                hOffset += 38;                
+                hOffset += 38;
                 blnLV = (leave[i] !== "LV" + i) ? true : false;
-                if (blnLV) {
+                if (blnLV === true) {
                     a = leave[i].substr(0, 3);
-                    b = leave[i].substr(-3).replace("e", "");
-                }  
-                if (blnLV && leave[i].indexOf("LeaveAD") > 0) {
-                    pdf.text(hOffset, vOffset, getLVDate(leave[i]));
-                } else if (blnLV) {
-                    pdf.text(hOffset, vOffset, getStorage("Date" + b));
+                    obj = getDayObj(a);
+                    b = leave[i].substr(-2);
+                    x = getDateField(leave[i]);
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 28;
+                    pdf.setFontSize(8);
+                    x = objThis[a + "LeaveSelect" + b] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 50;
+                    imgCheck = (leave[i].indexOf("LeaveAD") > 0) ? getCheckBox() : getUncheckBox();
+                    pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                    hOffset += 15;
+                    if (leave[i].indexOf("Time") > 0) {
+                        x = objThis[leave[i] + "S"] || "";
+                        pdf.text(hOffset, vOffset, x);
+                        hOffset += 40;
+                        x = objThis[leave[i] + "E"] || "";
+                        pdf.text(hOffset, vOffset, x);
+                        hOffset += 45;
+                        pdf.setFontStyle("bold");
+                        pdf.setFontSize(9);
+                        x = objThis[leave[i]] || ""; 
+                        pdf.text(hOffset, vOffset, x);
+                    }
+                    pdf.setFontStyle("normal");
                 }
-                hOffset += 28;
-                pdf.setFontSize(8);
-                x = (blnLV) ? getStorage("LeaveSelect" + b) : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 50;
-                imgCheck = (blnLV && leave[i].indexOf("LeaveAD") > 0) ? getCheckBox() : getUncheckBox();
-                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                hOffset += 15;
-                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i] + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 40;
-                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i] + "E") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 45;
-                pdf.setFontStyle("bold");
-                pdf.setFontSize(9);
-                x = (blnLV && leave[i].indexOf("Time") > 0) ? getStorage(leave[i]) : "";
-                pdf.text(hOffset, vOffset, x);
-                pdf.setFontStyle("normal");
             }
             
             vOffset += 15;
@@ -634,7 +856,7 @@
             pdf.setDrawColor(80, 80, 80);
             pdf.line(335, vOffset - 12, 335, vTimeStart + 12);
             pdf.line(375, vOffset - 12, 375, vTimeStart);
-            pdf.line(552, vOffset - 12, 552, vTimeStart + 12);            
+            pdf.line(552, vOffset - 12, 552, vTimeStart + 12);
             pdf.line(552, vOffset - 12, 552, vTimeStart + 12);
 
 
@@ -653,13 +875,13 @@
 
             //FIND OTHER WORK DATA
             var fieldTrip = ["FT0", "FT1", "FT2", "FT3", "FT4"];
-            var blnFT = false;
             j = 0;
             for (i = 30; i < 35; i++) {
-                if (getStorage("Time" + i + "S") !== "") {
-                    fieldTrip[j] = "Time" + i;
+                if (objThis["Time" + i + "S"] !== "") {
+                    fieldTrip[j] = "Time" + i + "S";
                     j++;
-                }
+                }    
+                
             }
 
             vOffset += 13;
@@ -672,7 +894,7 @@
             hOffset += 10;
             pdf.text(hOffset, vOffset, "Date");
             hOffset += 28;
-            pdf.text(hOffset, vOffset, "EQ/L");
+            pdf.text(hOffset, vOffset, "Q/L");
             hOffset += 32;
             pdf.text(hOffset, vOffset, "From");
             hOffset += 150;
@@ -692,46 +914,54 @@
                 hOffset = margin;
                 pdf.setDrawColor(80, 80, 80);
                 if (i % 2 === 0) {
-                        pdf.setFillColor(255, 255, 255);    
-                    } else {
-                        pdf.setFillColor(210, 210, 210);
-                    }
+                    pdf.setFillColor(255, 255, 255);
+                } else {
+                    pdf.setFillColor(210, 210, 210);
+                }
                 pdf.rect(margin, vOffset - 12, 572, 15, "FD");
                 pdf.setDrawColor(80, 80, 80);
-                
+                var blnFT = false;
 
                 hOffset += 10;
-                blnFT = (fieldTrip[i] !== "FT" + i) ? true : false;
-                b = (blnFT) ? fieldTrip[i].substr(-2) : "";
-                x = (blnFT) ? getStorage("Date" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 35;
-                imgCheck = (getStorage("Lift" + b + "S") === "1") ? getCheckBox() : getUncheckBox();
-                pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
-                hOffset += 25;
-                x = (blnFT) ? getStorage("From" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 150;
-                x = (blnFT) ? getStorage("To" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 150;
-                x = (blnFT) ? getStorage("Voucher" + b + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 55;
-                x = (blnFT) ? getStorage(fieldTrip[i] + "SS") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 55;
-                x = (blnFT) ? getStorage(fieldTrip[i] + "ES") : "";
-                pdf.text(hOffset, vOffset, x);
-                hOffset += 58;
-                pdf.setFontStyle("bold");
-                pdf.setFontSize(10);
-                x = (blnFT) ? getStorage(fieldTrip[i] + "S") : "";
-                pdf.text(hOffset, vOffset, x);
-                pdf.setFontStyle("normal");
-                pdf.setFontSize(9);
-            }
 
+                blnFT = (fieldTrip[i] !== "FT" + i) ? true : false;
+                if (blnFT) {
+                    a = fieldTrip[i].substr(0,3);
+                    b = fieldTrip[i].substr(7);
+                    x = getDateField(fieldTrip[i]);
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 35;
+                    if (objThis[a + "QL" + b]) {
+                        imgCheck = getCheckBox();
+                    } else {
+                        imgCheck = getUncheckBox();
+                    }
+                    pdf.addImage(imgCheck, "JPEG", hOffset, vOffset - 9, 10, 10);
+                    hOffset += 25;
+                    x = objThis[a + "From" + b] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 150;
+                    x = objThis[a + "To" + b] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 150;
+                    x = objThis[a + "Voucher" + b] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 55;
+                    x = objThis[fieldTrip[i] + "S"] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 55;
+                    x = objThis[fieldTrip[i] + "E"] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    hOffset += 58;
+                    pdf.setFontStyle("bold");
+                    pdf.setFontSize(10);
+                    x = objThis[fieldTrip[i]] || "";
+                    pdf.text(hOffset, vOffset, x);
+                    pdf.setFontStyle("normal");
+                    pdf.setFontSize(9);
+                }
+            }
+            
             pdf.setDrawColor(80, 80, 80);
             pdf.line(552, vOffset + 6, 552, vTimeStart + 13);
 
@@ -766,24 +996,26 @@
             pdf.text(hOffset, vOffset + 4, "Employee \nInitials: ");
             hOffset += 50;
             pdf.setFontSize(12);
-            x = getStorage("EmpInitialsS");
+            x = objThis.EmpInitialsS;
             pdf.text(hOffset, vOffset + 12, x);
             pdf.setFontSize(9);
             hOffset += 50;
-            pdf.text(hOffset, vOffset + 4, "ervisor \nSignature:");
+            pdf.text(hOffset, vOffset + 4, "Supervisor \nSignature:");
 
             vOffset += 14;
             hOffset = margin;
             pdf.setFontSize(14);
             hOffset += 8;
-            hOffset += 65;
-            x = getStorage("TotalOtherS");
+            x = objThis.TotalRunS;
             pdf.text(hOffset, vOffset, x);
             hOffset += 65;
-            x = getStorage("TotalFTS");
+            x = objThis.TotalOtherS;
+            pdf.text(hOffset, vOffset, x);
+            hOffset += 65;
+            x = objThis.TotalFTS;
             pdf.text(hOffset, vOffset, x);
             hOffset += 60;
-            x = getStorage("TotalHWS");
+            x = objThis.TotalHWS;
             pdf.text(hOffset, vOffset, x);
 
 
@@ -794,50 +1026,55 @@
             pdf.setFillColor(104, 210, 233);
             pdf.rect(margin, vOffset - 9, 572, 28, "FD");
             pdf.setFontSize(9);
-            hOffset += 22;
+            hOffset += 18;
             pdf.text(hOffset, vOffset, "1R-Regular");
-            hOffset += 118;
+            hOffset += 98;
             pdf.text(hOffset, vOffset, "S4-OJT");
-            hOffset += 118;
+            hOffset += 98;
             pdf.text(hOffset, vOffset, "S2-Equipment");
-            hOffset += 118;
+            hOffset += 98;
+            pdf.text(hOffset, vOffset, "S2-Admin");
+            hOffset += 98;
             pdf.text(hOffset, vOffset, "C3-Weather");
-            hOffset += 118;
+            hOffset += 98;
             pdf.text(hOffset, vOffset, "C1-Callback");
 
             vOffset += 16;
             vTimeStart = vOffset - 9; //Needed for the lines used later
             hOffset = margin;
             pdf.setFontSize(16);
-            hOffset += 22;
-            x = getStorage("Total1RS");
+            hOffset += 18;
+            x = objThis.Total1RS;
             pdf.text(hOffset, vOffset, x);
-            hOffset += 118;
-            x = getStorage("OJTS");
-            if (x === "1") {
-                pdf.text(hOffset, vOffset, getStorage("TotalS4S"));
+            hOffset += 98;
+            x = objThis.OJTS;
+            if (x) {
+                pdf.text(hOffset, vOffset, objThis.TotalS4S);
             }
-            hOffset += 118;
-            x = getStorage("TotalS2S");
+            hOffset += 98;
+            x = objThis.TotalS2QLS;
             pdf.text(hOffset, vOffset, x);
-            hOffset += 118;
-            x = getStorage("TotalC3S");
+            hOffset += 98;
+            x = objThis.TotalS2JS;
             pdf.text(hOffset, vOffset, x);
-            hOffset += 118;
-            x = getStorage("TotalC1S");
+            hOffset += 98;
+            x = objThis.TotalC3S;
+            pdf.text(hOffset, vOffset, x);
+            hOffset += 98;
+            x = objThis.TotalC1S;
             pdf.text(hOffset, vOffset, x);
 
 
-            x = getStorage("TeamS");
+            x = objThis.TeamS;
 
-            var y = getStorage("WeekOfS");
+            var y = objThis.WeekOfS;
             var z = y.substr(11);
             y = y.substr(0, 8);
             z = z.replace("/", "").replace("/", "");
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + getStorage("EmpNameS").replace(",","").replace(" ","");
+            x = x + "_" + objThis.EmpName.replace(",","").replace(" ","");
             var fileName = x;
 
             pdf.setProperties({
@@ -847,14 +1084,14 @@
                 keywords: "",
                 creator: "FCPS Transportation"
             });
-
+            
             var string = pdf.output('datauristring');
             var iframe = document.getElementById("tsframe")
             iframe.src = string;
             
-            pdf.save(fileName + ".pdf");
+            pdf.save(fileName + "supplement.pdf");
         });
     </script>
+    
 </body>
-
 </html>

@@ -37,6 +37,10 @@
         }
     </style>
     <script>
+        function byID(refID) {
+            return document.getElementById(refID);
+        }
+        
         function downloadTimesheet() {
             var week = urlParams.toString().replace("WeekOf=", "");
             window.open("timesheet.html?WeekOf=" + week, "_self");
@@ -182,6 +186,7 @@
             </div>
         </div>
     </div>
+    <script src="js/script.js"></script>
     <script>
         //Click on menu, toggle menu on and off
         window.onclick = function(event) {
@@ -195,7 +200,7 @@
         }
 
         window.ontouchstart = function(event) {
-            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
+            var bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
 
             if (event.target.id !== 'tsbtn') {
                 showHide("tsdropdown", false);
