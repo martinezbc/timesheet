@@ -647,7 +647,7 @@ function togglePupilCounts(x) {
     //Declare boolean for Position
     var pos = objThisData.Position;
 
-    if (pos === "Activity Driver") {
+    if (pos === "Activity Driver" || pos === "Floater") {
         posAD();
         return;
     }
