@@ -777,7 +777,7 @@ function routeCheck() {
     for (var i = 0; i < routes.length; i += 1) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.indexOf("L") > 2 || val.indexOf("Q") > 2) ? true : false;
+        bln = (val.lastIndexOf("L") > 2 || val.lastIndexOf("Q") > 2) ? true : false;
         if (bln) return bln;
     }
     return bln;
@@ -790,7 +790,7 @@ function routeCheckJ() {
     for (var i = 0; i < routes.length; i += 1) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.indexOf("J") > 2) ? true : false;
+        bln = (val.lastIndexOf("J") > 2) ? true : false;
         if (bln) return bln;
     }
     return bln;

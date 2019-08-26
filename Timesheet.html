@@ -1216,7 +1216,7 @@
             pdf.rect(margin, vOffset - 9, 572, 28, "FD");
             pdf.setFontSize(9);
             hOffset += 18;
-            pdf.text(hOffset, vOffset, "1R-Regular");
+            pdf.text(hOffset, vOffset, "1R-Regular**");
             hOffset += 98;
             pdf.text(hOffset, vOffset, "S4-OJT");
             hOffset += 98;
@@ -1250,6 +1250,11 @@
             hOffset += 98;
             x = objThisData.TotalC1;
             pdf.text(hOffset, vOffset, x);
+            
+            vOffset += 12;
+            hOffset = margin;
+            pdf.setFontSize(8);
+            pdf.text(hOffset, vOffset, '**Includes 15 minutes for timesheet preparation')
 
 
             x = objThisData.Team;
@@ -1276,7 +1281,7 @@
             var iframe = document.getElementById("tsframe")
             iframe.src = string;
             
-            pdf.save(fileName + ".pdf");
+//            pdf.save(fileName + ".pdf");
         });
     </script>
     

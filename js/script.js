@@ -239,10 +239,73 @@ function textboxOnChange(e) {
     if (refID === "Trainee" + optVal || refID === "EmpName" + optVal) {
         byID(refID).value = properCase(e.currentTarget.value);
     }
-    if ((optVal === "" && refID.indexOf("Route") > 0) || refID === "EmpInitials" + optVal) {
+    if (refID === "EmpInitials" + optVal) {
         byID(refID).value = byID(refID).value.toUpperCase();
     }
+    if (optVal === "" && refID.indexOf("Route") > 0)
+        routeNameTransform(refID);
     setObject(refID);
+}
+//UPDATE THE WAY THE ROUTE NAME LOOKS
+function routeNameTransform(refID) {
+    let refVal = byID(refID).value;
+    refVal = refVal.toUpperCase();
+    
+    let i = 0;
+    
+    let blnJ = (refVal.lastIndexOf("J") > 2) ? true : false;
+    let blnL = (refVal.lastIndexOf("L") > 2) ? true : false;
+    let blnQ = (refVal.lastIndexOf("Q") > 2) ? true : false;
+    
+    //Remove AM & PM
+    if (refVal.lastIndexOf("AM") > 2)
+        refVal = refVal.replace("AM","");
+    if (refVal.lastIndexOf("PM") > 2)
+        refVal = refVal.replace("PM","");
+    
+    //Remove -
+    if (refVal.lastIndexOf("-") > 0)
+        refVal = refVal.replace("-","");
+    
+    //Remove Q, L and J
+    if (refVal.lastIndexOf("L") > 2) {
+        i = refVal.lastIndexOf("L");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+    }
+    if (refVal.lastIndexOf("Q") > 2) {
+        i = refVal.lastIndexOf("Q");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+    }
+    if (refVal.lastIndexOf("J") > 2) {
+        i = refVal.lastIndexOf("J");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+    }
+    
+    //If the route length is less than 3 then they didn't completely type in the route name
+    if (refVal.length < 3) {
+        openPopUp('<p>Invalid route name.</p>');
+        refVal = "";
+    }
+    
+    //Use different set of parameters if run is AIM, they have a number before the dash
+    if (refVal.indexOf("AIMM") > -1 || refVal.indexOf("AIMB") > -1) {
+        if (isNaN(refVal.substr(-3)) && !isNaN(refVal.substr(-2)))
+            refVal = refVal.substr(0, refVal.length - 1) + "0" + refVal.substr(-1);
+    }
+    
+    //Add a zero if route number was typed as a single digit
+    if (isNaN(refVal.substr(-2)) && !isNaN(refVal.substr(-1))) {
+        refVal = refVal.substr(0, refVal.length - 1) + "0" + refVal.substr(-1);
+    }
+    
+    //Rebuild route number with dash, J, L, and Q if needed
+    refVal = refVal.substr(0, refVal.length - 2) + "-" + refVal.substr(-2);
+    refVal = (blnJ) ? refVal + " J" : refVal;
+    refVal = (blnL && blnJ) ? refVal + "L" : (blnL && !blnJ) ? refVal + " L" : refVal;
+    refVal = (blnQ && (blnJ || blnL)) ? refVal + "Q" : (blnQ && !blnJ && !blnL) ? refVal + " Q" : refVal;
+    
+    //Set new string into element unless it's only a dash
+    byID(refID).value = (refVal === "-") ? "" : refVal;        
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/
