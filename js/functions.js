@@ -1185,7 +1185,8 @@ function openTimesheet() {
 
     showHide("validateModal", false);
     if (emp !== "")
-        window.open("preview.html?WeekOf=" + byID("WeekOf").value, "_self");
+        localStorage.setItem('WeekOf', byID("WeekOf").value);
+        window.open("preview.html", "_self");
 }
 
 function runValidations() {

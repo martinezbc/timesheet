@@ -42,8 +42,7 @@
         }
         
         function downloadTimesheet() {
-            var week = urlParams.toString().replace("WeekOf=", "");
-            window.open("timesheet.html?WeekOf=" + week, "_self");
+            window.open("timesheet.html", "_self");
         }
 
         function dateString(strDate) {
@@ -60,8 +59,7 @@
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-        var urlParams = new URLSearchParams(window.location.search);
-        var week = urlParams.toString().replace("WeekOf=", "");
+        var week = localStorage.getItem('WeekOf');
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
         objThisData = objThis.Data
         objThisSat = objThis.Sat;

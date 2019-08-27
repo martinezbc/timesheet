@@ -36,8 +36,7 @@
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
             return str
         }
-        var urlParams = new URLSearchParams(window.location.search);
-        var week = urlParams.toString().replace("WeekOf=","");
+        var week = localStorage.getItem('WeekOf');
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
         objThisData = objThis.Data
         objThisSat = objThis.Sat;
@@ -1281,7 +1280,7 @@
             var iframe = document.getElementById("tsframe")
             iframe.src = string;
             
-//            pdf.save(fileName + ".pdf");
+            pdf.save(fileName + ".pdf");
         });
     </script>
     

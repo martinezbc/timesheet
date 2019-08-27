@@ -602,7 +602,8 @@ function openTimesheet() {
 
     showHide("validateModalS", false);
     if (emp !== "")
-        window.open("previewsup.html?WeekOf=" + byID("WeekOfS").value, "_self");
+        localStorage.setItem('WeekOfS', byID("WeekOfS").value);
+        window.open("previewsup.html", "_self");
 }
 
 function runValidations() {

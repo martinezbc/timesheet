@@ -36,8 +36,7 @@
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
             return str
         }
-        var urlParams = new URLSearchParams(window.location.search);
-        var week = urlParams.toString().replace("WeekOf=","");
+        var week = localStorage.getItem("WeekOfS");
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
     </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">

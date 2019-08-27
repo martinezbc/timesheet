@@ -268,6 +268,8 @@ function routeNameTransform(refID) {
     if (refVal.lastIndexOf("PM") > 2)
         refVal = refVal.replace("PM","");
     
+    refVal = refVal.trim();
+    
     //Remove -
     if (refVal.lastIndexOf("-") > 0)
         refVal = refVal.replace("-","");
@@ -276,14 +278,17 @@ function routeNameTransform(refID) {
     if (refVal.lastIndexOf("L") > 2) {
         i = refVal.lastIndexOf("L");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
     }
     if (refVal.lastIndexOf("Q") > 2) {
         i = refVal.lastIndexOf("Q");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
     }
     if (refVal.lastIndexOf("J") > 2) {
         i = refVal.lastIndexOf("J");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
     }
     
     //If the route length is less than 3 then they didn't completely type in the route name
