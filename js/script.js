@@ -306,8 +306,8 @@ function routeNameTransform(refID) {
     //Rebuild route number with dash, J, L, and Q if needed
     refVal = refVal.substr(0, refVal.length - 2) + "-" + refVal.substr(-2);
     refVal = (blnJ) ? refVal + " J" : refVal;
-    refVal = (blnL && blnJ) ? refVal + "L" : (blnL && !blnJ) ? refVal + " L" : refVal;
-    refVal = (blnQ && (blnJ || blnL)) ? refVal + "Q" : (blnQ && !blnJ && !blnL) ? refVal + " Q" : refVal;
+    refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
+    refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
     
     //Set new string into element unless it's only a dash
     byID(refID).value = (refVal === "-") ? "" : refVal;        
