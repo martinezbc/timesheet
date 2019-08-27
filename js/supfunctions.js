@@ -601,9 +601,11 @@ function openTimesheet() {
     objThis.EmpInitialsS = emp;
 
     showHide("validateModalS", false);
-    if (emp !== "")
+    if (emp !== "") {
+        getWeeklyTotals();
         localStorage.setItem('WeekOfS', byID("WeekOfS").value);
         window.open("previewsup.html", "_self");
+    }
 }
 
 function runValidations() {

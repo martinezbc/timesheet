@@ -1184,9 +1184,11 @@ function openTimesheet() {
     objThisData.EmpInitials = emp;
 
     showHide("validateModal", false);
-    if (emp !== "")
+    if (emp !== "") {
+        getDailyTotals();
         localStorage.setItem('WeekOf', byID("WeekOf").value);
         window.open("preview.html", "_self");
+    }
 }
 
 function runValidations() {
