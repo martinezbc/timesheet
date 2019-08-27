@@ -348,7 +348,11 @@ function loadTeamValues() {
             showHide(areadiv[i], false);
         }
     }
-    if (area === "TC") byID("teamTC").checked = true;
+    if (area === "TC") {
+        byID("teamTC").checked = true;
+        objThisData.Team = "TC";
+    }
+    
 }
 
 //LOADS DATES FROM STORAGE INTO DATE TEXT FIELDS
