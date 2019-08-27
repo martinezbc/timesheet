@@ -251,6 +251,11 @@ function routeNameTransform(refID) {
     let refVal = byID(refID).value;
     refVal = refVal.toUpperCase();
     
+    if (refID === "SHRoute1" || refID === "SHRoute2") {
+        byID(refID).value = refVal;
+        return;
+    }
+     
     let i = 0;
     
     let blnJ = (refVal.lastIndexOf("J") > 2) ? true : false;
