@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Pragma” content=”no-cache”>
     <meta http-equiv=“Expires” content=”-1″>
+    <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
@@ -19,23 +21,43 @@
     <script>
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
     </script>
     <style>
         .spin {
-            -webkit-animation:spin 4s linear infinite;
-            -moz-animation:spin 4s linear infinite;
-            animation:spin 4s linear infinite;
+            -webkit-animation: spin 4s linear infinite;
+            -moz-animation: spin 4s linear infinite;
+            animation: spin 4s linear infinite;
         }
-        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+        @-moz-keyframes spin {
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
     </style>
 </head>
 
 <body>
     <div class="header">
         <div class="row">
-            <div class="col-11"><h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1></div>
+            <div class="col-11">
+                <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
+            </div>
             <div class="col-1 dropdown right" style="padding-top: 5px;" id="navbarmodal">
                 <span class="fas fa-bars dropbtn fa-lg" id="navbtn"></span>
                 <div class="dropdown-content hide" id="navdropdown">
@@ -177,7 +199,7 @@
             </div>
         </div>
         <div class="row center">
-           <div class="col-2 footer_col">
+            <div class="col-2 footer_col">
                 <p class="footer_p">1R</p><input type="text" id="Total1R" class="footer-box" disabled>
             </div>
             <div class="col-2 footer_col">
@@ -230,6 +252,7 @@
                 <p id="ftinput">&nbsp;&nbsp;Or Select:&nbsp;</p>&nbsp;&nbsp;
                 <script>
                     insertFTSelect();
+
                 </script>
                 <span class="close fa fa-check-circle fa-lg" id="goFT" style="color:green;margin-top: 3px"></span>&nbsp;
                 <span class="close fa fa-times-circle fa-lg" id="closeFT" style="margin-top: 3px"></span>
@@ -272,7 +295,7 @@
                 </div>
             </div>
             <div class="row" id="slide1">
-               <div class="col-12 center">
+                <div class="col-12 center">
                     <p class="tutorial-cat">EQUIPMENT/LIFT/ADMIN: In order to enable the equipment/lift button (Q/L) or admin button (J), you must enter in your route number as it is printed on the route sheet.</p>
                 </div>
                 <div class="col-12 center">
@@ -280,7 +303,7 @@
                 </div>
             </div>
             <div class="row hide" id="slide2">
-               <div class="col-12 center">
+                <div class="col-12 center">
                     <p class="tutorial-cat">OTHER WORK DUTY: To add an other work duty, click on Add Other Work and complete the section. To remove the other work duty, click the trash can in the corner.</p>
                 </div>
                 <div class="col-12 center">
@@ -290,7 +313,7 @@
                 </div>
             </div>
             <div class="row hide" id="slide3">
-               <div class="col-12 center">
+                <div class="col-12 center">
                     <p class="tutorial-cat">FIELD TRIP: To add a field trip, click on Add Field Trip and complete all fields. To remove the field trip, click the trash can in the corner.</p>
                 </div>
                 <div class="col-12 center">
@@ -300,7 +323,7 @@
                 </div>
             </div>
             <div class="row hide" id="slide4">
-               <div class="col-12 center">
+                <div class="col-12 center">
                     <p class="tutorial-cat">LEAVE: To record leave taken, click on Add Leave. Leave type must be selected. <br>Enter time for partial leave or click ALL DAY if leave was taken for the entire day. Click Remove Leave to clear leave for that day.</p>
                 </div>
                 <div class="col-12 center">
@@ -311,7 +334,7 @@
                 </div>
             </div>
             <div class="row">
-               <div class="col-12 center">
+                <div class="col-12 center">
                     <span class="fas fa-arrow-circle-left fa-lg" id="chgLeft" style="color:#00677F" onclick="changeModalSlide('l');"></span>
                     <span class="fas fa-arrow-circle-right fa-lg" id="chgRight" style="color:#00677F" onclick="changeModalSlide('r')"></span>
                 </div>
@@ -333,7 +356,7 @@
                 showHide("navdropdown", bln);
             }
         }
-        
+
         window.ontouchstart = function(event) {
             var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
 
@@ -343,5 +366,8 @@
                 showHide("navdropdown", bln);
             }
         }
-        </script>
-</body></html>
+
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Pragma” content=”no-cache”>
     <meta http-equiv=“Expires” content=”-1″>
+    <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
@@ -24,14 +26,15 @@
         body {
             overflow: hidden;
         }
+
     </style>
 </head>
 
 <body>
- <script src="js/fieldtrip.js"></script>
-  <script src="js/json.js"></script>
-   <script>
-       function dateString(strDate) {
+    <script src="js/fieldtrip.js"></script>
+    <script src="js/json.js"></script>
+    <script>
+        function dateString(strDate) {
             var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
             return str
@@ -46,9 +49,10 @@
         objThisWed = objThis.Wed;
         objThisThu = objThis.Thu;
         objThisFri = objThis.Fri;
+
     </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
-    
+
     <script>
         function getDateField(x) {
             switch (x.substr(0, 3)) {
@@ -83,7 +87,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             var pdf = jsPDF("p", "pt", "letter");
-            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
             var margin = 20,
                 vOffset = 0,
@@ -105,12 +109,12 @@
             hOffset += 280;
             pdf.setFontSize(10);
             pdf.setFontStyle("normal");
-//            pdf.text(hOffset, vOffset + 4, "Employee ID:");
-//            pdf.setFontStyle("bold");
-//            pdf.setFontSize(12);
-//            hOffset += 62;
-//            x = objThisData.EmpID");
-//            pdf.text(hOffset, vOffset + 4, x);
+            //            pdf.text(hOffset, vOffset + 4, "Employee ID:");
+            //            pdf.setFontStyle("bold");
+            //            pdf.setFontSize(12);
+            //            hOffset += 62;
+            //            x = objThisData.EmpID");
+            //            pdf.text(hOffset, vOffset + 4, x);
             hOffset += 38;
             pdf.setFontSize(10);
 
@@ -524,7 +528,7 @@
                 obj = getDayObj(days[i]);
                 hOffset += 28;
                 x = removeAMPM(obj[days[i] + "TimeA"]) || "";
-                pdf.text(hOffset, vOffset, x); 
+                pdf.text(hOffset, vOffset, x);
             }
 
             pdf.setFontSize(9);
@@ -575,7 +579,7 @@
                 obj = getDayObj(days[i]);
                 hOffset += 28;
                 x = removeAMPM(obj[days[i] + "TimeD"]) || "";
-                pdf.text(hOffset, vOffset, x);    
+                pdf.text(hOffset, vOffset, x);
             }
 
             pdf.setFillColor(255, 255, 255);
@@ -640,7 +644,7 @@
             hOffset += 37;
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
-            
+
             var obj = {};
             for (i = 1; i < 6; i++) {
                 obj = getDayObj(days[i]);
@@ -836,7 +840,7 @@
                 x = obj[days[i] + "RunTotal"] || "";
                 pdf.text(hOffset, vOffset - 8, x);
             }
-            
+
             pdf.setDrawColor(80, 80, 80);
             pdf.line(55, vOffset + 6, 55, vTimeStart);
             pdf.line(140, vOffset + 6, 140, vTimeStart + 12);
@@ -896,7 +900,7 @@
                     j++;
                 }
             }
-            
+
             vOffset += 13;
             hOffset = margin;
             pdf.setTextColor(0);
@@ -936,7 +940,7 @@
                 c = "";
             var blnOW = false;
             var blnLV = false;
-            
+
             for (i = 0; i < 10; i++) {
                 vOffset += 15;
                 hOffset = margin;
@@ -1019,13 +1023,13 @@
                         hOffset += 45;
                         pdf.setFontStyle("bold");
                         pdf.setFontSize(9);
-                        x = obj[leave[i]] || ""; 
+                        x = obj[leave[i]] || "";
                         pdf.text(hOffset, vOffset, x);
                     }
                     pdf.setFontStyle("normal");
                 }
             }
-            
+
             vOffset += 15;
             hOffset = margin + 5;
             pdf.setTextColor(0);
@@ -1067,7 +1071,7 @@
                     if (obj[days[i] + "Time" + k] !== "") {
                         fieldTrip[j] = days[i] + "Time" + k;
                         j++;
-                    }    
+                    }
                 }
             }
 
@@ -1113,7 +1117,7 @@
 
                 blnFT = (fieldTrip[i] !== "FT" + i) ? true : false;
                 if (blnFT) {
-                    a = fieldTrip[i].substr(0,3);
+                    a = fieldTrip[i].substr(0, 3);
                     obj = getDayObj(a);
                     b = fieldTrip[i].substr(7);
                     x = getDateField(fieldTrip[i]);
@@ -1149,7 +1153,7 @@
                     pdf.setFontSize(9);
                 }
             }
-            
+
             pdf.setDrawColor(80, 80, 80);
             pdf.line(552, vOffset + 6, 552, vTimeStart + 13);
 
@@ -1249,7 +1253,7 @@
             hOffset += 98;
             x = objThisData.TotalC1;
             pdf.text(hOffset, vOffset, x);
-            
+
             vOffset += 12;
             hOffset = margin;
             pdf.setFontSize(8);
@@ -1265,7 +1269,7 @@
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + objThisData.EmpName.replace(",","").replace(" ","");
+            x = x + "_" + objThisData.EmpName.replace(",", "").replace(" ", "");
             var fileName = x;
 
             pdf.setProperties({
@@ -1275,14 +1279,16 @@
                 keywords: "",
                 creator: "FCPS Transportation"
             });
-            
+
             var string = pdf.output('datauristring');
             var iframe = document.getElementById("tsframe")
             iframe.src = string;
-            
+
             pdf.save(fileName + ".pdf");
         });
+
     </script>
-    
+
 </body>
+
 </html>

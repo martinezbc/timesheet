@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Pragma” content=”no-cache”>
     <meta http-equiv=“Expires” content=”-1″>
+    <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
@@ -24,27 +26,29 @@
         body {
             overflow: hidden;
         }
+
     </style>
 </head>
 
 <body>
- <script src="js/fieldtrip.js"></script>
-  <script src="js/json2.js"></script>
-   <script>
-       function dateString(strDate) {
+    <script src="js/fieldtrip.js"></script>
+    <script src="js/json2.js"></script>
+    <script>
+        function dateString(strDate) {
             var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
             return str
         }
         var week = localStorage.getItem("WeekOfS");
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+
     </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var pdf = jsPDF("p", "pt", "letter");
-            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
             var margin = 20,
                 vOffset = 0,
@@ -66,12 +70,12 @@
             hOffset += 280;
             pdf.setFontSize(10);
             pdf.setFontStyle("normal");
-//            pdf.text(hOffset, vOffset + 4, "Employee ID:");
-//            pdf.setFontStyle("bold");
-//            pdf.setFontSize(12);
-//            hOffset += 62;
-//            x = objThis.EmpIDS");
-//            pdf.text(hOffset, vOffset + 4, x);
+            //            pdf.text(hOffset, vOffset + 4, "Employee ID:");
+            //            pdf.setFontStyle("bold");
+            //            pdf.setFontSize(12);
+            //            hOffset += 62;
+            //            x = objThis.EmpIDS");
+            //            pdf.text(hOffset, vOffset + 4, x);
             hOffset += 38;
             pdf.setFontSize(10);
 
@@ -277,7 +281,7 @@
             pdf.setDrawColor(80, 80, 80);
             pdf.setFillColor(255, 255, 255);
             pdf.rect(margin, vOffset - 12, 572, 15, "FD");
-            
+
             vOffset += 15;
             hOffset = margin;
             pdf.setFillColor(104, 210, 233);
@@ -285,12 +289,12 @@
             pdf.text(margin + 7, vOffset + 1, "AM Pupil\n   Time");
             pdf.setFillColor(209, 241, 245);
             pdf.rect(margin + 50, vOffset - 12, 336, 30, "FD");
-            
-            
+
+
             pdf.setFillColor(104, 210, 233);
             pdf.rect(margin + 190, vOffset - 12, 50, 30, "FD");
             pdf.text(margin + 194, vOffset + 1, "PM Pupil\n   Time")
-            
+
             pdf.setFillColor(210, 210, 210);
             pdf.rect(margin + 381, vOffset - 12, 191, 15, "FD");
 
@@ -358,7 +362,7 @@
             hOffset += 37;
             pdf.text(hOffset, vOffset, "Total");
             pdf.setFontStyle("normal");
-            
+
             for (i = 1; i < 6; i++) {
                 vOffset += 15;
                 hOffset = margin;
@@ -375,7 +379,7 @@
                 pdf.setDrawColor(80, 80, 80);
                 pdf.rect(554, vOffset - 27, 38, 30, "FD");
             }
-            
+
             pdf.setDrawColor(80, 80, 80);
             pdf.line(55, vOffset + 6, 55, vTimeStart);
             pdf.line(140, vOffset + 6, 140, vTimeStart + 12);
@@ -427,7 +431,7 @@
                     j++;
                 }
             }
-            
+
             vOffset += 13;
             hOffset = margin;
             pdf.setTextColor(0);
@@ -467,7 +471,7 @@
                 c = "";
             var blnOW = false;
             var blnLV = false;
-            
+
             for (i = 0; i < 10; i++) {
                 vOffset += 15;
                 hOffset = margin;
@@ -481,7 +485,7 @@
                 hOffset += 5;
                 blnOW = (otherWork[i] !== "OW" + i) ? true : false;
                 if (blnOW) {
-                    b = otherWork[i].substr(-3,2);
+                    b = otherWork[i].substr(-3, 2);
                     c = objThis["Select" + b + "S"] || "";
                     if (c === "ES0" || c === "ES2" || c === "CBK") {
                         pdf.setDrawColor(80, 80, 80);
@@ -527,7 +531,7 @@
                 hOffset += 38;
                 blnLV = (otherLV[i] !== "LV" + i) ? true : false;
                 if (blnLV === true) {
-                    b = otherLV[i].substr(-3,2);
+                    b = otherLV[i].substr(-3, 2);
                     x = (objThis["Date" + b + "S"]) || "";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 28;
@@ -547,13 +551,13 @@
                         hOffset += 45;
                         pdf.setFontStyle("bold");
                         pdf.setFontSize(9);
-                        x = objThis[otherLV[i]] || ""; 
+                        x = objThis[otherLV[i]] || "";
                         pdf.text(hOffset, vOffset, x);
                     }
                     pdf.setFontStyle("normal");
                 }
             }
-            
+
             vOffset += 15;
             hOffset = margin + 5;
             pdf.setTextColor(0);
@@ -592,8 +596,8 @@
                 if (objThis["Time" + i + "S"] !== "") {
                     fieldTrip[j] = "Time" + i + "S";
                     j++;
-                }    
-                
+                }
+
             }
 
             vOffset += 13;
@@ -638,7 +642,7 @@
 
                 blnFT = (fieldTrip[i] !== "FT" + i) ? true : false;
                 if (blnFT) {
-                    b = fieldTrip[i].substr(-3,2);
+                    b = fieldTrip[i].substr(-3, 2);
                     x = objThis["Date" + b + "S"] || "";
                     pdf.text(hOffset, vOffset, x);
                     hOffset += 35;
@@ -672,7 +676,7 @@
                     pdf.setFontSize(9);
                 }
             }
-            
+
             pdf.setDrawColor(80, 80, 80);
             pdf.line(552, vOffset + 6, 552, vTimeStart + 13);
 
@@ -782,7 +786,7 @@
             y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
-            x = x + "_" + objThis.EmpNameS.replace(",","").replace(" ","");
+            x = x + "_" + objThis.EmpNameS.replace(",", "").replace(" ", "");
             var fileName = x;
 
             pdf.setProperties({
@@ -792,14 +796,16 @@
                 keywords: "",
                 creator: "FCPS Transportation"
             });
-            
+
             var string = pdf.output('datauristring');
             var iframe = document.getElementById("tsframe")
             iframe.src = string;
-            
+
             pdf.save(fileName + "supplement.pdf");
         });
+
     </script>
-    
+
 </body>
+
 </html>

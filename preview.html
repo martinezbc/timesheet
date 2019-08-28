@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Pragma” content=”no-cache”>
     <meta http-equiv=“Expires” content=”-1″>
+    <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
@@ -35,12 +37,13 @@
             font-weight: normal;
             font-size: 14px;
         }
+
     </style>
     <script>
         function byID(refID) {
             return document.getElementById(refID);
         }
-        
+
         function downloadTimesheet() {
             window.open("timesheet.html", "_self");
         }
@@ -50,6 +53,7 @@
             str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
             return str
         }
+
     </script>
 </head>
 
@@ -69,6 +73,7 @@
         objThisWed = objThis.Wed;
         objThisThu = objThis.Thu;
         objThisFri = objThis.Fri;
+
     </script>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
@@ -206,6 +211,9 @@
                 showHide("tsdropdown", bln);
             }
         }
+
     </script>
     <script src="js/preview.js"></script>
-</body></html>
+</body>
+
+</html>

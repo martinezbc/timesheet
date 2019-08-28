@@ -4,7 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv=“Pragma” content=”no-cache”>
     <meta http-equiv=“Expires” content=”-1″>
+    <meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Transportation Weekly Report</title>
     <!--Stylesheet-->
@@ -129,7 +131,7 @@
                 <p class="footer_p">WORKED<br><input type="text" id="TotalHWS" class="footer-box" disabled></p>
             </div>
         </div>
-           <div class="row">
+        <div class="row">
             <div class="col-3 footer_col">
                 <p class="footer_p">OJT<br><input type="text" id="TotalS4S" class="footer-box" disabled></p>
             </div>
@@ -176,6 +178,7 @@
                 <p id="ftinputS">&nbsp;&nbsp;Or Select:&nbsp;</p>&nbsp;&nbsp;
                 <script>
                     insertFTSelect("S");
+
                 </script>
                 <span class="close fa fa-check-circle fa-lg" id="goFTS" style="color:green;margin-top: 3px"></span>&nbsp;
                 <span class="close fa fa-times-circle fa-lg" id="closeFTS" style="margin-top: 3px"></span>
@@ -198,7 +201,7 @@
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
-     <!-- Week Seelect Modal -->
+    <!-- Week Seelect Modal -->
     <div id="weekModalS" class="modal hide">
         <div class="modal-content center" style="width: 500px;" id="divweekS">
             <p class="category">SELECT PAY WEEK</p>
@@ -221,7 +224,7 @@
                 showHide("navdropdownS", bln);
             }
         }
-        
+
         window.ontouchstart = function(event) {
             var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
 
@@ -231,5 +234,8 @@
                 showHide("navdropdownS", bln);
             }
         }
-        </script>
-</body></html>
+
+    </script>
+</body>
+
+</html>
