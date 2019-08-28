@@ -291,8 +291,14 @@ function routeNameTransform(refID) {
         refVal = refVal.trim();
     }
     
+    if (refVal.lastIndexOf("V") > 2) {
+        i = refVal.lastIndexOf("V");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
+    }
+    
     //If the route length is less than 3 then they didn't completely type in the route name
-    if (refVal.length < 3) {
+    if (refVal.length < 3 && refVal !== '') {
         openPopUp('<p>Invalid route name.</p>');
         refVal = "";
     }

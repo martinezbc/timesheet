@@ -315,7 +315,7 @@ function loadRadioSelection() {
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    if (team !== "" && team.substr(0, 1) === area) {
+    if (team !== "" && (team.substr(0, 1) === area || area === '7')) {
         byID("team" + team).checked = true;
     } else {
         team = document.querySelectorAll('input[name="Team"]');
