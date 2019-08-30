@@ -371,25 +371,8 @@ function storeWeek() {
         //Parse JSON into objects
         parseData();
         
-        //Store first day of week range in y and shortened date in ny
-        var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
-
-        //Store second day of week range in z and shortened date in nz
-        var endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
-            satDate = new Date(startDate),
-            sm, sd;
-
-        objThisData.SatDate = startDate.substr(0, 5);
-        objThisData.FriDate = endDate.substr(0, 5);
-
-        for (var i = 4; i >= 0; i--) {
-            newDay = addDate(satDate, i + 1);
-            sm = newDay.getMonth() + 1;
-            sd = newDay.getDate();
-            sm = (sm.toString().length === 1) ? "0" + sm : sm;
-            sd = (sd.toString().length === 1) ? "0" + sd : sd;
-            objThisData[days[i] + "Date"] = sm + "/" + sd;
-        }
+        storeWeekDays(week);
+        
         loadPrevWeek(week);
         objThisData.WeekOf = byID("WeekOf").value;
         setStorage();
@@ -398,10 +381,34 @@ function storeWeek() {
         
         //Parse JSON into objects
         parseData();
+        
+        storeWeekDays(week);
     }
     //Load data from JSON
     loadLocalStorage();
     loadStoredWeek();
+}
+
+function storeWeekDays(week) {
+//Store first day of week range in y and shortened date in ny
+    var startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
+
+    //Store second day of week range in z and shortened date in nz
+    var endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
+        satDate = new Date(startDate),
+        sm, sd;
+
+    objThisData.SatDate = startDate.substr(0, 5);
+    objThisData.FriDate = endDate.substr(0, 5);
+
+    for (var i = 4; i >= 0; i--) {
+        newDay = addDate(satDate, i + 1);
+        sm = newDay.getMonth() + 1;
+        sd = newDay.getDate();
+        sm = (sm.toString().length === 1) ? "0" + sm : sm;
+        sd = (sd.toString().length === 1) ? "0" + sd : sd;
+        objThisData[days[i] + "Date"] = sm + "/" + sd;
+    }
 }
 
 function parseData() {
@@ -781,7 +788,7 @@ function routeCheck() {
     for (var i = 0; i < routes.length; i += 1) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.lastIndexOf("L") > 2 || val.lastIndexOf("Q") > 2) ? true : false;
+        bln = (val.lastIndexOf("L") > 3 || val.lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
     }
     return bln;
@@ -794,7 +801,7 @@ function routeCheckJ() {
     for (var i = 0; i < routes.length; i += 1) {
         val = byID(routes[i]).value;
         if (val === null) continue;
-        bln = (val.lastIndexOf("J") > 2) ? true : false;
+        bln = (val.lastIndexOf("J") > 3) ? true : false;
         if (bln) return bln;
     }
     return bln;

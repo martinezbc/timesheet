@@ -250,17 +250,12 @@ function textboxOnChange(e) {
 function routeNameTransform(refID) {
     let refVal = byID(refID).value;
     refVal = refVal.toUpperCase();
-    
-    if (refID === "SHRoute1" || refID === "SHRoute2") {
-        byID(refID).value = refVal;
-        return;
-    }
      
     let i = 0;
     
-    let blnJ = (refVal.lastIndexOf("J") > 2) ? true : false;
-    let blnL = (refVal.lastIndexOf("L") > 2) ? true : false;
-    let blnQ = (refVal.lastIndexOf("Q") > 2) ? true : false;
+    let blnJ = (refVal.lastIndexOf("J") > 3) ? true : false;
+    let blnL = (refVal.lastIndexOf("L") > 3) ? true : false;
+    let blnQ = (refVal.lastIndexOf("Q") > 3) ? true : false;
     
     //Remove AM & PM
     if (refVal.lastIndexOf("AM") > 2)
@@ -275,26 +270,53 @@ function routeNameTransform(refID) {
         refVal = refVal.replace("-","");
     
     //Remove Q, L and J
-    if (refVal.lastIndexOf("L") > 2) {
+    if (refVal.lastIndexOf("L") > 3) {
         i = refVal.lastIndexOf("L");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
         refVal = refVal.trim();
     }
-    if (refVal.lastIndexOf("Q") > 2) {
+    if (refVal.lastIndexOf("Q") > 3) {
         i = refVal.lastIndexOf("Q");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
         refVal = refVal.trim();
     }
-    if (refVal.lastIndexOf("J") > 2) {
+    if (refVal.lastIndexOf("J") > 3) {
         i = refVal.lastIndexOf("J");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
         refVal = refVal.trim();
     }
     
-    if (refVal.lastIndexOf("V") > 2) {
+    if (refVal.lastIndexOf("V") > 3) {
         i = refVal.lastIndexOf("V");
         refVal = refVal.substr(0, i) + refVal.substr(i + 1);
         refVal = refVal.trim();
+    }
+    
+    //Remove P and D for midday
+    if (refID === "PSRoute1" || refID === "PSRoute2") {
+        if (refVal.lastIndexOf("P") > 3) {
+            i = refVal.lastIndexOf("P");
+            refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+            refVal = refVal.trim();
+        }
+
+        if (refVal.lastIndexOf("D") > 3) {
+            i = refVal.lastIndexOf("D");
+            refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+            refVal = refVal.trim();
+        }
+    }
+    
+    //Completely different setup for shuttle numbers
+    if (refID === "SHRoute1" || refID === "SHRoute2") {
+        for (let i = refVal.length; i >= 0; i--) {
+            if (isNaN(refVal.substr(i,1))) {
+                refVal = refVal.replace(refVal.substr(i,1),"");
+            }
+        }
+        refVal = "S-" + refVal;
+        byID(refID).value = refVal;
+        return;
     }
     
     //If the route length is less than 3 then they didn't completely type in the route name
@@ -302,20 +324,31 @@ function routeNameTransform(refID) {
         openPopUp('<p>Invalid route name.</p>');
         refVal = "";
     }
-    
-    //Use different set of parameters if run is AIM, they have a number before the dash
-    if (refVal.indexOf("AIMM") > -1 || refVal.indexOf("AIMB") > -1) {
-        if (isNaN(refVal.substr(-3)) && !isNaN(refVal.substr(-2)))
-            refVal = refVal.substr(0, refVal.length - 1) + "0" + refVal.substr(-1);
+
+    let routeName = ''
+    let routeNum = '';
+    let count = 0;
+    for (let i = refVal.length; i >= 0 ; i--) {
+        if (isNaN(refVal.substr(i,1)) && routeNum !== '') {
+            routeName = refVal.substr(i,1) + routeName;
+        } else if (!isNaN(refVal.substr(i,1))) {
+            routeNum = refVal.substr(i,1) + routeNum;
+        }
     }
     
-    //Add a zero if route number was typed as a single digit
-    if (isNaN(refVal.substr(-2)) && !isNaN(refVal.substr(-1))) {
-        refVal = refVal.substr(0, refVal.length - 1) + "0" + refVal.substr(-1);
+    if (routeNum.substr(i, 1) === "7") {
+        routeName = routeName + "7";
+        routeNum = routeNum.substr(1);
     }
+    
+    if (routeName.indexOf("AIM") > -1 || routeName.indexOf("TSRC") > -1) {
+        routeName = routeName + routeNum.substr(0,1);
+        routeNum = routeNum.substr(1);
+    }
+       
     
     //Rebuild route number with dash, J, L, and Q if needed
-    refVal = refVal.substr(0, refVal.length - 2) + "-" + refVal.substr(-2);
+    refVal = routeName + "-" + routeNum;
     refVal = (blnJ) ? refVal + " J" : refVal;
     refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
     refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
