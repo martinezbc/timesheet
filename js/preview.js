@@ -350,9 +350,9 @@ print('<p class="bold-lg">OTHER:&nbsp;' + objThisData.TotalOther + '</p>', "divp
 print('<p class="bold-lg">FIELD TRIP:&nbsp;' + objThisData.TotalFT + '</p>', "divptotalft");
 print('<p class="bold-lg">HOURS WORKED:&nbsp;' + objThisData.TotalHW + '</p>', "divptotalhw");
 print('<p class="bold-lg">1R (Regular):&nbsp;' + objThisData.Total1R + '</p>', "divptotal1r");
-print('<p class="bold-lg">S4 (OJT):&nbsp;' + objThisData.TotalS4 + '</p>', "divptotals4");
-print('<p class="bold-lg">S2 (Equipment):&nbsp;' + objThisData.TotalS2QL + '</p>', "divptotals2ql");
-print('<p class="bold-lg">S2 (Admin):&nbsp;' + objThisData.TotalS2J + '</p>', "divptotals2j");
+print('<p class="bold-lg">S4 (OJT):&nbsp;' + objThisData.TotalS4OJT + '</p>', "divptotals4ojt");
+print('<p class="bold-lg">S2 (Admin-Route):&nbsp;' + objThisData.TotalS4J + '</p>', "divptotals4j");
+print('<p class="bold-lg">S2 (Q/L-Route):&nbsp;' + objThisData.TotalS2QL + '</p>', "divptotals2ql");
 print('<p class="bold-lg">C3 (Weather):&nbsp;' + objThisData.TotalC3 + '</p>', "divptotalc3");
 print('<p class="bold-lg">C1 (Callback):&nbsp;' + objThisData.TotalC1 + '</p>', "divptotalc1");
 //********************DIV TOTALS********************//          

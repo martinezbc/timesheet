@@ -1808,10 +1808,11 @@ function getWeeklyTotals() {
         }                                    
     }
     sum = convertTotal(sum);
-    objThisData.TotalS2J = sum;
-    byID("TotalS2J").value = sum;
+    objThisData.TotalS4J = sum;
+    byID("TotalS4J").value = sum;
 
-    sum = convertToMinutes(objThisData.TotalRun) + convertToMinutes(objThisData.TotalOther) + 15;
+    sum = convertToMinutes(objThisData.TotalRun) + convertToMinutes(objThisData.TotalOther);
+    sum += ((objThisData.Position === "Driver Trainee" || objThisData.Position === "Attendant Trainee") && objThisData.Area === "TC") ? 0 : 15;
     sum = convertTotal(sum);
     objThisData.Total1R = sum;
     byID("Total1R").value = sum;
@@ -1831,8 +1832,8 @@ function getWeeklyTotals() {
         }
     }
     sum = convertTotal(sum);
-    objThisData.TotalS4 = sum;
-    byID("TotalS4").value = sum;
+    objThisData.TotalS4OJT = sum;
+    byID("TotalS4OJT").value = sum;
     setStorage();
 }
 /********************CALCULATIONS********************/

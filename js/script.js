@@ -229,7 +229,7 @@ function storeRadioValue(e) {
             objThis.PositionS = e.currentTarget.value;
         }
     }
-
+    getWeeklyTotals();
     setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
