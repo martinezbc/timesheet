@@ -1332,6 +1332,7 @@ function testStopCounts() {
     let val = "",
         pos = objThisData.Position;
 
+    if (objThisData.Area === "TC") return val;
     //Validate stop counts
     if (pos === "Driver" || pos === "Sub Driver" || pos === "Driver Trainee") {
         for (let i = 1; i < 6; i += 1) {

@@ -301,7 +301,7 @@ function routeNameTransform(refID) {
     }
     
     //Completely different setup for shuttle numbers
-    if (refID === "SHRoute1" || refID === "SHRoute2") {
+    if ((refID === "SHRoute1" || refID === "SHRoute2") && objThisData.Area !== "7"){
         for (let i = refVal.length; i >= 0; i--) {
             if (isNaN(refVal.substr(i,1))) {
                 refVal = refVal.replace(refVal.substr(i,1),"");
