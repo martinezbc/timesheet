@@ -211,6 +211,11 @@ function setObject(refID) {
 function storeRadioValue(e) {
     let optVal = (getFileName() === "index2.html") ? "S" : "";
     let parent = e.target.parentNode.id;
+    if (parent !== 'divarea' && parent !== 'divposition') {
+        parent = e.target.parentNode.parentNode.id;
+    }
+    parent = parent.replace('div','');
+    parent = properCase(parent);
     
     if (optVal === "") {
         objThisData[parent] = e.target.value;

@@ -3,13 +3,13 @@ function print(strHTML, element) {
 }
 //
 let strHTML = '';
-strHTML += '<div class="col-12"><p><strong>Pay Week:</strong></p>';
+strHTML += '<div class="col-12"><p class="bold">Pay Week:</p>';
 strHTML += '<select id="WeekOf"></select></div>';
 print(strHTML, 'divWeekOf');
 
 //********************DIV TEAM********************//
 strHTML = "";
-strHTML += '<p><strong>Team:</strong><br></p>';
+strHTML += '<p class="bold">Team:<br></p>';
 for (let j = 1; j < 5; j++) {
     strHTML += '<div class="hide" id="div' + j + '">';
     for (let i = 0; i < 8; i++) {
@@ -283,8 +283,8 @@ for (let i = 1; i < 6; i++) {
     strHTML += '<input id="' + days[i] + 'Time42" type="text" class="total-time nofocus" disabled>';
     strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearLV42"></span>';
     strHTML += '</div></div></div><hr>';
-    strHTML += '<div class="row"><input name="chkQL" type="checkbox" id="' + days[i] + 'QL11"><label for="' + days[i] + 'QL11">Equipment/Lift</label>&nbsp;';
-    strHTML += '<input type="checkbox" name="chkJ" id="' + days[i] + 'J11"><label for="' + days[i] + 'J11">Admin</label></div>';
+    strHTML += '<div class="row"><input name="chkQL" type="checkbox" id="' + days[i] + 'QL11"><label for="' + days[i] + 'QL11">Equipment/Lift (Q/L)</label>&nbsp;';
+    strHTML += '<input type="checkbox" name="chkJ" id="' + days[i] + 'J11"><label for="' + days[i] + 'J11">Admin (J)</label></div>';
     strHTML += '<div class="tinycard bg-teal1">';
     strHTML += '<div class="row"><div class="col-10">';
     strHTML += '<p class="category">Morning Runs</p></div><div class="col-2">';
@@ -386,7 +386,7 @@ for (let i = 1; i < 6; i++) {
         strHTML += '<option value="CBK">Call back</option>';
         strHTML += '</select></div></div>';
         strHTML += '<div class="row"><div class="col-12">';
-        strHTML += '<input id="' + days[i] + 'Desc' + j + '" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
+        strHTML += '<input id="' + days[i] + 'Desc' + j + '" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
         strHTML += '</div></div><div class="row"><div class="col-11">';
         strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'S" class="timewidth" placeholder="- - : - -">&nbsp;';
         strHTML += '<input type="text" name="txtTime" id="' + days[i] + 'Time' + j + 'E" class="timewidth" placeholder="- - : - -">&nbsp;';

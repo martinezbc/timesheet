@@ -9,8 +9,14 @@ let clickEvent = (function() {
         return 'click';
 })();
 
+const weekof = byID("WeekOf");
 if (localStorage.getItem("WeekOf") !== null) {
-    byID("WeekOf").value = localStorage.getItem("WeekOf");
+    weekof.value = localStorage.getItem("WeekOf");
+    if (weekof.value === null || weekof.value === undefined)
+        weekof.selectedIndex = 4;
+    initialLoad();
+} else {
+    weekof.selectedIndex = 4;
     initialLoad();
 }
 
@@ -44,8 +50,7 @@ for (let i = 0; i < select.length; i += 1) {
     });
 }
 
-const selectWeek = document.getElementById('WeekOf');
-selectWeek.addEventListener('change', () => {
+weekof.addEventListener('change', () => {
    initialLoad(); 
 });
 
@@ -135,6 +140,18 @@ for (let i = 0; i < ow.length; i += 1) {
 const ft = document.querySelectorAll(".ft");
 for (let i = 0; i < ft.length; i += 1) {
     ft[i].addEventListener("click", popUpFT);
+}
+
+const owdesc = document.querySelectorAll("input[name='owdesc']");
+for (let i = 0; i < owdesc.length; i++) {
+    owdesc[i].addEventListener("keyup", () => {
+        let num = owdesc[i].id.substr(-2);
+        let day = owdesc[i].id.substr(0,3);
+        if (byID(day + "Select" + num).value === "FYI")
+            limitCharacters(owdesc[i].id, 60);
+        else
+            limitCharacters(owdesc[i].id, 35);
+    });
 }
 
 //Close Time selector
@@ -253,7 +270,8 @@ function changeModalSlide(dir) {
 
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
-    if (byID("WeekOf").value === "") return;
+    if (weekof.value === "") return;
+    localStorage.setItem("WeekOf", weekof.value);
     storeWeek();
     let refDate = new Date();
     let day = refDate.getDay();
@@ -358,7 +376,7 @@ function loadStoredWeek() {
 
 //GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
 function storeWeek() {
-    let week = byID("WeekOf").value;
+    let week = weekof.value;
     if (localStorage.getItem(week + "Obj") === null) {
         objThis = objNew;
         
@@ -368,7 +386,7 @@ function storeWeek() {
         storeWeekDays(week);
         
         loadPrevWeek(week);
-        objThisData.WeekOf = byID("WeekOf").value;
+        objThisData.WeekOf = weekof.value;
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
@@ -572,7 +590,6 @@ function loadQL() {
 
 function loadJ() {   
     let bln = routeCheckJ();
-    bln = (objThisData.Position === "Unassigned Attendant") ? true : bln;
     
     for (let i = 1; i < 6; i += 1) {
         if (!byID(days[i] + "LeaveAD").checked)
@@ -692,6 +709,9 @@ function positionChange(e) {
             break;
         }
     }
+    //Reload J and QL because of Unassigned Attendants
+    loadJ();
+    loadQL();
 }
 
 //TOGGLE PUPIL COUNTS WHEN ACTIVITY DRIVER
@@ -788,6 +808,7 @@ function routeCheck() {
         bln = (val.lastIndexOf("L") > 3 || val.lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
     }
+    if (objThisData.Position === "Unassigned Attendant") bln = true;
     return bln;
 }
 
@@ -801,6 +822,7 @@ function routeCheckJ() {
         bln = (val.lastIndexOf("J") > 3) ? true : false;
         if (bln) return bln;
     }
+    if (objThisData.Position === "Unassigned Attendant") bln = true;
     return bln;
 }
 
@@ -1017,7 +1039,7 @@ function toggleADLeave(refID) {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    localStorage.removeItem(byID("WeekOf").value + "Obj");
+    localStorage.removeItem(weekof.value + "Obj");
     location.reload();
 }
 
@@ -1172,7 +1194,7 @@ function countFieldTrips(refID) {
 /********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
     showHide("navdropdown", false);
-    if (byID("WeekOf").value === "") return;
+    if (weekof.value === "") return;
     let bln = runValidations();
     if (!bln)
         return;
@@ -1192,7 +1214,7 @@ function openTimesheet() {
         getDailyTotals();
         
         //Set week value into local storage for preview and timesheet to use
-        localStorage.setItem('WeekOf', byID("WeekOf").value);
+        localStorage.setItem('WeekOf', weekof.value);
         window.open("preview.html", "_self");
     }
 }

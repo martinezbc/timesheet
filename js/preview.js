@@ -351,8 +351,8 @@ print('<p class="bold-lg">FIELD TRIP:&nbsp;' + objThisData.TotalFT + '</p>', "di
 print('<p class="bold-lg">HOURS WORKED:&nbsp;' + objThisData.TotalHW + '</p>', "divptotalhw");
 print('<p class="bold-lg">1R (Regular):&nbsp;' + objThisData.Total1R + '</p>', "divptotal1r");
 print('<p class="bold-lg">S4 (OJT):&nbsp;' + objThisData.TotalS4OJT + '</p>', "divptotals4ojt");
-print('<p class="bold-lg">S2 (Admin-Route):&nbsp;' + objThisData.TotalS4J + '</p>', "divptotals4j");
-print('<p class="bold-lg">S2 (Q/L-Route):&nbsp;' + objThisData.TotalS2QL + '</p>', "divptotals2ql");
+print('<p class="bold-lg">S4 (Admin-J):&nbsp;' + objThisData.TotalS4J + '</p>', "divptotals4j");
+print('<p class="bold-lg">S2 (Q/L):&nbsp;' + objThisData.TotalS2QL + '</p>', "divptotals2ql");
 print('<p class="bold-lg">C3 (Weather):&nbsp;' + objThisData.TotalC3 + '</p>', "divptotalc3");
 print('<p class="bold-lg">C1 (Callback):&nbsp;' + objThisData.TotalC1 + '</p>', "divptotalc1");
 //********************DIV TOTALS********************//          
