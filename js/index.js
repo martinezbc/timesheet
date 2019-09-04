@@ -1,19 +1,25 @@
 function print(strHTML, element) {
     document.getElementById(element).innerHTML = strHTML;
 }
+//
+let strHTML = '';
+strHTML += '<div class="col-12"><p><strong>Pay Week:</strong></p>';
+strHTML += '<select id="WeekOf"></select></div>';
+print(strHTML, 'divWeekOf');
+
 //********************DIV TEAM********************//
-var strHTML = "";
+strHTML = "";
 strHTML += '<p><strong>Team:</strong><br></p>';
-for (var j = 1; j < 5; j++) {
+for (let j = 1; j < 5; j++) {
     strHTML += '<div class="hide" id="div' + j + '">';
-    for (var i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
         strHTML += '<input type="radio" id="team' + j + i + '" name="Team" value="' + j + i + '");"><label for="team' + j + i + '">' + j + i + '</label>&nbsp;';
     }
     strHTML += '</div>';
 }
 strHTML += '<div class="hide" id="div7">';
-var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
-for (i = 0; i < 17; i++) {
+const teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
+for (let i = 0; i < 17; i++) {
     strHTML += '<input type="radio" id="team' + teams[i] + '" name="Team" value="' + teams[i] + '")";><label for="team' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
 }
 strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="Team" value="TC")";><label for="teamTC">TC</label></div>';
@@ -24,12 +30,12 @@ print(strHTML, "divteam");
 strHTML = '<div class="row"><div class="col-12"><p class="category">Morning Runs</p></div></div><div class="row">';
 strHTML += '<div class="col-7"><p>Route Name</p></div><div class="col-5 hide" id="divAMCt"><p>Counts</p></div></div>';
                     
-var plhldr = ["", "1st bell", "2nd bell", "3rd bell", "4th bell", "5th bell"];
-for (i = 1; i < 6; i++) {
+const plhldr = ["", "1st bell", "2nd bell", "3rd bell", "4th bell", "5th bell"];
+for (let i = 1; i < 6; i++) {
     strHTML += '<div class="row"><div class="col-7">';
     strHTML += '<input type="text" id="AMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
     strHTML += '</div><div class="col-5">';
-    for (var j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         strHTML += '<div class="hide" id="div' + days[j] + 'AM' + i + 'Ct">';
         strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'AM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
     }
@@ -37,7 +43,7 @@ for (i = 1; i < 6; i++) {
 }
 strHTML += '<div class="row hide" id="divAMPupilTime">';
 strHTML += '<p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p></div>';
-for (j = 1; j < 6; j++) {
+for (let j = 1; j < 6; j++) {
     strHTML += '<div class="row hide" id="' + days[j] + 'TimeAM"><div class="col-11">';
     strHTML += '<input id="' + days[j] + 'TimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
     strHTML += '<input id="' + days[j] + 'TimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">';
@@ -49,11 +55,11 @@ print(strHTML, "divamruns");
 //********************DIV PM RUNS********************//
 strHTML = '<div class="row"><div class="col-12"><p class="category">Afternoon Runs</p></div></div><div class="row">';
 strHTML += '<div class="col-7"><p>Route Name</p></div><div class="col-5 hide" id="divPMCt"><p>Counts</p></div></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     strHTML += '<div class="row"><div class="col-7">';
     strHTML += '<input type="text" id="PMRoute' + i + '" class="routewidth" placeholder="' + plhldr[i] + '">';
     strHTML += '</div><div class="col-5">';
-    for (j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         strHTML += '<div class="hide" id="div' + days[j] + 'PM' + i + 'Ct">';
         strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'PM' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
     }
@@ -61,7 +67,7 @@ for (i = 1; i < 6; i++) {
 }
 strHTML += '<div class="row hide" id="divPMPupilTime">';
 strHTML += '<p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p></div>';
-for (j = 1; j < 6; j++) {
+for (let j = 1; j < 6; j++) {
     strHTML += '<div class="row hide" id="' + days[j] + 'TimePM"><div class="col-11">';
     strHTML += '<input id="' + days[j] + 'TimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;';
     strHTML += '<input id="' + days[j] + 'TimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">';
@@ -73,11 +79,11 @@ print(strHTML, "divpmruns");
 //********************DIV PS/SH/LR********************//
 strHTML = '<div class="row"><div class="col-12"><p class="category">PAC/Preschool</p></div></div><div class="row">';
 strHTML += '<div class="col-7"><p>Route Name</p></div><div class="col-5 hide" id="divPSCt"><p>Counts</p></div></div>';
-for (i = 1; i < 3; i++) {
+for (let i = 1; i < 3; i++) {
     strHTML += '<div class="row"><div class="col-7">';
     strHTML += '<input type="text" id="PSRoute' + i + '" class="routewidth" placeholder="pac/ps">';
     strHTML += '</div><div class="col-5">';
-    for (j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         strHTML += '<div class="hide" id="div' + days[j] + 'PS' + i + 'Ct">';
         strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'PS' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
     }
@@ -86,11 +92,11 @@ for (i = 1; i < 3; i++) {
 
 strHTML += '<div class="row"><div class="col-12">';
 strHTML += '<p class="category">Shuttles</p></div></div>';
-for (i = 1; i < 3; i++) {
+for (let i = 1; i < 3; i++) {
     strHTML += '<div class="row"><div class="col-7">';
     strHTML += '<input type="text" id="SHRoute' + i + '" class="routewidth" placeholder="shuttle">';
     strHTML += '</div><div class="col-5">';
-    for (j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         strHTML += '<div class="hide" id="div' + days[j] + 'SH' + i + 'Ct">';
         strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'SH' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
     }
@@ -99,11 +105,11 @@ for (i = 1; i < 3; i++) {
 
 strHTML += '<div class="row"><div class="col-12">';
 strHTML += '<p class="category">Late Runs</p></div></div>';
-for (i = 1; i < 3; i++) {
+for (let i = 1; i < 3; i++) {
     strHTML += '<div class="row"><div class="col-7">';
     strHTML += '<input type="text" id="LRRoute' + i + '" class="routewidth" placeholder="late run">';
     strHTML += '</div><div class="col-5">';
-    for (j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         strHTML += '<div class="hide" id="div' + days[j] + 'LR' + i + 'Ct">';
         strHTML += '<input type="number" name="txtCt" id="' + days[j] + 'LR' + i + 'Ct" class="countwidth" placeholder="' + days[j] + '"></div>';
     }
@@ -113,7 +119,7 @@ print(strHTML, "divpsshlr");
 //********************DIV PS/SH/LR********************//
 
 //********************DIV SATURDAY AND SUNDAY********************//
-for (var i = 6; i >= 0; i -= 6) {
+for (let i = 6; i >= 0; i -= 6) {
     strHTML = '';
     strHTML += '<div class="row"><div class="col-12">';
     strHTML += '<p class="daily">' + fullday[i].toUpperCase() + '-<span id="' + days[i] + 'Date"></span></p>';
@@ -128,7 +134,7 @@ for (var i = 6; i >= 0; i -= 6) {
     strHTML += '<p class="dailytotal">equipment</p></div></div>';
     strHTML += '<div class="row addOW" id="' + days[i] + 'OWAdd">';
     strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
-    for (var j = 20; j < 23; j++) {
+    for (let j = 20; j < 23; j++) {
         strHTML += '<div class="tinycard bg-teal2 hide" id="' + days[i] + 'OWDiv' + j + '">';
         strHTML += '<div class="row">';
         strHTML += '<div class="category col-11">Other Work&nbsp;';
@@ -164,7 +170,7 @@ for (var i = 6; i >= 0; i -= 6) {
     strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div>';
     strHTML += '<div class="row addFT" id="' + days[i] + 'FTAdd">';
     strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
-    for (j = 30; j < 33; j++) {
+    for (let j = 30; j < 33; j++) {
         strHTML += '<div class="tinycard bg-teal3 hide" id="' + days[i] + 'FTDiv' + j + '">';
         strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
         strHTML += '<span class="fas fa-question-circle ft"></span>';
@@ -191,8 +197,8 @@ for (var i = 6; i >= 0; i -= 6) {
 //********************DIV SATURDAY AND SUNDAY********************//
 
 //********************DIV MONDAY - FRIDAY********************//
-var $id;
-for (i = 1; i < 6; i++) {
+let $id;
+for (let i = 1; i < 6; i++) {
     strHTML = '';
     strHTML += '<div class="row">';
     strHTML += '<div class="col-auto">';
@@ -348,7 +354,7 @@ for (i = 1; i < 6; i++) {
     strHTML += '</div><div class="col-1"><span class="fas fa-times" id="' + days[i] + 'ClearRG17"></span></div>';
     strHTML += '</div></div><hr><div class="row addOW" id="' + days[i] + 'OWAdd">';
     strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p></div>';
-    for (j = 20; j < 30; j++) {
+    for (let j = 20; j < 30; j++) {
         strHTML += '<div class="tinycard bg-teal2 hide" id="' + days[i] + 'OWDiv' + j + '">';
         strHTML += '<div class="row">';
         strHTML += '<div class="category col-11">Other Work&nbsp;';
@@ -390,7 +396,7 @@ for (i = 1; i < 6; i++) {
     strHTML += '<div class="row" id="' + days[i] + 'OWAdd2"></div><hr>';
     strHTML += '<div class="row addFT" id="' + days[i] + 'FTAdd">';
     strHTML += '<p class="category"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p></div>';
-    for (j = 30; j < 35; j++) {
+    for (let j = 30; j < 35; j++) {
         strHTML += '<div class="tinycard bg-teal3 hide" id="' + days[i] + 'FTDiv' + j + '">';
         strHTML += '<div class="row"><div class="category col-11">Field Trip&nbsp;';
         strHTML += '<span class="fas fa-question-circle ft"></span>';
@@ -419,35 +425,30 @@ for (i = 1; i < 6; i++) {
 //********************DIV MONDAY - FRIDAY********************//
 
 //********************DIV WEEKOF********************//
-var r1 = DateRange(-21);
-var r2 = DateRange(-14);
-var r3 = DateRange(-7);
-var r4 = DateRange(0);
-var r5 = DateRange(7);
+let range = '';
 
-var strHTML = '<option value="">--Select Week--</option>';
-strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
-strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
-strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
-strHTML += '<option value="' + r4 + '">' + dateString(r4) + '</option>';
-strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
+strHTML = '<option value="">--Select Week--</option>';
+for (let i = -21; i < 8; i += 7) {
+    range = DateRange(i);
+    strHTML += '<option value="' + range + '">' + dateString(range) + '</option>';
+}
 
 print(strHTML, "WeekOf");
 
 function DateRange(offset) {
-    var start = new Date();
-    var end = new Date();
-    var day = start.getDay();
-    var sOffset = (day - day) - (day + 1);
+    let start = new Date();
+    let end = new Date();
+    let day = start.getDay();
+    let sOffset = (day - day) - (day + 1);
     sOffset = (sOffset === -7) ? 0 : sOffset;
-    var eOffset = sOffset + 6;
+    let eOffset = sOffset + 6;
     start.setDate(start.getDate() + (sOffset + offset));
     end.setDate(end.getDate() + (eOffset + offset));
 
-    var sm = start.getMonth() + 1,
+    let sm = start.getMonth() + 1,
         sd = start.getDate(),
         sy = start.getFullYear();
-    var em = end.getMonth() + 1,
+    let em = end.getMonth() + 1,
         ed = end.getDate(),
         ey = end.getFullYear();
     sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -458,7 +459,7 @@ function DateRange(offset) {
 }
 
 function dateString(strDate) {
-    var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+    let str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
     str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
     return str
 }

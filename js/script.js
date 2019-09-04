@@ -1,7 +1,7 @@
 /********************TIME PICKER********************/
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
     //Set current element as activeID
     activeID = e.currentTarget.id;
     //Disabled current element
@@ -9,16 +9,16 @@ function openTimeSelector(e) {
     //Check date field first
     if (optVal === "S" && !checkOWFTDate(e.currentTarget.id)) return;
     //Get value of element
-    var refVal = byID(activeID).value;
+    let refVal = byID(activeID).value;
     //If value is null then exit function
     if (refVal === null) return;
     //If pupil time element then blnPupil is true
-    var blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
+    let blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
     //if active element has data already, break time into hrs, mins, and mer and load into spans
     if (refVal !== "") {
-        var hours = refVal.substr(0, refVal.indexOf(":"));
-        var mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        var mer = refVal.substr(-2);
+        let hours = refVal.substr(0, refVal.indexOf(":"));
+        let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
+        let mer = refVal.substr(-2);
         byID("hours" + optVal).innerHTML = hours;
         byID("minutes" + optVal).innerHTML = mins;
         byID("meridiem" + optVal).innerHTML = mer;
@@ -37,9 +37,9 @@ function openTimeSelector(e) {
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var refID = e.currentTarget.id;
-    var strVal = refID.substr(2),
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let refID = e.currentTarget.id;
+    let strVal = refID.substr(2),
         operator = "";
     switch (strVal) {
         case "up" + optVal:
@@ -60,11 +60,11 @@ function timeSelectors(e) {
 //TIME UPDATE STARTING FUNCTION
 function changeValue(operator, clicked, refElement, optVal) {
     "use strict";
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var x = refElement.substr(-1);
-    var blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
+    optVal = (getFileName() === "index2.html") ? "S" : "";
+    let x = refElement.substr(-1);
+    let blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
 
-    var str = clicked.substr(0, 2);
+    let str = clicked.substr(0, 2);
     switch (str) {
         case "hr":
             setHours(operator, optVal);
@@ -82,7 +82,7 @@ function changeValue(operator, clicked, refElement, optVal) {
 //CHANGE AM AND PM
 function setMeridiem(optVal) {
     optVal = (optVal === undefined) ? "" : optVal;
-    var meridiemText = "",
+    let meridiemText = "",
         inputMeridiem = byID("meridiem" + optVal).innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
@@ -94,7 +94,7 @@ function setMeridiem(optVal) {
 //CHANGE MINUTES BY 5
 function setMinutes(operator, optVal) {
     optVal = (optVal === undefined) ? "" : optVal;
-    var minutesText = "",
+    let minutesText = "",
         minutes = Number(byID("minutes" + optVal).innerHTML);
     if (operator === 1) {
         operator = 5;
@@ -120,7 +120,7 @@ function setMinutes(operator, optVal) {
 }
 //CHANGE MINUTES FOR PUPIL TIME BY 1
 function setMinutesPupil(operator) {
-    var minutesText = "",
+    let minutesText = "",
         minutes = Number(byID("minutes").innerHTML);
     if (operator === 1) {
         operator = 1;
@@ -148,8 +148,8 @@ function setMinutesPupil(operator) {
 //CHANGE HOURS
 function setHours(operator, optVal) {
     optVal = (optVal === undefined) ? "" : optVal;
-    var hoursText = "";
-    var hours = Number(byID("hours" + optVal).innerHTML);
+    let hoursText = "";
+    let hours = Number(byID("hours" + optVal).innerHTML);
     hoursText = hours + operator;
 
     if (hoursText === 13) {
@@ -175,11 +175,11 @@ function setHours(operator, optVal) {
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var week = byID("WeekOf" + optVal).value;
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let week = byID("WeekOf" + optVal).value;
 
     if (optVal === "") {
-        var objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
+        let objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
 
         objThis = {Data : objThisData, Sat : objThisSat, Sun : objThisSun, Mon : objThisMon, Tue : objThisTue, Wed : objThisWed, Thu : objThisThu, Fri : objThisFri};   
     }
@@ -188,10 +188,10 @@ function setStorage() {
 }
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
     if (refID === "WeekOf" + optVal) return;
     
-    var obj = (optVal === "") ? getDayObj(refID.substr(0,3)) : "";
+    let obj = (optVal === "") ? getDayObj(refID.substr(0,3)) : "";
     if (byID(refID).getAttribute('type') === 'checkbox') {
         if (optVal === "") {
             obj[refID] = (byID(refID).checked) ? true : false;  
@@ -209,33 +209,21 @@ function setObject(refID) {
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var refID = e.currentTarget.id;
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let parent = e.target.parentNode.id;
     
     if (optVal === "") {
-        if (refID.indexOf("area") > -1) {
-            objThisData.Area = e.currentTarget.value;    
-        } else if (refID.indexOf("team") > -1) {
-            objThisData.Team = e.currentTarget.value;
-        } else if (refID.indexOf("pos") > -1) {
-            objThisData.Position = e.currentTarget.value;
-        }
+        objThisData[parent] = e.target.value;
     } else {
-        if (refID.indexOf("area") > -1) {
-            objThis.AreaS = e.currentTarget.value;    
-        } else if (refID.indexOf("team") > -1) {
-            objThis.TeamS = e.currentTarget.value;
-        } else if (refID.indexOf("pos") > -1) {
-            objThis.PositionS = e.currentTarget.value;
-        }
+        objThis[parent] = e.target.value;
     }
     getWeeklyTotals();
     setStorage();
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var refID = e.currentTarget.id;
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let refID = e.currentTarget.id;
     if (refID === "Trainee" + optVal || refID === "EmpName" + optVal) {
         byID(refID).value = properCase(e.currentTarget.value);
     }
@@ -360,7 +348,7 @@ function routeNameTransform(refID) {
 /********************FIELD TRIP SELECTOR********************/
 //FIELD TRIP MODAL
 function openFTSelector(e) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
     showHide("ftModal" + optVal, true);
     activeID = e.currentTarget.id;
     byID("ftselector" + optVal).value = "";
@@ -369,10 +357,10 @@ function openFTSelector(e) {
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
-    var obj;
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    let obj;
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
     if (optVal === "") obj = getDayObj(activeID.substr(0,3));
-    var ftText = "";
+    let ftText = "";
     if (byID("ftselector" + optVal).value !== null)
         ftText = byID("ftselector" + optVal).value;
     else
@@ -398,9 +386,9 @@ function properCase(str) {
 }
 //CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
 function limitCharacters(refID, num) {
-    var refVal = byID(refID).value;
+    let refVal = byID(refID).value;
     if (refVal.length > num) {
-        openPopUp("<p class='varp'>Limit " + num + " characters.</p>");
+        openPopUp("<p class='letp'>Limit " + num + " characters.</p>");
         byID(refID).value = refVal.substr(0, num);
     }
 }
@@ -412,21 +400,21 @@ function byID(id) {
 }
 //DATEADD FUNCTION
 function addDate(date, days) {
-    var copy = new Date(Number(date))
+    let copy = new Date(Number(date))
     copy.setDate(date.getDate() + days)
     return copy
 }
 //GET NAME OF HTML FILE
 function getFileName() {
-    var url = window.location.pathname;
-    var filename = url.substring(url.lastIndexOf('/')+1); 
+    let url = window.location.pathname;
+    let filename = url.substring(url.lastIndexOf('/')+1); 
     return filename;
 }
 /********************MISCELLANEOUS FUNCTIONS********************/
 /********************ELEMENT PROPERTY UPDATE********************/
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
 function showHide(refID, bln) {
-    var el = byID(refID);
+    let el = byID(refID);
     //(Show the element) ? remove hide : add hide
     if (bln) {
         if (el.classList.contains("hide")) el.classList.remove("hide");
@@ -436,8 +424,8 @@ function showHide(refID, bln) {
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var obj = "";
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let obj = "";
     
     if (byID(refID).type === "checkbox") {
         if (optVal === "") {
@@ -461,8 +449,8 @@ function resetElement(refID) {
 }
 //RESET TIME FIELDS
 function resetTime(day, num) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
-    var refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    let refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
     resetElement(refID + "E" + optVal);
     resetElement(refID + "S" + optVal);
     resetElement(refID + optVal);
@@ -476,15 +464,15 @@ function disableElement(refID, bln) {
 /********************MODAL POP UP MESSAGES********************/
 //POP UP OW MESSAGE
 function popUpOW() {
-    openPopUp("<p class='varp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, optValhuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+    openPopUp("<p class='letp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, optValhuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
 }
 //POP UP FT MESSAGE
 function popUpFT() {
-    openPopUp("<p class='varp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='varp'>&bull;Check lift if the trip required a lift.</p><p class='varp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
+    openPopUp("<p class='letp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='letp'>&bull;Check lift if the trip required a lift.</p><p class='letp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
 }
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
-    var optVal = (getFileName() === "index2.html") ? "S" : "";
+    let optVal = (getFileName() === "index2.html") ? "S" : "";
     byID("varDiv" + optVal).innerHTML = msgVal;
     showHide("variousModal" + optVal, true);
 }
@@ -496,14 +484,14 @@ function convertToMinutes(s1) {
     if (s1 === "" || s1 === null || s1 === undefined)
 		return 0;
     
-    var h = s1.substring(0, s1.indexOf(":"));
+    let h = s1.substring(0, s1.indexOf(":"));
     
     if (h === "12" && s1.indexOf("AM") > 0)
 		h = 0;
     
     h = h * 60;
 
-    var m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
+    let m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
         b = m + h;
 
     if (s1.indexOf("PM") > 0 && h !== 720)
@@ -514,7 +502,7 @@ function convertToMinutes(s1) {
 //RETURN TIME AS H:MM FORMAT
 function calculateTotal(refVal) {
     "use strict";
-	var hour = Math.floor(refVal / 60),
+	let hour = Math.floor(refVal / 60),
         min = refVal - (hour * 60),
         totalVal;
     if (min < 10) {
@@ -528,7 +516,7 @@ function calculateTotal(refVal) {
 //RETURN TIME AS H.MM FORMAT
 function convertTotal(refVal) {
     "use strict";
-	var hour = Math.floor(refVal / 60),
+	let hour = Math.floor(refVal / 60),
         min = refVal - (hour * 60),
         totalVal;
     if (min === 0 || min === 5) {

@@ -2,7 +2,7 @@ function print(strHTML, element) {
     document.getElementById(element).innerHTML = strHTML;
 }
 
-var strHTML = '';
+let strHTML = '';
 
 strHTML = '<p><b>Week Range:</b> ' + dateString(objThisData.WeekOf) + '</p>';
 print(strHTML, "divpweek");
@@ -40,32 +40,32 @@ print(strHTML, "divpspares");
 //********************DIV AM RUNS********************//
 strHTML = '<div class="row section__header bg-medblue"><div class="col-12 bold-lg daily">Morning</div></div>';
 strHTML += '<div class="row"><div class="col-sm-4"><p><b>AM: </b>' + objThisData.AMRoute1 + '</p></div>';                    
-for (i = 1; i < 6; i++) {
-    var obj = getDayObj(days[i]);
+for (let i = 1; i < 6; i++) {
+    let obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "AM1Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>' + objThisData.AMRoute2 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "AM2Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>' + objThisData.AMRoute3 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "AM3Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>' + objThisData.AMRoute4 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "AM4Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>' + objThisData.AMRoute5 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "AM5Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + obj[days[i] + "TimeA"].replace(" AM", "") + '</p><p>' + obj[days[i] + "TimeB"].replace(" AM", "") + '</p></div>';
 }
@@ -76,32 +76,32 @@ print(strHTML, "divpamruns");
 //********************DIV PM RUNS********************//
 strHTML = '<div class="row section__header bg-medblue"><div class="col-12 bold-lg daily">Afternoon</div></div>';
 strHTML += '<div class="row"><div class="col-sm-4"><p><b>PM: </b>' + objThisData.PMRoute1 + '</p></div>';                    
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PM1Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>' + objThisData.PMRoute2 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PM2Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>' + objThisData.PMRoute3 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PM3Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>' + objThisData.PMRoute4 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PM4Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>' + objThisData.PMRoute5 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PM5Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + obj[days[i] + "TimeC"].replace(" PM", "").replace(" AM", "") + '</p><p>' + obj[days[i] + "TimeD"].replace(" AM", "").replace(" PM", "") + '</p></div>';
 }
@@ -112,32 +112,32 @@ print(strHTML, "divppmruns");
 //********************DIV PM RUNS********************//
 strHTML = '<div class="row section__header bg-medblue"><div class="col-12 bold-lg daily">PS / SH / LR</div></div>';
 strHTML += '<div class="row"><div class="col-sm-4"><p><b>PS: </b>' + objThisData.PSRoute1 + '</p></div>';                    
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PS1Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>PS: </b>' + objThisData.PSRoute2 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "PS2Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>SH: </b>' + objThisData.SHRoute1 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "SH1Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>SH: </b>' + objThisData.SHRoute2 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "SH2Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>LR: </b>' + objThisData.LRRoute1 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "LR1Ct"] + '</p></div>';
 }
 strHTML += '</div><div class="row"><div class="col-sm-4"><p><b>LR: </b>' + objThisData.LRRoute2 + '</p></div>';
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML += '<div class="col"><p>' + days[i].substr(0, 1) + ':&nbsp;' + obj[days[i] + "LR2Ct"] + '</p></div>';
 }
@@ -146,7 +146,7 @@ print(strHTML, "divppsshlr");
 //********************DIV PM RUNS********************//
 
 //********************DIV MONDAY-FRIDAY********************//
-for (var i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     strHTML = '';
     strHTML += '<p class="category">' + fullday[i].toUpperCase() + ' - ' + obj[days[i] + "Date"] + '</p></div>';
@@ -210,11 +210,11 @@ for (var i = 1; i < 6; i++) {
 
 //********************DIV OTHER WORK********************//
 strHTML = '';
-var otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
-var j = 0;
-for (i = 0; i < 7; i++) {
+let otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
+let j = 0;
+for (let i = 0; i < 7; i++) {
     obj = getDayObj(days[i]);
-    for (var k = 20; k < 30; k++) {
+    for (let k = 20; k < 30; k++) {
         if ((i === 0 || i === 6) && k > 22) continue;
         if (obj[days[i] + "Select" + k] !== "") {
             otherWork[j] = days[i] + "Time" + k;
@@ -222,11 +222,11 @@ for (i = 0; i < 7; i++) {
         }
     }
 }
-var strDay = "";
-var blnOW = false;
-var strnum = "";
+let strDay = "";
+let blnOW = false;
+let strnum = "";
 
-for (i = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
     strHTML = '';
     blnOW = (otherWork[i] !== "OW" + i) ? true : false;
     if (blnOW) {
@@ -253,9 +253,9 @@ for (i = 0; i < 10; i++) {
 //********************DIV OTHER WORK********************//
 
 //********************DIV FIELD TRIPS********************//
-var otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+let otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
 j = 0;
-for (i = 0; i < 7; i++) {
+for (let i = 0; i < 7; i++) {
     obj = getDayObj(days[i]);
     for (k = 30; k < 35; k++) {
         if ((i === 0 || i === 6) && k > 32) continue;
@@ -265,9 +265,9 @@ for (i = 0; i < 7; i++) {
         }
     }
 }
-var blnFT = false;
+let blnFT = false;
 
-for (i = 0; i < 5; i++) {
+for (let i = 0; i < 5; i++) {
     strHTML = '';
     blnFT = (otherFT[i] !== "FT" + i) ? true : false;
     if (blnFT) {
@@ -295,10 +295,10 @@ for (i = 0; i < 5; i++) {
 //********************DIV FIELD TRIPS********************//
             
 //********************DIV LEAVE********************//
-var otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
+let otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
 j = 0;
 
-for (i = 1; i < 6; i++) {
+for (let i = 1; i < 6; i++) {
     obj = getDayObj(days[i]);
     if (obj[days[i] + "Time41"] !== "") {
         otherLV[j] = days[i] + "Time41";
@@ -314,10 +314,10 @@ for (i = 1; i < 6; i++) {
     }
 }
 strDay = "";
-var blnLV = false;
+let blnLV = false;
 strnum = "";
 
-for (i = 0; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
     strHTML = '';
     blnLV = (otherLV[i] !== "LV" + i) ? true : false;
     if (blnLV) {

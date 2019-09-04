@@ -63,8 +63,9 @@
             <div class="col-1 dropdown right" style="padding-top: 5px;" id="navbarmodal">
                 <span class="fas fa-bars dropbtn fa-lg" id="navbtn"></span>
                 <div class="dropdown-content hide" id="navdropdown">
-                    <div class="row" id="divpreview"><span class="fas fa-file-pdf"></span>&nbsp;Preview</div>
+                    <div class="row" id="divpreview"><span class="fas fa-check-circle"></span>&nbsp;Preview</div>
                     <div class="row" id="divsupplement"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
+                    <div class="row" id="divtutorial"><span class="fas fa-info-circle"></span>&nbsp;Tutorial</div>
                     <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
                 </div>
             </div>
@@ -78,12 +79,7 @@
                     <p class="daily">Employee Information</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-auto">
-                    <p class="category" id="PayWeek">Pay Week: </p>
-                </div>
-                <div class="col-auto"><input type="button" id="chgWeek"><label for="chgWeek">Change Week</label></div>
-            </div>
+            <div class="row" id="divWeekOf"></div>
             <div class="row">
                 <div class="col-md-12">
                     <p><b>Employee Name: (Last, First MI)</b><br>
@@ -93,7 +89,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p><b>Area:</b><br>
+                    <p id="Area"><b>Area:</b><br>
                         <input type="radio" id="area1" name="Area" value="1">
                         <label for="area1">1</label>
                         <input type="radio" id="area2" name="Area" value="2">
@@ -112,7 +108,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p><b>Position:</b><br>
+                    <p id="Position"><b>Position:</b><br>
                         <input type="radio" id="posDriver" name="Position" value="Driver">
                         <label for="posDriver">Driver</label>
                         <input type="radio" id="posDriverTrainee" name="Position" value="Driver Trainee">
@@ -121,14 +117,14 @@
                         <label for="posSubDriver">Sub Driver</label>
                         <input type="radio" id="posAttendant" name="Position" value="Attendant">
                         <label for="posAttendant">Attendant</label>
+                        <input type="radio" id="posUnassignedAttendant" name="Position" value="Unassigned Attendant">
+                        <label for="posUnassignedAttendant">Unassigned Attendant</label>
                         <input type="radio" id="posAttendantTrainee" name="Position" value="Attendant Trainee">
                         <label for="posAttendantTrainee">Attendant Trainee</label>
                         <input type="radio" id="posSubAttendant" name="Position" value="Sub Attendant">
                         <label for="posSubAttendant">Sub Attendant</label>
                         <input type="radio" id="posActivityDriver" name="Position" value="Activity Driver">
                         <label for="posActivityDriver">Activity Driver</label>
-                        <input type="radio" id="posFloater" name="Position" value="Floater">
-                        <label for="posFloater">Floater</label>
                     </p>
                 </div>
                 <div class="col-md-6">
@@ -205,13 +201,13 @@
                 <p class="footer_p">1R</p><input type="text" id="Total1R" class="footer-box" disabled>
             </div>
             <div class="col-2 footer_col">
-                <p class="footer_p">OJT</p><input type="text" id="TotalS4OJT" class="footer-box" disabled>
+                <p class="footer_p">S4-OJT</p><input type="text" id="TotalS4OJT" class="footer-box" disabled>
             </div>
             <div class="col-2 footer_col">
-                <p class="footer_p">ADMIN-ROUTE</p><input type="text" id="TotalS4J" class="footer-box" disabled>
+                <p class="footer_p">S4-J</p><input type="text" id="TotalS4J" class="footer-box" disabled>
             </div>
             <div class="col-2 footer_col">
-                <p class="footer_p">Q/L-ROUTE</p><input type="text" id="TotalS2QL" class="footer-box" disabled>
+                <p class="footer_p">S2-Q/L</p><input type="text" id="TotalS2QL" class="footer-box" disabled>
             </div>
             <div class="col-2 footer_col">
                 <p class="footer_p">C3</p><input type="text" id="TotalC3" class="footer-box" disabled>
@@ -274,15 +270,7 @@
             <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;"></span>
             <p>VALIDATION SUCCESSFUL</p>
             <p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials" onkeypress="limitCharacters('EmpInitials', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet();"></span></p>
-            <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
-        </div>
-    </div>
-    <!-- Week Seelect Modal -->
-    <div id="weekModal" class="modal hide">
-        <div class="modal-content center" style="width: 500px;" id="divweek">
-            <p class="category">SELECT PAY WEEK</p>
-            <select id="WeekOf"></select>
-            <span class="close fas fa-check-circle fa-lg" id="goWeek" style="color:green;" onclick="changeWeek();"></span>
+            <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
         </div>
     </div>
     <!-- The Changes Made Modal -->
