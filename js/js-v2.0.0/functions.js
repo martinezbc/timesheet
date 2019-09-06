@@ -9,7 +9,7 @@ let clickEvent = (function() {
         return 'click';
 })();
 
-const weekof = byID("WeekOf");
+let weekof = byID("WeekOf");
 if (localStorage.getItem("WeekOf") !== null) {
     weekof.value = localStorage.getItem("WeekOf");
     if (weekof.value === null || weekof.value === undefined)
@@ -23,7 +23,7 @@ if (localStorage.getItem("WeekOf") !== null) {
 /********************EVENT LISTENERS********************/
 
 //Checkbox on click store into local storage
-const checkbox = document.querySelectorAll("input[type='checkbox']");
+let checkbox = document.querySelectorAll("input[type='checkbox']");
 for (let i = 0; i < checkbox.length; i += 1) {
     checkbox[i].addEventListener("click", (e) => {
         setObject(e.target.id);
@@ -31,19 +31,19 @@ for (let i = 0; i < checkbox.length; i += 1) {
 }
 
 //Radio on change store into local storage
-const radio = document.querySelectorAll("input[type='radio']");
+let radio = document.querySelectorAll("input[type='radio']");
 for (let i = 0; i < radio.length; i += 1) {
     radio[i].addEventListener("change", storeRadioValue);
 }
 
 //Textbox on change
-const textbox = document.querySelectorAll("input[type='text'], input[type='number']");
+let textbox = document.querySelectorAll("input[type='text'], input[type='number']");
 for (let i = 0; i < textbox.length; i += 1) {
     textbox[i].addEventListener("change", textboxOnChange);
 }
 
 //Make selection on select element
-const select = document.querySelectorAll("select");
+let select = document.querySelectorAll("select");
 for (let i = 0; i < select.length; i += 1) {
     select[i].addEventListener("change", (e) => {
         setObject(e.target.id);
@@ -51,102 +51,104 @@ for (let i = 0; i < select.length; i += 1) {
 }
 
 weekof.addEventListener('change', () => {
-   initialLoad(); 
+    initialLoad();
 });
 
 //Area selection
-const radioarea = document.querySelectorAll("input[name='Area']");
+let radioarea = document.querySelectorAll("input[name='Area']");
 for (let i = 0; i < radioarea.length; i += 1) {
     radioarea[i].addEventListener("change", radioAreaSelect);
 }
 
 //OJT checked
-const chkOJT = document.querySelectorAll("input[name='chkOJT']");
+let chkOJT = document.querySelectorAll("input[name='chkOJT']");
 for (let i = 0; i < chkOJT.length; i += 1) {
     chkOJT[i].addEventListener("click", checkOJT);
 }
 
 //J checked
-const chkJ = document.querySelectorAll("input[name='chkJ']");
+let chkJ = document.querySelectorAll("input[name='chkJ']");
 for (let i = 0; i < chkJ.length; i += 1) {
     chkJ[i].addEventListener("click", toggleJReg);
 }
 
 //Leave checked
-const chkLV = document.querySelectorAll("input[name='chkLV']");
+let chkLV = document.querySelectorAll("input[name='chkLV']");
 for (let i = 0; i < chkLV.length; i += 1) {
     chkLV[i].addEventListener("click", checkLeave);
 }
 
 //Position changed
-const position = document.querySelectorAll("input[name='Position']");
+let position = document.querySelectorAll("input[name='Position']");
 for (let i = 0; i < position.length; i += 1) {
     position[i].addEventListener("change", positionChange);
 }
 
 //QL checked
-const chkQL = document.querySelectorAll("input[name='chkQL']");
+let chkQL = document.querySelectorAll("input[name='chkQL']");
 for (let i = 0; i < chkQL.length; i += 1) {
     chkQL[i].addEventListener("click", toggleQLReg);
 }
 
-const chkFTQL = document.querySelectorAll("input[name='chkFTQL']");
+let chkFTQL = document.querySelectorAll("input[name='chkFTQL']");
 for (let i = 0; i < chkFTQL.length; i += 1) {
     chkFTQL[i].addEventListener("click", getDailyTotals);
 }
 
 //Add Other Work click
-const addOW = document.querySelectorAll(".addOW");
+let addOW = document.querySelectorAll(".addOW");
 for (let i = 0; i < addOW.length; i += 1) {
     addOW[i].addEventListener("click", addOtherWork);
 }
 //Add Field Trip click
-const addFT = document.querySelectorAll(".addFT");
+let addFT = document.querySelectorAll(".addFT");
 for (let i = 0; i < addFT.length; i += 1) {
     addFT[i].addEventListener("click", addFieldTrip);
 }
 
 //Add Leave click
-const addLV = document.querySelectorAll(".addLV");
+let addLV = document.querySelectorAll(".addLV");
 for (let i = 0; i < addLV.length; i += 1) {
-    addLV[i].addEventListener("click", addLeave);
+    addLV[i].addEventListener("click", (e) => {
+        addLeave(e.target);
+    });
 }
 
 //Click on Trash Alt
-const faTrashAlt = document.querySelectorAll(".fa-trash-alt");
+let faTrashAlt = document.querySelectorAll(".fa-trash-alt");
 for (let i = 0; i < faTrashAlt.length; i += 1) {
     faTrashAlt[i].addEventListener("click", removeOWFT);
 }
 
 //Click in time fields to open Time Selector
-const txtTime = document.querySelectorAll("input[name='txtTime']");
+let txtTime = document.querySelectorAll("input[name='txtTime']");
 for (let i = 0; i < txtTime.length; i += 1) {
     txtTime[i].addEventListener("click", openTimeSelector);
 }
 
 //Click in time fields to open Time Selector
-const txtFT = document.querySelectorAll("input[name='txtFT']");
+let txtFT = document.querySelectorAll("input[name='txtFT']");
 for (let i = 0; i < txtFT.length; i += 1) {
     txtFT[i].addEventListener("click", openFTSelector);
 }
 
 //Click on other work question mark
-const ow = document.querySelectorAll(".ow");
+let ow = document.querySelectorAll(".ow");
 for (let i = 0; i < ow.length; i += 1) {
     ow[i].addEventListener("click", popUpOW);
 }
 
 //Click on field trip question mark
-const ft = document.querySelectorAll(".ft");
+let ft = document.querySelectorAll(".ft");
 for (let i = 0; i < ft.length; i += 1) {
     ft[i].addEventListener("click", popUpFT);
 }
 
-const owdesc = document.querySelectorAll("input[name='owdesc']");
+let owdesc = document.querySelectorAll("input[name='owdesc']");
 for (let i = 0; i < owdesc.length; i++) {
     owdesc[i].addEventListener("keyup", () => {
         let num = owdesc[i].id.substr(-2);
-        let day = owdesc[i].id.substr(0,3);
+        let day = owdesc[i].id.substr(0, 3);
         if (byID(day + "Select" + num).value === "FYI")
             limitCharacters(owdesc[i].id, 60);
         else
@@ -184,7 +186,7 @@ for (let i = 0; i < routes.length; i += 1)
 byID("ctspan").addEventListener("click", popUpCT);
 
 //Click on checkmark on time selector
-byID("goTime").addEventListener("click", function() {
+byID("goTime").addEventListener("click", function () {
     let timetext = byID("hours").innerHTML;
     timetext += ":" + byID("minutes").innerHTML;
     timetext += " " + byID("meridiem").innerHTML;
@@ -204,7 +206,7 @@ byID("endChanges").addEventListener("click", () => {
 });
 
 //Veh textbox keyup
-const veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
+let veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
 for (let i = 0; i < veh.length; i += 1) {
     veh[i].addEventListener("keyup", () => {
         limitCharacters(veh[i].id, 4)
@@ -212,19 +214,19 @@ for (let i = 0; i < veh.length; i += 1) {
 }
 
 //Up and Down arrow on click
-const timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
+let timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
 for (let i = 0; i < timeArrows.length; i += 1) {
     timeArrows[i].addEventListener("click", timeSelectors);
 }
 
 //Times on click
-const faTimes = document.querySelectorAll(".fa-times");
+let faTimes = document.querySelectorAll(".fa-times");
 for (let i = 0; i < faTimes.length; i += 1) {
     faTimes[i].addEventListener("click", clearTimeField);
 }
 
 //Copy on click
-const faCopy = document.querySelectorAll(".fa-copy");
+let faCopy = document.querySelectorAll(".fa-copy");
 for (let i = 0; i < faCopy.length; i += 1) {
     faCopy[i].addEventListener("click", copyRoutine);
 }
@@ -237,7 +239,7 @@ byID("divtutorial").addEventListener(clickEvent, () => {
 });
 
 //Add on Change event listening to Select Other Work
-const selectOW = document.querySelectorAll("select[name='selectOW']");
+let selectOW = document.querySelectorAll("select[name='selectOW']");
 for (let i = 0; i < selectOW.length; i += 1) {
     selectOW[i].addEventListener("change", selectOWChange);
 }
@@ -252,22 +254,6 @@ byID("divsupplement").addEventListener(clickEvent, openSupplement);
 
 /********************EVENT LISTENERS********************/
 
-//TOGGLE BETWEEN TUTORIAL SLIDES
-function changeModalSlide(dir) {
-    let j = 0;
-    for (let i = 1; i < 5; i += 1) {
-        if (!byID("slide" + i).classList.contains("hide")) break;
-    }
-    
-    if (dir === 'r') {
-        j = (i + 1 === 5) ? 1 : i + 1;
-    } else {
-        j = (i - 1 === 0) ? 4 : i - 1;
-    }
-    showHide("slide" + i, false);
-    showHide("slide" + j, true);
-}
-
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
     if (weekof.value === "") return;
@@ -276,6 +262,8 @@ function initialLoad() {
     let refDate = new Date();
     let day = refDate.getDay();
     toggleDay(day);
+    toggleOWFT();
+    toggleLeave();
     loadOJT();
     loadQL();
     loadJ();
@@ -288,7 +276,7 @@ function loadLocalStorage() {
     let keyArr = 0;
     let key = "";
     let objArray = [objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri];
-    
+
     for (let j = 0; j < objArray.length; j++) {
         keyArr = Object.keys(objArray[j]);
         for (let i = 0; i < keyArr.length; i += 1) {
@@ -296,14 +284,12 @@ function loadLocalStorage() {
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
             if (byID(key) === null) continue;
             if (objArray[j][key] === true || objArray[j][key] === false) {
-                byID(key).checked = objArray[j][key];    
+                byID(key).checked = objArray[j][key];
             } else {
                 byID(key).value = objArray[j][key];
-            }        
+            }
         }
     }
-    toggleOWFT();
-    toggleLeave();
     loadRadioSelection();
 }
 
@@ -312,16 +298,16 @@ function loadRadioSelection() {
     let area = objThisData.Area;
     let team = objThisData.Team;
     let pos = objThisData.Position;
-    
-    let i = 0;
-    
+    let areas = "";
+    let teams = "";
+    let poss = "";
     //Load area from local storage and set radio selection
     if (area !== "") {
         byID("area" + area).checked = true;
     } else {
-        area = document.querySelectorAll("input[name='Area']");
-        for (let i = 0; i < area.length; i += 1)
-            area[i].checked = false;
+        areas = document.querySelectorAll("input[name='Area']");
+        for (let i = 0; i < areas.length; i += 1)
+            areas[i].checked = false;
     }
 
     loadTeamValues();
@@ -330,9 +316,9 @@ function loadRadioSelection() {
     if (team !== "" && (team.substr(0, 1) === area || area === '7')) {
         byID("team" + team).checked = true;
     } else {
-        team = document.querySelectorAll('input[name="Team"]');
-        for (let i = 0; i < team.length; i += 1)
-            team[i].checked = false;
+        teams = document.querySelectorAll('input[name="Team"]');
+        for (let i = 0; i < teams.length; i += 1)
+            teams[i].checked = false;
     }
 
     //Load position from local storage and set radio selection
@@ -340,9 +326,9 @@ function loadRadioSelection() {
         pos = pos.replace(" ", "");
         byID("pos" + pos).checked = true;
     } else {
-        pos = document.querySelectorAll('input[name="Position"]');
-        for (let i = 0; i < pos.length; i += 1)
-            pos[i].checked = false;
+        poss = document.querySelectorAll('input[name="Position"]');
+        for (let i = 0; i < poss.length; i += 1)
+            poss[i].checked = false;
     }
 }
 
@@ -350,7 +336,7 @@ function loadRadioSelection() {
 function loadTeamValues() {
     "use strict";
     let area = objThisData.Area;
-    area = (area === null || area === "undefined") ? "" : area;
+    let team = objThisData.Team;
 
     let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
     for (let i = 0; i < areadiv.length; i += 1) {
@@ -362,9 +348,9 @@ function loadTeamValues() {
     }
     if (area === "TC") {
         byID("teamTC").checked = true;
-        objThisData.Team = "TC";
+        team = "TC";
     }
-    
+
 }
 
 //LOADS DATES FROM STORAGE INTO DATE TEXT FIELDS
@@ -379,21 +365,21 @@ function storeWeek() {
     let week = weekof.value;
     if (localStorage.getItem(week + "Obj") === null) {
         objThis = objNew;
-        
+
         //Parse JSON into objects
         parseData();
-        
+
         storeWeekDays(week);
-        
+
         loadPrevWeek(week);
         objThisData.WeekOf = weekof.value;
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
-        
+
         //Parse JSON into objects
         parseData();
-        
+
         storeWeekDays(week);
     }
     //Load data from JSON
@@ -402,13 +388,14 @@ function storeWeek() {
 }
 
 function storeWeekDays(week) {
-//Store first day of week range in y and shortened date in ny
-    let startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
+    //Store first day of week range in y and shortened date in ny
+    let startDate = week.substr(0, 2) + "/" + week.substr(2, 2) + "/" + week.substr(4, 4);
 
     //Store second day of week range in z and shortened date in nz
-    let endDate = week.substr(8,2) + "/" + week.substr(10,2) + "/" + week.substr(12,4),
-        satDate = new Date(startDate),
-        sm, sd;
+    let endDate = week.substr(8, 2) + "/" + week.substr(10, 2) + "/" + week.substr(12, 4);
+    let satDate = new Date(startDate);
+    let sm;
+    let sd;
 
     objThisData.SatDate = startDate.substr(0, 5);
     objThisData.FriDate = endDate.substr(0, 5);
@@ -433,22 +420,24 @@ function parseData() {
     objThisThu = objThis.Thu;
     objThisFri = objThis.Fri;
 }
+
 //PULL DATA FROM PREVIOUS WEEK INTO NEW WEEK
 function loadPrevWeek(week) {
+    let i = 0;
     //Store first day of week range in y and shortened date in ny
-    let startDate = week.substr(0,2) + "/" + week.substr(2,2) + "/" + week.substr(4,4);
-    
+    let startDate = week.substr(0, 2) + "/" + week.substr(2, 2) + "/" + week.substr(4, 4);
+
     let start = new Date(startDate);
     let end = new Date();
     start.setDate(start.getDate() + (-7));
     end.setDate(start.getDate() + (6));
 
-    let sm = start.getMonth() + 1,
-        sd = start.getDate(),
-        sy = start.getFullYear();
-    let em = end.getMonth() + 1,
-        ed = end.getDate(),
-        ey = end.getFullYear();
+    let sm = start.getMonth() + 1;
+    let sd = start.getDate();
+    let sy = start.getFullYear();
+    let em = end.getMonth() + 1;
+    let ed = end.getDate();
+    let ey = end.getFullYear();
     sm = (sm.toString().length === 1) ? "0" + sm : sm;
     sd = (sd.toString().length === 1) ? "0" + sd : sd;
     em = (em.toString().length === 1) ? "0" + em : em;
@@ -456,10 +445,10 @@ function loadPrevWeek(week) {
     let prevweek = sm + sd + sy + em + ed + ey;
     if (localStorage.getItem(prevweek + "Obj") === null) return;
     objTemp = JSON.parse(localStorage.getItem(prevweek + "Obj"));
-    
+
     let keyArr = Object.keys(objThisData);
-    for (let i = 0; i < keyArr.length; i += 1) {
-        objThisData[keyArr[i]] = objTemp.Data[keyArr[i]];        
+    for (i = 0; i < keyArr.length; i += 1) {
+        objThisData[keyArr[i]] = objTemp.Data[keyArr[i]];
     }
     for (i = 11; i < 18; i += 1) {
         objThisMon["MonTime" + i + "S"] = objTemp.Mon["MonTime" + i + "S"];
@@ -499,11 +488,11 @@ function updateWeek() {
             break;
         }
     }
-    for (i = 1; i < 6; i += 1) {
+    for (let i = 1; i < 6; i += 1) {
         for (let j = 20; j < 30; j++) {
             byID(days[i] + "OWTrash" + j).click();
         }
-        for (j = 30; j < 35; j++) {
+        for (let j = 30; j < 35; j++) {
             byID(days[i] + "FTTrash" + j).click();
         }
         resetLeave(days[i]);
@@ -558,7 +547,7 @@ function loadOJT() {
     let ojt = document.querySelectorAll("input[name='chkOJT']");
     for (let i = 0; i < ojt.length; i += 1) {
         if (ojt[i].id === "OJT") continue;
-        day = ojt[i].id.substr(0,3);
+        day = ojt[i].id.substr(0, 3);
         if (!byID(day + "LeaveAD").checked)
             ojt[i].disabled = !bln;
         else
@@ -588,9 +577,9 @@ function loadQL() {
     }
 }
 
-function loadJ() {   
+function loadJ() {
     let bln = routeCheckJ();
-    
+
     for (let i = 1; i < 6; i += 1) {
         if (!byID(days[i] + "LeaveAD").checked)
             byID(days[i] + "J11").disabled = !bln;
@@ -633,7 +622,7 @@ function toggleJReg(e) {
 function toggleOWFT() {
     let obj = "";
     let bln = false;
-    
+
     for (let i = 0; i < 7; i += 1) {
         obj = getDayObj(days[i]);
         for (let j = 20; j < 30; j++) {
@@ -641,7 +630,7 @@ function toggleOWFT() {
             bln = (obj[days[i] + "Select" + j] !== "" || obj[days[i] + "Desc" + j] !== "" || obj[days[i] + "Time" + j] !== "") ? true : false
             showHide(days[i] + "OWDiv" + j, bln);
         }
-        for (j = 30; j < 35; j++) {
+        for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
             bln = (obj[days[i] + "Voucher" + j] !== "" || obj[days[i] + "To" + j] !== "" || obj[days[i] + "From" + j] !== "" || obj[days[i] + "Time" + j] !== "") ? true : false;
             showHide(days[i] + "FTDiv" + j, bln);
@@ -657,7 +646,8 @@ function toggleLeave() {
     for (let i = 1; i < 6; i += 1) {
         obj = getDayObj(days[i]);
         bln = (obj[days[i] + "LeaveAD"] || obj[days[i] + "Time41"] !== "" || obj[days[i] + "Time42"] !== "") ? true : false;
-        if (bln) byID(days[i] + "LVAdd").click();
+        if (bln)
+            addLeave(byID(days[i] + "LVAdd"));
     }
 }
 
@@ -699,6 +689,22 @@ function togglePupilCounts(x) {
     showHide("divPSCt", (blnSS) ? false : blnPos);
     showHide("divAMPupilTime", (blnSS) ? false : blnPos);
     showHide("divPMPupilTime", (blnSS) ? false : blnPos);
+}
+
+//TOGGLE BETWEEN TUTORIAL SLIDES
+function changeModalSlide(dir) {
+    let j = 0;
+    for (let i = 1; i < 5; i += 1) {
+        if (!byID("slide" + i).classList.contains("hide")) break;
+    }
+
+    if (dir === 'r') {
+        j = (i + 1 === 5) ? 1 : i + 1;
+    } else {
+        j = (i - 1 === 0) ? 4 : i - 1;
+    }
+    showHide("slide" + i, false);
+    showHide("slide" + j, true);
 }
 
 //TOGGLE PUPIL COUNTS ON POSITION CHANGE
@@ -921,7 +927,7 @@ function getMissingFT(day) {
 
 //SHOW THE LEAVE SECTION
 function addLeave(e) {
-    let refID = e.currentTarget.id;
+    let refID = e.id;
     let dayVal = refID.substr(0, 3);
     if (byID(dayVal + "Leave40").classList.contains("hide")) {
         byID(dayVal + "LvP").innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
@@ -1006,7 +1012,7 @@ function toggleADLeave(refID) {
         byID(day + "QL11").disabled = bln;
     else
         byID(day + "QL11").disabled = true;
-    
+
     for (i = 11; i < 18; i += 1) {
         byID(day + "Time" + i).style.backgroundColor = (bln) ? "lightgrey" : "white";
         disableElement(day + "Time" + i + "S", bln);
@@ -1095,11 +1101,12 @@ function copyRoutine(e) {
 //COPY REGULAR RUN TIME TO OTHER DAYS
 function runCopyRoutine() {
     showHide("variousModal", false);
-    let k = 0,
-        bln = false;
+    let k = 0;
+    let bln = false;
     let str = "";
+    let i = 0;
 
-    for (let i = 1; i < 5; i += 1) {
+    for (i = 1; i < 5; i += 1) {
         k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
@@ -1124,12 +1131,13 @@ function runCopyRoutine() {
 //COPY PUPIL TIME TO OTHER DAYS
 function runPupilCopyRoutine() {
     showHide("variousModal", false);
-    let k = 0,
-        bln = false,
-        str = "",
-        obj;
+    let k = 0;
+    let bln = false;
+    let str = "";
+    let obj;
+    let i = 0;
 
-    for (let i = 1; i < 5; i += 1) {
+    for (i = 1; i < 5; i += 1) {
         k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
@@ -1212,7 +1220,7 @@ function openTimesheet() {
     showHide("validateModal", false);
     if (emp !== "") {
         getDailyTotals();
-        
+
         //Set week value into local storage for preview and timesheet to use
         localStorage.setItem('WeekOf', weekof.value);
         window.open("preview.html", "_self");
@@ -1273,7 +1281,7 @@ function testFieldTrip() {
             blnTime = (obj[d + "Time" + j] !== "") ? true : false;
             if (blnTime && (obj[d + "Voucher" + j] === "" || obj[d + "From" + j] === "" || obj[d + "To" + j] === ""))
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher, From and To fields cannot be blank.</p>";
-            
+
             if ((obj[d + "Voucher" + j] !== "" || obj[d + "From" + j] !== "" || obj[d + "To" + j] !== "") && !blnTime)
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
         }
@@ -1291,12 +1299,12 @@ function testOtherWork() {
         obj = getDayObj(d);
         for (let j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
-            if (obj[d + "Time" + j] === "" && obj[d + "Select" + j] !== "" && obj[d + "Select" + j] !== "FYI") 
+            if (obj[d + "Time" + j] === "" && obj[d + "Select" + j] !== "" && obj[d + "Select" + j] !== "FYI")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
-            
-            if (obj[d + "Time" + j] !== "" && obj[d + "Select" + j] === "") 
+
+            if (obj[d + "Time" + j] !== "" && obj[d + "Select" + j] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
-            
+
             if ((obj[d + "Select" + j] === "OT" || obj[d + "Select" + j] === "FYI") && obj[d + "Desc" + j] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
         }
@@ -1329,8 +1337,8 @@ function testLeave() {
 }
 
 function testStopCounts() {
-    let val = "",
-        pos = objThisData.Position;
+    let val = "";
+    let pos = objThisData.Position;
 
     if (objThisData.Area === "TC") return val;
     //Validate stop counts
@@ -1425,13 +1433,11 @@ function testSpecCounts(day, x, route, j) {
 
 
 function testAMPMRoute(day, num) {
-    let bln = true,
-        bln2 = true,
-        val = "",
-        i = 0,
-        j = 0;
+    let bln = true;
+    let bln2 = true;
+    let val = "";
 
-    for (j = 1; j < 6; j++) {
+    for (let j = 1; j < 6; j++) {
         if (byID(day + "Time" + num).value !== "" && byID("AMRoute" + j).value !== "" && byID(day + "AM" + j + "Ct").value === "")
             bln = false;
 
@@ -1457,11 +1463,11 @@ function testTimeComplete() {
 /********************CALCULATIONS********************/
 //TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
 function timeCalculation(refID) {
-    let num = Number(refID.substr(-3,2));
-    let day = refID.substr(0,3);
-    
+    let num = Number(refID.substr(-3, 2));
+    let day = refID.substr(0, 3);
+
     //Check if field is used for pupil time, return if true
-    if (isNaN(refID.substr(7,2)))
+    if (isNaN(refID.substr(7, 2)))
         return;
 
     if (num > 19 && num < 30) {
@@ -1479,36 +1485,38 @@ function timeCalculation(refID) {
 
     getDailyTotals();
 
-    if (refID.substr(7,2) > 19 && refID.substr(7,2) < 30) {
-		countOtherWork(refID);
-	}
+    if (refID.substr(7, 2) > 19 && refID.substr(7, 2) < 30) {
+        countOtherWork(refID);
+    }
 
-    if (refID.substr(7,2) > 29 && refID.substr(7,2) < 35) {
-		countFieldTrips(refID);
-	}
+    if (refID.substr(7, 2) > 29 && refID.substr(7, 2) < 35) {
+        countFieldTrips(refID);
+    }
 }
 
 //CHECK FOR OVERLAPPING TIME VALUES
 function checkOverlap(refID) {
-	"use strict";
+    "use strict";
 
     //Define variables
-    let bln = false, newStart, newEnd;
+    let bln = false;
+    let newStart;
+    let newEnd;
 
     //If element has no value then return
     if (byID(refID).value === "")
         return;
 
     //Initialize variables
-    let thisStart = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value);
-    let thisEnd = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value);
+    let thisStart = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "S").value);
+    let thisEnd = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "E").value);
     if (thisStart === thisEnd) {
         openPopUp("<p>Start time cannot match end time.</p>");
         byID(refID).value = "";
         return;
     }
     let numVal = Number(refID.substr(7, 2));
-    let day = refID.substr(0,3);
+    let day = refID.substr(0, 3);
 
     let max = (day === "Sat" || day === "Sun") ? 33 : 43;
     let i = (day === "Sat" || day === "Sun") ? 20 : 11;
@@ -1526,6 +1534,8 @@ function checkOverlap(refID) {
         if (newStart === 0) continue;
 
         newEnd = convertToMinutes(byID(day + "Time" + i + "E").value);
+        if (newEnd === 0) continue;
+
         if (newStart === thisStart) {
             bln = true;
         } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
@@ -1553,12 +1563,12 @@ function checkOverlap(refID) {
 function calculateDiff(refID) {
     "use strict";
     //If refID is null or undefined then exit function
-	if (refID === null || refID === undefined) return;
-    let obj = getDayObj(refID.substr(0,3));
+    if (refID === null || refID === undefined) return;
+    let obj = getDayObj(refID.substr(0, 3));
 
     //Declare variables and initialize values
-    let startTime = (refID.substr(-1) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "S").value);
-    let endTime = (refID.substr(-1) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,9) + "E").value);
+    let startTime = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "S").value);
+    let endTime = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "E").value);
     let num = Number(refID.substr(7, 2));
     let timeDiff = 0;
     let totalID = refID.substr(0, refID.length - 1);
@@ -1583,7 +1593,7 @@ function calculateDiff(refID) {
 
 //CALCULATE DAILY RUN TIME
 function dailyRuns(day) {
-	"use strict";
+    "use strict";
     if (day === "Sat" || day === "Sun") return;
 
     let sum = 0;
@@ -1598,9 +1608,10 @@ function dailyRuns(day) {
 
 //CALCULATE DAILY OTHER WORK TIME
 function dailyOther(day) {
-	"use strict";
+    "use strict";
     //Declare variables and initialize values
-    let sum = 0, selectVal;
+    let sum = 0;
+    let selectVal;
 
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;
@@ -1615,16 +1626,14 @@ function dailyOther(day) {
 
 //CALCULATE CALLBACK TIME
 function sumCPay() {
-	"use strict";
-    let c1 = 0,
-        c3 = 0,
-        i = 0,
-        j = 20,
-        sum = 0,
-        selectVal;
+    "use strict";
+    let c1 = 0;
+    let c3 = 0;
+    let sum = 0;
+    let selectVal;
 
-    for (i; i < 7; i += 1) {
-        for (j; j < 30; j++) {
+    for (let i = 0; i < 7; i += 1) {
+        for (let j = 20; j < 30; j++) {
             if ((days[i] === "Sat" || days[i] === "Sun") && j === 23) break;
             selectVal = byID(days[i] + "Select" + j).value;
             c1 += (selectVal === "CBK") ? 240 : 0;
@@ -1663,25 +1672,24 @@ function dailyFT(day) {
 
 //CALCULATE DAILY Q/L TIME
 function dailyQL(day) {
-	"use strict";
-    let sum = 0,
-		i = 0;
+    "use strict";
+    let sum = 0;
 
     //If Q/L is checked, total up run, pac, shuttles, late run time
     if (day !== "Sat" && day !== "Sun" && byID(day + "QL11").checked) {
-        for (i = 11; i < 18; i += 1) {
+        for (let i = 11; i < 18; i += 1) {
             sum += convertToMinutes(byID(day + "Time" + i).value);
         }
     }
 
     //If Other Work Q/L is checked, add the time
-    for (i = 20; i < 30; i += 1) {
+    for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 22) continue;
         sum += (byID(day + "QL" + i).checked) ? convertToMinutes(byID(day + "Time" + i).value) : 0;
     }
 
     //If Q/L is checked for field trips, add time
-    for (i = 30; i < 35; i += 1) {
+    for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 32) continue;
         sum += (byID(day + "QL" + i).checked) ? (Number(byID(day + "Time" + i).value) * 60) : 0;
     }
@@ -1691,23 +1699,22 @@ function dailyQL(day) {
 }
 
 //Daily leave checkboxes
-function checkLeaveToggle (refID) {
-	"use strict";
+function checkLeaveToggle(refID) {
+    "use strict";
     let day = refID.substr(0, 3);
     checkAllDayLeave(day);
 }
 
 //Toggle lift checkboxes on/off, set them in storage and run totals
 function checkboxQL(refID) {
-	"use strict";
-    let blnmatch = false,
-		bln = false,
-		day = refID.substr(0, 3),
-		i = 0,
-		array = [day + "QL11", day + "QL12", day + "QL13", day + "QL14", day + "QL15", day + "QL16", day + "QL17"];
+    "use strict";
+    let blnmatch = false;
+    let bln = false;
+    let day = refID.substr(0, 3);
+    let array = [day + "QL11", day + "QL12", day + "QL13", day + "QL14", day + "QL15", day + "QL16", day + "QL17"];
     let obj = "";
 
-    for (i; i < 7; i += 1) {
+    for (let i = 0; i < 7; i += 1) {
         if (array[i] === refID) {
             bln = (byID(refID).checked) ? true : false;
             blnmatch = true;
@@ -1742,16 +1749,16 @@ function getDailyTotals() {
 //Run calculations for the whole week and set the values into local storage
 function getWeeklyTotals() {
     //Declare variables and initialize the values
-    let i = 0, sum = 0, j = 0;
+    let sum = 0;
 
     //Clear Hours worked
     byID("TotalHW").value = "";
     objThisData.TotalHW = "";
     sumCPay();
 
-    for (i = 1; i < 6; i += 1) {
-        for (j = 11; j < 18; j++) {
-            sum += convertToMinutes(byID(days[i] + "Time" + j).value);            
+    for (let i = 1; i < 6; i += 1) {
+        for (let j = 11; j < 18; j++) {
+            sum += convertToMinutes(byID(days[i] + "Time" + j).value);
         }
     }
     sum = calculateTotal(sum);
@@ -1761,9 +1768,9 @@ function getWeeklyTotals() {
 
     sum = 0;
     for (let i = 0; i < 7; i += 1) {
-        for (j = 20; j < 30; j++) {
+        for (let j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
-            sum += convertToMinutes(byID(days[i] + "Time" + j).value);            
+            sum += convertToMinutes(byID(days[i] + "Time" + j).value);
         }
     }
     sum = calculateTotal(sum);
@@ -1773,7 +1780,7 @@ function getWeeklyTotals() {
 
     sum = 0;
     for (let i = 0; i < 7; i += 1) {
-        for (j = 30; j < 35; j++) {
+        for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
             sum += Number(byID(days[i] + "Time" + j).value);
         }
@@ -1801,24 +1808,24 @@ function getWeeklyTotals() {
             sum += convertToMinutes(byID(days[i] + "Time15").value);
             sum += convertToMinutes(byID(days[i] + "Time16").value);
             sum += convertToMinutes(byID(days[i] + "Time17").value);
-        }                                    
-            
-        for (j = 20; j < 30; j++) {
-            if ((i === 0 || i === 6) && j > 22) continue;
-             sum += (byID(days[i] + "QL" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;   
         }
-        
-        for (j = 30; j < 35; j++) {
+
+        for (let j = 20; j < 30; j++) {
+            if ((i === 0 || i === 6) && j > 22) continue;
+            sum += (byID(days[i] + "QL" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
+        }
+
+        for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
-             sum += (byID(days[i] + "QL" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0; 
+            sum += (byID(days[i] + "QL" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
     objThisData.TotalS2QL = sum;
     byID("TotalS2QL").value = sum;
-    
+
     sum = 0;
-    for (i = 1; i < 6; i += 1) {
+    for (let i = 1; i < 6; i += 1) {
         if (byID(days[i] + "J11").checked) {
             sum += convertToMinutes(byID(days[i] + "Time11").value);
             sum += convertToMinutes(byID(days[i] + "Time12").value);
@@ -1827,7 +1834,7 @@ function getWeeklyTotals() {
             sum += convertToMinutes(byID(days[i] + "Time15").value);
             sum += convertToMinutes(byID(days[i] + "Time16").value);
             sum += convertToMinutes(byID(days[i] + "Time17").value);
-        }                                    
+        }
     }
     sum = convertTotal(sum);
     objThisData.TotalS4J = sum;
@@ -1844,13 +1851,13 @@ function getWeeklyTotals() {
     if (!byID("OJT").checked)
         return;
 
-    for (i = 1; i < 6; i += 1) {
-        for (j = 11; j < 30; j++) {
+    for (let i = 1; i < 6; i += 1) {
+        for (let j = 11; j < 30; j++) {
             if (j === 18 || j === 19) continue;
             sum += (byID(days[i] + "OJT" + j).checked) ? convertToMinutes(byID(days[i] + "Time" + j).value) : 0;
         }
-        for (j = 30; j < 35; j++) {
-            sum += (byID(days[i] + "OJT" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0; 
+        for (let j = 30; j < 35; j++) {
+            sum += (byID(days[i] + "OJT" + j).checked) ? (Number(byID(days[i] + "Time" + j).value) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
@@ -1859,4 +1866,3 @@ function getWeeklyTotals() {
     setStorage();
 }
 /********************CALCULATIONS********************/
-

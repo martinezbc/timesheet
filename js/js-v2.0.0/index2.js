@@ -1,23 +1,29 @@
 function print(strHTML, element) {
     document.getElementById(element).innerHTML = strHTML;
 }
+//********************DIV WEEK OF********************//
+let strHTML = '';
+strHTML += '<div class="col-12"><p class="bold">Pay Week:</p>';
+strHTML += '<select id="WeekOfS"></select></div>';
+print(strHTML, 'divWeekOfS');
+//********************DIV WEEK OF********************//
 //********************DIV TEAM********************//
-var strHTML = '';
-strHTML += '<p><b>Team: </b></p>';
-for (var j = 1; j < 5; j++) {
+strHTML = '';
+strHTML += '<p class="bold">Team:</p>';
+for (let j = 1; j < 5; j++) {
     strHTML += '<div class="hide" id="div' + j + 'S">';
-    for (var i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
         strHTML += '<input type="radio" id="team' + j + i + 'S" name="TeamS" value="' + j + i + '");"><label for="team' + j + i + 'S">' + j + i + '</label>&nbsp;';
     }
     strHTML += '</div>';
 }
 strHTML += '<div class="hide" id="div7S">';
-var teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
+let teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
 for (i = 0; i < 17; i++) {
     strHTML += '<input type="radio" id="team' + teams[i] + 'S" name="TeamS" value="' + teams[i] + '")";><label for="team' + teams[i] + 'S">' + teams[i] + '</label>&nbsp;';
 }
 strHTML += '</div><div class="hide" id="divTCS"><input type="radio" id="teamTCS" name="TeamS" value="TC")";><label for="teamTCS">TC</label></div>';
-print(strHTML, 'divSteam');
+print(strHTML, 'divteamS');
 //********************DIV TEAM********************//
 
 //********************DIV LEAVE********************//
@@ -83,7 +89,7 @@ for (j = 20; j < 30; j++) {
     strHTML += '<option value="CBK">Call back</option>';
     strHTML += '</select></div>';
     strHTML += '</div><div class="row"><div class="col-12">';
-    strHTML += '<input id="Desc' + j + 'S" type="text" class="descwidth" style="text-align: left;" placeholder="Additional notes...">';
+    strHTML += '<input id="Desc' + j + 'S" type="text" class="descwidth" name="owdesc" style="text-align: left;" placeholder="Additional notes...">';
     strHTML += '</div></div><div class="row"><div class="col-11">';
     strHTML += '<input type="text" name="txtTime" id="Time' + j + 'SS" class="timewidth" placeholder="- - : - -">&nbsp;';
     strHTML += '<input type="text" name="txtTime" id="Time' + j + 'ES" class="timewidth" placeholder="- - : - -">&nbsp;'
@@ -124,13 +130,13 @@ print(strHTML, 'divSFT');
 //********************DIV FIELD TRIP********************//
 
 //********************DIV WEEKOF********************//
-var r1 = DateRange(-28);
-var r2 = DateRange(-21);
-var r3 = DateRange(-14);
-var r4 = DateRange(-7);
-var r5 = DateRange(0);
+let r1 = DateRange(-28);
+let r2 = DateRange(-21);
+let r3 = DateRange(-14);
+let r4 = DateRange(-7);
+let r5 = DateRange(0);
 
-var strHTML = '<option value="">--Select Week--</option>';
+strHTML = '<option value="">--Select Week--</option>';
 strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
 strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
 strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
@@ -140,19 +146,19 @@ strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
 print(strHTML, "WeekOfS");
 
 function DateRange(offset) {
-    var start = new Date();
-    var end = new Date();
-    var day = start.getDay();
-    var sOffset = (day - day) - (day + 1);
+    let start = new Date();
+    let end = new Date();
+    let day = start.getDay();
+    let sOffset = (day - day) - (day + 1);
     sOffset = (sOffset === -7) ? 0 : sOffset;
-    var eOffset = sOffset + 6;
+    let eOffset = sOffset + 6;
     start.setDate(start.getDate() + (sOffset + offset));
     end.setDate(end.getDate() + (eOffset + offset));
 
-    var sm = start.getMonth() + 1,
+    let sm = start.getMonth() + 1,
         sd = start.getDate(),
         sy = start.getFullYear();
-    var em = end.getMonth() + 1,
+    let em = end.getMonth() + 1,
         ed = end.getDate(),
         ey = end.getFullYear();
     sm = (sm.toString().length === 1) ? "0" + sm : sm;
@@ -163,7 +169,7 @@ function DateRange(offset) {
 }
 
 function dateString(strDate) {
-    var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+    let str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
     str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
     return str
 }

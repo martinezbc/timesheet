@@ -1,12 +1,12 @@
 function print(strHTML, element) {
     document.getElementById(element).innerHTML = strHTML;
 }
-//
+//********************DIV WEEK OF********************//
 let strHTML = '';
 strHTML += '<div class="col-12"><p class="bold">Pay Week:</p>';
 strHTML += '<select id="WeekOf"></select></div>';
 print(strHTML, 'divWeekOf');
-
+//********************DIV WEEK OF********************//
 //********************DIV TEAM********************//
 strHTML = "";
 strHTML += '<div class="row"><p class="bold">Team:<br></p></div>';

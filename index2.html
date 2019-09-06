@@ -41,12 +41,7 @@
                     <p class="daily">Employee Information</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-auto">
-                    <p class="category" id="PayWeekS">Pay Week: </p>
-                </div>
-                <div class="col-auto"><input type="button" id="chgWeekS"><label for="chgWeekS">Change Week</label></div>
-            </div>
+            <div class="row" id="divWeekOfS"></div>
             <div class="row">
                 <div class="col-md-12">
                     <p><b>Employee Name:</b><br>
@@ -54,44 +49,44 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <p><b>Area:</b><br>
-                        <input type="radio" id="area1S" name="AreaS" value="1">
-                        <label for="area1S">1</label>
-                        <input type="radio" id="area2S" name="AreaS" value="2">
-                        <label for="area2S">2</label>
-                        <input type="radio" id="area3S" name="AreaS" value="3">
-                        <label for="area3S">3</label>
-                        <input type="radio" id="area4S" name="AreaS" value="4">
-                        <label for="area4S">4</label>
-                        <input type="radio" id="area7S" name="AreaS" value="7">
-                        <label for="area7S">7</label>
-                        <input type="radio" id="areaTCS" name="AreaS" value="TC">
-                        <label for="areaTCS">TC</label>
-                    </p>
+                <div class="col-md-6" id="divareaS">
+                    <p class="bold">Area:</p>
+                    <input type="radio" id="area1S" name="AreaS" value="1">
+                    <label for="area1S">1</label>
+                    <input type="radio" id="area2S" name="AreaS" value="2">
+                    <label for="area2S">2</label>
+                    <input type="radio" id="area3S" name="AreaS" value="3">
+                    <label for="area3S">3</label>
+                    <input type="radio" id="area4S" name="AreaS" value="4">
+                    <label for="area4S">4</label>
+                    <input type="radio" id="area7S" name="AreaS" value="7">
+                    <label for="area7S">7</label>
+                    <input type="radio" id="areaTCS" name="AreaS" value="TC">
+                    <label for="areaTCS">TC</label>
                 </div>
-                <div class="col-md-6" id="divSteam"></div>
+                <div class="col-md-6" id="divteamS"></div>
             </div>
             <div class="row">
-                <div class="col-md-6" id="posdivS">
-                    <p><b>Position:</b><br>
-                        <input type="radio" id="posDriverS" name="Position" value="Driver">
-                        <label for="posDriverS">Driver</label>
-                        <input type="radio" id="posDriverTraineeS" name="Position" value="Driver Trainee">
-                        <label for="posDriverTraineeS">Driver Trainee</label>
-                        <input type="radio" id="posSubDriverS" name="Position" value="Sub Driver">
-                        <label for="posSubDriverS">Sub Driver</label>
-                        <input type="radio" id="posAttendantS" name="Position" value="Attendant">
-                        <label for="posAttendantS">Attendant</label>
-                        <input type="radio" id="posAttendantTraineeS" name="Position" value="Attendant Trainee">
-                        <label for="posAttendantTraineeS">Attendant Trainee</label>
-                        <input type="radio" id="posSubAttendantS" name="Position" value="Sub Attendant">
-                        <label for="posSubAttendantS">Sub Attendant</label>
-                        <input type="radio" id="posActivityDriverS" name="Position" value="Activity Driver">
-                        <label for="posActivityDriverS">Activity Driver</label>
-                        <input type="radio" id="posFloaterS" name="Position" value="Floater">
-                        <label for="posFloaterS">Floater</label>
-                    </p>
+                <div class="col-md-6" id="divpositionS">
+                    <p class="bold">Position:</p>
+                    <input type="radio" id="posDriverS" name="Position" value="Driver">
+                    <label for="posDriverS">Driver</label>
+                    <input type="radio" id="posDriverTraineeS" name="Position" value="Driver Trainee">
+                    <label for="posDriverTraineeS">Driver Trainee</label>
+                    <input type="radio" id="posSubDriverS" name="Position" value="Sub Driver">
+                    <label for="posSubDriverS">Sub Driver</label>
+                    <input type="radio" id="posAttendantS" name="Position" value="Attendant">
+                    <label for="posAttendantS">Attendant</label>
+                    <input type="radio" id="posUnassignedAttendantS" name="Position" value="Unassigned Attendant">
+                    <label for="posUnassignedAttendantS">Unassigned Attendant</label>
+                    <input type="radio" id="posAttendantTraineeS" name="Position" value="Attendant Trainee">
+                    <label for="posAttendantTraineeS">Attendant Trainee</label>
+                    <input type="radio" id="posSubAttendantS" name="Position" value="Sub Attendant">
+                    <label for="posSubAttendantS">Sub Attendant</label>
+                    <input type="radio" id="posActivityDriverS" name="Position" value="Activity Driver">
+                    <label for="posActivityDriverS">Activity Driver</label>
+                    <input type="radio" id="posFloaterS" name="Position" value="Floater">
+                    <label for="posFloaterS">Floater</label>
                 </div>
                 <div class="col-md-6">
                     <p><b>On-The-Job Training:</b></p>
@@ -134,16 +129,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3 footer_col">
-                <p class="footer_p">OJT<br><input type="text" id="TotalS4S" class="footer-box" disabled></p>
+           <div class="col-2 footer_col">
+                <p class="footer_p">1R<br><input type="text" id="Total1RS" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
-                <p class="footer_p">EQUIPMENT<br><input type="text" id="TotalS2QLS" class="footer-box" disabled></p>
+            <div class="col-2 footer_col">
+                <p class="footer_p">OJT<br><input type="text" id="TotalS4OJTS" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-2 footer_col">
+                <p class="footer_p">ADMIN-J<br><input type="text" id="TotalS4JS" class="footer-box" disabled></p>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">Q/L<br><input type="text" id="TotalS2QLS" class="footer-box" disabled></p>
+            </div>
+            <div class="col-2 footer_col">
                 <p class="footer_p">C3<br><input type="text" id="TotalC3S" class="footer-box" disabled></p>
             </div>
-            <div class="col-3 footer_col">
+            <div class="col-2 footer_col">
                 <p class="footer_p">C1<br><input type="text" id="TotalC1S" class="footer-box" disabled></p>
             </div>
         </div>
@@ -201,14 +202,6 @@
             <p>VALIDATION SUCCESSFUL</p>
             <p><label for="EmpInitialsS">Initial Below:<br><input type="text" id="EmpInitialsS" onkeypress="limitCharacters('EmpInitialsS', 5);"></label><span class="close fas fa-check-circle fa-lg" id="goConfirmS" style="color:green;" onclick="openTimesheet();"></span></p>
             <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
-        </div>
-    </div>
-    <!-- Week Seelect Modal -->
-    <div id="weekModalS" class="modal hide">
-        <div class="modal-content center" style="width: 500px;" id="divweekS">
-            <p class="category">SELECT PAY WEEK</p>
-            <select id="WeekOfS"></select>
-            <span class="close fas fa-check-circle fa-lg" id="goWeekS" style="color:green;" onclick="changeWeek();"></span>
         </div>
     </div>
     <script src="js/js-v2.0.0/index2.js"></script>

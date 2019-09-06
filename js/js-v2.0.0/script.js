@@ -1,7 +1,7 @@
 /********************TIME PICKER********************/
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
-    let optVal = (getFileName() === "index2.html") ? "S" : "";
+    const optVal = (getFileName() === "index2.html") ? "S" : "";
     //Set current element as activeID
     activeID = e.currentTarget.id;
     //Disabled current element
@@ -37,10 +37,10 @@ function openTimeSelector(e) {
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
-    let optVal = (getFileName() === "index2.html") ? "S" : "";
-    let refID = e.currentTarget.id;
-    let strVal = refID.substr(2),
-        operator = "";
+    const optVal = (getFileName() === "index2.html") ? "S" : "";
+    const refID = e.currentTarget.id;
+    let strVal = refID.substr(2);
+    let operator = "";
     switch (strVal) {
         case "up" + optVal:
             operator = 1;
@@ -82,8 +82,8 @@ function changeValue(operator, clicked, refElement, optVal) {
 //CHANGE AM AND PM
 function setMeridiem(optVal) {
     optVal = (optVal === undefined) ? "" : optVal;
-    let meridiemText = "",
-        inputMeridiem = byID("meridiem" + optVal).innerHTML;
+    let meridiemText = "";
+    const inputMeridiem = byID("meridiem" + optVal).innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
@@ -94,8 +94,8 @@ function setMeridiem(optVal) {
 //CHANGE MINUTES BY 5
 function setMinutes(operator, optVal) {
     optVal = (optVal === undefined) ? "" : optVal;
-    let minutesText = "",
-        minutes = Number(byID("minutes" + optVal).innerHTML);
+    let minutesText = "";
+    const minutes = Number(byID("minutes" + optVal).innerHTML);
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -211,11 +211,13 @@ function setObject(refID) {
 function storeRadioValue(e) {
     let optVal = (getFileName() === "index2.html") ? "S" : "";
     let parent = e.target.parentNode.id;
-    if (parent !== 'divarea' && parent !== 'divposition') {
+    if (parent !== 'divarea' + optVal && parent !== 'divposition' + optVal) {
         parent = e.target.parentNode.parentNode.id;
     }
     parent = parent.replace('div','');
+    if (optVal === 'S') parent = parent.replace('S', '');
     parent = properCase(parent);
+    if (optVal === 'S') parent += 'S';
     
     if (optVal === "") {
         objThisData[parent] = e.target.value;
@@ -366,7 +368,8 @@ function storeFTVal() {
     let optVal = (getFileName() === "index2.html") ? "S" : "";
     if (optVal === "") obj = getDayObj(activeID.substr(0,3));
     let ftText = "";
-    if (byID("ftselector" + optVal).value !== null)
+    let ftselect = byID("ftselector" + optVal).value;
+    if (ftselect !== null && ftselect !== "")
         ftText = byID("ftselector" + optVal).value;
     else
         ftText = byID("fttype" + optVal).value;

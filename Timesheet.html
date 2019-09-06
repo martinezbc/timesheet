@@ -51,6 +51,10 @@
         objThisWed = objThis.Wed;
         objThisThu = objThis.Thu;
         objThisFri = objThis.Fri;
+        
+        if (objThisData.TotalS4OJT === null || objThisData.TotalS4OJT === undefined) {
+            objThisData.TotalS4OJT = objThisData.TotalS4;
+        }
 
     </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
@@ -1341,7 +1345,7 @@
             let iframe = document.getElementById("tsframe")
             iframe.src = string;
 
-//            pdf.save(fileName + ".pdf");
+            pdf.save(fileName + ".pdf");
         });
 
     </script>

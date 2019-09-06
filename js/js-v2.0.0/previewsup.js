@@ -163,9 +163,9 @@ print('<p class="bold-lg">OTHER:&nbsp;' + objThis.TotalOtherS + '</p>', "divptot
 print('<p class="bold-lg">FIELD TRIP:&nbsp;' + objThis.TotalFTS + '</p>', "divptotalft");
 print('<p class="bold-lg">HOURS WORKED:&nbsp;' + objThis.TotalHWS + '</p>', "divptotalhw");
 print('<p class="bold-lg">1R (Regular):&nbsp;' + objThis.Total1RS + '</p>', "divptotal1r");
-print('<p class="bold-lg">S4 (OJT):&nbsp;' + objThis.TotalS4S + '</p>', "divptotals4");
+print('<p class="bold-lg">S4 (OJT):&nbsp;' + objThis.TotalS4OJTS + '</p>', "divptotals4ojt");
+print('<p class="bold-lg">S4 (Admin-J):&nbsp;</p>', "divptotals4j");
 print('<p class="bold-lg">S2 (Equipment):&nbsp;' + objThis.TotalS2QLS + '</p>', "divptotals2ql");
-print('<p class="bold-lg">S2 (Admin):&nbsp;</p>', "divptotals2j");
 print('<p class="bold-lg">C3 (Weather):&nbsp;' + objThis.TotalC3S + '</p>', "divptotalc3");
 print('<p class="bold-lg">C1 (Callback):&nbsp;' + objThis.TotalC1S + '</p>', "divptotalc1");
 //********************DIV TOTALS********************//          
