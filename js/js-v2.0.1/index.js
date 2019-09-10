@@ -9,23 +9,23 @@ print(strHTML, 'divWeekOf');
 //********************DIV WEEK OF********************//
 //********************DIV TEAM********************//
 strHTML = "";
-strHTML += '<div class="row"><p class="bold">Team:<br></p></div>';
+strHTML += '<p class="bold">Team:<br></p>';
 for (let j = 1; j < 5; j++) {
-    strHTML += '<div class=" hide" id="div' + j + '">';
+    strHTML += '<div class="hide" id="div' + j + '">';
     for (let i = 0; i < 8; i++) {
-        strHTML += '<input type="radio" id="team' + j + i + '" name="Team" value="' + j + i + '")"><label for="team' + j + i + '">' + j + i + '</label>&nbsp;';
+        strHTML += '<input type="radio" id="team' + j + i + '" name="Team" value="' + j + i + '"><label for="team' + j + i + '">' + j + i + '</label>&nbsp;';
     }
     strHTML += '</div>';
 }
-strHTML += '<div class="hide" id="div7"><p>';
+strHTML += '<div class="hide" id="div7">';
 const teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
 for (let i = 0; i < 17; i++) {
     if ((i % 4) === 0 && i > 0) {
         strHTML += '<br>';
     }
-    strHTML += '<input type="radio" id="team' + teams[i] + '" name="Team" value="' + teams[i] + '")"><label for="team' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
+    strHTML += '<input type="radio" id="team' + teams[i] + '" name="Team" value="' + teams[i] + '"><label for="team' + teams[i] + '">' + teams[i] + '</label>&nbsp;';
 }
-strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="Team" value="TC")";><label for="teamTC">TC</label></div>';
+strHTML += '</div><div class="hide" id="divTC"><input type="radio" id="teamTC" name="Team" value="TC"><label for="teamTC">TC</label></div>';
 print(strHTML, "divteam");
 //********************DIV TEAM********************//
 
