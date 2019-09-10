@@ -17,8 +17,6 @@
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
-
-    <script src="js/js-v2.0.1/fieldtrip.js"></script>
     <script>
         const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
         const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -245,10 +243,7 @@
             <div class="row">
                 <p>Type:&nbsp;</p><input id="fttype" type="text" style="width: 200px;text-align: left;">
                 <p id="ftinput">&nbsp;&nbsp;Or Select:&nbsp;</p>&nbsp;&nbsp;
-                <script>
-                    insertFTSelect();
-
-                </script>
+                <select style="width: 200px;" id="ftselector"></select>
                 <span class="close fa fa-check-circle fa-lg" id="goFT" style="color:green;margin-top: 3px"></span>&nbsp;
                 <span class="close fa fa-times-circle fa-lg" id="closeFT" style="margin-top: 3px"></span>
             </div>
@@ -328,7 +323,8 @@
             </div>
         </div>
     </div>
-    <script src="js/js-v2.0.1/index.js"></script>
+    <script src="js/js-v2.0.2/index.js"></script>
+    <script src="js/js-v2.0.2/fieldtrip.js"></script>
     <script src="js/js-v2.0.1/script.js"></script>
     <script src="js/js-v2.0.1/json.js"></script>
     <script src="js/js-v2.0.1/functions.js"></script>
