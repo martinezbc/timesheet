@@ -43,10 +43,6 @@
         }
         let week = localStorage.getItem("WeekOfS");
         objThis = JSON.parse(localStorage.getItem(week + "Obj"));
-        
-        if (objThis.TotalS4OJT === null || objThis.TotalS4OJT === undefined) {
-            objThis.TotalS4OJT = objThis.TotalS4;
-        }
 
     </script>
     <iframe id="tsframe" class="full" src=""></iframe><input id="someelement">
@@ -81,7 +77,7 @@
             //            pdf.setFontSize(12);
             //            hOffset += 62;
             //            x = objThis.EmpIDS");
-            //            pdf.text(hOffset, vOffset + 4, x);
+            //            pdf.text(hOffset, vOffset + 4, x || "");
             hOffset += 38;
             pdf.setFontSize(10);
 
@@ -91,7 +87,7 @@
             pdf.setFontStyle("bold");
             pdf.setFontSize(12);
             x = dateString(objThis.WeekOfS);
-            pdf.text(hOffset + 45, vOffset + 4, x);
+            pdf.text(hOffset + 45, vOffset + 4, x || "");
             pdf.setFontSize(10);
 
             pdf.setDrawColor(80, 80, 80);
@@ -112,7 +108,7 @@
             hOffset += 28;
             pdf.setFontSize(12);
             x = objThis.AreaS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             hOffset += 60;
@@ -122,7 +118,7 @@
             hOffset += 32;
             pdf.setFontSize(12);
             x = objThis.TeamS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             hOffset += 60;
@@ -132,7 +128,7 @@
             hOffset += 35;
             pdf.setFontSize(12);
             x = objThis.EmpNameS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             hOffset += 270;
@@ -142,7 +138,7 @@
             pdf.setFontSize(12);
             hOffset += 38;
             x = objThis.Veh1S;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             vOffset += 16;
@@ -154,7 +150,7 @@
             hOffset += 45;
             pdf.setFontSize(12);
             x = objThis.PositionS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             //OJT checkbox
@@ -193,7 +189,7 @@
             x = objThis.Veh2S;
             x = (objThis.Veh3S !== "") ? x + " / " + objThis.Veh3S : x;
             x = (objThis.Veh4S !== "") ? x + " / " + objThis.Veh4S : x;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             pdf.setFontSize(10);
 
             //********ROUTE COUNTS********//
@@ -208,10 +204,10 @@
             hOffset += 60;
             pdf.setFontStyle("bold");
             x = "AM Pupil Counts";
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 200;
             x = "PM Pupil Counts";
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 140;
             pdf.text(hOffset, vOffset, "PAC/PS - Shuttle - Late Run Counts");
 
@@ -499,7 +495,7 @@
                         pdf.rect(margin, vOffset - 12, 355, 15, "FD");
                     }
                     x = (objThis["Date" + b + "S"]) || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 30;
                     pdf.setDrawColor(0);
                     pdf.setFillColor(0,0,0);
@@ -521,23 +517,23 @@
                     x = objThis["Select" + b + "S"] || "";
                     x += " - ";
                     x += objThis["Desc" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 175;
                     x = objThis["Time" + b + "SS"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 42;
                     x = objThis["Time" + b + "ES"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     x = objThis[otherWork[i]];
                     hOffset += 43;
                     pdf.setFontStyle("bold");
                     if (objThis["OJT" + b + "S"]) {
                         x = "**" + x + "**";
-                        pdf.text(hOffset, vOffset, x);
+                        pdf.text(hOffset, vOffset, x || "");
                         hOffset += 5;
                     } else {
                         hOffset += 7;
-                        pdf.text(hOffset, vOffset, x);
+                        pdf.text(hOffset, vOffset, x || "");
                         hOffset += -2;
                     }
                 } else {
@@ -551,11 +547,11 @@
                 if (blnLV === true) {
                     b = otherLV[i].substr(-3, 2);
                     x = (objThis["Date" + b + "S"]) || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 28;
                     pdf.setFontSize(8);
                     x = objThis["Select" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 50;
                     if (otherLV[i].indexOf("Leave") > -1) {
                         pdf.setFontStyle('bold');
@@ -572,15 +568,15 @@
                     pdf.setFontSize(9);
                     if (otherLV[i].indexOf("Time") > -1) {
                         x = objThis["Time" + b + "SS"] || "";
-                        pdf.text(hOffset, vOffset, x);
+                        pdf.text(hOffset, vOffset, x || "");
                         hOffset += 40;
                         x = objThis["Time" + b + "ES"] || "";
-                        pdf.text(hOffset, vOffset, x);
+                        pdf.text(hOffset, vOffset, x || "");
                         hOffset += 45;
                         pdf.setFontStyle("bold");
                         pdf.setFontSize(9);
                         x = objThis[otherLV[i]] || "";
-                        pdf.text(hOffset, vOffset, x);
+                        pdf.text(hOffset, vOffset, x || "");
                     }
                     pdf.setFontStyle("normal");
                 }
@@ -671,7 +667,7 @@
                 if (blnFT) {
                     b = fieldTrip[i].substr(-3, 2);
                     x = objThis["Date" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 33;
                     pdf.setDrawColor(0);
                     pdf.setFillColor(0,0,0);
@@ -691,24 +687,24 @@
                     pdf.setFontSize(9);
                     hOffset += 27;
                     x = objThis["From" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 150;
                     x = objThis["To" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 150;
                     x = objThis["Voucher" + b + "S"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 55;
                     x = objThis["Time" + b + "SS"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 55;
                     x = objThis["Time" + b + "ES"] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     hOffset += 58;
                     pdf.setFontStyle("bold");
                     pdf.setFontSize(10);
                     x = objThis[fieldTrip[i]] || "";
-                    pdf.text(hOffset, vOffset, x);
+                    pdf.text(hOffset, vOffset, x || "");
                     pdf.setFontStyle("normal");
                     pdf.setFontSize(9);
                 }
@@ -727,7 +723,7 @@
             hOffset += 2;
             x = "I certify that I have performed school duties on the vehicle with number shown above on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. \n";
             x = x + "In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance \nReporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)"
-            pdf.text(hOffset, vOffset - 4, x);
+            pdf.text(hOffset, vOffset - 4, x || "");
             vOffset += 22;
             pdf.setDrawColor(80, 80, 80);
             pdf.setFillColor(210, 210, 210);
@@ -749,7 +745,7 @@
             hOffset += 50;
             pdf.setFontSize(12);
             x = objThis.EmpInitialsS;
-            pdf.text(hOffset, vOffset + 12, x);
+            pdf.text(hOffset, vOffset + 12, x || "");
             pdf.setFontSize(9);
             hOffset += 50;
             pdf.text(hOffset, vOffset + 4, "Supervisor \nSignature:");
@@ -759,16 +755,16 @@
             pdf.setFontSize(14);
             hOffset += 8;
             x = objThis.TotalRunS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 65;
             x = objThis.TotalOtherS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 65;
             x = objThis.TotalFTS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 60;
             x = objThis.TotalHWS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
 
 
             vOffset += 14;
@@ -797,21 +793,21 @@
             pdf.setFontSize(16);
             hOffset += 18;
             x = objThis.Total1RS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 98;
             pdf.text(hOffset, vOffset, objThis.TotalS4OJTS);
             hOffset += 98;
             x = "";
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 98;
             x = objThis.TotalS2QLS;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 98;
             x = objThis.TotalC3S;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
             hOffset += 98;
             x = objThis.TotalC1S;
-            pdf.text(hOffset, vOffset, x);
+            pdf.text(hOffset, vOffset, x || "");
 
 
             x = objThis.TeamS;
