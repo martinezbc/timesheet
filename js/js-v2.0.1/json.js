@@ -1003,26 +1003,26 @@ var objNew = {
     Thu: objNewThu,
     Fri: objNewFri
 };
-var objThis, objThisData, objThisSat, objThisSun, objThisMon, objThisTue, objThisWed, objThisThu, objThisFri;
+
 var objTemp, objTempData, objTempSat, objTempSun, objTempMon, objTempTue, objTempWed, objTempThu, objTempFri;
 
 function getDayObj(day) {
     switch (day) {
         case "Mon":
-            return objThisMon;
+            return objThis.Mon;
         case "Tue":
-            return objThisTue;
+            return objThis.Tue;
         case "Wed":
-            return objThisWed;
+            return objThis.Wed;
         case "Thu":
-            return objThisThu;
+            return objThis.Thu;
         case "Fri":
-            return objThisFri;
+            return objThis.Fri;
         case "Sat":
-            return objThisSat;
+            return objThis.Sat;
         case "Sun":
-            return objThisSun;
+            return objThis.Sun;
         default:
-            return objThisData;
+            return objThis.Data;
     }
 }
