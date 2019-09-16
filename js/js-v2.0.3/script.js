@@ -127,8 +127,6 @@ header.addEventListener(clickEvent, (e) => {
 /********************TIME PICKER********************/
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
-    const optVal = getFileName();
-    
     activeID = e.id;
     e.disabled = true;
     
@@ -161,7 +159,6 @@ function openTimeSelector(e) {
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
-    const optVal = getFileName();
     const refID = e.target.id;
     let strVal = refID.substr(2);
     let operator = "";
@@ -184,7 +181,6 @@ function timeSelectors(e) {
 //TIME UPDATE STARTING FUNCTION
 function changeValue(operator, clicked, refElement, optVal) {
     "use strict";
-    optVal = getFileName();
     let x = refElement.substr(-1);
     let blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
 
@@ -205,7 +201,6 @@ function changeValue(operator, clicked, refElement, optVal) {
 }
 //CHANGE AM AND PM
 function setMeridiem(optVal) {
-    optVal = optVal || "";
     let meridiemText = "";
     const inputMeridiem = byID(`meridiem${optVal}`).innerHTML;
     if (inputMeridiem === "AM") {
@@ -217,7 +212,6 @@ function setMeridiem(optVal) {
 }
 //CHANGE MINUTES BY 5
 function setMinutes(operator, optVal) {
-     optVal = optVal || "";
     let minutesText = "";
     const minutes = Number(byID(`minutes${optVal}`).innerHTML);
     if (operator === 1) {
@@ -244,8 +238,8 @@ function setMinutes(operator, optVal) {
 }
 //CHANGE MINUTES FOR PUPIL TIME BY 1
 function setMinutesPupil(operator) {
-    let minutesText = "",
-        minutes = Number(byID("minutes").innerHTML);
+    let minutesText = "";
+    let minutes = Number(byID("minutes").innerHTML);
     if (operator === 1) {
         operator = 1;
     } else if (operator === 2) {
@@ -271,7 +265,6 @@ function setMinutesPupil(operator) {
 }
 //CHANGE HOURS
 function setHours(operator, optVal) {
-     optVal = optVal || "";
     let hoursText = "";
     let hours = Number(byID(`hours${optVal}`).innerHTML);
     hoursText = hours + operator;
@@ -310,26 +303,24 @@ function goTime(optVal) {
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
-    let optVal = getFileName();
     let week = byID(`WeekOf${optVal}`).value;
     
     localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
 }
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
-    let optVal = getFileName();
     if (refID === `WeekOf${optVal}`) return;
-    
-    let obj = (optVal === "") ? getDayObj(refID.substr(0,3)) : "";
+    let day = getObjDay(refID.substr(0,3));
+
     if (byID(refID).getAttribute('type') === 'checkbox') {
         if (optVal === "") {
-            obj[refID] = (byID(refID).checked) ? true : false;  
+            objThis[day][refID] = (byID(refID).checked) ? true : false;  
         } else {
             objThis[refID] = (byID(refID).checked) ? true : false;
         } 
     } else {
         if (optVal === "") {
-            obj[refID] = byID(refID).value;
+            objThis[day][refID] = byID(refID).value;
         } else {
             objThis[refID] = byID(refID).value;
         }
@@ -338,7 +329,6 @@ function setObject(refID) {
 }
 //SET RADIO SELECTION
 function storeRadioValue(e) {
-    let optVal = getFileName();
     let parent = e.parentNode.id;
     if (parent !== `divarea${optVal}` && parent !== `divposition${optVal}`) {
         parent = e.parentNode.parentNode.id;
@@ -358,8 +348,6 @@ function storeRadioValue(e) {
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
-    let optVal = getFileName();
-    
     if (e.id === `Trainee${optVal}` || e.id === `EmpName${optVal}`) {
         e.value = properCase(e.value);
     } else if (e.id === `EmpInitials${optVal}`) {
@@ -432,7 +420,7 @@ function routeNameTransform(refID) {
     }
     
     //Completely different setup for shuttle numbers
-    if ((refID === "SHRoute1" || refID === "SHRoute2") && objThisData.Area !== "7"){
+    if ((refID === "SHRoute1" || refID === "SHRoute2") && objThis.Data.Area !== "7"){
         for (let i = refVal.length; i >= 0; i--) {
             if (isNaN(refVal.substr(i,1))) {
                 refVal = refVal.replace(refVal.substr(i,1),"");
@@ -487,7 +475,6 @@ function routeNameTransform(refID) {
 /********************FIELD TRIP SELECTOR********************/
 //FIELD TRIP MODAL
 function openFTSelector(e) {
-    let optVal = getFileName();
     showHide(`ftModal${optVal}`, true);
     activeID = e.id;
     byID(`ftselector${optVal}`).value = "";
@@ -496,9 +483,6 @@ function openFTSelector(e) {
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
-    let obj = {};
-    let optVal = getFileName();
-    if (optVal === "") obj = getDayObj(activeID.substr(0,3));
     let ftText = "";
     let ftselect = byID(`ftselector${optVal}`).value;
     if (ftselect !== null && ftselect !== "")
@@ -510,7 +494,7 @@ function storeFTVal() {
     byID(activeID).value = ftText;
     byID(activeID).disabled = false;
     if (optVal === "") {
-        obj[activeID] = ftText;
+        objThis[activeID.substr(0,3)][activeID] = ftText;
     } else {
         objThis[activeID] = ftText;
     }
@@ -544,12 +528,6 @@ function addDate(date, days) {
     copy.setDate(date.getDate() + days)
     return copy
 }
-//GET NAME OF HTML FILE
-function getFileName() {
-    const url = window.location.pathname;
-    const filename = url.substring(url.lastIndexOf('/')+1); 
-    return (filename === 'index2.html') ? 'S' : '';
-}
 /********************MISCELLANEOUS FUNCTIONS********************/
 /********************ELEMENT PROPERTY UPDATE********************/
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
@@ -564,32 +542,42 @@ function showHide(refID, bln) {
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
-    let optVal = getFileName();
-    let obj = "";
-    
+    let day = getObjDay(refID.substr(0,3));
     if (byID(refID).type === "checkbox") {
         if (optVal === "") {
-            obj = getDayObj(refID.substr(0,3));
-            obj[refID] = false;
+            objThis[day][refID] = false;
         } else {
             objThis[refID] = false;
         }
         byID(refID).checked = false;
     } else {
         if (optVal === "") {
-            obj = getDayObj(refID.substr(0,3));
-            obj[refID] = "";
+            objThis[day][refID] = "";
         } else {
             objThis[refID] = "";
         }
         byID(refID).value = "";
     }
-    
     setObject(refID);
+}
+//GET OBJ DAY OR RETURN DATA
+function getObjDay(day) {
+    switch (day) {
+        case "Mon":
+        case "Tue":
+        case "Wed":
+        case "Thu":
+        case "Fri":
+        case "Sat":
+        case "Sun":
+            return day;
+            break;
+        default:
+            return 'Data';
+    }
 }
 //RESET TIME FIELDS
 function resetTime(day, num) {
-    let optVal = getFileName();
     let refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
     resetElement(`${refID}E${optVal}`);
     resetElement(`${refID}S${optVal}`);
@@ -612,7 +600,6 @@ function popUpFT() {
 }
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
-    let optVal = getFileName();
     byID(`varDiv${optVal}`).innerHTML = msgVal;
     showHide(`variousModal${optVal}`, true);
 }

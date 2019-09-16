@@ -6073,48 +6073,8 @@
             }
         }
     </script>
-    <script>
-        let range = '';
-
-        let strHTML = '<option value="">--Select Week--</option>';
-        for (let i = -21; i < 8; i += 7) {
-            range = DateRange(i);
-            strHTML += '<option value="' + range + '">' + dateString(range) + '</option>';
-        }
-
-        document.getElementById("WeekOf").innerHTML = strHTML;
-
-        function DateRange(offset) {
-            let start = new Date();
-            let end = new Date();
-            let day = start.getDay();
-            let sOffset = (day - day) - (day + 1);
-            sOffset = (sOffset === -7) ? 0 : sOffset;
-            let eOffset = sOffset + 6;
-            start.setDate(start.getDate() + (sOffset + offset));
-            end.setDate(end.getDate() + (eOffset + offset));
-
-            let sm = start.getMonth() + 1,
-                sd = start.getDate(),
-                sy = start.getFullYear();
-            let em = end.getMonth() + 1,
-                ed = end.getDate(),
-                ey = end.getFullYear();
-            sm = (sm.toString().length === 1) ? "0" + sm : sm;
-            sd = (sd.toString().length === 1) ? "0" + sd : sd;
-            em = (em.toString().length === 1) ? "0" + em : em;
-            ed = (ed.toString().length === 1) ? "0" + ed : ed;
-            return sm + sd + sy + em + ed + ey;
-        }
-
-        function dateString(strDate) {
-            let str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
-            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
-            return str
-        }
-    </script>
-    <script src="js/js-v2.0.2/fieldtrip.js"></script>
-    <script src="js/js-v2.0.1/json.js"></script>
+    <script src="js/js-v2.0.3/fieldtrip.js"></script>
+    <script src="js/js-v2.0.3/json.js"></script>
     <script src="js/js-v2.0.3/functions.js"></script>
     <script src="js/js-v2.0.3/script.js"></script>
 </body></html>

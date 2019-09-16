@@ -1,7 +1,45 @@
-//DECLARE VARIABLES
-const routes = document.querySelectorAll('input[name="route"]');
+let range = '';
+
+let strHTML = '<option value="">--Select Week--</option>';
+for (let i = -21; i < 8; i += 7) {
+    range = DateRange(i);
+    strHTML += '<option value="' + range + '">' + dateString(range) + '</option>';
+}
 
 let weekof = document.getElementById("WeekOf");
+weekof.innerHTML = strHTML;
+
+function DateRange(offset) {
+    let start = new Date();
+    let end = new Date();
+    let day = start.getDay();
+    let sOffset = (day - day) - (day + 1);
+    sOffset = (sOffset === -7) ? 0 : sOffset;
+    let eOffset = sOffset + 6;
+    start.setDate(start.getDate() + (sOffset + offset));
+    end.setDate(end.getDate() + (eOffset + offset));
+
+    let sm = start.getMonth() + 1;
+    let sd = start.getDate();
+    let sy = start.getFullYear();
+    let em = end.getMonth() + 1;
+    let ed = end.getDate();
+    let ey = end.getFullYear();
+    sm = (sm.toString().length === 1) ? "0" + sm : sm;
+    sd = (sd.toString().length === 1) ? "0" + sd : sd;
+    em = (em.toString().length === 1) ? "0" + em : em;
+    ed = (ed.toString().length === 1) ? "0" + ed : ed;
+    return sm + sd + sy + em + ed + ey;
+}
+
+function dateString(strDate) {
+    let str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+    str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+    return str
+}
+
+//DECLARE VARIABLES
+const routes = document.querySelectorAll('input[name="route"]');
 let objThis = localStorage.getItem(`${weekof.value}Obj`);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -177,6 +215,7 @@ function loadPrevWeek(week) {
     let i = 0;
     let keyArr = Object.keys(objThis.Data);
     for (i = 0; i < keyArr.length; i += 1) {
+        if (keyArr[i].indexOf("Date") >= 0) continue;
         objThis.Data[keyArr[i]] = objTemp.Data[keyArr[i]];
     }
     for (let k = 1; k < 6; k++) {
@@ -773,7 +812,7 @@ function popUpCT() {
 
 //ENABLE OR DISABLE QL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
 function selectOWChange(e) {
-    let refID = e.currentTarget.id;
+    let refID = e.target.id;
     disableOWFields(refID);
 }
 
@@ -791,8 +830,7 @@ function disableOWFields(refID) {
     bln = (refVal === "Q/L") ? true : false;
     byID(`${day}QL${x}`).checked = bln;
     byID(`${day}QL${x}`).disabled = !bln;
-    let obj = getDayObj(day);
-    obj[`${day}QL${x}`] = bln;
+    objThis[day][`${day}QL${x}`] = bln;
 }
 
 //COPY ROUTINE FOR REGULAR WORK HOURS
@@ -843,8 +881,9 @@ function runPupilCopyRoutine() {
     showHide("variousModal", false);
     let k = 0;
     let str = "";
+    let i = 0;
 
-    for (let i = 1; i < 5; i += 1) {
+    for (i = 1; i < 5; i += 1) {
         k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
@@ -976,21 +1015,18 @@ function testEmpData() {
 
 function testFieldTrip() {
     let val = "";
-    let d = "";
-    let obj = {};
     let blnTime = false;
 
     //Check field trips
     for (let i = 0; i < 7; i += 1) {
         day = days[i];
-        obj = getDayObj(d);
         for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
-            blnTime = (obj[`${day}Time${j}`] !== "") ? true : false;
-            if (blnTime && (obj[`${day}Voucher${j}`] === "" || obj[`${day}From${j}`] === "" || obj[`${day}To${j}`] === ""))
+            blnTime = (objThis[day][`${day}Time${j}`] !== "") ? true : false;
+            if (blnTime && (objThis[day][`${day}Voucher${j}`] === "" || objThis[day][`${day}From${j}`] === "" || objThis[day][`${day}To${j}`] === ""))
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher, From and To fields cannot be blank.</p>";
 
-            if ((obj[`${day}Voucher${j}`] !== "" || obj[`${day}From${j}`] !== "" || obj[`${day}To${j}`] !== "") && !blnTime)
+            if ((objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}To${j}`] !== "") && !blnTime)
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: No time entered.</p>";
         }
     }
@@ -999,20 +1035,18 @@ function testFieldTrip() {
 
 function testOtherWork() {
     let val = "";
-    let obj = {};
 
     for (let i = 0; i < 7; i += 1) {
         let day = days[i];
-        obj = getDayObj(day);
         for (let j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
-            if (obj[`${day}Time${j}`] === "" && obj[`${day}Select${j}`] !== "" && obj[`${day}Select${j}`] !== "FYI")
+            if (objThis[day][`${day}Time${j}`] === "" && objThis[day][`${day}Select${j}`] !== "" && objThis[day][`${day}Select${j}`] !== "FYI")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
 
-            if (obj[`${day}Time${j}`] !== "" && obj[`${day}Select${j}`] === "")
+            if (objThis[day][`${day}Time${j}`] !== "" && objThis[day][`${day}Select${j}`] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
 
-            if ((obj[`${day}Select${j}`] === "OT" || obj[`${day}Select${j}`] === "FYI") && obj[`${day}Desc${j}`] === "")
+            if ((objThis[day][`${day}Select${j}`] === "OT" || objThis[day][`${day}Select${j}`] === "FYI") && objThis[day][`${day}Desc${j}`] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Description is required when Other or FYI selected.</p>";
         }
     }
@@ -1274,7 +1308,7 @@ function calculateDiff(refID) {
     "use strict";
     //If refID is null or undefined then exit function
     if (refID === null || refID === undefined) return;
-    let obj = getDayObj(refID.substr(0, 3));
+    let day = refID.substr(0, 3);
 
     //Declare variables and initialize values
     let startTime = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "S").value);
@@ -1298,7 +1332,7 @@ function calculateDiff(refID) {
             byID(totalID).value = calculateTotal(timeDiff);
     }
     //Set value of total into storage
-    obj[totalID] = byID(totalID).value;
+    objThis[day][totalID] = byID(totalID).value;
 }
 
 //CALCULATE DAILY RUN TIME
@@ -1423,7 +1457,6 @@ function checkboxQL(refID) {
     let bln = false;
     let day = refID.substr(0, 3);
     let array = [`${day}QL11`, `${day}QL12`, `${day}QL13`, `${day}QL14`, `${day}QL15`, `${day}QL16`, `${day}QL17`];
-    let obj = {};
 
     for (let i = 0; i < 7; i += 1) {
         if (array[i] === refID) {
@@ -1434,14 +1467,12 @@ function checkboxQL(refID) {
     }
     if (blnmatch) {
         for (let i = 0; i < 7; i += 1) {
-            obj = getDayObj(days[i]);
             byID(array[i]).prop("checked", bln);
-            obj[array[i]] = bln;
+            objThis[day][array[i]] = bln;
         }
     } else {
-        obj = getDayObj(day);
         bln = (byID(refID).checked) ? true : false;
-        obj[refID] = bln;
+        objThis[day][refID] = bln;
     }
 
     dailyQL(day);
