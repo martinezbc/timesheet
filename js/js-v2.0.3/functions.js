@@ -1,262 +1,26 @@
 //DECLARE VARIABLES
-let activeID = "";
-const routes = ["AMRoute1", "AMRoute2", "AMRoute3", "AMRoute4", "AMRoute5", "PMRoute1", "PMRoute2", "PMRoute3", "PMRoute4", "PMRoute5", "PSRoute1", "PSRoute2", "SHRoute1", "SHRoute2", "LRRoute1", "LRRoute2"];
+const routes = document.querySelectorAll('input[name="route"]');
 
-
-let clickEvent = (function() {
-    if ('ontouchstart' in document.documentElement === true)
-        return 'touchstart';
-    else
-        return 'click';
-})();
-
-let weekof = byID("WeekOf");
+let weekof = document.getElementById("WeekOf");
 let objThis = localStorage.getItem(`${weekof.value}Obj`);
 
-if (localStorage.getItem("WeekOf") !== null) {
-    weekof.value = localStorage.getItem("WeekOf");
-    if (weekof.value === null || weekof.value === undefined)
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem("WeekOf") !== null) {
+        weekof.value = localStorage.getItem("WeekOf");
+        if (weekof.value === null || weekof.value === undefined)
+            weekof.selectedIndex = 4;
+        initialLoad();
+    } else {
         weekof.selectedIndex = 4;
-    initialLoad();
-} else {
-    weekof.selectedIndex = 4;
-    initialLoad();
-}
-
-/********************EVENT LISTENERS********************/
-
-//Checkbox on click store into local storage
-const main = document.getElementsByClassName('main')[0];
-let checkbox = document.querySelectorAll("input[type='checkbox']");
-for (let i = 0; i < checkbox.length; i += 1) {
-    checkbox[i].addEventListener("click", (e) => {
-        setObject(e.target.id);
-    });
-}
-
-//Radio on change store into local storage
-let radio = document.querySelectorAll("input[type='radio']");
-for (let i = 0; i < radio.length; i += 1) {
-    radio[i].addEventListener("change", storeRadioValue);
-}
-
-//Textbox on change
-let textbox = document.querySelectorAll("input[type='text'], input[type='number']");
-for (let i = 0; i < textbox.length; i += 1) {
-    textbox[i].addEventListener("change", textboxOnChange);
-}
-
-//Make selection on select element
-let select = document.querySelectorAll("select");
-for (let i = 0; i < select.length; i += 1) {
-    select[i].addEventListener("change", (e) => {
-        setObject(e.target.id);
-    });
-}
-
-weekof.addEventListener('change', () => {
-    initialLoad();
+        initialLoad();
+    }
 });
-
-//Area selection
-let radioarea = document.querySelectorAll("input[name='Area']");
-for (let i = 0; i < radioarea.length; i += 1) {
-    radioarea[i].addEventListener("change", radioAreaSelect);
-}
-
-//OJT checked
-let chkOJT = document.querySelectorAll("input[name='chkOJT']");
-for (let i = 0; i < chkOJT.length; i += 1) {
-    chkOJT[i].addEventListener("click", checkOJT);
-}
-
-//J checked
-let chkJ = document.querySelectorAll("input[name='chkJ']");
-for (let i = 0; i < chkJ.length; i += 1) {
-    chkJ[i].addEventListener("click", toggleJReg);
-}
-
-//Leave checked
-let chkLV = document.querySelectorAll("input[name='chkLV']");
-for (let i = 0; i < chkLV.length; i += 1) {
-    chkLV[i].addEventListener("click", checkLeave);
-}
-
-//Position changed
-let position = document.querySelectorAll("input[name='Position']");
-for (let i = 0; i < position.length; i += 1) {
-    position[i].addEventListener("change", positionChange);
-}
-
-//QL checked
-let chkQL = document.querySelectorAll("input[name='chkQL']");
-for (let i = 0; i < chkQL.length; i += 1) {
-    chkQL[i].addEventListener("click", toggleQLReg);
-}
-
-let chkFTQL = document.querySelectorAll("input[name='chkFTQL']");
-for (let i = 0; i < chkFTQL.length; i += 1) {
-    chkFTQL[i].addEventListener("click", getDailyTotals);
-}
-
-//Add Other Work click
-let addOW = document.querySelectorAll(".addOW");
-for (let i = 0; i < addOW.length; i += 1) {
-    addOW[i].addEventListener("click", addOtherWork);
-}
-//Add Field Trip click
-let addFT = document.querySelectorAll(".addFT");
-for (let i = 0; i < addFT.length; i += 1) {
-    addFT[i].addEventListener("click", addFieldTrip);
-}
-
-//Add Leave click
-let addLV = document.querySelectorAll(".addLV");
-for (let i = 0; i < addLV.length; i += 1) {
-    addLV[i].addEventListener("click", (e) => {
-        addLeave(e.target);
-    });
-}
-
-//Click on Trash Alt
-let faTrashAlt = document.querySelectorAll(".fa-trash-alt");
-for (let i = 0; i < faTrashAlt.length; i += 1) {
-    faTrashAlt[i].addEventListener("click", removeOWFT);
-}
-
-//Click in time fields to open Time Selector
-let txtTime = document.querySelectorAll("input[name='txtTime']");
-for (let i = 0; i < txtTime.length; i += 1) {
-    txtTime[i].addEventListener("click", openTimeSelector);
-}
-
-//Click in time fields to open Time Selector
-let txtFT = document.querySelectorAll("input[name='txtFT']");
-for (let i = 0; i < txtFT.length; i += 1) {
-    txtFT[i].addEventListener("click", openFTSelector);
-}
-
-//Click on other work question mark
-let ow = document.querySelectorAll(".ow");
-for (let i = 0; i < ow.length; i += 1) {
-    ow[i].addEventListener("click", popUpOW);
-}
-
-//Click on field trip question mark
-let ft = document.querySelectorAll(".ft");
-for (let i = 0; i < ft.length; i += 1) {
-    ft[i].addEventListener("click", popUpFT);
-}
-
-let owdesc = document.querySelectorAll("input[name='owdesc']");
-for (let i = 0; i < owdesc.length; i++) {
-    owdesc[i].addEventListener("keyup", () => {
-        let num = owdesc[i].id.substr(-2);
-        let day = owdesc[i].id.substr(0, 3);
-        if (byID(`${day}Select${num}`).value === "FYI")
-            limitCharacters(owdesc[i].id, 60);
-        else
-            limitCharacters(owdesc[i].id, 35);
-    });
-}
-
-//Close Time selector
-byID("closeTime").addEventListener("click", () => {
-    byID(activeID).disabled = false;
-    showHide("timeModal", false);
+              
+weekof.addEventListener('change', initialLoad);
+const copy = document.querySelectorAll('.fa-copy');
+Array.from(copy).forEach( (e) => {
+    e.addEventListener('click', copyRoutine);
 });
-
-//Close Field Trip selector
-byID("closeFT").addEventListener("click", () => {
-    byID(activeID).disabled = false;
-    showHide("ftModal", false);
-});
-
-//Close various modal
-byID("endVarious").addEventListener("click", () => {
-    showHide("variousModal", false)
-});
-
-//Close validation modal
-byID("endValidate").addEventListener("click", () => {
-    showHide("validateModal", false)
-});
-
-//If route name is updated, store name and then run loadQL
-for (let i = 0; i < routes.length; i += 1)
-    byID(routes[i]).addEventListener("change", routeNameCheck);
-
-//Click on pupil counts question mark
-byID("ctspan").addEventListener("click", popUpCT);
-
-//Click on checkmark on time selector
-byID("goTime").addEventListener("click", function () {
-    let timetext = byID("hours").innerHTML;
-    timetext += ":" + byID("minutes").innerHTML;
-    timetext += " " + byID("meridiem").innerHTML;
-    byID(activeID).disabled = false;
-    byID(activeID).value = timetext;
-    showHide("timeModal", false);
-    timeCalculation(activeID);
-    setObject(activeID);
-});
-
-//Click on checkmark on field trip selector
-byID("goFT").addEventListener("click", storeFTVal);
-
-//Close Tutorial Modal
-byID("endChanges").addEventListener("click", () => {
-    showHide("changesModal", false);
-});
-
-//Veh textbox keyup
-let veh = document.querySelectorAll("#Veh1, #Veh2, #Veh3, #Veh4");
-for (let i = 0; i < veh.length; i += 1) {
-    veh[i].addEventListener("keyup", () => {
-        limitCharacters(veh[i].id, 4)
-    });
-}
-
-//Up and Down arrow on click
-let timeArrows = document.querySelectorAll(".up, .down, .up2, .down2");
-for (let i = 0; i < timeArrows.length; i += 1) {
-    timeArrows[i].addEventListener("click", timeSelectors);
-}
-
-//Times on click
-let faTimes = document.querySelectorAll(".fa-times");
-for (let i = 0; i < faTimes.length; i += 1) {
-    faTimes[i].addEventListener("click", clearTimeField);
-}
-
-//Copy on click
-let faCopy = document.querySelectorAll(".fa-copy");
-for (let i = 0; i < faCopy.length; i += 1) {
-    faCopy[i].addEventListener("click", copyRoutine);
-}
-
-//Clear on click
-byID("clear").addEventListener("click", () => openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>'));
-
-byID("divtutorial").addEventListener(clickEvent, () => {
-    showHide("changesModal", true);
-});
-
-//Add on Change event listening to Select Other Work
-let selectOW = document.querySelectorAll("select[name='selectOW']");
-for (let i = 0; i < selectOW.length; i += 1) {
-    selectOW[i].addEventListener("change", selectOWChange);
-}
-
-byID("navbtn").addEventListener("click", () => {
-    showHide("navbtn", true);
-});
-
-byID("divpreview").addEventListener(clickEvent, completeTimesheet);
-
-byID("divsupplement").addEventListener(clickEvent, openSupplement);
-
-/********************EVENT LISTENERS********************/
 
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
@@ -277,20 +41,17 @@ function initialLoad() {
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
 function loadLocalStorage() {
-    let keyArr = 0;
-    let key = "";
     let objArray = [objThis.Data, objThis.Sat, objThis.Sun, objThis.Mon, objThis.Tue, objThis.Wed, objThis.Thu, objThis.Fri];
 
     for (let j = 0; j < objArray.length; j++) {
-        keyArr = Object.keys(objArray[j]);
-        for (let i = 0; i < keyArr.length; i += 1) {
-            key = keyArr[i];
+        let entries = Object.entries(objArray[j]);
+        for (const [key, value] of entries) {
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
             if (byID(key) === null) continue;
-            if (objArray[j][key] === true || objArray[j][key] === false) {
-                byID(key).checked = objArray[j][key];
+            if (value === true || value === false) {
+                byID(key).checked = value;
             } else {
-                byID(key).value = objArray[j][key];
+                byID(key).value = value;
             }
         }
     }
@@ -299,40 +60,30 @@ function loadLocalStorage() {
 
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
 function loadRadioSelection() {
-    let area = objThis.Data.Area;
-    let team = objThis.Data.Team;
+    const area = objThis.Data.Area;
+    const team = objThis.Data.Team;
     let pos = objThis.Data.Position;
-    let areas = "";
-    let teams = "";
-    let poss = "";
     //Load area from local storage and set radio selection
-    if (area !== "") {
-        byID("area" + area).checked = true;
-    } else {
-        areas = document.querySelectorAll("input[name='Area']");
-        for (let i = 0; i < areas.length; i += 1)
-            areas[i].checked = false;
+    for (const areas of document.querySelectorAll("input[name='Area']")) {
+        areas.checked = false;
     }
+    if (area !== "") byID("area" + area).checked = true;
 
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    if (team !== "" && (team.substr(0, 1) === area || area === '7')) {
-        byID("team" + team).checked = true;
-    } else {
-        teams = document.querySelectorAll('input[name="Team"]');
-        for (let i = 0; i < teams.length; i += 1)
-            teams[i].checked = false;
+    for (const teams of document.querySelectorAll('input[name="Team"]')) {
+        teams.checked = false;
     }
-
+    if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
+    
     //Load position from local storage and set radio selection
+    for (const positions of document.querySelectorAll('input[name="Position"]')) {
+        positions.checked = false;
+    }
     if (pos !== "") {
         pos = pos.replace(" ", "");
         byID("pos" + pos).checked = true;
-    } else {
-        poss = document.querySelectorAll('input[name="Position"]');
-        for (let i = 0; i < poss.length; i += 1)
-            poss[i].checked = false;
     }
 }
 
@@ -342,13 +93,13 @@ function loadTeamValues() {
     const area = objThis.Data.Area;
 
     let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
-    for (let i = 0; i < areadiv.length; i += 1) {
-        if ("div" + area === areadiv[i]) {
-            showHide(areadiv[i], true);
-        } else {
-            showHide(areadiv[i], false);
-        }
+    for (const div of areadiv) {
+        if ("div" + area === div)
+            showHide(div, true);
+        else
+            showHide(div, false);
     }
+
     if (area === "TC") {
         byID("teamTC").checked = true;
         objThis.Data.Team = "TC";
@@ -368,10 +119,7 @@ function storeWeek() {
     let week = weekof.value;
     if (localStorage.getItem(`${week}Obj`) === null) {
         objThis = objNew;
-
-        //Parse JSON into objects
-        parseData();
-
+        
         storeWeekDays(week);
 
         loadPrevWeek(week);
@@ -379,9 +127,6 @@ function storeWeek() {
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}Obj`));
-
-        //Parse JSON into objects
-        parseData();
 
         storeWeekDays(week);
     }
@@ -392,37 +137,33 @@ function storeWeek() {
 
 function storeWeekDays(week) {
     //Store first day of week range in y and shortened date in ny
-    let startDate = week.substr(0, 2) + "/" + week.substr(2, 2) + "/" + week.substr(4, 4);
-
-    //Store second day of week range in z and shortened date in nz
-    let endDate = week.substr(8, 2) + "/" + week.substr(10, 2) + "/" + week.substr(12, 4);
+    const startDate = week.substr(0, 2) + "/" + week.substr(2, 2) + "/" + week.substr(4, 4);
+    const endDate = week.substr(8, 2) + "/" + week.substr(10, 2) + "/" + week.substr(12, 4);
+    
     let satDate = new Date(startDate);
-    let sm;
-    let sd;
 
     objThis.Data.SatDate = startDate.substr(0, 5);
     objThis.Data.FriDate = endDate.substr(0, 5);
 
     for (let i = 4; i >= 0; i--) {
-        newDay = addDate(satDate, i + 1);
-        sm = newDay.getMonth() + 1;
-        sd = newDay.getDate();
+        let newDay = addDate(satDate, i + 1);
+        let sm = newDay.getMonth() + 1;
+        let sd = newDay.getDate();
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
         objThis.Data[`${days[i]}Date`] = sm + "/" + sd;
     }
 }
 
-function parseData() {
-//    objThis.Data = objThis.Data
-//    objThisSat = objThis.Sat;
-//    objThisSun = objThis.Sun;
-//    objThisMon = objThis.Mon;
-//    objThisTue = objThis.Tue;
-//    objThisWed = objThis.Wed;
-//    objThisThu = objThis.Thu;
-//    objThisFri = objThis.Fri;
+function limitOWDesc(e) {
+    let num = e.target.id.substr(-2);
+    let day = e.target.id.substr(0, 3);
+    if (byID(`${day}Select${num}`).value === "FYI")
+        limitCharacters(e, 60);
+    else
+        limitCharacters(e, 35);
 }
+
 
 //PULL DATA FROM PREVIOUS WEEK INTO NEW WEEK
 function loadPrevWeek(week) {
@@ -438,30 +179,13 @@ function loadPrevWeek(week) {
     for (i = 0; i < keyArr.length; i += 1) {
         objThis.Data[keyArr[i]] = objTemp.Data[keyArr[i]];
     }
-    for (i = 11; i < 18; i += 1) {
-        objThis.Mon[`MonTime${i}S`] = objTemp.Mon[`MonTime${i}S`];
-        objThis.Mon[`MonTime${i}E`] = objTemp.Mon[`MonTime${i}E`];
-        objThis.Mon[`MonTime${i}`] = objTemp.Mon[`MonTime${i}`];
-    }
-    for (i = 11; i < 18; i += 1) {
-        objThis.Tue[`TueTime${i}S`] = objTemp.Tue[`TueTime${i}S`];
-        objThis.Tue[`TueTime${i}E`] = objTemp.Tue[`TueTime${i}E`];
-        objThis.Tue[`TueTime${i}`] = objTemp.Tue[`TueTime${i}`];
-    }
-    for (i = 11; i < 18; i += 1) {
-        objThis.Wed[`WedTime${i}S`] = objTemp.Wed[`WedTime${i}S`];
-        objThis.Wed[`WedTime${i}E`] = objTemp.Wed[`WedTime${i}E`];
-        objThis.Wed[`WedTime${i}`] = objTemp.Wed[`WedTime${i}`];
-    }
-    for (i = 11; i < 18; i += 1) {
-        objThis.Thu[`ThuTime${i}S`] = objTemp.Thu[`ThuTime${i}S`];
-        objThis.Thu[`ThuTime${i}E`] = objTemp.Thu[`ThuTime${i}E`];
-        objThis.Thu[`ThuTime${i}`] = objTemp.Thu[`ThuTime${i}`];
-    }
-    for (i = 11; i < 18; i += 1) {
-        objThis.Fri[`FriTime${i}S`] = objTemp.Fri[`FriTime${i}S`];
-        objThis.Fri[`FriTime${i}E`] = objTemp.Fri[`FriTime${i}E`];
-        objThis.Fri[`FriTime${i}`] = objTemp.Fri[`FriTime${i}`];
+    for (let k = 1; k < 6; k++) {
+        let day = days[k];
+        for (i = 11; i < 18; i += 1) {
+            objThis[day][`${day}Time${i}S`] = objTemp[day][`${day}Time${i}S`];
+            objThis[day][`${day}Time${i}E`] = objTemp[day][`${day}Time${i}E`];
+            objThis[day][`${day}Time${i}`] = objTemp[day][`${day}Time${i}`];
+        }    
     }
 }
 
@@ -533,15 +257,15 @@ function loadOJT() {
         resetElement("Trainee");
     }
 
-    let ojt = document.querySelectorAll("input[name='chkOJT']");
-    for (let i = 0; i < ojt.length; i += 1) {
-        if (ojt[i].id === "OJT") continue;
-        day = ojt[i].id.substr(0, 3);
+    const chkOJT = document.querySelectorAll("input[name='chkOJT']");
+    for (const ojt of chkOJT) {
+        if (ojt.id === "OJT") continue;
+        day = ojt.id.substr(0, 3);
         if (!byID(`${day}LeaveAD`).checked)
-            ojt[i].disabled = !bln;
+            ojt.disabled = !bln;
         else
-            ojt[i].disabled = true;
-        if (!bln) resetElement(ojt[i].id);
+            ojt.disabled = true;
+        if (!bln) resetElement(ojt.id);
     }
 }
 
@@ -551,16 +275,15 @@ function loadQL() {
     let val = "";
 
     let eql = document.querySelectorAll("input[name='chkQL']");
-    for (let i = 1; i < 6; i += 1) {
-        let day = days[i];
+    for (const day of days) {
+        if (day === "Sat" || day === "Sun") continue;
         if (!byID(`${day}LeaveAD`).checked)
             byID(`${day}QL11`).disabled = !bln;
         else
             byID(`${day}QL11`).disabled = true;
         if (!bln) resetElement(`${day}QL11`);
     }
-    for (let i = 0; i < 7; i += 1) {
-        let day = days[i];
+    for (const day of days) {
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j > 22) continue;
             disableOWFields(`${day}Select${j}`);
@@ -571,8 +294,8 @@ function loadQL() {
 function loadJ() {
     let bln = routeCheckJ();
 
-    for (let i = 1; i < 6; i += 1) {
-        let day = days[i];
+    for (let day of days) {
+        if (day === "Sun" || day === "Sat") continue;
         if (!byID(`${day}LeaveAD`).checked)
             byID(`${day}J11`).disabled = !bln;
         else
@@ -590,8 +313,8 @@ function loadLeave() {
 
 //IF Q/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
 function toggleQLReg(e) {
-    let bln = (e.currentTarget.checked) ? true : false;
-    let day = e.currentTarget.id.substr(0, 3);
+    let bln = (e.checked) ? true : false;
+    let day = e.id.substr(0, 3);
 
     byID(`${day}QL11`).checked = bln;
     setObject(`${day}QL11`);
@@ -601,8 +324,8 @@ function toggleQLReg(e) {
 
 //IF J IS CHECKED, THEN CHECK ALL OF THEM
 function toggleJReg(e) {
-    let bln = (e.target.checked) ? true : false;
-    let day = e.target.id.substr(0, 3);
+    let bln = (e.checked) ? true : false;
+    let day = e.id.substr(0, 3);
 
     byID(`${day}J11`).checked = bln;
     setObject(`${day}J11`);
@@ -612,20 +335,15 @@ function toggleJReg(e) {
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
 function toggleOWFT() {
-    let obj = {};
-    let bln = false;
-
-    for (let i = 0; i < 7; i += 1) {
-        let day = days[i];
-        obj = getDayObj(`${day}`); 
+    for (const day of days) {
         for (let j = 20; j < 30; j++) {
-            if ((i === 0 || i === 6) && j > 22) continue;
-            bln = (obj[`${day}Select${j}`] !== "" || obj[`${day}Desc${j}`] !== "" || obj[`${day}Time${j}`] !== "") ? true : false
+            if ((day === "Sat" || day === "Sun") && j > 22) continue;
+            let bln = (objThis[day][`${day}Select${j}`] !== "" || objThis[day][`${day}Desc${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false
             showHide(`${day}OWDiv${j}`, bln);
         }
         for (let j = 30; j < 35; j++) {
-            if ((i === 0 || i === 6) && j > 32) continue;
-            bln = (obj[`${day}Voucher${j}`] !== "" || obj[`${day}To${j}`] !== "" || obj[`${day}From${j}`] !== "" || obj[`${day}Time${j}`] !== "") ? true : false;
+            if ((day === "Sat" || day === "Sun") && j > 32) continue;
+            let bln = (objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}To${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false;
             showHide(`${day}FTDiv${j}`, bln);
         }
     }
@@ -633,13 +351,9 @@ function toggleOWFT() {
 
 //TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
 function toggleLeave() {
-    let bln = false;
-    let obj = {};
-
-    for (let i = 1; i < 6; i += 1) {
-        let day = days[i];
-        obj = getDayObj(day);
-        bln = (obj[`${day}LeaveAD`] || obj[`${day}Time41`] !== "" || obj[`${day}Time42`] !== "") ? true : false;
+    for (const day of days) {
+        if (day === "Sat" || day === "Sun") continue;
+        let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time41`] !== "" || objThis[day][`${day}Time42`] !== "") ? true : false;
         if (bln)
             addLeave(byID(`${day}LVAdd`));
     }
@@ -664,7 +378,7 @@ function togglePupilCounts(x) {
 
     //Loop through days array
     for (let j = 1; j < 6; j++) {
-        let day = days[j];
+        const day = days[j];
         bln = (x === j) ? true : false;
         bln = (blnPos) ? bln : false;
         for (let i = 1; i < 6; i += 1) {
@@ -704,7 +418,7 @@ function changeModalSlide(dir) {
 
 //TOGGLE PUPIL COUNTS ON POSITION CHANGE
 function positionChange(e) {
-    for (let i = 0; i < 7; i += 1) {
+    for (let i = 0; i < 7; i++) {
         if (byID("today").innerHTML.substr(0, 3) === days[i]) {
             togglePupilCounts(i);
             break;
@@ -790,7 +504,7 @@ function radioAreaSelect(e) {
 
 //OJT CHECKBOX CLICK
 function checkOJT(e) {
-    let refID = e.currentTarget.id;
+    let refID = e.id;
     if (refID === "OJT") loadOJT();
     getDailyTotals();
 }
@@ -805,8 +519,8 @@ function routeCheck() {
     let bln = false;
     let val = "";
     for (let i = 0; i < routes.length; i += 1) {
-        val = byID(routes[i]).value;
-        if (val === null) continue;
+        val = routes[i].value;
+        if (val === null) continue; 
         bln = (val.lastIndexOf("L") > 3 || val.lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
     }
@@ -819,7 +533,7 @@ function routeCheckJ() {
     let bln = false;
     let val = "";
     for (let i = 0; i < routes.length; i += 1) {
-        val = byID(routes[i]).value;
+        val = routes[i].value;
         if (val === null) continue;
         bln = (val.lastIndexOf("J") > 3) ? true : false;
         if (bln) return bln;
@@ -830,8 +544,7 @@ function routeCheckJ() {
 
 //TOGGLE OTHER WORK FIELDS
 function addOtherWork(e) {
-    let refID = e.currentTarget.id;
-    let dayVal = refID.substr(0, 3);
+    let dayVal = e.target.id.substr(0, 3);
     let countOW = getMissingOW(dayVal);
     if (countOW === 30) return;
     showHide(`${dayVal}OWDiv${countOW}`, true);
@@ -839,8 +552,7 @@ function addOtherWork(e) {
 
 //TOGGLE FIELD TRIP FIELDS
 function addFieldTrip(e) {
-    let refID = e.currentTarget.id;
-    let dayVal = refID.substr(0, 3);
+    let dayVal = e.target.id.substr(0, 3);
     let countFT = getMissingFT(dayVal);
 
     //Exit function if count is 5
@@ -850,10 +562,9 @@ function addFieldTrip(e) {
 
 //TOGGLE OTHER WORK AND FIELD TRIP FIELDS OFF
 function removeOWFT(e) {
-    let refID = e.currentTarget.id;
-    let x = refID.substr(-2);
-    let type = refID.substr(3, 2);
-    let dayVal = refID.substr(0, 3);
+    let x = e.target.id.substr(-2);
+    let type = e.target.id.substr(3, 2);
+    let dayVal = e.target.id.substr(0, 3);
 
     showHide(`${dayVal}${type}Div${x}`, false);
     if (type === "FT") {
@@ -875,9 +586,8 @@ function removeOWFT(e) {
 
 //CLEAR TIME FIELDS
 function clearTimeField(e) {
-    let fieldID = e.target.id;
-    let day = fieldID.substr(0, 3),
-        num = fieldID.substr(10);
+    let day = e.target.id.substr(0, 3),
+        num = e.target.id.substr(10);
 
     if (num === "41" || num === "42") {
         resetElement(`${day}LeaveSelect${num}`);
@@ -923,7 +633,7 @@ function getMissingFT(day) {
 
 //SHOW THE LEAVE SECTION
 function addLeave(e) {
-    let refID = e.id;
+    let refID = e.target.id;
     let dayVal = refID.substr(0, 3);
     if (byID(`${dayVal}Leave40`).classList.contains("hide")) {
         byID(`${dayVal}LvP`).innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
@@ -953,7 +663,7 @@ function resetLeave(day) {
 
 //GET ALL DAY LEAVE ON EVENT CLICK
 function checkLeave(e) {
-    toggleADLeave(e.currentTarget.id);
+    toggleADLeave(e.id);
     getDailyTotals();
 }
 
@@ -968,14 +678,18 @@ function toggleADLeave(refID) {
     if (bln) {
         //Uncheck Admin
         byID(`${day}J11`).checked = false;
+        
         //Uncheck Equipment
         byID(`${day}QL11`).checked = false;
+        
         //Clear Other work
         for (i = 20; i < 30; i += 1)
             byID(`${day}OWTrash${i}`).click();
+        
         //Clear Field Trips
         for (i = 30; i < 35; i += 1)
             byID(`${day}FTTrash${i}`).click();
+        
         //Clear regular run time
         for (i = 11; i < 18; i += 1) {
             resetTime(day, i);
@@ -984,6 +698,7 @@ function toggleADLeave(refID) {
         //Clear partial leave time
         for (i = 41; i < 43; i += 1)
             resetTime(day, i);
+        
         //Clear pupil counts
         for (i = 1; i < 6; i += 1) {
             resetElement(`${day}AM${i}Ct`);
@@ -1082,14 +797,12 @@ function disableOWFields(refID) {
 
 //COPY ROUTINE FOR REGULAR WORK HOURS
 function copyRoutine(e) {
-    let refID = e.currentTarget.id;
-    activeID = refID;
-    let str = "";
-    if (refID === "AMPupilcopy" || refID === "PMPupilcopy") {
-        str = runPupilCopyRoutine();
+    activeID = e.target.id;
+    if (e.target.id === "AMPupilcopy" || e.target.id === "PMPupilcopy") {
+        let str = runPupilCopyRoutine();
         openPopUp('<p class="varp">Pupil time copied to the following day(s): ' + str + '.</p>');
     } else {
-        str = runCopyRoutine();
+        let str = runCopyRoutine();
         openPopUp('<p class="varp">Regular work hours copied to the following day(s): ' + str + '.</p>');
     }
 }
@@ -1129,30 +842,26 @@ function runCopyRoutine() {
 function runPupilCopyRoutine() {
     showHide("variousModal", false);
     let k = 0;
-    let bln = false;
     let str = "";
-    let obj;
-    let i = 0;
 
-    for (i = 1; i < 5; i += 1) {
+    for (let i = 1; i < 5; i += 1) {
         k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
     const day2 = days[i];
     k++;
     for (k; k < 6; k++) {
-        let day = days[k];
-        bln = (byID(`${day}LeaveAD`).checked) ? true : false;
+        const day = days[k];
+        const bln = (byID(`${day}LeaveAD`).checked) ? true : false;
         if (bln) continue;
-        obj = getDayObj(day);
         byID(`${day}TimeA`).value = byID(`${day2}TimeA`).value;
-        obj[`${day}TimeA`] = byID(`${day2}TimeA`).value;
+        setObject(`${day}TimeA`);
         byID(`${day}TimeB`).value = byID(`${day2}TimeB`).value;
-        obj[`${day}TimeB`] = byID(`${day2}TimeB`).value;
+        setObject(`${day}TimeB`);
         byID(`${day}TimeC`).value = byID(`${day2}TimeC`).value;
-        obj[`${day}TimeC`] = byID(`${day2}TimeC`).value;
+        setObject(`${day}TimeC`);
         byID(`${day}TimeD`).value = byID(`${day2}TimeD`).value;
-        obj[`${day}TimeD`] = byID(`${day2}TimeD`).value;
+        setObject(`${day}TimeD`);
         str += ", " + day;
     }
     setStorage();
@@ -1290,12 +999,11 @@ function testFieldTrip() {
 
 function testOtherWork() {
     let val = "";
-    let d = "";
     let obj = {};
 
     for (let i = 0; i < 7; i += 1) {
-        d = days[i];
-        obj = getDayObj(d);
+        let day = days[i];
+        obj = getDayObj(day);
         for (let j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
             if (obj[`${day}Time${j}`] === "" && obj[`${day}Select${j}`] !== "" && obj[`${day}Select${j}`] !== "FYI")

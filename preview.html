@@ -41,42 +41,9 @@
         }
 
     </style>
-    <script>
-        function byID(refID) {
-            return document.getElementById(refID);
-        }
-
-        function downloadTimesheet() {
-            window.open("timesheet.html", "_self");
-        }
-
-        function dateString(strDate) {
-            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
-            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
-            return str
-        }
-
-    </script>
 </head>
 
 <body>
-    <script src="js/js-v2.0.1/json.js"></script>
-    <script>
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-        var week = localStorage.getItem('WeekOf');
-        objThis = JSON.parse(localStorage.getItem(week + "Obj"));
-        objThisData = objThis.Data
-        objThisSat = objThis.Sat;
-        objThisSun = objThis.Sun;
-        objThisMon = objThis.Mon;
-        objThisTue = objThis.Tue;
-        objThisWed = objThis.Wed;
-        objThisThu = objThis.Thu;
-        objThisFri = objThis.Fri;
-
-    </script>
     <div class="header">
         <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
         <div id="navbarmodal" class="dropdown">
@@ -97,28 +64,58 @@
                 <p class="daily">Employee Data</p>
             </div>
             <div class="row">
-                <div class="col-6" id="divpweek"></div>
-                <div class="col-6" id="divpemp"></div>
+                <div class="col-6" id="divpweek">
+                    <p><b>Week Range: </b></p>
+                </div>
+                <div class="col-6" id="divpemp">
+                    <p><b>Name: </b></p>
+                </div>
             </div>
             <div class="row">
-                <div class="col-4" id="divparea"></div>
-                <div class="col-4" id="divpteam"></div>
-                <div class="col-4" id="divpposition"></div>
+                <div class="col-4" id="divparea">
+                    <p><b>Area: </b></p>
+                </div>
+                <div class="col-4" id="divpteam">
+                    <p><b>Team: </b></p>
+                </div>
+                <div class="col-4" id="divpposition">
+                    <p><b>Position: </b></p>
+                </div>
             </div>
             <div class="row">
-                <div class="col-2" id="divpojt"></div>
-                <div class="col-4" id="divptrainee"></div>
-                <div class="col-2" id="divpveh1"></div>
-                <div class="col-4" id="divpspares"></div>
+                <div class="col-2" id="divpojt">
+                    <p><b>OJT Trainer: </b></p>
+                </div>
+                <div class="col-4" id="divptrainee">
+                    <p><b>Trainee: </b></p>
+                </div>
+                <div class="col-2" id="divpveh1">
+                    <p><b>Vehicle: </b></p>
+                </div>
+                <div class="col-4" id="divpspares">
+                    <p><b>Spares: </b></p>
+                </div>
             </div>
         </div>
         <div class="card">
             <div class="row">
                 <p class="daily">PUPIL COUNTS</p>
             </div>
-            <div class="bg-teal1 tinycard" id="divpamruns"></div>
-            <div class="bg-teal1 tinycard" id="divppmruns"></div>
-            <div class="bg-teal1 tinycard" id="divppsshlr"></div>
+            <div class="bg-teal1 tinycard" id="divpamruns">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">Morning</div>
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard" id="divppmruns">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">Afternoon</div>
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard" id="divppsshlr">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">PS / SH / LR</div>
+                </div>
+            </div>
         </div>
         <div class="card">
             <div class="row">
@@ -175,47 +172,405 @@
                 <p class="daily">TOTALS</p>
             </div>
             <div class="row">
-                <div class="col-sm-3" id="divptotalrun"></div>
-                <div class="col-sm-3" id="divptotalother"></div>
-                <div class="col-sm-3" id="divptotalft"></div>
-                <div class="col-sm-3" id="divptotalhw"></div>
+                <div class="col-sm-3" id="divptotalrun">
+                    <p class="bold-lg">REGULAR:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalother">
+                    <p class="bold-lg">OTHER:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalft">
+                    <p class="bold-lg">FIELD TRIP:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalhw">
+                    <p class="bold-lg">HOURS WORKED:&nbsp;</p>
+                </div>
             </div>
             <hr class="border-grey">
             <div class="row">
-                <div class="col-sm-2" id="divptotal1r"></div>
-                <div class="col-sm-2" id="divptotals4ojt"></div>
-                <div class="col-sm-2" id="divptotals4j"></div>
-                <div class="col-sm-2" id="divptotals2ql"></div>                
-                <div class="col-sm-2" id="divptotalc3"></div>
-                <div class="col-sm-2" id="divptotalc1"></div>
+                <div class="col-sm-2" id="divptotal1r">
+                    <p class="bold-lg">1R (Regular):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals4ojt">
+                    <p class="bold-lg">S4 (OJT):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals4j">
+                    <p class="bold-lg">S4 (J):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals2ql">
+                    <p class="bold-lg">S2 (Q/L):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotalc3">
+                    <p class="bold-lg">C3:&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotalc1">
+                    <p class="bold-lg">C1:&nbsp;</p>
+                </div>
             </div>
         </div>
     </div>
-    <script src="js/js-v2.0.2/script.js"></script>
     <script>
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+        const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const week = localStorage.getItem('WeekOf');
+        const objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+
+        function byID(refID) {
+            return document.getElementById(refID);
+        }
+
+        function downloadTimesheet() {
+            window.open("timesheet.html", "_self");
+        }
+
+        function dateString(strDate) {
+            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+            return str
+        }
+
+        function showHide(refID, bln) {
+            let el = byID(refID);
+            //(Show the element) ? remove hide : add hide
+            if (bln) {
+                if (el.classList.contains("hide")) el.classList.remove("hide");
+            } else {
+                if (!el.classList.contains("hide")) el.classList.add("hide");
+            }
+        }
         //Click on menu, toggle menu on and off
         window.onclick = function(event) {
-            var bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
+            const bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
 
-            if (event.target.id !== 'tsbtn') {
+            if (event.target.id !== 'tsbtn')
                 showHide("tsdropdown", false);
-            } else {
+            else
                 showHide("tsdropdown", bln);
-            }
         }
 
         window.ontouchstart = function(event) {
-            var bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
+            const bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
 
-            if (event.target.id !== 'tsbtn') {
+            if (event.target.id !== 'tsbtn')
                 showHide("tsdropdown", false);
-            } else {
+            else
                 showHide("tsdropdown", bln);
-            }
         }
 
+        function print(strHTML, element) {
+            element.innerHTML += strHTML;
+        }
+
+        let strHTML = '';
+        print(dateString(objThis.Data.WeekOf), byID("divpweek").children[0]);
+        print(objThis.Data.EmpName, byID("divpemp").children[0]);
+        print(objThis.Data.Area, byID("divparea").children[0]);
+        print(objThis.Data.Team, byID("divpteam").children[0]);
+        print(objThis.Data.Position, byID("divpposition").children[0]);
+        if (objThis.Data.OJT) {
+            strHTML = '<input id="chkboxojt" type="checkbox" checked="checked" disabled><label for="chkboxojt">OJT</label>';
+        } else {
+            strHTML = '<input id="chkboxojt" type="checkbox" disabled><label for="chkboxojt">OJT</label>';
+        }
+        print(strHTML, byID("divpojt").children[0]);
+        print(objThis.Data.Trainee, byID("divptrainee").children[0]);
+        print(objThis.Data.Veh1, byID("divpveh1").children[0]);
+        strHTML = ((objThis.Data.Veh2 !== "") ? objThis.Data.Veh2 : "") + ((objThis.Data.Veh3 !== "") ? "/" + objThis.Data.Veh3 : "") + ((objThis.Data.Veh4 !== "") ? "/" + objThis.Data.Veh4 : "");
+        print(strHTML, byID("divpspares").children[0]);
+
+        //********************DIV AM RUNS********************//
+        strHTML = '';
+        strHTML += `<div class="row"><div class="col-sm-4"><p><b>AM: </b>${objThis.Data.AMRoute1}</p></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}` + ':&nbsp;' + `${objThis[day][day + "AM1Ct"]}</p></div>`;
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>${objThis.Data.AMRoute2}</p></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}` + ':&nbsp;' + `${objThis[day][day + "AM2Ct"]}</p></div>`;
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>${objThis.Data.AMRoute3}</p></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}` + ':&nbsp;' + `${objThis[day][day + "AM3Ct"]}</p></div>`;
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>${objThis.Data.AMRoute4}</p></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}` + ':&nbsp;' + `${objThis[day][day + "AM4Ct"]}</p></div>`;
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>AM: </b>${objThis.Data.AMRoute5}</p></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}` + ':&nbsp;' + `${objThis[day][day + "AM5Ct"]}</p></div>`;
+        strHTML += `</div><div class="row"><div class="col-sm-4"></div>`;
+        for (const day of weekdays)
+            strHTML += `<div class="col"><p>${objThis[day][day + "TimeA"].replace(" AM", "")}</p><p>${objThis[day][day + "TimeB"].replace(" AM", "")}</p></div>`;
+        strHTML += '</div>';
+        print(strHTML, byID("divpamruns"));
+        //********************DIV AM RUNS********************//
+
+        //********************DIV PM RUNS********************//
+        strHTML = '';
+        strHTML += `<div class="row"><div class="col-sm-4"><p><b>PM: </b>${objThis.Data.PMRoute1}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PM1Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>${objThis.Data.PMRoute2}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PM2Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>${objThis.Data.PMRoute3}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PM3Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>${objThis.Data.PMRoute4}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PM4Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>PM: </b>${objThis.Data.PMRoute5}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PM5Ct"]}</p></div>`;
+        }
+        strHTML += '</div><div class="row"><div class="col-sm-4"></div>';
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${objThis[day][day + "TimeC"].replace(" PM", "").replace(" AM", "")}</p><p>${objThis[day][day + "TimeD"].replace(" AM", "").replace(" PM", "")}</p></div>`;
+        }
+        strHTML += '</div>';
+        print(strHTML, byID("divppmruns"));
+        //********************DIV PM RUNS********************//
+
+        //********************DIV PM RUNS********************//
+        strHTML = '';
+        strHTML += `<div class="row"><div class="col-sm-4"><p><b>PS: </b>${objThis.Data.PSRoute1}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PS1Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>PS: </b>${objThis.Data.PSRoute2}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "PS2Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>SH: </b>${objThis.Data.SHRoute1}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "SH1Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>SH: </b>${objThis.Data.SHRoute2}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "SH2Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>LR: </b>${objThis.Data.LRRoute1}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "LR1Ct"]}</p></div>`;
+        }
+        strHTML += `</div><div class="row"><div class="col-sm-4"><p><b>LR: </b>${objThis.Data.LRRoute2}</p></div>`;
+        for (const day of weekdays) {
+            strHTML += `<div class="col"><p>${day.substr(0, 1)}:&nbsp;${objThis[day][day + "LR2Ct"]}</p></div>`;
+        }
+        strHTML += '</div>';
+        print(strHTML, byID("divppsshlr"));
+        //********************DIV PM RUNS********************//
+
+        //********************DIV MONDAY-FRIDAY********************//
+        for (let i = 1; i < 6; i++) {
+            let day = days[i];
+            strHTML = '';
+            strHTML += `<p class="category">${fullday[i].toUpperCase()} - ${objThis[day][day + "Date"]}</p></div>`;
+            strHTML += '<div class="row">';
+            if (objThis[day][day + "QL11"]) {
+                strHTML += `<input id="chk${day}QL" type="checkbox" checked="checked" disabled><label for="chk${day}QL">Equipment/Lift</label>&nbsp;`;
+            } else {
+                strHTML += `<input id="chk${day}QL" type="checkbox" disabled><label for="chk${day}QL">Equipment/Lift</label>&nbsp;`;
+            }
+            if (objThis[day][day + "J11"]) {
+                strHTML += `<input id="chk${day}J" type="checkbox" checked="checked" disabled><label for="chk${day}J">Admin</label></div>`;
+            } else {
+                strHTML += `<input id="chk${day}J" type="checkbox" disabled><label for="chk${day}J">Admin</label></div>`;
+            }
+            strHTML += `<div class="row"><p><b>RG:</b>&nbsp;${objThis[day][day + "Time11S"]} - ${objThis[day][day + "Time11E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT11"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time11"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time11"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>RG:</b>&nbsp;${objThis[day][day + "Time12S"]} - ${objThis[day][day + "Time12E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT12"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time12"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time12"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>PS:</b>&nbsp;${objThis[day][day + "Time13S"]} - ${objThis[day][day + "Time13E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT13"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time13"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time13"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>PS:</b>&nbsp;${objThis[day][day + "Time14S"]} - ${objThis[day][day + "Time14E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT14"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time14"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time14"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>SH:</b>&nbsp;${objThis[day][day + "Time15S"]} - ${objThis[day][day + "Time15E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT15"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time15"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time15"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>SH:</b>&nbsp;${objThis[day][day + "Time16S"]} - ${objThis[day][day + "Time16E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT16"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time16"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time16"]}</u></p></div>`;
+            }
+            strHTML += `<div class="row"><p><b>LR:</b>&nbsp;${objThis[day][day + "Time17S"]} - ${objThis[day][day + "Time17E"]}&nbsp;&nbsp;`;
+            if (objThis[day][day + "OJT11"]) {
+                strHTML += '<u>**' + objThis[day][day + "Time17"] + '**</u></p></div>';
+            } else {
+                strHTML += `<u>${objThis[day][day + "Time17"]}</u></p></div>`;
+            }
+            strHTML += '</div>';
+            print(strHTML, byID("divp" + day));
+        }
+        //********************DIV MONDAY-FRIDAY********************//
+
+        //********************DIV OTHER WORK********************//
+        strHTML = '';
+        let otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
+        let j = 0;
+        for (const day of days) {
+            for (let k = 20; k < 30; k++) {
+                if ((day === "Sun" || day === "Sat") && k > 22) continue;
+                if (objThis[day][day + "Select" + k] !== "") {
+                    otherWork[j] = day + "Time" + k;
+                    j++;
+                }
+            }
+        }
+        let strDay = "";
+        let blnOW = false;
+        let strnum = "";
+
+        for (let i = 0; i < 10; i++) {
+            strHTML = '';
+            blnOW = (otherWork[i] !== "OW" + i) ? true : false;
+            if (blnOW) {
+                strDay = otherWork[i].substr(0, 3);
+                strnum = otherWork[i].substr(7);
+                obj = getDayObj(strDay);
+                strHTML += `<div class="row">`;
+                strHTML += `<div class="col-sm-1"><p>${objThis.Data[strDay + "Date"]}</p></div>`;
+                if (objThis[day][strDay + "QL" + strnum]) {
+                    strHTML += `<div class="col-sm-1"><input id="chkboxow${strnum}" type="checkbox" checked="checked" disabled><label for="chkboxow${strnum}">Q/L</label></div>`;
+                } else {
+                    strHTML += `<div class="col-sm-1"><input id="chkboxow${strnum}" type="checkbox" disabled><label for="chkboxow${strnum}">Q/L</label></div>`;
+                }
+                strHTML += `<div class="col-sm-6"><p><b>Type: </b>${objThis[day][strDay + "Select" + strnum] + " - " + objThis[day][strDay + "Desc" + strnum]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><p>${objThis[day][otherWork[i] + "S"]} - `;
+                strHTML += `${objThis[day][otherWork[i] + "E"]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><u><p>${objThis[day][otherWork[i]]}</p></u></div>`;
+                strHTML += '</div>';
+            }
+            print(strHTML, byID("divpow" + i));
+            if (blnOW) document.getElementById("divpow" + i).classList.remove("hide");
+        }
+
+        //********************DIV OTHER WORK********************//
+
+        //********************DIV FIELD TRIPS********************//
+        let otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+        j = 0;
+        for (const day of days) {
+            for (k = 30; k < 35; k++) {
+                if ((day === "Sun" || day === "Sat") && k > 32) continue;
+                if (objThis[day][day + "Time" + k] !== "") {
+                    otherFT[j] = day + "Time" + k;
+                    j++;
+                }
+            }
+        }
+        let blnFT = false;
+
+        for (let i = 0; i < 5; i++) {
+            strHTML = '';
+            blnFT = (otherFT[i] !== "FT" + i) ? true : false;
+            if (blnFT) {
+                strDay = otherFT[i].substr(0, 3);
+                obj = getDayObj(strDay);
+                strnum = otherFT[i].substr(7);
+                strHTML += `<div class="row">`;
+                strHTML += `<div class="col-sm-1"><p>${objThis.Data[`${strDay}Date`]}</p></div>`;
+                if (objThis[day][`${strDay}QL${strnum}`])
+                    strHTML += `<div class="col-sm-1"><input id="chkboxft${strnum}" type="checkbox" checked="checked" disabled><label for="chkboxft${strnum}">Q/L</label></div>`;
+                else
+                    strHTML += `<div class="col-sm-1"><input id="chkboxft${strnum}" type="checkbox" disabled><label for="chkboxft${strnum}">Q/L</label></div>`;
+                strHTML += `<div class="col-sm-2"><p><b>From:&nbsp;</b>${objThis[day][`${strDay}From${strnum}`]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><p><b>To:&nbsp;</b>${objThis[day][`${strDay}To${strnum}`]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><p><b>Voucher:&nbsp;</b>${objThis[day][`${strDay}Voucher${strnum}`]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><p>${objThis[day][`${otherFT[i]}S`]} - `;
+                strHTML += `${objThis[day][`${otherFT[i]}E`]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><u><p>${objThis[day][otherFT[i]]}</p></u></div>`;
+                strHTML += '</div>';
+            }
+            print(strHTML, byID("divpft" + i));
+            if (blnFT) document.getElementById("divpft" + i).classList.remove("hide");
+        }
+        //********************DIV FIELD TRIPS********************//
+
+        //********************DIV LEAVE********************//
+        let otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
+        j = 0;
+
+        for (const day of weekdays) {
+            if (objThis[day][day + "Time41"] !== "") {
+                otherLV[j] = day + "Time41";
+                j++;
+            }
+            if (objThis[day][day + "Time42"] !== "") {
+                otherLV[j] = day + "Time42";
+                j++;
+            }
+            if (objThis[day][day + "LeaveAD"]) {
+                otherLV[j] = day + "LeaveAD";
+                j++;
+            }
+        }
+        strDay = "";
+        let blnLV = false;
+        strnum = "";
+
+        for (let i = 0; i < 10; i++) {
+            strHTML = '';
+            blnLV = (otherLV[i] !== "LV" + i) ? true : false;
+            if (blnLV) {
+                strHTML += `<div class="row">`;
+                strDay = otherLV[i].substr(0, 3);
+                obj = getDayObj(strDay);
+                strnum = otherLV[i].substr(-2);
+                strHTML += `<div class="col-sm-1"><p>${objThis.Data[strDay + "Date"]}</p></div>`;
+                strHTML += `<div class="col-sm-2"><p><b>Type: </b>${objThis[day][strDay + "LeaveSelect" + strnum]}</p></div>`;
+                if (strnum === "AD") {
+                    strHTML += `<div class="col-sm-1"><input id="allday${strnum}" type="checkbox" checked="checked" disabled><label for="allday${strnum}">ALL DAY</label></div>`;
+                    strHTML += `<div class="col-sm-2"></div>`;
+                    strHTML += `<div class="col-sm-6"></div></div>`;
+                } else {
+                    strHTML += `<div class="col-sm-1"><input type="checkbox" id="allday${strnum}" disabled><label for="allday${strnum}">ALL DAY</label></div>`;
+                    strHTML += `<div class="col-sm-2"><p>${objThis[day][otherLV[i] + "S"]} - `;
+                    strHTML += `${objThis[day][otherLV[i] + "E"]}</p></div>`;
+                    strHTML += `<div class="col-sm-6"><u><p>${objThis[day][otherLV[i]]}</p></u></div></div>`;
+                }
+            }
+            print(strHTML, byID("divplv" + i));
+            if (blnLV) document.getElementById("divplv" + i).classList.remove("hide");
+        }
+
+        //********************DIV LEAVE********************//
+
+        //********************DIV TOTALS********************//
+        print(objThis.Data.TotalRun, byID("divptotalrun").children[0]);
+        print(objThis.Data.TotalOther, byID("divptotalother").children[0]);
+        print(objThis.Data.TotalFT, byID("divptotalft").children[0]);
+        print(objThis.Data.TotalHW, byID("divptotalhw").children[0]);
+        print(objThis.Data.Total1R, byID("divptotal1r").children[0]);
+        print(objThis.Data.TotalS4OJT, byID("divptotals4ojt").children[0]);
+        print(objThis.Data.TotalS4J, byID("divptotals4j").children[0]);
+        print(objThis.Data.TotalS2QL, byID("divptotals2ql").children[0]);
+        print(objThis.Data.TotalC3, byID("divptotalc3").children[0]);
+        print(objThis.Data.TotalC1, byID("divptotalc1").children[0]);
+        //********************DIV TOTALS********************//    
+
     </script>
-    <script src="js/js-v2.0.1/preview.js"></script>
 </body>
 
 </html>
