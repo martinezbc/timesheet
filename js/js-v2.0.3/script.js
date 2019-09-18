@@ -99,7 +99,7 @@ function arrayForEach(obj, event, func) {
 arrayForEach(document.querySelectorAll('.up, .down, .up2, .down2'), 'click', timeSelectors);
 arrayForEach(document.querySelectorAll('.addOW'), 'click', addOtherWork);
 arrayForEach(document.querySelectorAll('.addFT'), 'click', addFieldTrip);
-arrayForEach(document.querySelectorAll('.addLV'), 'click', addLeave);
+arrayForEach(document.querySelectorAll('.addLV'), 'click', (e) => {addLeave(e.target);});
 arrayForEach(document.querySelectorAll('.fa-trash-alt'), 'click', removeOWFT);
 arrayForEach(document.querySelectorAll('.ow'), 'click', popUpOW);
 arrayForEach(document.querySelectorAll('.ft'), 'click', popUpFT);
@@ -419,20 +419,8 @@ function routeNameTransform(refID) {
         }
     }
     
-    //Completely different setup for shuttle numbers
-    if ((refID === "SHRoute1" || refID === "SHRoute2") && objThis.Data.Area !== "7"){
-        for (let i = refVal.length; i >= 0; i--) {
-            if (isNaN(refVal.substr(i,1))) {
-                refVal = refVal.replace(refVal.substr(i,1),"");
-            }
-        }
-        refVal = "S-" + refVal;
-        refVal = (blnJ) ? refVal + " J" : refVal;
-        refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
-        refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
-        byID(refID).value = refVal;
-        return;
-    }
+    //Let shuttle number be whatever they type in
+    if (refID === "SHRoute1" || refID === "SHRoute2") return;
     
     //If the route length is less than 3 then they didn't completely type in the route name
     if (refVal.length < 3 && refVal !== '') {

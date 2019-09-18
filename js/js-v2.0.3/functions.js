@@ -672,7 +672,7 @@ function getMissingFT(day) {
 
 //SHOW THE LEAVE SECTION
 function addLeave(e) {
-    let refID = e.target.id;
+    let refID = e.id;
     let dayVal = refID.substr(0, 3);
     if (byID(`${dayVal}Leave40`).classList.contains("hide")) {
         byID(`${dayVal}LvP`).innerHTML = '<span class="far fa-plus-square fa-lg"></span>Remove Leave';
@@ -861,7 +861,7 @@ function runCopyRoutine() {
     k++;
     for (k; k < 6; k++) {
         let day = days[k];
-        bln = (byID(`${day}LeaveAD`).checked) ? true : false;
+        bln = (byID(`${day}LeaveAD`).checked || byID(`${day}Time41`).value !== '' || byID(`${day}Time42`).value !== '') ? true : false;
         if (bln) continue;
         for (let j = 11; j < 18; j++) {
             byID(`${day}Time${j}S`).value = byID(`${days[i]}Time${j}S`).value;
