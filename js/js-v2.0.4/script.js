@@ -34,7 +34,7 @@ main.addEventListener('click', (e) => {
     else if (name === 'txtFT')
         openFTSelector(e.target);
     else if (name === 'chkADLV')
-        toggleLeaveTime(e);
+    toggleLeaveTime(e.target);
 
     const targetID = e.target.id;
     if (targetID === 'closeTime') {

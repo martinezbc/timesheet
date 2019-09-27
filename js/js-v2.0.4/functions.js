@@ -812,8 +812,7 @@ function popUpCT() {
 
 //ENABLE OR DISABLE QL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
 function selectOWChange(e) {
-    let refID = e.target.id;
-    disableOWFields(refID);
+    disableOWFields(e.id);
 }
 
 function disableOWFields(refID) {

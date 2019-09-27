@@ -359,8 +359,7 @@ function clearFields() {
 
 //ENABLE OR DISABLE QL BUTTON DEPENDING ON WHAT IS SELECTED FOR OTHER WORK
 function selectOWChange(e) {
-    let refID = e.id;
-    disableOWFields(refID);
+    disableOWFields(e.id);
     getWeeklyTotals();
 }
 
@@ -384,8 +383,7 @@ function toggleQLReg() {
 
 //ALL DAY LEAVE CHECKED, DISABLE TIME FIELDS
 function toggleLeaveTime(e) {
-    let refID = e.target.id;
-    leaveTime(refID);
+    leaveTime(e.id);
 }
 
 function leaveTime(refID) {
