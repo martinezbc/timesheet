@@ -154,8 +154,8 @@
                         strHTML += '<option value="SICK-INJ">Injury</option>';
                         strHTML += '</select></div>';
                         strHTML += '</div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearOW${j}S"></span></div></div></div>`;
                     }
@@ -198,8 +198,8 @@
                         strHTML += '</div><div class="row"><div class="col-12">';
                         strHTML += `<input id="Desc${j}S" type="text" class="descwidth" name="owdesc" style="text-align: left;" placeholder="Additional notes...">`;
                         strHTML += '</div></div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearOW${j}S"></span></div></div></div>`;
                     }
@@ -222,7 +222,7 @@
                         strHTML += '<div class="row"><div class="col-12">';
                         strHTML += `<select id="Date${j}S"></select>`;
                         strHTML += '</div></div><div class="row"><div class="col-8">';
-                        strHTML += `<input name="" id="Voucher${j}S" type="text" class="voucherwidth" placeholder="Voucher">`;
+                        strHTML += `<input name="ftvoucher" id="Voucher${j}S" type="text" class="voucherwidth" placeholder="Voucher">`;
                         strHTML += '</div><div class="col-4">';
                         strHTML += `<input type="checkbox" name="chkOJT" id="OJT${j}S"><label for="OJT${j}S">OJT</label>&nbsp;`;
                         strHTML += `<input type="checkbox" name="chkQL" id="QL${j}S"><label for="QL${j}S">Q/L</label>`;
@@ -232,8 +232,8 @@
                         strHTML += '</div></div><div class="row"><div class="col-12">';
                         strHTML += `<input name="txtFT" id="To${j}S" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">`;
                         strHTML += '</div></div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearFT${j}S"></span></div></div></div>`;
                     }
@@ -391,8 +391,8 @@
             return str
         }
     </script>
-    <script src="js/js-v2.0.3/fieldtrip.js"></script>
-    <script src="js/js-v2.0.3/json2.js"></script>
-    <script src="js/js-v2.0.3/supfunctions.js"></script>
-    <script src="js/js-v2.0.3/script.js"></script>
+    <script src="js/js-v2.0.4/fieldtrip.js"></script>
+    <script src="js/js-v2.0.4/json2.js"></script>
+    <script src="js/js-v2.0.4/supfunctions.js"></script>
+    <script src="js/js-v2.0.4/script.js"></script>
 </body></html>

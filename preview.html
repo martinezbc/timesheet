@@ -857,7 +857,7 @@
                 if (objThis[day][`${day}QL${strnum}`])
                     print(`<input id="chkboxft${strnum}" type="checkbox" checked="checked" disabled><label for="chkboxft${strnum}">Q/L</label>`, childdiv.children[1]);
                 else
-                    print(`<input id="chkboxft${strnum}" type="checkbox" disabled><label for="chkboxft${strnum}">Q/L</label>`, childdiv.childElementCount[1]);
+                    print(`<input id="chkboxft${strnum}" type="checkbox" disabled><label for="chkboxft${strnum}">Q/L</label>`, childdiv.children[1]);
                 print(objThis[day][`${day}From${strnum}`], childdiv.children[2].children[0]);
                 print(objThis[day][`${day}To${strnum}`], childdiv.children[3].children[0]);
                 print(objThis[day][`${day}Voucher${strnum}`], childdiv.children[4].children[0]);
