@@ -136,7 +136,6 @@ select {
     font-size: 20px;
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     padding: 8px 16px;
-    will-change: transform;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -160,11 +159,43 @@ select {
     -webkit-align-content: center;
     -ms-flex-line-pack: center;
     align-content: center;
-    -webkit-transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-    transition: -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-    transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
-    transition: transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s, -webkit-transform 0.233s cubic-bezier(0, 0, 0.21, 1) 0.1s;
     z-index: 1000;
+}
+
+.navigation {
+    width: 100%;
+    top: 54px;
+    height: 50px;
+    color: #FFF;
+    background: #00677F;
+    position: fixed;
+    font-size: 20px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    padding: 8px 16px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    z-index: 900;
 }
 
 table {
@@ -244,7 +275,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 .topspacer {
-    padding: 30px;
+    padding: 56px;
 }
 
 .bottomspacer {
@@ -432,7 +463,7 @@ p {
     /* Sit on top */
     /*    padding-top: 20%;*/
     left: 0;
-    top: 0;
+    top: 50px;
     width: 100%;
     /* Full width */
     height: 100%;
