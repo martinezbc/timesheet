@@ -68,6 +68,7 @@ input[type=checkbox] + label,
 input[type=button] + label{
     display: inline-block;
     margin: 0px;
+    margin-left: 2px;
     padding: 0px 6px;
     font-size: 14px;
     line-height: 26px;

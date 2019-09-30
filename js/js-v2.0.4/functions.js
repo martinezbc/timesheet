@@ -1,13 +1,4 @@
-let range = '';
 
-let strHTML = '<option value="">--Select Week--</option>';
-for (let i = -21; i < 8; i += 7) {
-    range = DateRange(i);
-    strHTML += '<option value="' + range + '">' + dateString(range) + '</option>';
-}
-
-let weekof = document.getElementById("WeekOf");
-weekof.innerHTML = strHTML;
 
 function DateRange(offset) {
     let start = new Date();
@@ -648,26 +639,36 @@ function clearTimeField(e) {
 
 //FIGURE OUT WHICH OW FIELD IS NEXT TO SHOW
 function getMissingOW(day) {
-    for (let i = 20; i < 30; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i === 23) return 30;
-        if (byID(`${day}OWDiv${i}`).classList.contains("hide")) {
-            return i;
+    try {
+        for (let i = 20; i < 30; i += 1) {
+            if ((day === "Sat" || day === "Sun") && i === 23) return 30;
+            if (byID(`${day}OWDiv${i}`).classList.contains("hide")) {
+                return i;
+            }
         }
+        //If statement didnt' find a match, return 30
+        return 30;
+    } catch (error) {
+        console.log(error);
+        return 30;
     }
-    //If statement didnt' find a match, return 30
-    return 30;
 }
 
 //FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
 function getMissingFT(day) {
-    for (let i = 30; i < 35; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i === 33) return 35;
-        if (byID(`${day}FTDiv${i}`).classList.contains("hide")) {
-            return i;
+    try {
+        for (let i = 30; i < 35; i += 1) {
+            if ((day === "Sat" || day === "Sun") && i === 33) return 35;
+            if (byID(`${day}FTDiv${i}`).classList.contains("hide")) {
+                return i;
+            }
         }
+        //if statement didn't find a match, return 35
+        return 35;
+    } catch (error) {
+        console.log(error);
+        return 35;
     }
-    //if statement didn't find a match, return 35
-    return 35;
 }
 
 //SHOW THE LEAVE SECTION
