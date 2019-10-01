@@ -435,6 +435,8 @@ function togglePupilCounts(x) {
     showHide("divAMCt", (blnSS) ? false : blnPos);
     showHide("divPMCt", (blnSS) ? false : blnPos);
     showHide("divPSCt", (blnSS) ? false : blnPos);
+    showHide("divSHCt", (blnSS) ? false : blnPos);
+    showHide("divLRCt", (blnSS) ? false : blnPos);
     showHide("divAMPupilTime", (blnSS) ? false : blnPos);
     showHide("divPMPupilTime", (blnSS) ? false : blnPos);
 }

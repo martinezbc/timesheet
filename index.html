@@ -21,17 +21,19 @@
 
 <body>
     <script>
+        const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
         function insertOW(day, i) {
             let strHTML = `
                 <div class="tinycard bg-teal2 hide" id="${day}OWDiv${i}">
                 <div class="row">
-                <div class="category col-11">Other Work&nbsp;
+                <div class="category col-11">Other Work
                 <span class="fas fa-question-circle ow"></span></div>
                 <div class="col-1 center">
                 <span class="fas fa-trash-alt" id="${day}OWTrash${i}"></span></div></div>
                 <div class="row"><div class="col-auto">`;
             if (day !== "Sat" && day !== "Sun") {
-                strHTML += `<input type="checkbox" name="chkOJT" id="${day}OJT${i}"><label class="lblBtnFalse" for="${day}OJT${i}">OJT</label>&nbsp;`;
+                strHTML += `<input type="checkbox" name="chkOJT" id="${day}OJT${i}"><label class="lblBtnFalse" for="${day}OJT${i}">OJT</label>`;
             }
             strHTML += `
                 <input type="checkbox" id="${day}QL${i}" disabled>
@@ -57,8 +59,8 @@
                 <div class="row"><div class="col-12">
                 <input id="${day}Desc${i}" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div></div>
                 <div class="row"><div class="col-11">
-                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>
+                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>
                 <input type="text" id="${day}Time${i}" class="total-time nofocus" disabled></div>
                 <div class="col-1"><span class="fas fa-times" id="${day}ClearOW${i}"></span></div></div></div>`;
             return strHTML
@@ -69,7 +71,7 @@
             strHTML += `
                 <div class="tinycard bg-teal3 hide" id="${day}FTDiv${i}">
                 <div class="row">
-                <div class="category col-11">Field Trip&nbsp;
+                <div class="category col-11">Field Trip
                 <span class="fas fa-question-circle ft"></span></div>
                 <div class="col-1 center">
                 <span class="fas fa-trash-alt" id="${day}FTTrash${i}"></span></div></div>
@@ -78,7 +80,7 @@
                 <input id="${day}Voucher${i}" type="text" class="voucherwidth" placeholder="Voucher" name="ftvoucher"></div>
                 <div class="col-6 center">`;
             if (day !== "Sat" && day !== "Sun") {
-                strHTML += `<input type="checkbox" name="chkOJT" id="${day}OJT${i}"><label class="lblBtnFalse" for="${day}OJT${i}">OJT</label>&nbsp;`;
+                strHTML += `<input type="checkbox" name="chkOJT" id="${day}OJT${i}"><label class="lblBtnFalse" for="${day}OJT${i}">OJT</label>`;
             }
             strHTML += `<input type="checkbox" name="chkFTQL" id="${day}QL${i}"><label class="lblBtnFalse" for="${day}QL${i}">Q/L</label></div></div>
                 <div class="row"><div class="col-12">
@@ -86,11 +88,19 @@
                 <div class="row"><div class="col-12">
                 <input id="${day}To${i}" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth" disabled></div></div>
                 <div class="row"><div class="col-11">
-                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>
+                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>
                 <input type="text" id="${day}Time${i}" class="total-time nofocus" disabled></div>
                 <div class="col-1">
                 <span class="fas fa-times" id="${day}ClearFT${i}"></span></div></div></div>`;
+            return strHTML;
+        }
+
+        function insertPupilCount(i) {
+            let strHTML = '';
+            for (const day of weekdays) {
+                strHTML += `<div class="hide" id="div${day}${i}Ct"><input type="number" name="txtCt" id="${day}${i}Ct" class="countwidth" placeholder="${day}"></div>`;
+            }
             return strHTML;
         }
     </script>
@@ -102,10 +112,10 @@
             <div class="col-1 dropdown right" style="padding-top: 5px;" id="navbarmodal">
                 <span class="fas fa-bars dropbtn fa-lg" id="navbtn"></span>
                 <div class="dropdown-content hide" id="navdropdown">
-                    <div class="row" id="divpreview"><span class="fas fa-check-circle"></span>&nbsp;Preview</div>
-                    <div class="row" id="divsupplement"><span class="fas fa-file-alt"></span>&nbsp;Supplement</div>
-                    <div class="row" id="divtutorial"><span class="fas fa-info-circle"></span>&nbsp;Tutorial</div>
-                    <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>&nbsp;Clear</div>
+                    <div class="row" id="divpreview"><span class="fas fa-check-circle"></span>Preview</div>
+                    <div class="row" id="divsupplement"><span class="fas fa-file-alt"></span>Supplement</div>
+                    <div class="row" id="divtutorial"><span class="fas fa-info-circle"></span>Tutorial</div>
+                    <div class="row" onclick="" id="clear"><span class="fas fa-trash"></span>Clear</div>
                 </div>
             </div>
         </div>
@@ -193,7 +203,7 @@
                         </script>
                     </div>
                     <div class="hide" id="divTC">
-                        <input type="radio" id="teamTC" name="Team" value="TC"><label for="teamTC">TC</label>&nbsp;
+                        <input type="radio" id="teamTC" name="Team" value="TC"><label for="teamTC">TC</label>
                     </div>
                 </div>
             </div>
@@ -219,7 +229,7 @@
                 </div>
                 <div class="col-md-6">
                     <p class="bold">On-The-Job Training:</p>
-                    <input type="checkbox" name="chkOJT" id="OJT"><label for="OJT">OJT Trainer&nbsp;</label>&nbsp;&nbsp;
+                    <input type="checkbox" name="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
                     <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
@@ -239,7 +249,7 @@
         <div id="PupilCounts" class="card">
             <div class="row">
                 <div class="col-12">
-                    <p class="daily">PUPIL COUNTS&nbsp;<span class="fas fa-question-circle ct" id="ctspan"></span></p>
+                    <p class="daily">PUPIL COUNTS<span class="fas fa-question-circle ct" id="ctspan"></span></p>
                     <p>All drivers and attendants must include their full route names. Special equipment routes are labeled with "Q" or "L". Administratively assigned routes are labeled with "J".</p>
                 </div>
             </div>
@@ -262,16 +272,9 @@
                         <input type="text" name="route" id="AMRoute1" class="routewidth" placeholder="1st Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonAM1Ct">
-                            <input type="number" name="txtCt" id="MonAM1Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTueAM1Ct">
-                            <input type="number" name="txtCt" id="TueAM1Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedAM1Ct">
-                            <input type="number" name="txtCt" id="WedAM1Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuAM1Ct">
-                            <input type="number" name="txtCt" id="ThuAM1Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriAM1Ct">
-                            <input type="number" name="txtCt" id="FriAM1Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('AM1'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -279,16 +282,9 @@
                         <input type="text" name="route" id="AMRoute2" class="routewidth" placeholder="2nd Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonAM2Ct">
-                            <input type="number" name="txtCt" id="MonAM2Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTueAM2Ct">
-                            <input type="number" name="txtCt" id="TueAM2Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedAM2Ct">
-                            <input type="number" name="txtCt" id="WedAM2Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuAM2Ct">
-                            <input type="number" name="txtCt" id="ThuAM2Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriAM2Ct">
-                            <input type="number" name="txtCt" id="FriAM2Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('AM2'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -296,16 +292,9 @@
                         <input type="text" name="route" id="AMRoute3" class="routewidth" placeholder="3rd Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonAM3Ct">
-                            <input type="number" name="txtCt" id="MonAM3Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTueAM3Ct">
-                            <input type="number" name="txtCt" id="TueAM3Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedAM3Ct">
-                            <input type="number" name="txtCt" id="WedAM3Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuAM3Ct">
-                            <input type="number" name="txtCt" id="ThuAM3Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriAM3Ct">
-                            <input type="number" name="txtCt" id="FriAM3Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('AM3'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -313,16 +302,9 @@
                         <input type="text" name="route" id="AMRoute4" class="routewidth" placeholder="4th Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonAM4Ct">
-                            <input type="number" name="txtCt" id="MonAM4Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTueAM4Ct">
-                            <input type="number" name="txtCt" id="TueAM4Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedAM4Ct">
-                            <input type="number" name="txtCt" id="WedAM4Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuAM4Ct">
-                            <input type="number" name="txtCt" id="ThuAM4Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriAM4Ct">
-                            <input type="number" name="txtCt" id="FriAM4Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('AM4'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -330,16 +312,9 @@
                         <input type="text" name="route" id="AMRoute5" class="routewidth" placeholder="5th Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonAM5Ct">
-                            <input type="number" name="txtCt" id="MonAM5Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTueAM5Ct">
-                            <input type="number" name="txtCt" id="TueAM5Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedAM5Ct">
-                            <input type="number" name="txtCt" id="WedAM5Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuAM5Ct">
-                            <input type="number" name="txtCt" id="ThuAM5Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriAM5Ct">
-                            <input type="number" name="txtCt" id="FriAM5Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('AM5'));
+                        </script>
                     </div>
                 </div>
                 <div class="row hide" id="divAMPupilTime">
@@ -347,35 +322,35 @@
                 </div>
                 <div class="row hide" id="MonTimeAM">
                     <div class="col-11">
-                        <input id="MonTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="TueTimeAM">
                     <div class="col-11">
-                        <input id="TueTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="WedTimeAM">
                     <div class="col-11">
-                        <input id="WedTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="ThuTimeAM">
                     <div class="col-11">
-                        <input id="ThuTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="FriTimeAM">
                     <div class="col-11">
-                        <input id="FriTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearPTAM"></span></div>
@@ -400,16 +375,9 @@
                         <input type="text" name="route" id="PMRoute1" class="routewidth" placeholder="1st Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPM1Ct">
-                            <input type="number" name="txtCt" id="MonPM1Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTuePM1Ct">
-                            <input type="number" name="txtCt" id="TuePM1Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedPM1Ct">
-                            <input type="number" name="txtCt" id="WedPM1Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuPM1Ct">
-                            <input type="number" name="txtCt" id="ThuPM1Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriPM1Ct">
-                            <input type="number" name="txtCt" id="FriPM1Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('PM1'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -417,16 +385,9 @@
                         <input type="text" name="route" id="PMRoute2" class="routewidth" placeholder="2nd Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPM2Ct">
-                            <input type="number" name="txtCt" id="MonPM2Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTuePM2Ct">
-                            <input type="number" name="txtCt" id="TuePM2Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedPM2Ct">
-                            <input type="number" name="txtCt" id="WedPM2Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuPM2Ct">
-                            <input type="number" name="txtCt" id="ThuPM2Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriPM2Ct">
-                            <input type="number" name="txtCt" id="FriPM2Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('PM2'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -434,16 +395,9 @@
                         <input type="text" name="route" id="PMRoute3" class="routewidth" placeholder="3rd Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPM3Ct">
-                            <input type="number" name="txtCt" id="MonPM3Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTuePM3Ct">
-                            <input type="number" name="txtCt" id="TuePM3Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedPM3Ct">
-                            <input type="number" name="txtCt" id="WedPM3Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuPM3Ct">
-                            <input type="number" name="txtCt" id="ThuPM3Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriPM3Ct">
-                            <input type="number" name="txtCt" id="FriPM3Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('PM3'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -451,16 +405,9 @@
                         <input type="text" name="route" id="PMRoute4" class="routewidth" placeholder="4th Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPM4Ct">
-                            <input type="number" name="txtCt" id="MonPM4Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTuePM4Ct">
-                            <input type="number" name="txtCt" id="TuePM4Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedPM4Ct">
-                            <input type="number" name="txtCt" id="WedPM4Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuPM4Ct">
-                            <input type="number" name="txtCt" id="ThuPM4Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriPM4Ct">
-                            <input type="number" name="txtCt" id="FriPM4Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('PM4'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -468,16 +415,9 @@
                         <input type="text" name="route" id="PMRoute5" class="routewidth" placeholder="5th Bell">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPM5Ct">
-                            <input type="number" name="txtCt" id="MonPM5Ct" class="countwidth" placeholder="Mon"></div>
-                        <div class="hide" id="divTuePM5Ct">
-                            <input type="number" name="txtCt" id="TuePM5Ct" class="countwidth" placeholder="Tue"></div>
-                        <div class="hide" id="divWedPM5Ct">
-                            <input type="number" name="txtCt" id="WedPM5Ct" class="countwidth" placeholder="Wed"></div>
-                        <div class="hide" id="divThuPM5Ct">
-                            <input type="number" name="txtCt" id="ThuPM5Ct" class="countwidth" placeholder="Thu"></div>
-                        <div class="hide" id="divFriPM5Ct">
-                            <input type="number" name="txtCt" id="FriPM5Ct" class="countwidth" placeholder="Fri"></div>
+                        <script>
+                            document.write(insertPupilCount('PM5'));
+                        </script>
                     </div>
                 </div>
                 <div class="row hide" id="divPMPupilTime">
@@ -485,41 +425,41 @@
                 </div>
                 <div class="row hide" id="MonTimePM">
                     <div class="col-11">
-                        <input id="MonTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="TueTimePM">
                     <div class="col-11">
-                        <input id="TueTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="WedTimePM">
                     <div class="col-11">
-                        <input id="WedTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="ThuTimePM">
                     <div class="col-11">
-                        <input id="ThuTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="FriTimePM">
                     <div class="col-11">
-                        <input id="FriTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearPTPM"></span></div>
                 </div>
             </div>
-            <div class="bg-teal1 tinycard pupilcard" id="divpsshlr">
+            <div class="bg-teal1 tinycard pupilcard" id="divps">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">PAC/Preschool</p>
@@ -538,21 +478,9 @@
                         <input type="text" name="route" id="PSRoute1" class="routewidth" placeholder="pac/ps">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPS1Ct">
-                            <input type="number" name="txtCt" id="MonPS1Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTuePS1Ct">
-                            <input type="number" name="txtCt" id="TuePS1Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedPS1Ct">
-                            <input type="number" name="txtCt" id="WedPS1Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuPS1Ct">
-                            <input type="number" name="txtCt" id="ThuPS1Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriPS1Ct">
-                            <input type="number" name="txtCt" id="FriPS1Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('PS1'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -560,23 +488,13 @@
                         <input type="text" name="route" id="PSRoute2" class="routewidth" placeholder="pac/ps">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonPS2Ct">
-                            <input type="number" name="txtCt" id="MonPS2Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTuePS2Ct">
-                            <input type="number" name="txtCt" id="TuePS2Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedPS2Ct">
-                            <input type="number" name="txtCt" id="WedPS2Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuPS2Ct">
-                            <input type="number" name="txtCt" id="ThuPS2Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriPS2Ct">
-                            <input type="number" name="txtCt" id="FriPS2Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('PS2'));
+                        </script>
                     </div>
                 </div>
+            </div>
+            <div class="bg-teal1 tinycard pupilcard" id="divsh">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">Shuttles</p>
@@ -584,24 +502,21 @@
                 </div>
                 <div class="row">
                     <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divSHCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-7">
                         <input type="text" name="route" id="SHRoute1" class="routewidth" placeholder="shuttle">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonSH1Ct">
-                            <input type="number" name="txtCt" id="MonSH1Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTueSH1Ct">
-                            <input type="number" name="txtCt" id="TueSH1Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedSH1Ct">
-                            <input type="number" name="txtCt" id="WedSH1Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuSH1Ct">
-                            <input type="number" name="txtCt" id="ThuSH1Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriSH1Ct">
-                            <input type="number" name="txtCt" id="FriSH1Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('SH1'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -609,23 +524,13 @@
                         <input type="text" name="route" id="SHRoute2" class="routewidth" placeholder="shuttle">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonSH2Ct">
-                            <input type="number" name="txtCt" id="MonSH2Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTueSH2Ct">
-                            <input type="number" name="txtCt" id="TueSH2Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedSH2Ct">
-                            <input type="number" name="txtCt" id="WedSH2Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuSH2Ct">
-                            <input type="number" name="txtCt" id="ThuSH2Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriSH2Ct">
-                            <input type="number" name="txtCt" id="FriSH2Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('SH2'));
+                        </script>
                     </div>
                 </div>
+            </div>
+            <div class="bg-teal1 tinycard pupilcard" id="divlr">
                 <div class="row">
                     <div class="col-12">
                         <p class="category">Late Runs</p>
@@ -633,24 +538,20 @@
                 </div>
                 <div class="row">
                     <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divLRCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
                         <input type="text" name="route" id="LRRoute1" class="routewidth" placeholder="late run">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonLR1Ct">
-                            <input type="number" name="txtCt" id="MonLR1Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTueLR1Ct">
-                            <input type="number" name="txtCt" id="TueLR1Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedLR1Ct">
-                            <input type="number" name="txtCt" id="WedLR1Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuLR1Ct">
-                            <input type="number" name="txtCt" id="ThuLR1Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriLR1Ct">
-                            <input type="number" name="txtCt" id="FriLR1Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('LR1'));
+                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -658,21 +559,9 @@
                         <input type="text" name="route" id="LRRoute2" class="routewidth" placeholder="late run">
                     </div>
                     <div class="col-5">
-                        <div class="hide" id="divMonLR2Ct">
-                            <input type="number" name="txtCt" id="MonLR2Ct" class="countwidth" placeholder="Mon">
-                        </div>
-                        <div class="hide" id="divTueLR2Ct">
-                            <input type="number" name="txtCt" id="TueLR2Ct" class="countwidth" placeholder="Tue">
-                        </div>
-                        <div class="hide" id="divWedLR2Ct">
-                            <input type="number" name="txtCt" id="WedLR2Ct" class="countwidth" placeholder="Wed">
-                        </div>
-                        <div class="hide" id="divThuLR2Ct">
-                            <input type="number" name="txtCt" id="ThuLR2Ct" class="countwidth" placeholder="Thu">
-                        </div>
-                        <div class="hide" id="divFriLR2Ct">
-                            <input type="number" name="txtCt" id="FriLR2Ct" class="countwidth" placeholder="Fri">
-                        </div>
+                        <script>
+                            document.write(insertPupilCount('LR2'));
+                        </script>
                     </div>
                 </div>
             </div>
@@ -826,8 +715,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime41" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearLV41"></span>
@@ -854,8 +743,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime42" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearLV42"></span>
@@ -863,7 +752,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="MonQL11"><label for="MonQL11">Equipment/Lift (Q/L)</label>&nbsp;
+            <div class="row"><input name="chkQL" type="checkbox" id="MonQL11"><label for="MonQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="MonJ11"><label for="MonJ11">Admin (J)</label></div>
             <div class="tinycard bg-teal1">
                 <div class="row">
@@ -871,13 +760,13 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT11"><label for="MonOJT11">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT11"><label for="MonOJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG11"></span>
@@ -890,13 +779,13 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT12"><label for="MonOJT12">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT12"><label for="MonOJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG12"></span>
@@ -909,13 +798,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT13"><label for="MonOJT13">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT13"><label for="MonOJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG13"></span></div>
@@ -927,13 +816,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT14"><label for="MonOJT14">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT14"><label for="MonOJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG14"></span></div>
@@ -945,13 +834,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT15"><label for="MonOJT15">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT15"><label for="MonOJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG15"></span></div>
@@ -963,13 +852,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT16"><label for="MonOJT16">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT16"><label for="MonOJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG16"></span></div>
@@ -981,13 +870,13 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="MonOJT17"><label for="MonOJT17">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="MonOJT17"><label for="MonOJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="MonTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="MonTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="MonTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG17"></span></div>
@@ -1098,8 +987,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime41" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearLV41"></span>
@@ -1126,8 +1015,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime42" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearLV42"></span>
@@ -1135,7 +1024,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="TueQL11"><label for="TueQL11">Equipment/Lift (Q/L)</label>&nbsp;
+            <div class="row"><input name="chkQL" type="checkbox" id="TueQL11"><label for="TueQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="TueJ11"><label for="TueJ11">Admin (J)</label></div>
             <div class="tinycard bg-teal1">
                 <div class="row">
@@ -1143,13 +1032,13 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT11"><label for="TueOJT11">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT11"><label for="TueOJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG11"></span>
@@ -1162,13 +1051,13 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT12"><label for="TueOJT12">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT12"><label for="TueOJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG12"></span>
@@ -1181,13 +1070,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT13"><label for="TueOJT13">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT13"><label for="TueOJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG13"></span></div>
@@ -1199,13 +1088,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT14"><label for="TueOJT14">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT14"><label for="TueOJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG14"></span></div>
@@ -1217,13 +1106,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT15"><label for="TueOJT15">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT15"><label for="TueOJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG15"></span></div>
@@ -1235,13 +1124,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT16"><label for="TueOJT16">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT16"><label for="TueOJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG16"></span></div>
@@ -1253,13 +1142,13 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="TueOJT17"><label for="TueOJT17">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="TueOJT17"><label for="TueOJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="TueTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="TueTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="TueTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG17"></span></div>
@@ -1370,8 +1259,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime41" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearLV41"></span>
@@ -1398,8 +1287,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime42" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearLV42"></span>
@@ -1407,7 +1296,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="WedQL11"><label for="WedQL11">Equipment/Lift (Q/L)</label>&nbsp;
+            <div class="row"><input name="chkQL" type="checkbox" id="WedQL11"><label for="WedQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="WedJ11"><label for="WedJ11">Admin (J)</label></div>
             <div class="tinycard bg-teal1">
                 <div class="row">
@@ -1415,13 +1304,13 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT11"><label for="WedOJT11">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT11"><label for="WedOJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG11"></span>
@@ -1434,13 +1323,13 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT12"><label for="WedOJT12">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT12"><label for="WedOJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG12"></span>
@@ -1453,13 +1342,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT13"><label for="WedOJT13">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT13"><label for="WedOJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG13"></span></div>
@@ -1471,13 +1360,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT14"><label for="WedOJT14">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT14"><label for="WedOJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG14"></span></div>
@@ -1489,13 +1378,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT15"><label for="WedOJT15">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT15"><label for="WedOJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG15"></span></div>
@@ -1507,13 +1396,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT16"><label for="WedOJT16">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT16"><label for="WedOJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG16"></span></div>
@@ -1525,13 +1414,13 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="WedOJT17"><label for="WedOJT17">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="WedOJT17"><label for="WedOJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="WedTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="WedTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="WedTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG17"></span></div>
@@ -1642,8 +1531,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime41" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearLV41"></span>
@@ -1670,8 +1559,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime42" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearLV42"></span>
@@ -1679,7 +1568,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="ThuQL11"><label for="ThuQL11">Equipment/Lift (Q/L)</label>&nbsp;
+            <div class="row"><input name="chkQL" type="checkbox" id="ThuQL11"><label for="ThuQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="ThuJ11"><label for="ThuJ11">Admin (J)</label></div>
             <div class="tinycard bg-teal1">
                 <div class="row">
@@ -1687,13 +1576,13 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT11"><label for="ThuOJT11">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT11"><label for="ThuOJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG11"></span>
@@ -1706,13 +1595,13 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT12"><label for="ThuOJT12">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT12"><label for="ThuOJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG12"></span>
@@ -1725,13 +1614,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT13"><label for="ThuOJT13">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT13"><label for="ThuOJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG13"></span></div>
@@ -1743,13 +1632,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT14"><label for="ThuOJT14">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT14"><label for="ThuOJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG14"></span></div>
@@ -1761,13 +1650,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT15"><label for="ThuOJT15">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT15"><label for="ThuOJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG15"></span></div>
@@ -1779,13 +1668,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT16"><label for="ThuOJT16">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT16"><label for="ThuOJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG16"></span></div>
@@ -1797,13 +1686,13 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="ThuOJT17"><label for="ThuOJT17">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="ThuOJT17"><label for="ThuOJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="ThuTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="ThuTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="ThuTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG17"></span></div>
@@ -1914,8 +1803,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime41" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearLV41"></span>
@@ -1942,8 +1831,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime42" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearLV42"></span>
@@ -1951,7 +1840,7 @@
                 </div>
             </div>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="FriQL11"><label for="FriQL11">Equipment/Lift (Q/L)</label>&nbsp;
+            <div class="row"><input name="chkQL" type="checkbox" id="FriQL11"><label for="FriQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="FriJ11"><label for="FriJ11">Admin (J)</label></div>
             <div class="tinycard bg-teal1">
                 <div class="row">
@@ -1959,13 +1848,13 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT11"><label for="FriOJT11">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT11"><label for="FriOJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG11"></span>
@@ -1978,13 +1867,13 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT12"><label for="FriOJT12">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT12"><label for="FriOJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG12"></span>
@@ -1997,13 +1886,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT13"><label for="FriOJT13">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT13"><label for="FriOJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG13"></span></div>
@@ -2015,13 +1904,13 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT14"><label for="FriOJT14">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT14"><label for="FriOJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG14"></span></div>
@@ -2033,13 +1922,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT15"><label for="FriOJT15">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT15"><label for="FriOJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG15"></span></div>
@@ -2051,13 +1940,13 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT16"><label for="FriOJT16">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT16"><label for="FriOJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG16"></span></div>
@@ -2069,13 +1958,13 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="FriOJT17"><label for="FriOJT17">OJT</label>&nbsp;
+                        <input type="checkbox" name="chkOJT" id="FriOJT17"><label for="FriOJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
-                        <input id="FriTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>&nbsp;
+                        <input id="FriTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
                         <input id="FriTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG17"></span></div>
@@ -2140,10 +2029,10 @@
         <div id="ftModal" class="modal hide">
             <div class="modal-content" style="max-width: 600px">
                 <div class="row">
-                    <p>Type:&nbsp;</p><input id="fttype" type="text" style="width: 200px;text-align: left;">
-                    <p id="ftinput">&nbsp;&nbsp;Or Select:&nbsp;</p>&nbsp;&nbsp;
+                    <p>Type:</p><input id="fttype" type="text" style="width: 200px;text-align: left;">
+                    <p id="ftinput">Or Select:</p>
                     <select style="width: 200px;" id="ftselector"></select>
-                    <span class="close fa fa-check-circle fa-lg" id="goFT" style="color:green;margin-top: 3px"></span>&nbsp;
+                    <span class="close fa fa-check-circle fa-lg" id="goFT" style="color:green;margin-top: 3px"></span>
                     <span class="close fa fa-times-circle fa-lg" id="closeFT" style="margin-top: 3px"></span>
                 </div>
             </div>
@@ -2169,7 +2058,7 @@
             <div class="modal-freeze" style="width:90%;">
                 <div class="row bg-gold">
                     <div class="col-10">
-                        <p class="daily bold">&nbsp;TUTORIAL</p>
+                        <p class="daily bold">TUTORIAL</p>
                     </div>
                     <div class="col-2 right">
                         <span class="close fas fa-times-circle fa-lg" id="endChanges"></span>
@@ -2188,8 +2077,8 @@
                         <p class="tutorial-cat">OTHER WORK DUTY: To add an other work duty, click on Add Other Work and complete the section. To remove the other work duty, click the trash can in the corner.</p>
                     </div>
                     <div class="col-12 center">
-                        <img src="img/imgOW1.png" class="img-border image" alt="Other Work example">&nbsp;
-                        <img src="img/imgOW2.png" class="img-border image" alt="Other Work example">&nbsp;
+                        <img src="img/imgOW1.png" class="img-border image" alt="Other Work example">
+                        <img src="img/imgOW2.png" class="img-border image" alt="Other Work example">
                         <img src="img/imgOW3.png" class="img-border image" alt="Other Work example">
                     </div>
                 </div>
@@ -2198,8 +2087,8 @@
                         <p class="tutorial-cat">FIELD TRIP: To add a field trip, click on Add Field Trip and complete all fields. To remove the field trip, click the trash can in the corner.</p>
                     </div>
                     <div class="col-12 center">
-                        <img src="img/imgFT1.png" class="img-border image" alt="Field trip example">&nbsp;
-                        <img src="img/imgFT2.png" class="img-border image" alt="Field trip example">&nbsp;
+                        <img src="img/imgFT1.png" class="img-border image" alt="Field trip example">
+                        <img src="img/imgFT2.png" class="img-border image" alt="Field trip example">
                         <img src="img/imgFT3.png" class="img-border image" alt="Field trip example">
                     </div>
                 </div>
@@ -2208,9 +2097,9 @@
                         <p class="tutorial-cat">LEAVE: To record leave taken, click on Add Leave. Leave type must be selected. <br>Enter time for partial leave or click ALL DAY if leave was taken for the entire day. Click Remove Leave to clear leave for that day.</p>
                     </div>
                     <div class="col-12 center">
-                        <img src="img/imgLV1.png" class="img-border image" alt="Leave example">&nbsp;
-                        <img src="img/imgLV2.png" class="img-border image" alt="Leave example">&nbsp;
-                        <img src="img/imgLV3.png" class="img-border image" alt="Leave example">&nbsp;
+                        <img src="img/imgLV1.png" class="img-border image" alt="Leave example">
+                        <img src="img/imgLV2.png" class="img-border image" alt="Leave example">
+                        <img src="img/imgLV3.png" class="img-border image" alt="Leave example">
                         <img src="img/imgLV4.png" class="img-border image" alt="Leave example">
                     </div>
                 </div>
