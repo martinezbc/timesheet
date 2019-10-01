@@ -95,7 +95,41 @@
                 <span class="fas fa-times" id="${day}ClearFT${i}"></span></div></div></div>`;
             return strHTML;
         }
-
+        
+        function insertLV(day, i) {
+            let strHTML = '';
+            
+            if (i === 'AD') {
+                strHTML += `<div class="tinycard bg-gold hide" id="${day}Leave40"><div class="row"><div class="col-12">
+                            <p class="category">Leave</p></div></div>
+                            <div class="row"><div class="col-3">
+                            <input type="checkbox" name="chkLV" id="${day}Leave${i}"><label for="${day}Leave${i}">ALL DAY</label></div>`;
+            } else {
+                strHTML += `<div class="tinycard bg-gold hide" id="${day}Leave${i}"><div class="row"><div class="col-4">
+                            <p class="category">Leave</p></div>`;
+            }
+            
+            strHTML += `<div class="col-8"><select id="${day}LeaveSelect${i}">
+                        <option value="">--Select Leave--</option>
+                        <option value="SICK-IND">Sick-Indv</option>
+                        <option value="SICK-FAM">Sick-Family</option>
+                        <option value="PERSONAL">Personal</option>
+                        <option value="LWOP">LWOP</option>
+                        <option value="CIVIL">Civil</option>
+                        <option value="SICK-FMLA">FMLA</option>
+                        <option value="SICK-INJ">Injury</option>
+                        </select></div>`;
+            
+            if (i !== 'AD') {
+                strHTML += `</div><div class="row"><div class="col-11">
+                            <input id="${day}Time${i}S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                            <input id="${day}Time${i}E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                            <input id="${day}Time${i}" type="text" class="total-time nofocus" disabled></div>`;
+            }
+            strHTML += `<div class="col-1"><span class="fas fa-times" id="${day}ClearLV${i}"></span></div></div></div>`;
+            return strHTML;
+        }
+        
         function insertPupilCount(i) {
             let strHTML = '';
             for (const day of weekdays) {
@@ -137,6 +171,7 @@
         </div>
     </div>
     <div class="main">
+        <div class="topspacer"></div>
         <div class="topspacer"></div>
         <div class="card" id="EmpData">
             <div class="row">
@@ -671,86 +706,11 @@
             <div class="row addLV" id="MonLVAdd">
                 <p class="category" id="MonLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            <div class="tinycard bg-gold hide" id="MonLeave40">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Leave</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="checkbox" name="chkLV" id="MonLeaveAD"><label for="MonLeaveAD">ALL DAY</label>
-                    </div>
-                    <div class="col-8">
-                        <select id="MonLeaveSelectAD">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="MonLeave41">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="MonLeaveSelect41">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="MonTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime41" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearLV41"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="MonLeave42">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="MonLeaveSelect42">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="MonTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime42" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="MonClearLV42"></span>
-                    </div>
-                </div>
-            </div>
+            <script>
+                document.write(insertLV('Mon', 'AD'));
+                document.write(insertLV('Mon', 41));
+                document.write(insertLV('Mon', 42));
+            </script>
             <hr>
             <div class="row"><input name="chkQL" type="checkbox" id="MonQL11"><label for="MonQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="MonJ11"><label for="MonJ11">Admin (J)</label></div>
@@ -943,86 +903,11 @@
             <div class="row addLV" id="TueLVAdd">
                 <p class="category" id="TueLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            <div class="tinycard bg-gold hide" id="TueLeave40">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Leave</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="checkbox" name="chkLV" id="TueLeaveAD"><label for="TueLeaveAD">ALL DAY</label>
-                    </div>
-                    <div class="col-8">
-                        <select id="TueLeaveSelectAD">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="TueLeave41">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="TueLeaveSelect41">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="TueTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime41" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="TueClearLV41"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="TueLeave42">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="TueLeaveSelect42">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="TueTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime42" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="TueClearLV42"></span>
-                    </div>
-                </div>
-            </div>
+            <script>
+                document.write(insertLV('Tue', 'AD'));
+                document.write(insertLV('Tue', 41));
+                document.write(insertLV('Tue', 42));
+            </script>    
             <hr>
             <div class="row"><input name="chkQL" type="checkbox" id="TueQL11"><label for="TueQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="TueJ11"><label for="TueJ11">Admin (J)</label></div>
@@ -1215,86 +1100,11 @@
             <div class="row addLV" id="WedLVAdd">
                 <p class="category" id="WedLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            <div class="tinycard bg-gold hide" id="WedLeave40">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Leave</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="checkbox" name="chkLV" id="WedLeaveAD"><label for="WedLeaveAD">ALL DAY</label>
-                    </div>
-                    <div class="col-8">
-                        <select id="WedLeaveSelectAD">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="WedLeave41">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="WedLeaveSelect41">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="WedTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime41" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearLV41"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="WedLeave42">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="WedLeaveSelect42">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="WedTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime42" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="WedClearLV42"></span>
-                    </div>
-                </div>
-            </div>
+            <script>
+                document.write(insertLV('Wed', 'AD'));
+                document.write(insertLV('Wed', 41));
+                document.write(insertLV('Wed', 42));
+            </script> 
             <hr>
             <div class="row"><input name="chkQL" type="checkbox" id="WedQL11"><label for="WedQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="WedJ11"><label for="WedJ11">Admin (J)</label></div>
@@ -1487,86 +1297,11 @@
             <div class="row addLV" id="ThuLVAdd">
                 <p class="category" id="ThuLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            <div class="tinycard bg-gold hide" id="ThuLeave40">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Leave</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="checkbox" name="chkLV" id="ThuLeaveAD"><label for="ThuLeaveAD">ALL DAY</label>
-                    </div>
-                    <div class="col-8">
-                        <select id="ThuLeaveSelectAD">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="ThuLeave41">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="ThuLeaveSelect41">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="ThuTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime41" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV41"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="ThuLeave42">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="ThuLeaveSelect42">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="ThuTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime42" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ThuClearLV42"></span>
-                    </div>
-                </div>
-            </div>
+            <script>
+                document.write(insertLV('Thu', 'AD'));
+                document.write(insertLV('Thu', 41));
+                document.write(insertLV('Thu', 42));
+            </script> 
             <hr>
             <div class="row"><input name="chkQL" type="checkbox" id="ThuQL11"><label for="ThuQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="ThuJ11"><label for="ThuJ11">Admin (J)</label></div>
@@ -1759,86 +1494,12 @@
             <div class="row addLV" id="FriLVAdd">
                 <p class="category" id="FriLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            <div class="tinycard bg-gold hide" id="FriLeave40">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="category">Leave</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <input type="checkbox" name="chkLV" id="FriLeaveAD"><label for="FriLeaveAD">ALL DAY</label>
-                    </div>
-                    <div class="col-8">
-                        <select id="FriLeaveSelectAD">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="FriLeave41">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="FriLeaveSelect41">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="FriTime41S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime41E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime41" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearLV41"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-gold hide" id="FriLeave42">
-                <div class="row">
-                    <div class="col-4">
-                        <p class="category">Leave</p>
-                    </div>
-                    <div class="col-8">
-                        <select id="FriLeaveSelect42">
-                            <option value="">--Select Leave--</option>
-                            <option value="SICK-IND">Sick-Indv</option>
-                            <option value="SICK-FAM">Sick-Family</option>
-                            <option value="PERSONAL">Personal</option>
-                            <option value="LWOP">LWOP</option>
-                            <option value="CIVIL">Civil</option>
-                            <option value="SICK-FMLA">FMLA</option>
-                            <option value="SICK-INJ">Injury</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <input id="FriTime42S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime42E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime42" type="text" class="total-time nofocus" disabled>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="FriClearLV42"></span>
-                    </div>
-                </div>
-            </div>
+            
+            <script>
+                document.write(insertLV('Fri', 'AD'));
+                document.write(insertLV('Fri', 41));
+                document.write(insertLV('Fri', 42));
+            </script> 
             <hr>
             <div class="row"><input name="chkQL" type="checkbox" id="FriQL11"><label for="FriQL11">Equipment/Lift (Q/L)</label>
                 <input type="checkbox" name="chkJ" id="FriJ11"><label for="FriJ11">Admin (J)</label></div>
@@ -2049,8 +1710,8 @@
             <div class="modal-content" style="width: 500px;">
                 <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;"></span>
                 <p>VALIDATION SUCCESSFUL</p>
-                <p><label for="EmpInitials">Initial Below:<br><input type="text" id="EmpInitials"></label><span class="close fas fa-check-circle fa-lg" id="goConfirm" style="color:green;" onclick="openTimesheet();"></span></p>
-                <p style="font-size: 12px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
+                <p style="font-size: 11px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
+                <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"> <button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
             </div>
         </div>
         <!-- The Changes Made Modal -->
