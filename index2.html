@@ -14,8 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
-    <link href="css/css-v2.0.0/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
+<style>
+.modal {
+z-index: 3000;
+}
+</style>
 </head>
 
 <body>
@@ -84,6 +89,7 @@
                         }
                         strHTML += '</div><div class="hide" id="divTCS"><input type="radio" id="teamTCS" name="Team" value="TC"><label for="teamTCS">TC</label></div>';
                         document.write(strHTML);
+
                     </script>
                 </div>
             </div>
@@ -154,12 +160,13 @@
                         strHTML += '<option value="SICK-INJ">Injury</option>';
                         strHTML += '</select></div>';
                         strHTML += '</div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearOW${j}S"></span></div></div></div>`;
                     }
                     document.write(strHTML);
+
                 </script>
             </div>
             <hr>
@@ -198,12 +205,13 @@
                         strHTML += '</div><div class="row"><div class="col-12">';
                         strHTML += `<input id="Desc${j}S" type="text" class="descwidth" name="owdesc" style="text-align: left;" placeholder="Additional notes...">`;
                         strHTML += '</div></div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearOW${j}S"></span></div></div></div>`;
                     }
                     document.write(strHTML);
+
                 </script>
             </div>
             <hr>
@@ -232,12 +240,13 @@
                         strHTML += '</div></div><div class="row"><div class="col-12">';
                         strHTML += `<input name="txtFT" id="To${j}S" type="text" placeholder="Destination..." style="text-align:left;" class="ftwidth">`;
                         strHTML += '</div></div><div class="row"><div class="col-11">';
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
-                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -" disabled>&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}SS" class="timewidth" placeholder="- - : - -">&nbsp;`;
+                        strHTML += `<input type="text" name="txtTime" id="Time${j}ES" class="timewidth" placeholder="- - : - -">&nbsp;`;
                         strHTML += `<input type="text" id="Time${j}S" class="total-time nofocus" disabled>`;
                         strHTML += `</div><div class="col-1"><span class="fas fa-times" id="ClearFT${j}S"></span></div></div></div>`;
                     }
                     document.write(strHTML);
+
                 </script>
             </div>
         </div>
@@ -354,45 +363,51 @@
         let r5 = DateRange(0);
 
         strHTML = '<option value="">--Select Week--</option>';
-        strHTML += '<option value="' + r1 + '">' + dateString(r1) + '</option>';
-        strHTML += '<option value="' + r2 + '">' + dateString(r2) + '</option>';
-        strHTML += '<option value="' + r3 + '">' + dateString(r3) + '</option>';
-        strHTML += '<option value="' + r4 + '">' + dateString(r4) + '</option>';
-        strHTML += '<option value="' + r5 + '">' + dateString(r5) + '</option>';
+        strHTML += `<option value="${dateString(r1)}">${r1}</option>`;
+        strHTML += `<option value="${dateString(r2)}">${r2}</option>`;
+        strHTML += `<option value="${dateString(r3)}">${r3}</option>`;
+        strHTML += `<option value="${dateString(r4)}">${r4}</option>`;
+        strHTML += `<option value="${dateString(r5)}">${r5}</option>`;
 
         document.getElementById("WeekOfS").innerHTML = strHTML;
 
         function DateRange(offset) {
+
             let start = new Date();
             let end = new Date();
+            let options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                timeZone: 'America/New_York'
+            };
             let day = start.getDay();
-            let sOffset = (day - day) - (day + 1);
-            sOffset = (sOffset === -7) ? 0 : sOffset;
+            let sOffset = -(day + 1) < -6 ? 0 : -(day + 1);
             let eOffset = sOffset + 6;
             start.setDate(start.getDate() + (sOffset + offset));
             end.setDate(end.getDate() + (eOffset + offset));
 
-            let sm = start.getMonth() + 1,
-                sd = start.getDate(),
-                sy = start.getFullYear();
-            let em = end.getMonth() + 1,
-                ed = end.getDate(),
-                ey = end.getFullYear();
-            sm = (sm.toString().length === 1) ? "0" + sm : sm;
-            sd = (sd.toString().length === 1) ? "0" + sd : sd;
-            em = (em.toString().length === 1) ? "0" + em : em;
-            ed = (ed.toString().length === 1) ? "0" + ed : ed;
-            return sm + sd + sy + em + ed + ey + "S";
+                return start.toLocaleDateString("en-US", options) + ' - ' + end.toLocaleDateString("en-US", options);
         }
 
-        function dateString(strDate) {
-            let str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
-            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
-            return str
+        //REPLACE ALL FUNCTION
+        function replaceAll(text, find, replace) {
+            while (text.toString().indexOf(find) != -1)
+                text = text.toString().replace(find, replace);
+            return text + "S";
         }
+
+        //CONVERT DATE STRING INTO STRAIGHT NUMBERS ONLY
+        function dateString(strDate) {
+            strDate = replaceAll(strDate, "/", "");
+            return strDate.replace(" - ", "");
+        }
+
     </script>
-    <script src="js/js-v2.0.5/fieldtrip.js"></script>
-    <script src="js/js-v2.0.5/json2.js"></script>
-    <script src="js/js-v2.0.5/supfunctions.js"></script>
-    <script src="js/js-v2.0.5/script.js"></script>
-</body></html>
+    <script src="js/fieldtripSelect.js"></script>
+    <script src="js/objectS.js"></script>
+    <script src="js/codeS.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

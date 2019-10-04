@@ -12,14 +12,14 @@ weekof.innerHTML = strHTML;
 function DateRange(offset) {
     let start = new Date();
     let end = new Date();
-    let options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+    let options = {year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/New_York'};
     let day = start.getDay();
     let sOffset = -(day + 1) < -6 ? 0 : -(day + 1);
     let eOffset = sOffset + 6;
     start.setDate(start.getDate() + (sOffset + offset));
     end.setDate(end.getDate() + (eOffset + offset));
 
-    return start.toLocaleDateString(undefined, options) + ' - ' + end.toLocaleDateString(undefined, options);
+    return start.toLocaleDateString("en-US", options) + ' - ' + end.toLocaleDateString("en-US", options);
 }
 
 //REPLACE ALL FUNCTION
@@ -1308,6 +1308,7 @@ function dailyRuns(day) {
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
     byID(`${day}RunTotal`).value = sum;
+    objThis[day][`${day}RunTotal`] = sum;
 }
 
 //CALCULATE DAILY OTHER WORK TIME

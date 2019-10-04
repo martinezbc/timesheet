@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
-    <link href="css/css-v2.0.0/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
     <style>
@@ -807,10 +807,8 @@
             x = objThis.TeamS;
 
             let y = objThis.WeekOfS;
-            let z = y.substr(11);
+            let z = y.substr(8,8);
             y = y.substr(0, 8);
-            z = z.replace("/", "").replace("/", "");
-            y = y.replace("/", "").replace("/", "");
             x = x + "_" + y + "_" + z;
 
             x = x + "_" + objThis.EmpNameS.replace(",", "").replace(" ", "");

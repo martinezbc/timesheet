@@ -15,8 +15,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
-    <link href="css/css-v2.0.0/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
+    <style>
+        .modal {
+            z-index: 3000;
+        }
+    </style>
 </head>
 
 <body>
@@ -57,10 +62,11 @@
                 <option value="ES0">On Time - Early start</option>
                 <option value="CBK">Call back</option></select></div></div>
                 <div class="row"><div class="col-12">
-                <input id="${day}Desc${i}" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes..."></div></div>
+                <input id="${day}Desc${i}" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes..." spellcheck="true" autocorrect="on">
+                </div></div>
                 <div class="row"><div class="col-11">
-                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>
-                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>
+                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -">
+                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -">
                 <input type="text" id="${day}Time${i}" class="total-time nofocus" disabled></div>
                 <div class="col-1"><span class="fas fa-times" id="${day}ClearOW${i}"></span></div></div></div>`;
             return strHTML
@@ -84,52 +90,58 @@
             }
             strHTML += `<input type="checkbox" name="chkFTQL" id="${day}QL${i}"><label class="lblBtnFalse" for="${day}QL${i}">Q/L</label></div></div>
                 <div class="row"><div class="col-12">
-                <input id="${day}From${i}" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth" disabled></div></div>
+                <input id="${day}From${i}" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div>
                 <div class="row"><div class="col-12">
-                <input id="${day}To${i}" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth" disabled></div></div>
+                <input id="${day}To${i}" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div>
                 <div class="row"><div class="col-11">
-                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -" disabled>
-                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -" disabled>
+                <input type="text" name="txtTime" id="${day}Time${i}S" class="timewidth" placeholder="- - : - -">
+                <input type="text" name="txtTime" id="${day}Time${i}E" class="timewidth" placeholder="- - : - -">
                 <input type="text" id="${day}Time${i}" class="total-time nofocus" disabled></div>
                 <div class="col-1">
                 <span class="fas fa-times" id="${day}ClearFT${i}"></span></div></div></div>`;
             return strHTML;
         }
-        
-        function insertLV(day, i) {
-            let strHTML = '';
-            
-            if (i === 'AD') {
-                strHTML += `<div class="tinycard bg-gold hide" id="${day}Leave40"><div class="row"><div class="col-12">
-                            <p class="category">Leave</p></div></div>
-                            <div class="row"><div class="col-3">
-                            <input type="checkbox" name="chkLV" id="${day}Leave${i}"><label for="${day}Leave${i}">ALL DAY</label></div>`;
-            } else {
-                strHTML += `<div class="tinycard bg-gold hide" id="${day}Leave${i}"><div class="row"><div class="col-4">
-                            <p class="category">Leave</p></div>`;
-            }
-            
-            strHTML += `<div class="col-8"><select id="${day}LeaveSelect${i}">
-                        <option value="">--Select Leave--</option>
-                        <option value="SICK-IND">Sick-Indv</option>
-                        <option value="SICK-FAM">Sick-Family</option>
-                        <option value="PERSONAL">Personal</option>
-                        <option value="LWOP">LWOP</option>
-                        <option value="CIVIL">Civil</option>
-                        <option value="SICK-FMLA">FMLA</option>
-                        <option value="SICK-INJ">Injury</option>
-                        </select></div>`;
-            
-            if (i !== 'AD') {
-                strHTML += `</div><div class="row"><div class="col-11">
-                            <input id="${day}Time${i}S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                            <input id="${day}Time${i}E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                            <input id="${day}Time${i}" type="text" class="total-time nofocus" disabled></div>`;
-            }
-            strHTML += `<div class="col-1"><span class="fas fa-times" id="${day}ClearLV${i}"></span></div></div></div>`;
-            return strHTML;
+
+        function insertLVAD(day) {
+            return `
+                <div class="tinycard bg-gold hide" id="${day}LVDivAD"><div class="row"><div class="col-11">
+                <p class="category">Leave - All Day</p></div>
+                <div class="col-1"><span class="fas fa-trash-alt" id="${day}LVTrashAD"></span></div></div><div class="row">
+                <div class="col-8"><select id="${day}LeaveSelectAD">
+                <option value="">--Select Leave--</option>
+                <option value="SICK-IND">Sick-Indv</option>
+                <option value="SICK-FAM">Sick-Family</option>
+                <option value="PERSONAL">Personal</option>
+                <option value="LWOP">LWOP</option>
+                <option value="CIVIL">Civil</option>
+                <option value="SICK-FMLA">FMLA</option>
+                <option value="SICK-INJ">Injury</option>
+                </select></div>
+                <div class="col-4"><input type="checkbox" name="chkLV" id="${day}LeaveAD"><label for="${day}LeaveAD">ALL DAY</label></div>
+                </div></div>`;
         }
-        
+
+        function insertLV(day, i) {
+            return `
+                <div class="tinycard bg-gold hide" id="${day}LVDiv${i}"><div class="row"><div class="col-11">
+                <p class="category">Leave - ${(i === 40) ? 'AM/PM' : 'Other'}</p></div>
+                <div class="col-1"><span class="fas fa-trash-alt" id="${day}LVTrash${i}"></span></div></div><div class="row">
+                <div class="col-12">
+                <select id="${day}LeaveSelect${i}">
+                <option value="">--Select Leave--</option>
+                <option value="SICK-IND">Sick-Indv</option>
+                <option value="SICK-FAM">Sick-Family</option>
+                <option value="PERSONAL">Personal</option>
+                <option value="LWOP">LWOP</option>
+                <option value="CIVIL">Civil</option>
+                <option value="SICK-FMLA">FMLA</option>
+                <option value="SICK-INJ">Injury</option>
+                </select></div></div><div class="row">
+                <input id="${day}Time${i}S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp; 
+                <input id="${day}Time${i}E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">&nbsp;
+                <input id="${day}Time${i}" type="text" class="total-time nofocus" disabled></div></div>`;
+        }
+
         function insertPupilCount(i) {
             let strHTML = '';
             for (const day of weekdays) {
@@ -137,6 +149,7 @@
             }
             return strHTML;
         }
+
     </script>
     <div class="header">
         <div class="row">
@@ -199,6 +212,7 @@
                             if (i === 5 || i === 6) continue;
                             document.write(`<input type="radio" id="area${i}" name="Area" value="${i}"><label for="area${i}">${i}</label>`);
                         }
+
                     </script>
                     <input type="radio" id="areaTC" name="Area" value="TC"><label for="areaTC">TC</label>
                 </div>
@@ -210,24 +224,28 @@
                         <script>
                             for (let i = 10; i < 18; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
+
                         </script>
                     </div>
                     <div class="hide" id="div2">
                         <script>
                             for (let i = 20; i < 28; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
+
                         </script>
                     </div>
                     <div class="hide" id="div3">
                         <script>
                             for (let i = 30; i < 38; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
+
                         </script>
                     </div>
                     <div class="hide" id="div4">
                         <script>
                             for (let i = 40; i < 48; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
+
                         </script>
                     </div>
                     <div class="hide" id="div7">
@@ -235,6 +253,7 @@
                             const area7Teams = ['ACA', 'ALTM', 'ALTP', 'AUR', 'CARD', 'FCPS', 'FR', 'IVY', 'KING', 'KK', 'KT', 'LAB', 'LOU', 'MATH', 'PHIL', 'RIV', 'SCOL'];
                             for (const team of area7Teams)
                                 document.write(`<input type="radio" id="team${team}" name="Team" value="${team}"><label for="team${team}">${team}</label>`);
+
                         </script>
                     </div>
                     <div class="hide" id="divTC">
@@ -309,6 +328,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM1'));
+
                         </script>
                     </div>
                 </div>
@@ -319,6 +339,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM2'));
+
                         </script>
                     </div>
                 </div>
@@ -329,6 +350,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM3'));
+
                         </script>
                     </div>
                 </div>
@@ -339,6 +361,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM4'));
+
                         </script>
                     </div>
                 </div>
@@ -349,6 +372,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM5'));
+
                         </script>
                     </div>
                 </div>
@@ -357,36 +381,36 @@
                 </div>
                 <div class="row hide" id="MonTimeAM">
                     <div class="col-11">
-                        <input id="MonTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="TueTimeAM">
                     <div class="col-11">
-                        <input id="TueTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="WedTimeAM">
                     <div class="col-11">
-                        <input id="WedTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="ThuTimeAM">
                     <div class="col-11">
-                        <input id="ThuTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearPTAM"></span></div>
                 </div>
                 <div class="row hide" id="FriTimeAM">
                     <div class="col-11">
-                        <input id="FriTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTimeA" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTimeB" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearPTAM"></span></div>
                 </div>
@@ -412,6 +436,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM1'));
+
                         </script>
                     </div>
                 </div>
@@ -422,6 +447,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM2'));
+
                         </script>
                     </div>
                 </div>
@@ -432,6 +458,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM3'));
+
                         </script>
                     </div>
                 </div>
@@ -442,6 +469,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM4'));
+
                         </script>
                     </div>
                 </div>
@@ -452,6 +480,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM5'));
+
                         </script>
                     </div>
                 </div>
@@ -460,36 +489,36 @@
                 </div>
                 <div class="row hide" id="MonTimePM">
                     <div class="col-11">
-                        <input id="MonTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="TueTimePM">
                     <div class="col-11">
-                        <input id="TueTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="WedTimePM">
                     <div class="col-11">
-                        <input id="WedTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="ThuTimePM">
                     <div class="col-11">
-                        <input id="ThuTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearPTPM"></span></div>
                 </div>
                 <div class="row hide" id="FriTimePM">
                     <div class="col-11">
-                        <input id="FriTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTimeC" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTimeD" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearPTPM"></span></div>
                 </div>
@@ -515,6 +544,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PS1'));
+
                         </script>
                     </div>
                 </div>
@@ -525,6 +555,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PS2'));
+
                         </script>
                     </div>
                 </div>
@@ -551,6 +582,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('SH1'));
+
                         </script>
                     </div>
                 </div>
@@ -561,6 +593,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('SH2'));
+
                         </script>
                     </div>
                 </div>
@@ -586,6 +619,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('LR1'));
+
                         </script>
                     </div>
                 </div>
@@ -596,6 +630,7 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('LR2'));
+
                         </script>
                     </div>
                 </div>
@@ -626,6 +661,7 @@
                 document.write(insertOW('Sat', 20));
                 document.write(insertOW('Sat', 21));
                 document.write(insertOW('Sat', 22));
+
             </script>
             <div class="row" id="SatOWAdd2"></div>
             <div class="row">
@@ -635,6 +671,7 @@
                 document.write(insertFT('Sat', 30));
                 document.write(insertFT('Sat', 31));
                 document.write(insertFT('Sat', 32));
+
             </script>
             <div class="row" id="SatFTAdd2"></div>
         </div>
@@ -663,6 +700,7 @@
                 document.write(insertOW('Sun', 20));
                 document.write(insertOW('Sun', 21));
                 document.write(insertOW('Sun', 22));
+
             </script>
             <div class="row" id="SunOWAdd2"></div>
             <div class="row">
@@ -672,6 +710,7 @@
                 document.write(insertFT('Sun', 30));
                 document.write(insertFT('Sun', 31));
                 document.write(insertFT('Sun', 32));
+
             </script>
             <div class="row" id="SunFTAdd2"></div>
         </div>
@@ -703,17 +742,26 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="row addLV" id="MonLVAdd">
-                <p class="category" id="MonLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            <div class="row addLV">
+                <p class="category" id="MonLVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="row">
+                <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
             </div>
             <script>
-                document.write(insertLV('Mon', 'AD'));
+                document.write(insertLVAD('Mon'));
+                document.write(insertLV('Mon', 40));
                 document.write(insertLV('Mon', 41));
-                document.write(insertLV('Mon', 42));
+
             </script>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="MonQL11"><label for="MonQL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="MonJ11"><label for="MonJ11">Admin (J)</label></div>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="MonQL11"><label for="MonQL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="MonJ11"><label for="MonJ11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
             <div class="tinycard bg-teal1">
                 <div class="row">
                     <div class="col-10">
@@ -725,8 +773,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG11"></span>
@@ -744,8 +792,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG12"></span>
@@ -763,8 +811,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG13"></span></div>
@@ -781,8 +829,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG14"></span></div>
@@ -799,8 +847,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG15"></span></div>
@@ -817,8 +865,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG16"></span></div>
@@ -835,8 +883,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="MonTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="MonTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="MonTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="MonTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="MonTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="MonClearRG17"></span></div>
@@ -857,6 +905,7 @@
                 document.write(insertOW('Mon', 27));
                 document.write(insertOW('Mon', 28));
                 document.write(insertOW('Mon', 29));
+
             </script>
             <div class="row" id="MonOWAdd2"></div>
             <hr>
@@ -869,6 +918,7 @@
                 document.write(insertFT('Mon', 32));
                 document.write(insertFT('Mon', 33));
                 document.write(insertFT('Mon', 34));
+
             </script>
             <div class="row" id="MonFTAdd2"></div>
         </div>
@@ -900,17 +950,26 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="row addLV" id="TueLVAdd">
-                <p class="category" id="TueLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            <div class="row addLV">
+                <p class="category" id="TueLVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="row">
+                <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
             </div>
             <script>
-                document.write(insertLV('Tue', 'AD'));
+                document.write(insertLVAD('Tue'));
+                document.write(insertLV('Tue', 40));
                 document.write(insertLV('Tue', 41));
-                document.write(insertLV('Tue', 42));
-            </script>    
+
+            </script>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="TueQL11"><label for="TueQL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="TueJ11"><label for="TueJ11">Admin (J)</label></div>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="TueQL11"><label for="TueQL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="TueJ11"><label for="TueJ11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
             <div class="tinycard bg-teal1">
                 <div class="row">
                     <div class="col-10">
@@ -922,8 +981,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG11"></span>
@@ -941,8 +1000,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG12"></span>
@@ -960,8 +1019,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG13"></span></div>
@@ -978,8 +1037,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG14"></span></div>
@@ -996,8 +1055,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG15"></span></div>
@@ -1014,8 +1073,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG16"></span></div>
@@ -1032,8 +1091,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="TueTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="TueTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="TueTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="TueTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="TueTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="TueClearRG17"></span></div>
@@ -1054,6 +1113,7 @@
                 document.write(insertOW('Tue', 27));
                 document.write(insertOW('Tue', 28));
                 document.write(insertOW('Tue', 29));
+
             </script>
             <div class="row" id="TueOWAdd2"></div>
             <hr>
@@ -1066,6 +1126,7 @@
                 document.write(insertFT('Tue', 32));
                 document.write(insertFT('Tue', 33));
                 document.write(insertFT('Tue', 34));
+
             </script>
             <div class="row" id="TueFTAdd2"></div>
         </div>
@@ -1097,17 +1158,26 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="row addLV" id="WedLVAdd">
-                <p class="category" id="WedLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            <div class="row addLV">
+                <p class="category" id="WedLVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="row">
+                <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
             </div>
             <script>
-                document.write(insertLV('Wed', 'AD'));
+                document.write(insertLVAD('Wed'));
+                document.write(insertLV('Wed', 40));
                 document.write(insertLV('Wed', 41));
-                document.write(insertLV('Wed', 42));
-            </script> 
+
+            </script>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="WedQL11"><label for="WedQL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="WedJ11"><label for="WedJ11">Admin (J)</label></div>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="WedQL11"><label for="WedQL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="WedJ11"><label for="WedJ11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
             <div class="tinycard bg-teal1">
                 <div class="row">
                     <div class="col-10">
@@ -1119,8 +1189,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG11"></span>
@@ -1138,8 +1208,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG12"></span>
@@ -1157,8 +1227,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG13"></span></div>
@@ -1175,8 +1245,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG14"></span></div>
@@ -1193,8 +1263,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG15"></span></div>
@@ -1211,8 +1281,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG16"></span></div>
@@ -1229,8 +1299,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="WedTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="WedTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="WedTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="WedTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="WedTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="WedClearRG17"></span></div>
@@ -1251,6 +1321,7 @@
                 document.write(insertOW('Wed', 27));
                 document.write(insertOW('Wed', 28));
                 document.write(insertOW('Wed', 29));
+
             </script>
             <div class="row" id="WedOWAdd2"></div>
             <hr>
@@ -1263,6 +1334,7 @@
                 document.write(insertFT('Wed', 32));
                 document.write(insertFT('Wed', 33));
                 document.write(insertFT('Wed', 34));
+
             </script>
             <div class="row" id="WedFTAdd2"></div>
         </div>
@@ -1294,17 +1366,26 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="row addLV" id="ThuLVAdd">
-                <p class="category" id="ThuLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            <div class="row addLV">
+                <p class="category" id="ThuLVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            </div>
+            <div class="row">
+                <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
             </div>
             <script>
-                document.write(insertLV('Thu', 'AD'));
+                document.write(insertLVAD('Thu'));
+                document.write(insertLV('Thu', 40));
                 document.write(insertLV('Thu', 41));
-                document.write(insertLV('Thu', 42));
-            </script> 
+
+            </script>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="ThuQL11"><label for="ThuQL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="ThuJ11"><label for="ThuJ11">Admin (J)</label></div>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="ThuQL11"><label for="ThuQL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="ThuJ11"><label for="ThuJ11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
             <div class="tinycard bg-teal1">
                 <div class="row">
                     <div class="col-10">
@@ -1316,8 +1397,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG11"></span>
@@ -1335,8 +1416,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG12"></span>
@@ -1354,8 +1435,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG13"></span></div>
@@ -1372,8 +1453,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG14"></span></div>
@@ -1390,8 +1471,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG15"></span></div>
@@ -1408,8 +1489,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG16"></span></div>
@@ -1426,8 +1507,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="ThuTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="ThuTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="ThuTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="ThuTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="ThuTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ThuClearRG17"></span></div>
@@ -1448,6 +1529,7 @@
                 document.write(insertOW('Thu', 27));
                 document.write(insertOW('Thu', 28));
                 document.write(insertOW('Thu', 29));
+
             </script>
             <div class="row" id="ThuOWAdd2"></div>
             <hr>
@@ -1460,6 +1542,7 @@
                 document.write(insertFT('Thu', 32));
                 document.write(insertFT('Thu', 33));
                 document.write(insertFT('Thu', 34));
+
             </script>
             <div class="row" id="ThuFTAdd2"></div>
         </div>
@@ -1491,18 +1574,26 @@
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div class="row addLV" id="FriLVAdd">
-                <p class="category" id="FriLvP"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+            <div class="row addLV">
+                <p class="category" id="FriLVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
             </div>
-            
+            <div class="row">
+                <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
+            </div>
             <script>
-                document.write(insertLV('Fri', 'AD'));
+                document.write(insertLVAD('Fri'));
+                document.write(insertLV('Fri', 40));
                 document.write(insertLV('Fri', 41));
-                document.write(insertLV('Fri', 42));
-            </script> 
+
+            </script>
             <hr>
-            <div class="row"><input name="chkQL" type="checkbox" id="FriQL11"><label for="FriQL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="FriJ11"><label for="FriJ11">Admin (J)</label></div>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="FriQL11"><label for="FriQL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="FriJ11"><label for="FriJ11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
             <div class="tinycard bg-teal1">
                 <div class="row">
                     <div class="col-10">
@@ -1514,8 +1605,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime11" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG11"></span>
@@ -1533,8 +1624,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime12" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG12"></span>
@@ -1552,8 +1643,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime13" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG13"></span></div>
@@ -1570,8 +1661,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime14" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG14"></span></div>
@@ -1588,8 +1679,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime15" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG15"></span></div>
@@ -1606,8 +1697,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime16" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG16"></span></div>
@@ -1624,8 +1715,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="FriTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
-                        <input id="FriTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -" disabled>
+                        <input id="FriTime17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="FriTime17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
                         <input id="FriTime17" type="text" class="total-time nofocus" disabled>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="FriClearRG17"></span></div>
@@ -1646,6 +1737,7 @@
                 document.write(insertOW('Fri', 27));
                 document.write(insertOW('Fri', 28));
                 document.write(insertOW('Fri', 29));
+
             </script>
             <div class="row" id="FriOWAdd2"></div>
             <hr>
@@ -1658,6 +1750,7 @@
                 document.write(insertFT('Fri', 32));
                 document.write(insertFT('Fri', 33));
                 document.write(insertFT('Fri', 34));
+
             </script>
             <div class="row" id="FriFTAdd2"></div>
         </div>
@@ -1831,8 +1924,10 @@
             }
         }
     </script>
-    <script src="js/js-v2.0.5/fieldtrip.js"></script>
-    <script src="js/js-v2.0.5/json.js"></script>
-    <script src="js/js-v2.0.5/functions.js"></script>
-    <script src="js/js-v2.0.5/script.js"></script>
-</body></html>
+    <script src="js/fieldtripSelect.js"></script>
+    <script src="js/object.js"></script>
+    <script src="js/code.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
