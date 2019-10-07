@@ -1,689 +1,13 @@
-let activeID = "";
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-/********************EVENT LISTENERS********************/
-let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
-
-function byID(refID) {
-    return document.getElementById(refID);
-}
-
-window.addEventListener(clickEvent, (event) => {
-    var bln = byID("navdropdown").classList.contains("hide") ? true : false;
-
-    if (event.target.id !== 'navbtn') {
-        showHide("navdropdown", false);
-    } else {
-        showHide("navdropdown", bln);
-    }
-});
-
-function arrEach(obj, event, func) {
-    Array.from(obj).forEach((e) => {
-        e.addEventListener(event, func);
-    });
-}
-
-function docObj(prop) {
-    return document.querySelectorAll(prop);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    arrEach(docObj("input[type=checkbox]"), clickEvent, (e) => {
-        setObject(e.target.id)
-    });
-    arrEach(docObj("input[type=radio]"), clickEvent, (e) => {
-        storeRadioValue(e.target)
-    });
-
-    arrEach(docObj("input[type=text], input[type=number]"), 'change', (e) => {
-        textboxOnChange(e.target)
-    });
-
-    arrEach(docObj("select"), 'change', (e) => {
-        setObject(e.target.id)
-    });
-
-    arrEach(docObj("input[name='chkJ']"), clickEvent, (e) => {
-        toggleJReg(e.target)
-    });
-    arrEach(docObj("input[name='chkOJT']"), clickEvent, (e) => {
-        checkOJT(e.target)
-    });
-    arrEach(docObj("input[name='chkLV']"), clickEvent, (e) => {
-        checkLeave(e.target)
-    });
-    arrEach(docObj("input[name='chkQL']"), clickEvent, (e) => {
-        toggleQLReg(e.target)
-    });
-    arrEach(docObj("input[name='chkFTQL']"), clickEvent, getDailyTotals);
-    arrEach(docObj("input[name='txtTime']"), clickEvent, (e) => {
-        openTimeSelector(e.target)
-    });
-    arrEach(docObj("input[name='txtFT']"), clickEvent, (e) => {
-        openFTSelector(e.target)
-    });
-
-    byID('closeTime').addEventListener(clickEvent, () => {
-        showHide("timeModal", false);
-    });
-    byID('closeFT').addEventListener(clickEvent, () => {
-        showHide("ftModal", false);
-    });
-    byID('endVarious').addEventListener(clickEvent, () => {
-        showHide("variousModal", false);
-    });
-    byID('endValidate').addEventListener(clickEvent, () => {
-        showHide("validateModal", false);
-    });
-    byID('ctspan').addEventListener(clickEvent, popUpCT);
-
-    byID('goFT').addEventListener(clickEvent, storeFTVal);
-    byID('endChanges').addEventListener(clickEvent, () => {
-        showHide("changesModal", false);
-    });
-
-    byID('goTime').addEventListener(clickEvent, goTime);
-
-    arrEach(docObj("input[name='Area']"), 'change', (e) => {
-        radioAreaSelect(e.target)
-    });
-    arrEach(docObj("input[name='Position']"), 'change', positionChange);
-    arrEach(docObj("input[name='route']"), 'change', routeNameCheck);
-    arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
-        selectOWChange(e.target)
-    });
-
-    arrEach(docObj('input[name="chkJ"]'), clickEvent, (e) => {
-        toggleJReg(e.target)
-    });
-    arrEach(docObj('.up, .down, .up2, .down2'), clickEvent, timeSelectors);
-    arrEach(docObj('.addOW'), clickEvent, addOtherWork);
-    arrEach(docObj('.addFT'), clickEvent, addFieldTrip);
-    arrEach(docObj('.addLV'), clickEvent, addLeave);
-    arrEach(docObj('.fa-trash-alt'), clickEvent, removeOWFTLV);
-    arrEach(docObj('.ow'), clickEvent, popUpOW);
-    arrEach(docObj('.ft'), clickEvent, popUpFT);
-    arrEach(docObj('.fa-times'), clickEvent, clearTimeField);
-    arrEach(docObj("#Veh1, #Veh2, #Veh3, #Veh4"), 'keyup', (e) => {
-        limitCharacters(e, 4)
-    });
-    arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
-    arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
-        limitCharacters(e, 6)
-    });
-    byID('EmpInitials').addEventListener('keyup', () => {
-        limitCharacters(e, 5);
-    });
-
-    byID('divtutorial').addEventListener(clickEvent, (e) => {
-        showHide("changesModal", true)
-    });
-
-    byID('navbtn').addEventListener(clickEvent, (e) => {
-        showHide("navbtn", true)
-    });
-    byID('divpreview').addEventListener(clickEvent, completeTimesheet);
-    byID('divsupplement').addEventListener(clickEvent, openSupplement);
-    byID('clear').addEventListener(clickEvent, popUpClear);
-});
-
-
-/********************EVENT LISTENERS********************/
-/********************TIME PICKER********************/
-//TIME SELECTOR MODAL
-function openTimeSelector(e) {
-    activeID = e.id;
-    e.disabled = true;
-
-    if (optVal === "S" && !checkOWFTDate(e.id)) return;
-
-    let refVal = e.value;
-    if (refVal === null) return;
-
-    let blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
-
-    if (refVal !== "") {
-        let hours = refVal.substr(0, refVal.indexOf(":"));
-        let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        let mer = refVal.substr(-2);
-        byID(`hours${optVal}`).innerHTML = hours;
-        byID(`minutes${optVal}`).innerHTML = mins;
-        byID(`meridiem${optVal}`).innerHTML = mer;
-    } else {
-        if (!blnPupil) {
-            mins = round5(Number(byID(`minutes${optVal}`).innerHTML));
-            if (mins < 10 && mins > -1) {
-                mins = "0" + mins.toString();
-            } else if (mins === 60) {
-                mins = "55";
-            }
-            byID(`minutes${optVal}`).innerHTML = mins;
-        }
-    }
-    showHide(`timeModal${optVal}`, true);
-}
-//ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
-function timeSelectors(e) {
-    const refID = e.target.id;
-    let strVal = refID.substr(2);
-    let operator = "";
-    switch (strVal) {
-        case `up${optVal}`:
-            operator = 1;
-            break;
-        case `down${optVal}`:
-            operator = -1;
-            break;
-        case `up2${optVal}`:
-            operator = 2;
-            break;
-        case `down2${optVal}`:
-            operator = -2;
-            break;
-    }
-    changeValue(operator, refID, activeID, optVal);
-}
-//TIME UPDATE STARTING FUNCTION
-function changeValue(operator, clicked, refElement, optVal) {
-    "use strict";
-    let x = refElement.substr(-1);
-    let blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
-
-    let str = clicked.substr(0, 2);
-    switch (str) {
-        case "hr":
-            setHours(operator, optVal);
-            break;
-        case "mn":
-            if (blnPupil)
-                setMinutesPupil(operator);
-            else
-                setMinutes(operator, optVal);
-            break;
-        default:
-            setMeridiem(optVal);
-    }
-}
-//CHANGE AM AND PM
-function setMeridiem(optVal) {
-    let meridiemText = "";
-    const inputMeridiem = byID(`meridiem${optVal}`).innerHTML;
-    if (inputMeridiem === "AM") {
-        meridiemText = "PM";
-    } else {
-        meridiemText = "AM";
-    }
-    byID(`meridiem${optVal}`).innerHTML = meridiemText;
-}
-//CHANGE MINUTES BY 5
-function setMinutes(operator, optVal) {
-    let minutesText = "";
-    const minutes = Number(byID(`minutes${optVal}`).innerHTML);
-    if (operator === 1) {
-        operator = 5;
-    } else if (operator === 2) {
-        operator = 15;
-    } else if (operator === -1) {
-        operator = -5;
-    } else if (operator === -2) {
-        operator = -15;
-    }
-    minutesText = minutes + operator;
-    if (minutesText > 59) {
-        minutesText = Number(minutesText) - 60;
-        setHours(1, optVal);
-    } else if (minutesText < 0) {
-        minutesText = 60 + Number(minutesText)
-        setHours(-1, optVal);
-    }
-    if (minutesText < 10)
-        minutesText = "0" + minutesText;
-
-    byID(`minutes${optVal}`).innerHTML = minutesText;
-}
-//CHANGE MINUTES FOR PUPIL TIME BY 1
-function setMinutesPupil(operator) {
-    let minutesText = "";
-    let minutes = Number(byID("minutes").innerHTML);
-    if (operator === 1) {
-        operator = 1;
-    } else if (operator === 2) {
-        operator = 10;
-    } else if (operator === -1) {
-        operator = -1;
-    } else if (operator === -2) {
-        operator = -10;
-    }
-    minutesText = minutes + operator;
-    if (minutesText < 0) {
-        minutesText = 60 + Number(minutesText);
-        setHours(-1, "");
-    } else if (minutesText > 59) {
-        minutesText = Number(minutesText) - 60;
-        setHours(1, "");
-    }
-
-    if (minutesText < 10) {
-        minutesText = "0" + minutesText;
-    }
-    byID("minutes").innerHTML = minutesText;
-}
-//CHANGE HOURS
-function setHours(operator, optVal) {
-    let hoursText = "";
-    let hours = Number(byID(`hours${optVal}`).innerHTML);
-    hoursText = hours + operator;
-
-    if (hoursText === 13) {
-        hoursText = "1";
-        if (operator === 2) {
-            setMeridiem(optVal);
-        }
-    } else if (hoursText === 14) {
-        hoursText = "2";
-    } else if (hoursText === 0) {
-        hoursText = "12";
-    } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
-        hoursText = "11";
-        setMeridiem(optVal);
-    } else if (hoursText === 12 && operator > 0) {
-        setMeridiem(optVal);
-    } else if (hoursText === 10 && operator === -2) {
-        setMeridiem(optVal);
-    }
-    byID(`hours${optVal}`).innerHTML = hoursText;
-}
-//USE SELECTED TIME
-function goTime(optVal) {
-    let timetext = byID(`hours${optVal}`).innerHTML;
-    timetext += ":" + byID(`minutes${optVal}`).innerHTML;
-    timetext += " " + byID(`meridiem${optVal}`).innerHTML;
-    byID(activeID).value = timetext;
-    byID(activeID).disabled = false;
-    showHide(`timeModal${optVal}`, false);
-    timeCalculation(activeID);
-    setObject(activeID);
-}
-/********************TIME PICKER********************/
-/********************LOCAL STORAGE********************/
-//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
-function setStorage() {
-    let week = byID(`WeekOf${optVal}`).value;
-
-    localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
-}
-//SET ELEMENT VALUE INTO OBJECTS
-function setObject(refID) {
-    if (refID === `WeekOf${optVal}`) return;
-    let day = getObjDay(refID.substr(0, 3));
-
-    if (byID(refID).getAttribute('type') === 'checkbox') {
-        if (optVal === "") {
-            objThis[day][refID] = (byID(refID).checked) ? true : false;
-        } else {
-            objThis[refID] = (byID(refID).checked) ? true : false;
-        }
-    } else {
-        if (optVal === "") {
-            objThis[day][refID] = byID(refID).value;
-        } else {
-            objThis[refID] = byID(refID).value;
-        }
-    }
-    setStorage();
-}
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    let parent = e.parentNode.id;
-    if (parent !== `divarea${optVal}` && parent !== `divposition${optVal}`) {
-        parent = e.parentNode.parentNode.id;
-    }
-    parent = parent.replace('div', '');
-    if (optVal === 'S') parent = parent.replace('S', '');
-    parent = properCase(parent);
-    if (optVal === 'S') parent += 'S';
-
-    if (optVal === "") {
-        objThis.Data[parent] = e.value;
-    } else {
-        objThis[parent] = e.value;
-    }
-    getWeeklyTotals();
-    setStorage();
-}
-//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
-function textboxOnChange(e) {
-    if (e.id === `Trainee${optVal}` || e.id === `EmpName${optVal}`) {
-        e.value = properCase(e.value);
-    } else if (e.id === `EmpInitials${optVal}`) {
-        e.value = e.value.toUpperCase();
-    } else if (optVal === "" && e.id.indexOf("Route") > 0) {
-        routeNameTransform(e.id);
-    }
-
-    setObject(e.id);
-}
-//UPDATE THE WAY THE ROUTE NAME LOOKS
-function routeNameTransform(refID) {
-    let refVal = byID(refID).value;
-    refVal = refVal.toUpperCase();
-
-    let i = 0;
-
-    let blnJ = (refVal.lastIndexOf("J") > 3) ? true : false;
-    let blnL = (refVal.lastIndexOf("L") > 3) ? true : false;
-    let blnQ = (refVal.lastIndexOf("Q") > 3) ? true : false;
-
-    //Remove AM & PM
-    if (refVal.lastIndexOf("AM") > 2)
-        refVal = refVal.replace("AM", "");
-    if (refVal.lastIndexOf("PM") > 2)
-        refVal = refVal.replace("PM", "");
-
-    refVal = refVal.trim();
-
-    //Remove -
-    if (refVal.lastIndexOf("-") > 0)
-        refVal = refVal.replace("-", "");
-
-    //Remove Q, L and J
-    if (refVal.lastIndexOf("L") > 3) {
-        i = refVal.lastIndexOf("L");
-        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-        refVal = refVal.trim();
-    }
-    if (refVal.lastIndexOf("Q") > 3) {
-        i = refVal.lastIndexOf("Q");
-        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-        refVal = refVal.trim();
-    }
-    if (refVal.lastIndexOf("J") > 3) {
-        i = refVal.lastIndexOf("J");
-        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-        refVal = refVal.trim();
-    }
-
-    if (refVal.lastIndexOf("V") > 3) {
-        i = refVal.lastIndexOf("V");
-        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-        refVal = refVal.trim();
-    }
-
-    //Remove P and D for midday
-    if (refID === "PSRoute1" || refID === "PSRoute2") {
-        if (refVal.lastIndexOf("P") > 3) {
-            i = refVal.lastIndexOf("P");
-            refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-            refVal = refVal.trim();
-        }
-
-        if (refVal.lastIndexOf("D") > 3) {
-            i = refVal.lastIndexOf("D");
-            refVal = refVal.substr(0, i) + refVal.substr(i + 1);
-            refVal = refVal.trim();
-        }
-    }
-
-    //Let shuttle number be whatever they type in
-    if (refID === "SHRoute1" || refID === "SHRoute2") return;
-
-    //If the route length is less than 3 then they didn't completely type in the route name
-    if (refVal.length < 3 && refVal !== '') {
-        openPopUp('<p>Invalid route name.</p>');
-        refVal = "";
-    }
-
-    let routeName = ''
-    let routeNum = '';
-    let count = 0;
-    for (let i = refVal.length; i >= 0; i--) {
-        if (isNaN(refVal.substr(i, 1)) && routeNum !== '') {
-            routeName = refVal.substr(i, 1) + routeName;
-        } else if (!isNaN(refVal.substr(i, 1))) {
-            routeNum = refVal.substr(i, 1) + routeNum;
-        }
-    }
-
-    if (routeNum.substr(i, 1) === "7") {
-        routeName = routeName + "7";
-        routeNum = routeNum.substr(1);
-    }
-
-    if (routeName.indexOf("AIM") > -1 || routeName.indexOf("TSRC") > -1) {
-        routeName = routeName + routeNum.substr(0, 1);
-        routeNum = routeNum.substr(1);
-    }
-
-
-    //Rebuild route number with dash, J, L, and Q if needed
-    refVal = routeName + "-" + routeNum;
-    refVal = (blnJ) ? refVal + " J" : refVal;
-    refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
-    refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
-
-    //Set new string into element unless it's only a dash
-    byID(refID).value = (refVal === "-") ? "" : refVal;
-}
-/********************LOCAL STORAGE********************/
-/********************FIELD TRIP SELECTOR********************/
-//FIELD TRIP MODAL
-function openFTSelector(e) {
-    showHide(`ftModal${optVal}`, true);
-    activeID = e.id;
-    e.disabled = true;
-    byID(`ftselector${optVal}`).value = "";
-    byID(`fttype${optVal}`).value = "";
-}
-
-//STORE SELECTION FROM FIELD TRIP MODAL
-function storeFTVal() {
-    let ftText = "";
-    let ftselect = byID(`ftselector${optVal}`).value;
-    if (ftselect !== null && ftselect !== "")
-        ftText = byID(`ftselector${optVal}`).value;
-    else
-        ftText = byID(`fttype${optVal}`).value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
-    if (optVal === "") {
-        objThis[activeID.substr(0, 3)][activeID] = ftText;
-    } else {
-        objThis[activeID] = ftText;
-    }
-    showHide(`ftModal${optVal}`, false);
-}
-/********************FIELD TRIP SELECTOR********************/
-/********************TEXT UPDATES AND LIMITATIONS********************/
-//CHANGE TO PROPER CASE
-function properCase(str) {
-    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
-        return txtVal.toUpperCase();
-    });
-}
-//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
-function limitCharacters(e, num) {
-    let refVal = e.target.value;
-    if (refVal.length > num) {
-        openPopUp("<p class='letp'>Limit " + num + " characters.</p>");
-        e.target.value = refVal.substr(0, num);
-    }
-}
-/********************TEXT UPDATES AND LIMITATIONS********************/
-/********************MISCELLANEOUS FUNCTIONS********************/
-//DATEADD FUNCTION
-function addDate(date, days) {
-    let copy = new Date(Number(date))
-    copy.setDate(date.getDate() + days)
-    return copy
-}
-/********************MISCELLANEOUS FUNCTIONS********************/
-/********************ELEMENT PROPERTY UPDATE********************/
-//TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-function showHide(refID, bln) {
-    let el = byID(refID);
-    //(Show the element) ? remove hide : add hide
-    if (bln) {
-        if (el.classList.contains("hide")) el.classList.remove("hide");
-    } else {
-        if (!el.classList.contains("hide")) el.classList.add("hide");
-    }
-}
-//RESET VALUE OF ELEMENT
-function resetElement(refID) {
-    let day = getObjDay(refID.substr(0, 3));
-    if (byID(refID).type === "checkbox") {
-        if (optVal === "") {
-            objThis[day][refID] = false;
-        } else {
-            objThis[refID] = false;
-        }
-        byID(refID).checked = false;
-    } else {
-        if (optVal === "") {
-            objThis[day][refID] = "";
-        } else {
-            objThis[refID] = "";
-        }
-        byID(refID).value = "";
-    }
-    setObject(refID);
-}
-//GET OBJ DAY OR RETURN DATA
-function getObjDay(day) {
-    switch (day) {
-        case "Mon":
-        case "Tue":
-        case "Wed":
-        case "Thu":
-        case "Fri":
-        case "Sat":
-        case "Sun":
-            return day;
-            break;
-        default:
-            return 'Data';
-    }
-}
-//RESET TIME FIELDS
-function resetTime(day, num) {
-    let refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
-    resetElement(`${refID}E${optVal}`);
-    resetElement(`${refID}S${optVal}`);
-    resetElement(`${refID}${optVal}`);
-}
-//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
-function disableElement(refID, bln) {
-    byID(refID).disabled = bln;
-    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";
-}
-/********************ELEMENT PROPERTY UPDATE********************/
-/********************MODAL POP UP MESSAGES********************/
-//POP UP OW MESSAGE
-function popUpOW() {
-    openPopUp("<p class='letp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, optValhuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
-}
-//POP UP FT MESSAGE
-function popUpFT() {
-    openPopUp("<p class='letp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='letp'>&bull;Check lift if the trip required a lift.</p><p class='letp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
-}
-
-function popUpClear() {
-    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
-}
-//OPEN POP UP MODAL FOR ERROR MESSAGES
-function openPopUp(msgVal) {
-    byID(`varDiv${optVal}`).innerHTML = msgVal;
-    showHide(`variousModal${optVal}`, true);
-}
-/********************MODAL POP UP MESSAGES********************/
-/********************TIME CALCULATIONS********************/
-//CONVERT TIME COMPLETELY TO MINUTES
-function convertToMinutes(s1) {
-    "use strict";
-    if (s1 === "" || s1 === null || s1 === undefined)
-        return 0;
-
-    let h = s1.substring(0, s1.indexOf(":"));
-
-    if (h === "12" && s1.indexOf("AM") > 0)
-        h = 0;
-
-    h = h * 60;
-
-    let m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
-        b = m + h;
-
-    if (s1.indexOf("PM") > 0 && h !== 720)
-        b = b + 720;
-
-    return b;
-}
-//RETURN TIME AS H:MM FORMAT
-function calculateTotal(refVal) {
-    "use strict";
-    let hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min < 10) {
-        totalVal = hour + ":0" + min;
-    } else {
-        totalVal = hour + ":" + min;
-    }
-    totalVal = (totalVal === "0:00") ? "" : totalVal;
-    return totalVal;
-}
-//RETURN TIME AS H.MM FORMAT
-function convertTotal(refVal) {
-    "use strict";
-    let hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min === 0 || min === 5) {
-        min = "00";
-    } else if (min === 10 || min === 15 || min === 20) {
-        min = "25";
-    } else if (min === 25 || min === 30 || min === 35) {
-        min = "50";
-    } else if (min === 40 || min === 45 || min === 50) {
-        min = "75";
-    } else if (min === 55) {
-        min = "00";
-        hour = hour + 1;
-    }
-    totalVal = hour + "." + min;
-    totalVal = setToFixed(totalVal);
-    return totalVal;
-}
-//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
-function setToFixed(refVal) {
-    refVal = Number(refVal);
-    if (refVal === 0) {
-        return "";
-    }
-    refVal = Number(refVal).toFixed(2);
-    return refVal;
-}
-//ROUND TO THE NEAREST 5
-function round5(x) {
-    "use strict";
-    return Math.round(x / 5) * 5;
-}
-/********************TIME CALCULATIONS********************/
-
 let range = '';
+$(document).ready(() => {
+    let strHTML = '<option value="">--Select Week--</option>';
+    for (let i = -21; i < 8; i += 7) {
+        range = DateRange(i);
+        strHTML += `<option value="${dateString(range)}">${range}</option>`;
+    }
+    $("#WeekOf").html(strHTML);
+});
 
-let strHTML = '<option value="">--Select Week--</option>';
-for (let i = -21; i < 8; i += 7) {
-    range = DateRange(i);
-    strHTML += `<option value="${dateString(range)}">${range}</option>`;
-}
-
-let weekof = document.getElementById("WeekOf");
-weekof.innerHTML = strHTML;
 
 function DateRange(offset) {
     let start = new Date();
@@ -712,31 +36,27 @@ function dateString(strDate) {
 }
 
 //DECLARE VARIABLES
-const routes = document.querySelectorAll('input[name="route"]');
-let objThis = localStorage.getItem(`${weekof.value}Obj`);
+const routes = $('input[name="route"]');
+let objThis = localStorage.getItem(`${$("#WeekOf").val()}Obj`);
 
-document.addEventListener('DOMContentLoaded', () => {
+$(document).ready(() => {
     if (localStorage.getItem("WeekOf") !== null) {
-        weekof.value = localStorage.getItem("WeekOf");
-        if (weekof.value === null || weekof.value === undefined)
-            weekof.selectedIndex = 4;
+        $("#WeekOf").val(localStorage.getItem("WeekOf"));
+        if ($("#WeekOf").val() === null || $("#WeekOf").val() === undefined)
+            $("#WeekOf").prop('selectedIndex', 4);
         initialLoad();
     } else {
-        weekof.selectedIndex = 4;
+        $("#WeekOf").prop('selectedIndex', 4);
         initialLoad();
     }
 });
               
-weekof.addEventListener('change', initialLoad);
-const copy = document.querySelectorAll('.fa-copy');
-Array.from(copy).forEach( (e) => {
-    e.addEventListener('click', copyRoutine);
-});
+$("#WeekOf").on('change', initialLoad);
 
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
-    if (weekof.value === "") return;
-    localStorage.setItem("WeekOf", weekof.value);
+    if ($("#WeekOf").val() === "" || $("#WeekOf").val() === null) return;
+    localStorage.setItem("WeekOf", $("#WeekOf").val());
     storeWeek();
     let refDate = new Date();
     let day = refDate.getDay();
@@ -758,11 +78,11 @@ function loadLocalStorage() {
         let entries = Object.entries(objArray[j]);
         for (const [key, value] of entries) {
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
-            if (byID(key) === null) continue;
+            if ($("#" + key).val() === null) continue;
             if (value === true || value === false) {
-                byID(key).checked = value;
+                $("#" + key).prop('checked', value);
             } else {
-                byID(key).value = value;
+                $("#" + key).val(value);
             }
         }
     }
@@ -775,26 +95,20 @@ function loadRadioSelection() {
     const team = objThis.Data.Team;
     let pos = objThis.Data.Position;
     //Load area from local storage and set radio selection
-    for (const areas of document.querySelectorAll("input[name='Area']")) {
-        areas.checked = false;
-    }
-    if (area !== "") byID("area" + area).checked = true;
+    $('input[name="Area"]').each((index, el) => {$(el).prop('checked', false)});
+    if (area !== "") $("#area" + area).prop('checked', true);
 
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    for (const teams of document.querySelectorAll('input[name="Team"]')) {
-        teams.checked = false;
-    }
-    if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
+    $('input[name="Team"]').each((index, el) => {$(el).prop('checked', false)});
+    if (team !== "" && (team.substr(0, 1) === area || area === '7')) $("#team" + team).prop('checked', true);
     
     //Load position from local storage and set radio selection
-    for (const positions of document.querySelectorAll('input[name="Position"]')) {
-        positions.checked = false;
-    }
+    $('input[name="Position"]').each((index, el) => {$(el).prop('checked', false)});
     if (pos !== "") {
         pos = pos.replace(" ", "");
-        byID("pos" + pos).checked = true;
+        $("#pos" + pos).prop('checked', true);
     }
 }
 
@@ -812,7 +126,7 @@ function loadTeamValues() {
     }
 
     if (area === "TC") {
-        byID("teamTC").checked = true;
+        $("teamTC").prop('checked') = true;
         objThis.Data.Team = "TC";
     }
 
@@ -822,19 +136,19 @@ function loadTeamValues() {
 function loadStoredWeek() {
     if (objThis.Data.SatDate !== undefined)
         for (let i = 0; i < 7; i += 1)
-            byID(`${days[i]}Date`).innerHTML = objThis.Data[`${days[i]}Date`];
+            $(`#${days[i]}Date`).html(objThis.Data[`${days[i]}Date`]);
 }
 
 //GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
 function storeWeek() {
-    let week = weekof.value;
+    let week = $("#WeekOf").val();
     if (localStorage.getItem(`${week}Obj`) === null) {
         objThis = objNew;
         
         storeWeekDays(week);
 
         loadPrevWeek(week);
-        objThis.Data.WeekOf = weekof.value;
+        objThis.Data.WeekOf = week;
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}Obj`));
@@ -869,7 +183,7 @@ function storeWeekDays(week) {
 function limitOWDesc(e) {
     let num = e.target.id.substr(-2);
     let day = e.target.id.substr(0, 3);
-    if (byID(`${day}Select${num}`).value === "FYI")
+    if ($(`#${day}Select${num}`).val() === "FYI")
         limitCharacters(e, 60);
     else
         limitCharacters(e, 35);
@@ -878,10 +192,10 @@ function limitOWDesc(e) {
 
 //PULL DATA FROM PREVIOUS WEEK INTO NEW WEEK
 function loadPrevWeek(week) {
-    let j = byID("WeekOf").selectedIndex - 1;
+    let j = $("#WeekOf").prop('selectedIndex') - 1;
     if (j < 0) return;
     //Store first day of week range in y and shortened date in ny
-    let prevweek = byID("WeekOf").options[j].value;
+    let prevweek = $("#WeekOf").prop('selectedIndex', j).val();
     if (localStorage.getItem(`${prevweek}Obj`) === null) return;
     objTemp = JSON.parse(localStorage.getItem(`${prevweek}Obj`));
 
@@ -907,19 +221,19 @@ function toggleDay(x) {
     //Set prev, today, and next text values
     if (x > 0 && x < 6) {
         showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = `${days[x + 1]}-` + objThis.Data[`${days[x + 1]}Date`];
+        $("#prev").html(`${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`]);
+        $("#today").html(`${days[x]}-` + objThis.Data[`${days[x]}Date`]);
+        $("#next").html(`${days[x + 1]}-` + objThis.Data[`${days[x + 1]}Date`]);
     } else if (x === 0) {
         showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x + 6]}-` + objThis.Data[`${days[x + 6]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = days[x + 1] + "-" + objThis.Data[`${days[x + 1]}Date`];
+        $("#prev").html(`${days[x + 6]}-` + objThis.Data[`${days[x + 6]}Date`]);
+        $("#today").html(`${days[x]}-` + objThis.Data[`${days[x]}Date`]);
+        $("#next").html(days[x + 1] + "-" + objThis.Data[`${days[x + 1]}Date`]);
     } else if (x === 6) {
         showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = `${days[x - 6]}-` + objThis.Data[`${days[x - 6]}Date`];
+        $("#prev").html(`${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`]);
+        $("#today").html(`${days[x]}-` + objThis.Data[`${days[x]}Date`]);
+        $("#next").html(`${days[x - 6]}-` + objThis.Data[`${days[x - 6]}Date`]);
     }
     //Loop through all other days and set style display to none
     for (let i = 0; i < 7; i += 1) {
@@ -936,26 +250,25 @@ function loadOJT() {
     let bln = objThis.Data.OJT;
     let day = "";
 
-    let t = byID("Trainee");
     if (bln) {
-        t.disabled = false;
-        t.style.backgroundColor = "white";
+        $("#Trainee").prop('disabled', false).css('backgroundColor', "white");
     } else {
-        t.disabled = true;
-        t.style.backgroundColor = "lightgrey";
+        $("#Trainee").prop('disabled', true).css('backgroundColor', "lightgrey");
         resetElement("Trainee");
     }
 
-    const chkOJT = document.querySelectorAll("input[name='chkOJT']");
-    for (const ojt of chkOJT) {
-        if (ojt.id === "OJT") continue;
-        day = ojt.id.substr(0, 3);
-        if (!byID(`${day}LeaveAD`).checked)
-            ojt.disabled = !bln;
+    $("input[name='chkOJT']").each((index, el) => {
+        let refID = $(el).attr('id');
+        if (refID === "OJT" || refID === undefined) return;
+        day = refID.substr(0, 3);
+        
+        if (!$(`#${day}LeaveAD`).prop('checked'))
+            $(el).prop('disabled', !bln);
         else
-            ojt.disabled = true;
-        if (!bln) resetElement(ojt.id);
-    }
+            $(el).prop('disabled', true);
+        
+        if (!bln) resetElement(refID);
+    });
 }
 
 //LOAD Q/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
@@ -963,50 +276,52 @@ function loadQL() {
     let bln = routeCheck();
     let val = "";
 
-    let eql = document.querySelectorAll("input[name='chkQL']");
-    for (const day of days) {
-        if (day === "Sat" || day === "Sun") continue;
-        if (!byID(`${day}LeaveAD`).checked)
-            byID(`${day}QL11`).disabled = !bln;
+    $.each(days, (i, day) => {
+        if (day === "Sat" || day === "Sun") return;
+        if (!$(`#${day}LeaveAD`).prop('checked'))
+            $(`#${day}QL11`).prop('disabled', !bln);
         else
-            byID(`${day}QL11`).disabled = true;
+            $(`#${day}QL11`).prop('disabled', true);
+        
         if (!bln) resetElement(`${day}QL11`);
-    }
-    for (const day of days) {
+    });
+        
+    $.each(days, (i, day) => {
         for (let j = 20; j < 30; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 22) continue;
+            if ((day === "Sat" || day === "Sun") && j > 22) return;
             disableOWFields(`${day}Select${j}`);
         }
-    }
+    });
 }
 
 function loadJ() {
     let bln = routeCheckJ();
 
-    for (let day of days) {
-        if (day === "Sun" || day === "Sat") continue;
-        if (!byID(`${day}LeaveAD`).checked)
-            byID(`${day}J11`).disabled = !bln;
+    $.each(days, (i, day) => {
+        if (day === "Sun" || day === "Sat") return;
+        if (!$(`#${day}LeaveAD`).prop('checked'))
+            $(`#${day}J11`).prop('disabled', !bln);
         else
-            byID(`${day}J11`).disabled = true;
+            $(`#${day}J11`).prop('disabled', true);
+        
         if (!bln) resetElement(`${day}J11`);
-    }
+    });
 }
 
 //LOAD LEAVE AND TOGGLE FIELDS IF ALL DAY LEAVE IS CHECKED
 function loadLeave() {
-    for (const day of days) {
-        if (day === "Sun" || day === "Sat") continue;
+    $.each(days, (i, day) => {
+        if (day === "Sun" || day === "Sat") return;
         toggleADLeave(`${day}LeaveAD`);
-    }
+    });
 }
 
 //IF Q/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
 function toggleQLReg(e) {
-    let bln = (e.checked) ? true : false;
-    let day = e.id.substr(0, 3);
+    let bln = $(e).prop('checked') ? true : false;
+    let day = $(e).attr('id').substr(0, 3);
 
-    byID(`${day}QL11`).checked = bln;
+    $(`#${day}QL11`).prop('checked', bln);
     setObject(`${day}QL11`);
     loadQL();
     getDailyTotals();
@@ -1014,10 +329,10 @@ function toggleQLReg(e) {
 
 //IF J IS CHECKED, THEN CHECK ALL OF THEM
 function toggleJReg(e) {
-    let bln = (e.checked) ? true : false;
-    let day = e.id.substr(0, 3);
+    let bln = $(e).prop('checked') ? true : false;
+    let day = $(e).attr('id').substr(0, 3);
 
-    byID(`${day}J11`).checked = bln;
+    $(`#${day}J11`).prop('checked', bln);
     setObject(`${day}J11`);
     loadJ();
     getDailyTotals();
@@ -1025,24 +340,24 @@ function toggleJReg(e) {
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
 function toggleOWFT() {
-    for (const day of days) {
+    $.each(days, (i, day) => {
         for (let j = 20; j < 30; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 22) continue;
+            if ((day === "Sat" || day === "Sun") && j > 22) return;
             let bln = (objThis[day][`${day}Select${j}`] !== "" || objThis[day][`${day}Desc${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false
             showHide(`${day}OWDiv${j}`, bln);
         }
         for (let j = 30; j < 35; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 32) continue;
+            if ((day === "Sat" || day === "Sun") && j > 32) return;
             let bln = (objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}To${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false;
             showHide(`${day}FTDiv${j}`, bln);
         }
-    }
+    });
 }
 
 //TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
 function toggleLeave() {
-    for (const day of days) {
-        if (day === "Sat" || day === "Sun") continue;
+    $.each(days, (i, day) => {
+        if (day === "Sat" || day === "Sun") return;
                 
         let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40`] !== "" || objThis[day][`${day}Time41`] !== "") ? true : false;
         if (bln) {
@@ -1054,7 +369,7 @@ function toggleLeave() {
             resetElement(`${day}LeaveSelect40`);
             resetElement(`${day}LeaveSelect41`);
         }
-    }
+    });
 }
 
 //TOGGLE DAILY COUNTS IN THE PUPIL COUNTS SECTION
@@ -1105,7 +420,7 @@ function changeModalSlide(dir) {
     let j = 0;
     let i = 0;
     for (i = 1; i < 5; i += 1) {
-        if (!byID(`slide${i}`).classList.contains("hide")) break;
+        if (!$(`#slide${i}`).hasClass("hide")) break;
     }
 
     if (dir === 'r') {
@@ -1120,7 +435,7 @@ function changeModalSlide(dir) {
 //TOGGLE PUPIL COUNTS ON POSITION CHANGE
 function positionChange(e) {
     for (let i = 0; i < 7; i++) {
-        if (byID("today").innerHTML.substr(0, 3) === days[i]) {
+        if ($("#today").html().substr(0, 3) === days[i]) {
             togglePupilCounts(i);
             break;
         }
@@ -1132,15 +447,13 @@ function positionChange(e) {
 
 //TOGGLE PUPIL COUNTS WHEN ACTIVITY DRIVER
 function posAD() {
-    const counts = document.getElementsByName('txtCt');
-    for (const count of counts) {
-        resetElement(count.id);
-    }
+    $('.txtCt').each((index, el) => {
+        resetElement($(el).attr('id'));
+    });
     
-    const routes = document.getElementsByName('route');
-    for (const route of routes) {
-        resetElement(route.id);
-    }
+    $('.route').each((index, el) => {
+        resetElement($(el).attr('id'));
+    });
     
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
@@ -1155,7 +468,7 @@ function posAD() {
 
 //MOVE NAV BAR TO THE RIGHT
 function moveRightNavBar() {
-    let current = byID("today").innerHTML;
+    let current = $("#today").html();
     current = current.substr(0, 3);
     for (let i = 0; i < 7; i += 1) {
         if (current === days[i] && i < 6) {
@@ -1174,7 +487,7 @@ function moveRightNavBar() {
 
 //MOVE NAV BAR TO THE LEFT
 function moveLeftNavBar() {
-    let current = byID("today").innerHTML;
+    let current = $("#today").html();
     current = current.substr(0, 3);
     for (let i = 0; i < 7; i += 1) {
         if (current === days[i] && i > 0) {
@@ -1212,11 +525,11 @@ function routeNameCheck() {
 function routeCheck() {
     let bln = false;
     let val = "";
-    for (const route of routes) {
-        if (route.value === null) continue; 
-        bln = (route.value.lastIndexOf("L") > 3 || route.value.lastIndexOf("Q") > 3) ? true : false;
+    $("input[name='route']").each((index, el) => {
+        if ($(el).val() === null || $(el).val() === undefined) return; 
+        bln = ($(el).val().lastIndexOf("L") > 3 || $(el).val().lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
-    }
+    });
     if (objThis.Data.Position === "Unassigned Attendant") bln = true;
     return bln;
 }
@@ -1225,12 +538,11 @@ function routeCheck() {
 function routeCheckJ() {
     let bln = false;
     let val = "";
-    for (let i = 0; i < routes.length; i += 1) {
-        val = routes[i].value;
-        if (val === null) continue;
-        bln = (val.lastIndexOf("J") > 3) ? true : false;
+    $("input[name='route']").each((index, el) => {
+        if ($(el).val() === null || $(el).val() === undefined) return; 
+        bln = ($(el).val().lastIndexOf("J") > 3) ? true : false;
         if (bln) return bln;
-    }
+    });
     if (objThis.Data.Position === "Unassigned Attendant") bln = true;
     return bln;
 }
@@ -1270,7 +582,7 @@ function removeOWFTLV(e) {
         showHide(`${day}${type}Div${x}`, false);
         resetElement(`${day}Select${x}`);
         resetElement(`${day}Desc${x}`);
-        byID(`${day}QL${x}`).disabled = true;
+        $(`#${day}QL${x}`).prop('disabled', true);
         resetElement(`${day}QL${x}`);
         if (day !== "Sat" && day !== "Sun") resetElement(`${day}OJT${x}`);
     } else if (type === "LV") {
@@ -1314,7 +626,7 @@ function clearTimeField(e) {
 function getMissingOW(day) {
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 23) return 30;
-        if (byID(`${day}OWDiv${i}`).classList.contains("hide")) {
+        if ($(`#${day}OWDiv${i}`).classList.contains("hide")) {
             return i;
         }
     }
@@ -1326,7 +638,7 @@ function getMissingOW(day) {
 function getMissingFT(day) {
     for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 33) return 35;
-        if (byID(`${day}FTDiv${i}`).classList.contains("hide")) {
+        if ($(`#${day}FTDiv${i}`).classList.contains("hide")) {
             return i;
         }
     }
@@ -1338,10 +650,10 @@ function getMissingFT(day) {
 function addLeave(e) {
     let dayVal = e.target.id.substr(0, 3);
     
-    if (!byID(`${dayVal}LVDivAD`).classList.contains('hide')) {
+    if (!$(`#${dayVal}LVDivAD`).classList.contains('hide')) {
         resetLeave(dayVal);
     } else {
-        byID(`${dayVal}LVAdd`).innerHTML = '<span class="far fa-minus-square fa-lg"></span>Remove Leave</p>'
+        $(`#${dayVal}LVAdd`).innerHTML = '<span class="far fa-minus-square fa-lg"></span>Remove Leave</p>'
         showHide(`${dayVal}LVDivAD`, true);
         showHide(`${dayVal}LVDiv40`, true);
         showHide(`${dayVal}LVDiv41`, true);
@@ -1350,7 +662,7 @@ function addLeave(e) {
 
 //SEPARATE FUNCTION FOR RESETTING LEAVE
 function resetLeave(day) {
-    byID(`${day}LVAdd`).innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave</p>'
+    $(`#${day}LVAdd`).innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave</p>'
     showHide(`${day}LVDivAD`, false);
     showHide(`${day}LVDiv40`, false);
     showHide(`${day}LVDiv41`, false);
@@ -1372,30 +684,30 @@ function checkLeave(e) {
 //TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
 function toggleADLeave(refID) {
     let day = refID.substr(0, 3);
-    let bln = (byID(refID).checked) ? true : false;
+    let bln = ($("#" + refID).prop('checked')) ? true : false;
     let i = 0;
 
     showHide(`${day}OWAdd`, !bln);
     showHide(`${day}FTAdd`, !bln);
     if (bln) {
         //Uncheck Admin
-        byID(`${day}J11`).checked = false;
+        $(`#${day}J11`).prop('checked') = false;
         
         //Uncheck Equipment
-        byID(`${day}QL11`).checked = false;
+        $(`#${day}QL11`).prop('checked') = false;
         
         //Clear Other work
         for (i = 20; i < 30; i += 1)
-            byID(`${day}OWTrash${i}`).click();
+            $(`#${day}OWTrash${i}`).click();
         
         //Clear Field Trips
         for (i = 30; i < 35; i += 1)
-            byID(`${day}FTTrash${i}`).click();
+            $(`#${day}FTTrash${i}`).click();
         
         //Clear regular run time
         for (i = 11; i < 18; i += 1) {
             resetTime(day, i);
-            byID(`${day}OJT${i}`).checked = false;
+            $(`#${day}OJT${i}`).prop('checked') = false;
         }
         //Clear partial leave time
         for (i = 40; i < 42; i += 1)
@@ -1417,28 +729,28 @@ function toggleADLeave(refID) {
         resetElement(`${day}TimeD`);
     }
     if (routeCheckJ())
-        byID(`${day}J11`).disabled = bln;
+        $(`#${day}J11`).prop('disabled', bln);
     else
-        byID(`${day}J11`).disabled = true;
+        $(`#${day}J11`).prop('disabled', true);
 
     if (routeCheck())
-        byID(`${day}QL11`).disabled = bln;
+        $(`#${day}QL11`).prop('disabled', bln);
     else
-        byID(`${day}QL11`).disabled = true;
+        $(`#${day}QL11`).prop('disabled', true);
 
     for (i = 11; i < 18; i += 1) {
-        byID(`${day}Time${i}`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-        byID(`${day}Time${i}S`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-        byID(`${day}Time${i}E`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-        if (byID("OJT").checked)
-            byID(`${day}OJT${i}`).disabled = bln;
+        $(`#${day}Time${i}`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+        $(`#${day}Time${i}S`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+        $(`#${day}Time${i}E`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+        if ($("#OJT").prop('checked'))
+            $(`#${day}OJT${i}`).prop('disabled', bln);
         else
-            byID(`${day}OJT${i}`).disabled = true;
+            $(`#${day}OJT${i}`).prop('disabled', true);
     }
     for (i = 40; i < 42; i += 1) {
-        byID(`${day}Time${i}`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-        byID(`${day}Time${i}S`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-        byID(`${day}Time${i}E`).style.backgroundColor = (bln) ? "lightgrey" : "white";
+        $(`#${day}Time${i}`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+        $(`#${day}Time${i}S`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+        $(`#${day}Time${i}E`).css("backgroundColor", (bln) ? "lightgrey" : "white");
         disableElement(`${day}LeaveSelect${i}`, bln);
     }
     for (i = 1; i < 6; i += 1) {
@@ -1450,15 +762,15 @@ function toggleADLeave(refID) {
             disableElement(`${day}LR${i}Ct`, bln);
         }
     }
-    byID(`${day}TimeA`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-    byID(`${day}TimeB`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-    byID(`${day}TimeC`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-    byID(`${day}TimeD`).style.backgroundColor = (bln) ? "lightgrey" : "white";
+    $(`#${day}TimeA`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+    $(`#${day}TimeB`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+    $(`#${day}TimeC`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+    $(`#${day}TimeD`).css("backgroundColor", (bln) ? "lightgrey" : "white");
 }
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    localStorage.removeItem(`${weekof.value}Obj`);
+    localStorage.removeItem(`${$("#WeekOf").val()}Obj`);
     location.reload();
 }
 
@@ -1479,17 +791,16 @@ function selectOWChange(e) {
 }
 
 function disableOWFields(refID) {
-    let refVal = byID(refID).value;
+    let refVal = $("#" + refID).val();
     let day = refID.substr(0, 3);
     let x = refID.substr(9);
     let bln = (refVal === "FYI") ? true : false;
-    byID(`${day}Time${x}S`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-    byID(`${day}Time${x}E`).style.backgroundColor = (bln) ? "lightgrey" : "white";
-    byID(`${day}Time${x}`).style.backgroundColor = (bln) ? "lightgrey" : "white";
+    $(`#${day}Time${x}S`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+    $(`#${day}Time${x}E`).css("backgroundColor", (bln) ? "lightgrey" : "white");
+    $(`#${day}Time${x}`).css("backgroundColor", (bln) ? "lightgrey" : "white");
 
     bln = (refVal === "Q/L") ? true : false;
-    byID(`${day}QL${x}`).checked = bln;
-    byID(`${day}QL${x}`).disabled = !bln;
+    $(`#${day}QL${x}`).prop('checked', bln).prop('disabled', !bln);
     objThis[day][`${day}QL${x}`] = bln;
 }
 
@@ -1514,19 +825,19 @@ function runCopyRoutine() {
     let i = 0;
 
     for (i = 1; i < 5; i += 1) {
-        k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
+        k = ($("#today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
 
     k++;
     for (k; k < 6; k++) {
         let day = days[k];
-        bln = (byID(`${day}LeaveAD`).checked || byID(`${day}Time40`).value !== '' || byID(`${day}Time41`).value !== '') ? true : false;
+        bln = ($(`#${day}LeaveAD`).prop('checked') || $(`#${day}Time40`).val() !== '' || $(`#${day}Time41`).val() !== '') ? true : false;
         if (bln) continue;
         for (let j = 11; j < 18; j++) {
-            byID(`${day}Time${j}S`).value = byID(`${days[i]}Time${j}S`).value;
+            $(`#${day}Time${j}S`).val($(`#${days[i]}Time${j}S`).val());
             setObject(`${day}Time${j}S`);
-            byID(`${day}Time${j}E`).value = byID(`${days[i]}Time${j}E`).value;
+            $(`#${day}Time${j}E`).val($(`#${days[i]}Time${j}E`).val());
             setObject(`${day}Time${j}E`);
             timeCalculation(`${day}Time${j}E`);
         }
@@ -1544,22 +855,22 @@ function runPupilCopyRoutine() {
     let i = 0;
 
     for (i = 1; i < 5; i += 1) {
-        k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
+        k = ($("#today").html().substr(0, 3) === days[i]) ? i : 0;
         if (k === i) break;
     }
     const day2 = days[i];
     k++;
     for (k; k < 6; k++) {
         const day = days[k];
-        const bln = (byID(`${day}LeaveAD`).checked) ? true : false;
+        const bln = ($(`#${day}LeaveAD`).prop('checked')) ? true : false;
         if (bln) continue;
-        byID(`${day}TimeA`).value = byID(`${day2}TimeA`).value;
+        $(`#${day}TimeA`).val($(`#${day2}TimeA`).val());
         setObject(`${day}TimeA`);
-        byID(`${day}TimeB`).value = byID(`${day2}TimeB`).value;
+        $(`#${day}TimeB`).val($(`#${day2}TimeB`).val());
         setObject(`${day}TimeB`);
-        byID(`${day}TimeC`).value = byID(`${day2}TimeC`).value;
+        $(`#${day}TimeC`).val($(`#${day2}TimeC`).val());
         setObject(`${day}TimeC`);
-        byID(`${day}TimeD`).value = byID(`${day2}TimeD`).value;
+        $(`#${day}TimeD`).val($(`#${day2}TimeD`).val());
         setObject(`${day}TimeD`);
         str += ", " + day;
     }
@@ -1577,14 +888,14 @@ function countOtherWork(refID) {
         let day = days[i];
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            if (byID(`${day}Select${j}`).value !== "") count++;
+            if ($(`#${day}Select${j}`).val() !== "") count++;
         }
     }
 
     //Result of count
     if (count > 10) {
         openPopUp("<p class='varp'>&bull;The max number of other work duties is 10. A supplement must be made for any additional duties.</p>");
-        byID(refID).value = "";
+        $("#" + refID).val("");
     }
 }
 
@@ -1596,31 +907,31 @@ function countFieldTrips(refID) {
     for (let i = 0; i < 7; i += 1) {
         for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
-            if (byID(`${days[i]}Voucher${j}`).value !== "") count++;
+            if ($(`#${days[i]}Voucher${j}`).val() !== "") count++;
         }
     }
     //Result of count
     if (count > 5) {
         openPopUp("<p class='varp'>&bull;The max number of field trips is 5. A supplement must be made for any field trips.</p>");
-        byID(refID).value = "";
+        $("#" + refID).val("");
     }
 }
 
 /********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
     showHide("navdropdown", false);
-    if (weekof.value === "") return;
+    if ($("#WeekOf").val() === "") return;
     let bln = runValidations();
     if (!bln)
         return;
 
     showHide("validateModal", true);
-    byID("validateModal").focus();
+    $("#validateModal").focus();
 }
 
 function openTimesheet() {
     let emp = "";
-    emp = byID("EmpInitials").value;
+    emp = $("#EmpInitials").val();
     emp = emp.toUpperCase();
     objThis.Data.EmpInitials = emp;
 
@@ -1629,7 +940,7 @@ function openTimesheet() {
         getDailyTotals();
 
         //Set week value into local storage for preview and timesheet to use
-        localStorage.setItem('WeekOf', weekof.value);
+        localStorage.setItem('WeekOf', $("#WeekOf").val());
         window.open("preview.html", "_self");
     }
 }
@@ -1718,18 +1029,18 @@ function testLeave() {
     for (let i = 1; i < 6; i += 1) {
         let day = days[i];
         for (let j = 40; j < 42; j++) {
-            if (byID(`${day}Time${j}`).value !== "") {
-                if (byID(`${day}LeaveSelect${j}`).value === "")
+            if ($(`#${day}Time${j}`).val() !== "") {
+                if ($(`#${day}LeaveSelect${j}`).val() === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID(`${day}LeaveSelect${j}`).value !== "")
+                if ($(`#${day}LeaveSelect${j}`).val() !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
             }
-            if (byID(`${day}LeaveAD`).checked) {
-                if (byID(`${day}LeaveSelectAD`).value === "")
+            if ($(`#${day}LeaveAD`).prop('checked')) {
+                if ($(`#${day}LeaveSelectAD`).val() === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID(`${day}LeaveSelectAD`).value !== "")
+                if ($(`#${day}LeaveSelectAD`).val() !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
             }
         }
@@ -1782,47 +1093,47 @@ function testStopCounts() {
 }
 
 function testRegPupil(day, mer) {
-    if (mer === 'AM' && byID(`${day}Time11`).value === "") return true;
-    if (mer === 'PM' && byID(`${day}Time12`).value === "") return true;    
+    if (mer === 'AM' && $(`#${day}Time11`).val() === "") return true;
+    if (mer === 'PM' && $(`#${day}Time12`).val() === "") return true;    
 
     let ct = 0;
     for (let i = 1; i < 6; i += 1)
-        if (byID(`${mer}Route${i}`).value !== "") ct ++;
+        if ($(`#${mer}Route${i}`).val() !== "") ct ++;
     
     return (ct > 0) ? true : false;
 }
 
 function testRegCounts(day, mer) {
-    if (mer === 'AM' && byID(`${day}Time11`).value === "") return true;
-    if (mer === 'PM' && byID(`${day}Time12`).value === "") return true;
+    if (mer === 'AM' && $(`#${day}Time11`).val() === "") return true;
+    if (mer === 'PM' && $(`#${day}Time12`).val() === "") return true;
     
     let ct = 0;
     for (let j = 1; j < 6; j++)
-        if (byID(`${mer}Route${j}`).value !== "" && byID(`${day}${mer}${j}Ct`).value !== "") ct++;
+        if ($(`#${mer}Route${j}`).val() !== "" && $(`#${day}${mer}${j}Ct`).val() !== "") ct++;
     
     return (ct > 0) ? true : false;
 }
 
 function testSpecPupil(day, spec) {
-    if (spec === 'PS' && byID(`${day}Time13`).value === "" && byID(`${day}Time14`).value === "") return true;
-    if (spec === 'SH' && byID(`${day}Time15`).value === "" && byID(`${day}Time16`).value === "") return true;
-    if (spec === 'LR' && byID(`${day}Time17`).value === "") return true;
+    if (spec === 'PS' && $(`#${day}Time13`).val() === "" && $(`#${day}Time14`).val() === "") return true;
+    if (spec === 'SH' && $(`#${day}Time15`).val() === "" && $(`#${day}Time16`).val() === "") return true;
+    if (spec === 'LR' && $(`#${day}Time17`).val() === "") return true;
 
     let ct = 0;
-    if (byID(`${spec}Route1`).value !== "") ct ++;
-    if (byID(`${spec}Route2`).value !== "") ct ++;
+    if ($(`#${spec}Route1`).val() !== "") ct ++;
+    if ($(`#${spec}Route2`).val() !== "") ct ++;
     
     return (ct > 0) ? true : false;
 }
 
 function testSpecCounts(day, spec) {
-    if (spec === 'PS' && byID(`${day}Time13`).value === "" && byID(`${day}Time14`).value === "") return true;
-    if (spec === 'SH' && byID(`${day}Time15`).value === "" && byID(`${day}Time16`).value === "") return true;
-    if (spec === 'LR' && byID(`${day}Time17`).value === "") return true;
+    if (spec === 'PS' && $(`#${day}Time13`).val() === "" && $(`#${day}Time14`).val() === "") return true;
+    if (spec === 'SH' && $(`#${day}Time15`).val() === "" && $(`#${day}Time16`).val() === "") return true;
+    if (spec === 'LR' && $(`#${day}Time17`).val() === "") return true;
 
     let ct = 0;
-    if (byID(`${spec}Route1`).value !== "" && byID(`${day}${spec}1Ct`).value !== "") ct++;
-    if (byID(`${spec}Route2`).value !== "" && byID(`${day}${spec}2Ct`).value !== "") ct++;
+    if ($(`#${spec}Route1`).val() !== "" && $(`#${day}${spec}1Ct`).val() !== "") ct++;
+    if ($(`#${spec}Route2`).val() !== "" && $(`#${day}${spec}2Ct`).val() !== "") ct++;
     
     return (ct > 0) ? true : false;
 }
@@ -1832,7 +1143,7 @@ function testTimeComplete() {
     for (let i = 1; i < 6; i += 1) {
         let day = days[i];
         for (let j = 11; j < 17; j++) {
-            if (byID(`${day}Time${j}S`).value !== "" && byID(`${day}Time${j}E`).value === "")
+            if ($(`#${day}Time${j}S`).val() !== "" && $(`#${day}Time${j}E`).val() === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
         }
     }
@@ -1850,9 +1161,9 @@ function timeCalculation(refID) {
         return;
 
     if (num > 19 && num < 30) {
-        if (byID(`${day}Select${num}`).value === "") {
+        if ($(`#${day}Select${num}`).val() === "") {
             openPopUp("<p>Work type must be selected first</p>");
-            byID(refID).value = "";
+            $("#" + refID).val("");
             return;
         }
     }
@@ -1883,15 +1194,15 @@ function checkOverlap(refID) {
     let newEnd;
 
     //If element has no value then return
-    if (byID(refID).value === "")
+    if ($("#" + refID).val() === "")
         return;
 
     //Initialize variables
-    let thisStart = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "S").value);
-    let thisEnd = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "E").value);
+    let thisStart = (refID.substr(-1) === "S") ? convertToMinutes($("#" + refID).val()) : convertToMinutes($(refID.substr(0, 9) + "S").val());
+    let thisEnd = (refID.substr(-1) === "E") ? convertToMinutes($("#" + refID).val()) : convertToMinutes($(refID.substr(0, 9) + "E").val());
     if (thisStart === thisEnd) {
         openPopUp("<p>Start time cannot match end time.</p>");
-        byID(refID).value = "";
+        $("#" + refID).val("");
         return;
     }
     let numVal = Number(refID.substr(7, 2));
@@ -1908,11 +1219,11 @@ function checkOverlap(refID) {
         if (i === numVal) continue;
 
         //Initialize newStart and newEnd
-        newStart = convertToMinutes(byID(`${day}Time${i}S`).value);
+        newStart = convertToMinutes($(`#${day}Time${i}S`).val());
         //If newStart is blank then move to next i
         if (newStart === 0) continue;
 
-        newEnd = convertToMinutes(byID(`${day}Time${i}E`).value);
+        newEnd = convertToMinutes($(`#${day}Time${i}E`).val());
         if (newEnd === 0) continue;
         if (newStart > 900 && newEnd < 120) newEnd += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
 
@@ -1935,7 +1246,7 @@ function checkOverlap(refID) {
     //If bln is true then there is an overlap
     if (bln) {
         openPopUp("<p>Overlap error</p>");
-        byID(refID).value = "";
+        $("#" + refID).val("");
     }
 }
 
@@ -1947,8 +1258,8 @@ function calculateDiff(refID) {
     let day = refID.substr(0, 3);
 
     //Declare variables and initialize values
-    let startTime = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "S").value);
-    let endTime = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 9) + "E").value);
+    let startTime = (refID.substr(-1) === "S") ? convertToMinutes($("#" + refID).val()) : convertToMinutes($(refID.substr(0, 9) + "S").val());
+    let endTime = (refID.substr(-1) === "E") ? convertToMinutes($("#" + refID).val()) : convertToMinutes($(refID.substr(0, 9) + "E").val());
     let num = Number(refID.substr(7, 2));
     let timeDiff = 0;
     let totalID = refID.substr(0, refID.length - 1);
@@ -1957,19 +1268,19 @@ function calculateDiff(refID) {
     if (startTime > 900 && endTime < 120) endTime += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
     if ((endTime < startTime) && (endTime !== 0)) {
         openPopUp("<p>End time is less than start time</p>");
-        byID(refID).value = "";
+        $("#" + refID).val("");
     } else {
         if (endTime === 0) endTime = startTime;
 
         timeDiff = endTime - startTime;
 
         if (num > 29)
-            byID(totalID).value = convertTotal(timeDiff);
+            $(totalID).val(convertTotal(timeDiff));
         else
-            byID(totalID).value = calculateTotal(timeDiff);
+            $(totalID).val(calculateTotal(timeDiff));
     }
     //Set value of total into storage
-    objThis[day][totalID] = byID(totalID).value;
+    objThis[day][totalID] = $(totalID).val();
 }
 
 //CALCULATE DAILY RUN TIME
@@ -1979,11 +1290,11 @@ function dailyRuns(day) {
 
     let sum = 0;
     for (let i = 11; i < 18; i += 1) {
-        sum += convertToMinutes(byID(`${day}Time${i}`).value);
+        sum += convertToMinutes($(`#${day}Time${i}`).val());
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
-    byID(`${day}RunTotal`).value = sum;
+    $(`#${day}RunTotal`).val(sum);
     objThis[day][`${day}RunTotal`] = sum;
 }
 
@@ -1996,13 +1307,13 @@ function dailyOther(day) {
 
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;
-        selectVal = byID(`${day}Select${i}`).value;
+        selectVal = $(`#${day}Select${i}`).val();
         if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-        sum += convertToMinutes(byID(`${day}Time${i}`).value);
+        sum += convertToMinutes($(`#${day}Time${i}`).val());
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
-    byID(`${day}OtherTotal`).value = sum;
+    $(`#${day}OtherTotal`).val(sum);
 }
 
 //CALCULATE CALLBACK TIME
@@ -2016,25 +1327,25 @@ function sumCPay() {
     for (const day of days) {
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j === 23) break;
-            selectVal = byID(`${day}Select${j}`).value;
+            selectVal = $(`#${day}Select${j}`).val();
             c1 += (selectVal === "CBK") ? 240 : 0;
-            c3 += (selectVal === "ES0") ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
-            c3 += (selectVal === "ES2") ? convertToMinutes(byID(`${day}Time${j}`).value) + 120 : 0;
-            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
+            c3 += (selectVal === "ES0") ? convertToMinutes($(`#${day}Time${j}`).val()) : 0;
+            c3 += (selectVal === "ES2") ? convertToMinutes($(`#${day}Time${j}`).val()) + 120 : 0;
+            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes($(`#${day}Time${j}`).val()) : 0;
         }
     }
 
     c1 = (c1 === 0) ? "" : convertTotal(c1);
     objThis.Data.TotalC1 = c1;
-    byID("TotalC1").value = c1;
+    $("#TotalC1").val(c1);
 
     sum = convertTotal(sum);
     objThis.Data.TotalHW = sum;
-    byID("TotalHW").value = sum;
+    $("#TotalHW").val(sum);
 
     c3 = (c3 === 0) ? "" : convertTotal(c3);
     objThis.Data.TotalC3 = c3;
-    byID("TotalC3").value = c3;
+    $("#TotalC3").val(c3);
 }
 
 //CALCULATE DAILY FIELD TRIP TIME
@@ -2045,10 +1356,10 @@ function dailyFT(day) {
 
     for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 33) break;
-        sum += Number(byID(`${day}Time${i}`).value);
+        sum += Number($(`#${day}Time${i}`).val());
     }
     sum = setToFixed(sum);
-    byID(`${day}FTTotal`).value = sum;
+    $(`#${day}FTTotal`).val(sum);
 }
 
 //CALCULATE DAILY Q/L TIME
@@ -2057,26 +1368,26 @@ function dailyQL(day) {
     let sum = 0;
 
     //If Q/L is checked, total up run, pac, shuttles, late run time
-    if (day !== "Sat" && day !== "Sun" && byID(`${day}QL11`).checked) {
+    if (day !== "Sat" && day !== "Sun" && $(`#${day}QL11`).prop('checked')) {
         for (let i = 11; i < 18; i += 1) {
-            sum += convertToMinutes(byID(`${day}Time${i}`).value);
+            sum += convertToMinutes($(`#${day}Time${i}`).val());
         }
     }
 
     //If Other Work Q/L is checked, add the time
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 22) continue;
-        sum += (byID(`${day}QL${i}`).checked) ? convertToMinutes(byID(`${day}Time${i}`).value) : 0;
+        sum += ($(`#${day}QL${i}`).prop('checked')) ? convertToMinutes($(`#${day}Time${i}`).val()) : 0;
     }
 
     //If Q/L is checked for field trips, add time
     for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 32) continue;
-        sum += (byID(`${day}QL${i}`).checked) ? (Number(byID(`${day}Time${i}`).value) * 60) : 0;
+        sum += ($(`#${day}QL${i}`).prop('checked')) ? (Number($(`#${day}Time${i}`).val()) * 60) : 0;
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
-    byID(`${day}QLTotal`).value = sum;
+    $(`#${day}QLTotal`).val(sum);
 }
 
 //Daily leave checkboxes
@@ -2090,7 +1401,7 @@ function checkLeaveToggle(refID) {
 function checkboxQL(refID) {
     let day = refID.substr(0, 3);
 
-    objThis[day][refID] = byID(refID).checked;
+    objThis[day][refID] = $("#" + refID).prop('checked');
     
     dailyQL(day);
 }
@@ -2111,121 +1422,121 @@ function getWeeklyTotals() {
     let sum = 0;
 
     //Clear Hours worked
-    byID("TotalHW").value = "";
+    $("#TotalHW").val("");
     objThis.Data.TotalHW = "";
     sumCPay();
 
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
         for (let j = 11; j < 18; j++) {
-            sum += convertToMinutes(byID(`${day}Time${j}`).value);
+            sum += convertToMinutes($(`#${day}Time${j}`).val());
         }
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
     objThis.Data.TotalRun = sum;
-    byID("TotalRun").value = sum;
+    $("#TotalRun").val(sum);
 
     sum = 0;
     for (const day of days) {
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            let selectVal = byID(`${day}Select${j}`).value;
+            let selectVal = $(`#${day}Select${j}`).val();
             if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-            sum += convertToMinutes(byID(`${day}Time${j}`).value);
+            sum += convertToMinutes($(`#${day}Time${j}`).val());
         }
     }
     sum = calculateTotal(sum);
     sum = (sum === "0:00") ? "" : sum;
     objThis.Data.TotalOther = sum;
-    byID("TotalOther").value = sum;
+    $("#TotalOther").val(sum);
 
     sum = 0;
     for (const day of days) {
         for (let j = 30; j < 35; j++) {
             if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += Number(byID(`${day}Time${j}`).value);
+            sum += Number($(`#${day}Time${j}`).val());
         }
     }
     sum = setToFixed(sum);
     objThis.Data.TotalFT = sum;
-    byID("TotalFT").value = sum;
+    $("#TotalFT").val(sum);
 
 
     sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
     sum = Number(convertTotal(sum));
     sum += Number(objThis.Data.TotalFT);
-    sum += Number(byID("TotalHW").value);
+    sum += Number($("#TotalHW").val());
     sum = setToFixed(sum);
     objThis.Data.TotalHW = sum;
-    byID("TotalHW").value = sum;
+    $("#TotalHW").val(sum);
 
     sum = 0;
     for (const day of days) {
-        if (day !== "Sun" && day !== "Sat" && byID(`${day}QL11`).checked) {
-            sum += convertToMinutes(byID(`${day}Time11`).value);
-            sum += convertToMinutes(byID(`${day}Time12`).value);
-            sum += convertToMinutes(byID(`${day}Time13`).value);
-            sum += convertToMinutes(byID(`${day}Time14`).value);
-            sum += convertToMinutes(byID(`${day}Time15`).value);
-            sum += convertToMinutes(byID(`${day}Time16`).value);
-            sum += convertToMinutes(byID(`${day}Time17`).value);
+        if (day !== "Sun" && day !== "Sat" && $(`#${day}QL11`).prop('checked')) {
+            sum += convertToMinutes($(`#${day}Time11`).val());
+            sum += convertToMinutes($(`#${day}Time12`).val());
+            sum += convertToMinutes($(`#${day}Time13`).val());
+            sum += convertToMinutes($(`#${day}Time14`).val());
+            sum += convertToMinutes($(`#${day}Time15`).val());
+            sum += convertToMinutes($(`#${day}Time16`).val());
+            sum += convertToMinutes($(`#${day}Time17`).val());
         }
 
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            sum += (byID(`${day}QL${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
+            sum += ($(`#${day}QL${j}`).prop('checked')) ? convertToMinutes($(`#${day}Time${j}`).val()) : 0;
         }
 
         for (let j = 30; j < 35; j++) {
             if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += (byID(`${day}QL${j}`).checked) ? (Number(byID(`${day}Time${j}`).value) * 60) : 0;
+            sum += ($(`#${day}QL${j}`).prop('checked')) ? (Number($(`#${day}Time${j}`).val()) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
     objThis.Data.TotalS2QL = sum;
-    byID("TotalS2QL").value = sum;
+    $("#TotalS2QL").val(sum);
 
     sum = 0;
     for (const day of days) {
-        if (day !== "Sun" && day !== "Sat" && byID(`${day}J11`).checked) {
-            sum += convertToMinutes(byID(`${day}Time11`).value);
-            sum += convertToMinutes(byID(`${day}Time12`).value);
-            sum += convertToMinutes(byID(`${day}Time13`).value);
-            sum += convertToMinutes(byID(`${day}Time14`).value);
-            sum += convertToMinutes(byID(`${day}Time15`).value);
-            sum += convertToMinutes(byID(`${day}Time16`).value);
-            sum += convertToMinutes(byID(`${day}Time17`).value);
+        if (day !== "Sun" && day !== "Sat" && $(`#${day}J11`).prop('checked')) {
+            sum += convertToMinutes($(`#${day}Time11`).val());
+            sum += convertToMinutes($(`#${day}Time12`).val());
+            sum += convertToMinutes($(`#${day}Time13`).val());
+            sum += convertToMinutes($(`#${day}Time14`).val());
+            sum += convertToMinutes($(`#${day}Time15`).val());
+            sum += convertToMinutes($(`#${day}Time16`).val());
+            sum += convertToMinutes($(`#${day}Time17`).val());
         }
     }
     sum = convertTotal(sum);
     objThis.Data.TotalS4J = sum;
-    byID("TotalS4J").value = sum;
+    $("#TotalS4J").val(sum);
 
     sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
     sum += (objThis.Data.Area === "TC") ? 0 : 15;
     sum = convertTotal(sum);
     objThis.Data.Total1R = sum;
-    byID("Total1R").value = sum;
+    $("#Total1R").val(sum);
 
     sum = 0;
     //If OJT Trainer is not checked then exit function
-    if (!byID("OJT").checked)
+    if (!$("#OJT").prop('checked'))
         return;
 
     for (const day of days) {
         if (day === "Sun" || day === "Sat") continue;
         for (let j = 11; j < 30; j++) {
             if (j === 18 || j === 19) continue;
-            sum += (byID(`${day}OJT${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
+            sum += ($(`#${day}OJT${j}`).prop('checked')) ? convertToMinutes($(`#${day}Time${j}`).val()) : 0;
         }
         for (let j = 30; j < 35; j++) {
-            sum += (byID(`${day}OJT${j}`).checked) ? (Number(byID(`${day}Time${j}`).value) * 60) : 0;
+            sum += ($(`#${day}OJT${j}`).prop('checked')) ? (Number($(`#${day}Time${j}`).val()) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
     objThis.Data.TotalS4OJT = sum;
-    byID("TotalS4OJT").value = sum;
+    $("#TotalS4OJT").val(sum);
     setStorage();
 }
 /********************CALCULATIONS********************/

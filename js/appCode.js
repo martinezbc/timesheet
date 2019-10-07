@@ -1,190 +1,179 @@
 let activeID = "";
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 /********************EVENT LISTENERS********************/
 let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
 
-window.addEventListener(clickEvent, (event) => {
-    var bln = document.getElementById("navdropdown").classList.contains("hide") ? true : false;
-
-    if (event.target.id !== 'navbtn') {
-        showHide("navdropdown", false);
-    } else {
-        showHide("navdropdown", bln);
-    }
-});
-
-function arrEach(obj, event, func) {
-    Array.from(obj).forEach((e) => {
-        e.addEventListener(event, func);
-    });
-}
-
-function docObj(prop) {
-    return document.querySelectorAll(prop);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    arrEach(docObj("input[type=checkbox]"), clickEvent, (e) => {
-        setObject(e.target.id)
-    });
-    arrEach(docObj("input[type=radio]"), clickEvent, (e) => {
-        storeRadioValue(e.target)
+$(document).ready(() => {
+    $("input[type='checkbox']").on('change', (e) => {
+        setObject(e.target.id);
     });
 
-    arrEach(docObj("input[type=text], input[type=number]"), 'change', (e) => {
-        textboxOnChange(e.target)
+    $("select").on('change', (e) => {
+        setObject(e.target.id);
     });
 
-    arrEach(docObj("select"), 'change', (e) => {
-        setObject(e.target.id)
+    $("input[type='text'], input[type='number']").on('change', (e) => {
+        textboxOnChange(e.target);
     });
 
-    arrEach(docObj("input[name='chkJ']"), clickEvent, (e) => {
+    $("input[type='radio']").on('change', (e) => {
+        let parent = e.target.parentNode.id;
+        if (parent !== `divarea${optVal}` && parent !== `divposition${optVal}`) {
+            parent = e.target.parentNode.parentNode.id;
+        }
+        parent = parent.replace('div', '');
+        if (optVal === 'S') parent = parent.replace('S', '');
+        parent = properCase(parent);
+        if (optVal === 'S') parent += 'S';
+
+        if (optVal === "") {
+            objThis.Data[parent] = $(e.target).val();
+        } else {
+            objThis[parent] = $(e.target).val();
+        }
+        getWeeklyTotals();
+        setStorage();
+        loadRadioSelection();
+    });
+
+    $('input[name="txtTime"]').on(clickEvent, (e) => {
+        activeID = e.target.id;
+        e.target.disabled = true;
+
+        if (optVal === "S" && !checkOWFTDate(e.target.id)) return;
+
+        let refVal = e.target.value;
+        if (refVal === null) return;
+
+        let blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
+
+        if (refVal !== "") {
+            let hours = refVal.substr(0, refVal.indexOf(":"));
+            let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
+            let mer = refVal.substr(-2);
+            $(`#hours${optVal}`).html(hours);
+            $(`#minutes${optVal}`).html(mins);
+            $(`#meridiem${optVal}`).html(mer);
+        } else {
+            if (!blnPupil) {
+                mins = round5(Number($(`#minutes${optVal}`).html()));
+                if (mins < 10 && mins > -1) {
+                    mins = "0" + mins.toString();
+                } else if (mins === 60) {
+                    mins = "55";
+                }
+                $(`#minutes${optVal}`).html(mins);
+            }
+        }
+        showHide(`timeModal${optVal}`, true);
+    });
+
+    $('input[name="txtFT"]').on(clickEvent, (e) => {
+        openFTSelector(e.target);
+    });
+
+    $("input[name='owdesc']").on('keyup', limitOWDesc);
+    $("input[name='ftvoucher']").on('keyup', (e) => {
+        limitCharacters(e, 6)
+    });
+
+    $('input[name="chkJ"]').on('change', (e) => {
         toggleJReg(e.target)
     });
-    arrEach(docObj("input[name='chkOJT']"), clickEvent, (e) => {
+    $('input[name="chkOJT"]').on('change', (e) => {
         checkOJT(e.target)
     });
-    arrEach(docObj("input[name='chkLV']"), clickEvent, (e) => {
+    $('input[name="chkLV"]').on('change', (e) => {
         checkLeave(e.target)
     });
-    arrEach(docObj("input[name='chkQL']"), clickEvent, (e) => {
+    $('input[name="chkQL"]').on('change', (e) => {
         toggleQLReg(e.target)
     });
-    arrEach(docObj("input[name='chkFTQL']"), clickEvent, getDailyTotals);
-    arrEach(docObj("input[name='txtTime']"), clickEvent, (e) => {
-        openTimeSelector(e.target)
-    });
-    arrEach(docObj("input[name='txtFT']"), clickEvent, (e) => {
-        openFTSelector(e.target)
-    });
-
-    document.getElementById('closeTime').addEventListener(clickEvent, () => {
-        showHide("timeModal", false);
-    });
-    document.getElementById('closeTimeS').addEventListener(clickEvent, () => {
-        showHide("timeModalS", false);
-    });
-    document.getElementById('closeFT').addEventListener(clickEvent, () => {
-        showHide("ftModal", false);
-    });
-    document.getElementById('closeFTS').addEventListener(clickEvent, () => {
-        showHide("ftModalS", false);
-    });
-    document.getElementById('endVarious').addEventListener(clickEvent, () => {
-        showHide("variousModal", false);
-    });
-    document.getElementById('endVariousS').addEventListener(clickEvent, () => {
-        showHide("variousModalS", false);
-    });
-    document.getElementById('endValidate').addEventListener(clickEvent, () => {
-        showHide("validateModal", false);
-    });
-    document.getElementById('endValidateS').addEventListener(clickEvent, () => {
-        showHide("validateModalS", false);
-    });
-    document.getElementById('ctspan').addEventListener(clickEvent, popUpCT);
-
-    document.getElementById('goFT').addEventListener(clickEvent, storeFTVal);
-    document.getElementById('goFTS').addEventListener(clickEvent, storeFTVal);
-
-    document.getElementById('endChanges').addEventListener(clickEvent, () => {
-        showHide("changesModal", false);
-    });
-
-    document.getElementById('goTime').addEventListener(clickEvent, goTime);
-
-    document.getElementById('goTimeS').addEventListener(clickEvent, () => {
-        goTime('S');
-    });
-
-    arrEach(docObj("input[name='Area']"), 'change', (e) => {
+    $('input[name="chkFTQL"]').on('change', getDailyTotals);
+    $('input[name="Area"]').on('change', (e) => {
         radioAreaSelect(e.target)
     });
-    arrEach(docObj("input[name='Position']"), 'change', positionChange);
-    arrEach(docObj("input[name='route']"), 'change', routeNameCheck);
-    arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
+    $('input[name="Position"]').on('change', positionChange);
+    $('input[name="route"]').on('change', routeNameCheck);
+    $('input[name="selectOW"]').on('change', (e) => {
         selectOWChange(e.target)
     });
 
-    arrEach(docObj('input[name="chkJ"]'), clickEvent, (e) => {
-        toggleJReg(e.target)
+    $("#closeTime").on(clickEvent, () => {
+        showHide('timeModal', false)
     });
-    arrEach(docObj('.up, .down, .up2, .down2'), clickEvent, timeSelectors);
-    arrEach(docObj('.addOW'), clickEvent, addOtherWork);
-    arrEach(docObj('.addFT'), clickEvent, addFieldTrip);
-    arrEach(docObj('.addLV'), clickEvent, addLeave);
-    arrEach(docObj('.fa-trash-alt'), clickEvent, removeOWFTLV);
-    arrEach(docObj('.ow'), clickEvent, popUpOW);
-    arrEach(docObj('.ft'), clickEvent, popUpFT);
-    arrEach(docObj('.fa-times'), clickEvent, clearTimeField);
-    arrEach(docObj("#Veh1, #Veh2, #Veh3, #Veh4"), 'keyup', (e) => {
-        limitCharacters(e, 4)
+    $("#closeTimeS").on(clickEvent, () => {
+        showHide('timeModalS', false)
     });
-    arrEach(docObj("#Veh1S, #Veh2S, #Veh3S, #Veh4S"), 'keyup', (e) => {
-        limitCharacters(e, 4)
+    $("#closeFT").on(clickEvent, () => {
+        showHide('ftModal', false)
     });
-    arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
-    arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
-        limitCharacters(e, 6)
+    $("#closeFTS").on(clickEvent, () => {
+        showHide('ftModalS', false)
     });
-    document.getElementById('EmpInitials').addEventListener('keyup', () => {
-        limitCharacters(e, 5);
+    $("#endVarious").on(clickEvent, () => {
+        showHide('variousModal', false)
     });
-
-    document.getElementById('divtutorial').addEventListener(clickEvent, (e) => {
+    $("#endVariousS").on(clickEvent, () => {
+        showHide('variousModalS', false)
+    });
+    $("#endValidate").on(clickEvent, () => {
+        showHide('validateModal', false)
+    });
+    $("#endValidateS").on(clickEvent, () => {
+        showHide('validateModalS', false)
+    });
+    $('#divtutorial').on(clickEvent, () => {
         showHide("changesModal", true)
     });
-
-    document.getElementById('navbtn').addEventListener(clickEvent, (e) => {
+    $("#endChanges").on(clickEvent, () => {
+        showHide('changesModal', false)
+    });
+    $('#navbtn').on(clickEvent, () => {
         showHide("navbtn", true)
     });
-    document.getElementById('navbtnS').addEventListener(clickEvent, (e) => {
+    $('#navbtnS').on(clickEvent, () => {
         showHide("navbtnS", true)
     });
-    document.getElementById('divpreview').addEventListener(clickEvent, completeTimesheet);
-    document.getElementById('divsupplement').addEventListener(clickEvent, openSupplement);
-    document.getElementById('clear').addEventListener(clickEvent, popUpClear);
-    document.getElementById('clearS').addEventListener(clickEvent, popUpClear);
-});
+    $("#goFT, #goFTS").on(clickEvent, storeFTVal);
+    $("#goTime").on(clickEvent, () => {
+        goTime('')
+    });
+    $("#goTimeS").on(clickEvent, () => {
+        goTime('S')
+    });
+    $("#divpreview").on(clickEvent, completeTimesheet);
+    $("#divsupplement").on(clickEvent, openSupplement);
+    $("#clear, #clearS").on(clickEvent, () => {
+        openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>')
+    });
+    $("#ctspan").on(clickEvent, popUpCT);
+    $("#Veh1, #Veh2, #Veh3, #Veh4").on('keyup', (e) => {
+        limitCharacters(e, 4)
+    });
+    $("#Veh1S, #Veh2S, #Veh3S, #Veh4S").on('keyup', (e) => {
+        limitCharacters(e, 4)
+    });
+    $("#EmpInitials").on('keyup', (e) => {
+        limitCharacters(e, 5)
+    });
 
+    $('.up, .down, .up2, .down2').on(clickEvent, timeSelectors);
+    $('.addOW').on(clickEvent, addOtherWork);
+    $('.addFT').on(clickEvent, addFieldTrip);
+    $('.addLV').on(clickEvent, addLeave);
+    $('.fa-trash-alt').on(clickEvent, removeOWFTLV);
+    $('.ow').on(clickEvent, popUpOW);
+    $('.ft').on(clickEvent, popUpFT);
+    $('.fa-times').on(clickEvent, clearTimeField);
+    $('.fa-copy').on(clickEvent, copyRoutine);
+});
 
 /********************EVENT LISTENERS********************/
 /********************TIME PICKER********************/
-//TIME SELECTOR MODAL
-function openTimeSelector(e) {
-    activeID = e.id;
-    e.disabled = true;
-
-    if (optVal === "S" && !checkOWFTDate(e.id)) return;
-
-    let refVal = e.value;
-    if (refVal === null) return;
-
-    let blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
-
-    if (refVal !== "") {
-        let hours = refVal.substr(0, refVal.indexOf(":"));
-        let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        let mer = refVal.substr(-2);
-        byID(`hours${optVal}`).innerHTML = hours;
-        byID(`minutes${optVal}`).innerHTML = mins;
-        byID(`meridiem${optVal}`).innerHTML = mer;
-    } else {
-        if (!blnPupil) {
-            mins = round5(Number(byID(`minutes${optVal}`).innerHTML));
-            if (mins < 10 && mins > -1) {
-                mins = "0" + mins.toString();
-            } else if (mins === 60) {
-                mins = "55";
-            }
-            byID(`minutes${optVal}`).innerHTML = mins;
-        }
-    }
-    showHide(`timeModal${optVal}`, true);
-}
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
     const refID = e.target.id;
@@ -230,18 +219,18 @@ function changeValue(operator, clicked, refElement, optVal) {
 //CHANGE AM AND PM
 function setMeridiem(optVal) {
     let meridiemText = "";
-    const inputMeridiem = byID(`meridiem${optVal}`).innerHTML;
+    const inputMeridiem = $(`#meridiem${optVal}`).html();
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
         meridiemText = "AM";
     }
-    byID(`meridiem${optVal}`).innerHTML = meridiemText;
+    $(`#meridiem${optVal}`).html(meridiemText);
 }
 //CHANGE MINUTES BY 5
 function setMinutes(operator, optVal) {
     let minutesText = "";
-    const minutes = Number(byID(`minutes${optVal}`).innerHTML);
+    const minutes = Number($(`#minutes${optVal}`).html());
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -262,12 +251,12 @@ function setMinutes(operator, optVal) {
     if (minutesText < 10)
         minutesText = "0" + minutesText;
 
-    byID(`minutes${optVal}`).innerHTML = minutesText;
+    $(`#minutes${optVal}`).html(minutesText);
 }
 //CHANGE MINUTES FOR PUPIL TIME BY 1
 function setMinutesPupil(operator) {
     let minutesText = "";
-    let minutes = Number(byID("minutes").innerHTML);
+    let minutes = Number($("#minutes").html());
     if (operator === 1) {
         operator = 1;
     } else if (operator === 2) {
@@ -289,12 +278,12 @@ function setMinutesPupil(operator) {
     if (minutesText < 10) {
         minutesText = "0" + minutesText;
     }
-    byID("minutes").innerHTML = minutesText;
+    $("#minutes").html(minutesText);
 }
 //CHANGE HOURS
 function setHours(operator, optVal) {
     let hoursText = "";
-    let hours = Number(byID(`hours${optVal}`).innerHTML);
+    let hours = Number($(`#hours${optVal}`).html());
     hoursText = hours + operator;
 
     if (hoursText === 13) {
@@ -314,15 +303,14 @@ function setHours(operator, optVal) {
     } else if (hoursText === 10 && operator === -2) {
         setMeridiem(optVal);
     }
-    byID(`hours${optVal}`).innerHTML = hoursText;
+    $(`#hours${optVal}`).html(hoursText);
 }
 //USE SELECTED TIME
 function goTime(optVal) {
-    let timetext = byID(`hours${optVal}`).innerHTML;
-    timetext += ":" + byID(`minutes${optVal}`).innerHTML;
-    timetext += " " + byID(`meridiem${optVal}`).innerHTML;
-    byID(activeID).value = timetext;
-    byID(activeID).disabled = false;
+    let timetext = $(`#hours${optVal}`).html();
+    timetext += ":" + $(`#minutes${optVal}`).html();
+    timetext += " " + $(`#meridiem${optVal}`).html();
+    $("#" + activeID).val(timetext).prop('disabled', false);
     showHide(`timeModal${optVal}`, false);
     timeCalculation(activeID);
     setObject(activeID);
@@ -331,55 +319,37 @@ function goTime(optVal) {
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
-    let week = byID(`WeekOf${optVal}`).value;
-
+    let week = $(`#WeekOf${optVal}`).val();
     localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
 }
+
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
     if (refID === `WeekOf${optVal}`) return;
     let day = getObjDay(refID.substr(0, 3));
 
-    if (byID(refID).getAttribute('type') === 'checkbox') {
+    if ($("#" + refID).attr('type') === 'checkbox') {
         if (optVal === "") {
-            objThis[day][refID] = (byID(refID).checked) ? true : false;
+            objThis[day][refID] = $("#" + refID).prop('checked') ? true : false;
         } else {
-            objThis[refID] = (byID(refID).checked) ? true : false;
+            objThis[refID] = $("#" + refID).prop('checked') ? true : false;
         }
     } else {
         if (optVal === "") {
-            objThis[day][refID] = byID(refID).value;
+            objThis[day][refID] = $('#' + refID).val();
         } else {
-            objThis[refID] = byID(refID).value;
+            objThis[refID] = $('#' + refID).val();
         }
     }
     setStorage();
 }
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    let parent = e.parentNode.id;
-    if (parent !== `divarea${optVal}` && parent !== `divposition${optVal}`) {
-        parent = e.parentNode.parentNode.id;
-    }
-    parent = parent.replace('div', '');
-    if (optVal === 'S') parent = parent.replace('S', '');
-    parent = properCase(parent);
-    if (optVal === 'S') parent += 'S';
 
-    if (optVal === "") {
-        objThis.Data[parent] = e.value;
-    } else {
-        objThis[parent] = e.value;
-    }
-    getWeeklyTotals();
-    setStorage();
-}
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
     if (e.id === `Trainee${optVal}` || e.id === `EmpName${optVal}`) {
-        e.value = properCase(e.value);
+        $(e).val(properCase($(e).val()));
     } else if (e.id === `EmpInitials${optVal}`) {
-        e.value = e.value.toUpperCase();
+        $(e).val($(e).val().toUpperCase());
     } else if (optVal === "" && e.id.indexOf("Route") > 0) {
         routeNameTransform(e.id);
     }
@@ -388,7 +358,7 @@ function textboxOnChange(e) {
 }
 //UPDATE THE WAY THE ROUTE NAME LOOKS
 function routeNameTransform(refID) {
-    let refVal = byID(refID).value;
+    let refVal = $('#' + refID).val();
     refVal = refVal.toUpperCase();
 
     let i = 0;
@@ -485,7 +455,7 @@ function routeNameTransform(refID) {
     refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
 
     //Set new string into element unless it's only a dash
-    byID(refID).value = (refVal === "-") ? "" : refVal;
+    $("#" + refID).val((refVal === "-") ? "" : refVal);
 }
 /********************LOCAL STORAGE********************/
 /********************FIELD TRIP SELECTOR********************/
@@ -494,22 +464,21 @@ function openFTSelector(e) {
     showHide(`ftModal${optVal}`, true);
     activeID = e.id;
     e.disabled = true;
-    byID(`ftselector${optVal}`).value = "";
-    byID(`fttype${optVal}`).value = "";
+    $(`#ftselector${optVal}`).val("");
+    $(`#fttype${optVal}`).val("");
 }
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
     let ftText = "";
-    let ftselect = byID(`ftselector${optVal}`).value;
+    let ftselect = $(`#ftselector${optVal}`).val();
     if (ftselect !== null && ftselect !== "")
-        ftText = byID(`ftselector${optVal}`).value;
+        ftText = $(`#ftselector${optVal}`).val();
     else
-        ftText = byID(`fttype${optVal}`).value;
+        ftText = $(`#fttype${optVal}`).val();
 
     ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    byID(activeID).disabled = false;
+    $("#" + activeID).val(ftText).prop('disabled', false);
     if (optVal === "") {
         objThis[activeID.substr(0, 3)][activeID] = ftText;
     } else {
@@ -527,18 +496,14 @@ function properCase(str) {
 }
 //CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
 function limitCharacters(e, num) {
-    let refVal = e.target.value;
+    let refVal = $(e.target).val();
     if (refVal.length > num) {
         openPopUp("<p class='letp'>Limit " + num + " characters.</p>");
-        e.target.value = refVal.substr(0, num);
+        $(e.target).val(refVal.substr(0, num));
     }
 }
 /********************TEXT UPDATES AND LIMITATIONS********************/
 /********************MISCELLANEOUS FUNCTIONS********************/
-//SHORTEN DOCUMENT.GETELEMENTBYID
-function byID(id) {
-    return document.getElementById(id);
-}
 //DATEADD FUNCTION
 function addDate(date, days) {
     let copy = new Date(Number(date))
@@ -549,31 +514,31 @@ function addDate(date, days) {
 /********************ELEMENT PROPERTY UPDATE********************/
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
 function showHide(refID, bln) {
-    let el = byID(refID);
+    let e = $("#" + refID);
     //(Show the element) ? remove hide : add hide
     if (bln) {
-        if (el.classList.contains("hide")) el.classList.remove("hide");
+        if ($(e).hasClass("hide")) $(e).removeClass("hide");
     } else {
-        if (!el.classList.contains("hide")) el.classList.add("hide");
+        if (!$(e).hasClass("hide")) $(e).addClass("hide");
     }
 }
 //RESET VALUE OF ELEMENT
 function resetElement(refID) {
     let day = getObjDay(refID.substr(0, 3));
-    if (byID(refID).type === "checkbox") {
+    if ($("#" + refID).type === "checkbox") {
         if (optVal === "") {
             objThis[day][refID] = false;
         } else {
             objThis[refID] = false;
         }
-        byID(refID).checked = false;
+        $("#" + refID).prop('checked', false);
     } else {
         if (optVal === "") {
             objThis[day][refID] = "";
         } else {
             objThis[refID] = "";
         }
-        byID(refID).value = "";
+        $("#" + refID).val("");
     }
     setObject(refID);
 }
@@ -602,8 +567,7 @@ function resetTime(day, num) {
 }
 //DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
 function disableElement(refID, bln) {
-    byID(refID).disabled = bln;
-    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";
+    $("#" + refID).prop('disabled', bln).css('backgroundColor', (bln) ? "lightgrey" : "white");
 }
 /********************ELEMENT PROPERTY UPDATE********************/
 /********************MODAL POP UP MESSAGES********************/
@@ -615,13 +579,9 @@ function popUpOW() {
 function popUpFT() {
     openPopUp("<p class='letp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='letp'>&bull;Check lift if the trip required a lift.</p><p class='letp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
 }
-
-function popUpClear() {
-    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
-}
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
-    byID(`varDiv${optVal}`).innerHTML = msgVal;
+    $(`#varDiv${optVal}`).html(msgVal);
     showHide(`variousModal${optVal}`, true);
 }
 /********************MODAL POP UP MESSAGES********************/

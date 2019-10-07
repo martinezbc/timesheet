@@ -17,6 +17,7 @@
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
+<!--    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
     <style>
         .modal {
             z-index: 3000;
@@ -26,8 +27,6 @@
 
 <body>
     <script>
-        const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-
         function insertOW(day, i) {
             let strHTML = `
                 <div class="tinycard bg-teal2 hide" id="${day}OWDiv${i}">
@@ -144,12 +143,12 @@
 
         function insertPupilCount(i) {
             let strHTML = '';
-            for (const day of weekdays) {
+            let weekd = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+            for (const day of weekd) {
                 strHTML += `<div class="hide" id="div${day}${i}Ct"><input type="number" name="txtCt" id="${day}${i}Ct" class="countwidth" placeholder="${day}"></div>`;
             }
             return strHTML;
         }
-
     </script>
     <div class="header">
         <div class="row">
@@ -212,7 +211,6 @@
                             if (i === 5 || i === 6) continue;
                             document.write(`<input type="radio" id="area${i}" name="Area" value="${i}"><label for="area${i}">${i}</label>`);
                         }
-
                     </script>
                     <input type="radio" id="areaTC" name="Area" value="TC"><label for="areaTC">TC</label>
                 </div>
@@ -224,28 +222,24 @@
                         <script>
                             for (let i = 10; i < 18; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
-
                         </script>
                     </div>
                     <div class="hide" id="div2">
                         <script>
                             for (let i = 20; i < 28; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
-
                         </script>
                     </div>
                     <div class="hide" id="div3">
                         <script>
                             for (let i = 30; i < 38; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
-
                         </script>
                     </div>
                     <div class="hide" id="div4">
                         <script>
                             for (let i = 40; i < 48; i++)
                                 document.write(`<input type="radio" id="team${i}" name="Team" value="${i}"><label for="team${i}">${i}</label>`);
-
                         </script>
                     </div>
                     <div class="hide" id="div7">
@@ -253,7 +247,6 @@
                             const area7Teams = ['ACA', 'ALTM', 'ALTP', 'AUR', 'CARD', 'FCPS', 'FR', 'IVY', 'KING', 'KK', 'KT', 'LAB', 'LOU', 'MATH', 'PHIL', 'RIV', 'SCOL'];
                             for (const team of area7Teams)
                                 document.write(`<input type="radio" id="team${team}" name="Team" value="${team}"><label for="team${team}">${team}</label>`);
-
                         </script>
                     </div>
                     <div class="hide" id="divTC">
@@ -328,7 +321,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM1'));
-
                         </script>
                     </div>
                 </div>
@@ -339,7 +331,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM2'));
-
                         </script>
                     </div>
                 </div>
@@ -350,7 +341,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM3'));
-
                         </script>
                     </div>
                 </div>
@@ -361,7 +351,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM4'));
-
                         </script>
                     </div>
                 </div>
@@ -372,7 +361,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('AM5'));
-
                         </script>
                     </div>
                 </div>
@@ -436,7 +424,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM1'));
-
                         </script>
                     </div>
                 </div>
@@ -447,7 +434,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM2'));
-
                         </script>
                     </div>
                 </div>
@@ -458,7 +444,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM3'));
-
                         </script>
                     </div>
                 </div>
@@ -469,7 +454,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM4'));
-
                         </script>
                     </div>
                 </div>
@@ -480,7 +464,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PM5'));
-
                         </script>
                     </div>
                 </div>
@@ -544,7 +527,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PS1'));
-
                         </script>
                     </div>
                 </div>
@@ -555,7 +537,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('PS2'));
-
                         </script>
                     </div>
                 </div>
@@ -582,7 +563,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('SH1'));
-
                         </script>
                     </div>
                 </div>
@@ -593,7 +573,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('SH2'));
-
                         </script>
                     </div>
                 </div>
@@ -619,7 +598,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('LR1'));
-
                         </script>
                     </div>
                 </div>
@@ -630,7 +608,6 @@
                     <div class="col-5">
                         <script>
                             document.write(insertPupilCount('LR2'));
-
                         </script>
                     </div>
                 </div>
@@ -661,7 +638,6 @@
                 document.write(insertOW('Sat', 20));
                 document.write(insertOW('Sat', 21));
                 document.write(insertOW('Sat', 22));
-
             </script>
             <div class="row" id="SatOWAdd2"></div>
             <div class="row">
@@ -671,7 +647,6 @@
                 document.write(insertFT('Sat', 30));
                 document.write(insertFT('Sat', 31));
                 document.write(insertFT('Sat', 32));
-
             </script>
             <div class="row" id="SatFTAdd2"></div>
         </div>
@@ -700,7 +675,6 @@
                 document.write(insertOW('Sun', 20));
                 document.write(insertOW('Sun', 21));
                 document.write(insertOW('Sun', 22));
-
             </script>
             <div class="row" id="SunOWAdd2"></div>
             <div class="row">
@@ -710,7 +684,6 @@
                 document.write(insertFT('Sun', 30));
                 document.write(insertFT('Sun', 31));
                 document.write(insertFT('Sun', 32));
-
             </script>
             <div class="row" id="SunFTAdd2"></div>
         </div>
@@ -752,7 +725,6 @@
                 document.write(insertLVAD('Mon'));
                 document.write(insertLV('Mon', 40));
                 document.write(insertLV('Mon', 41));
-
             </script>
             <hr>
             <div class="row">
@@ -905,7 +877,6 @@
                 document.write(insertOW('Mon', 27));
                 document.write(insertOW('Mon', 28));
                 document.write(insertOW('Mon', 29));
-
             </script>
             <div class="row" id="MonOWAdd2"></div>
             <hr>
@@ -918,7 +889,6 @@
                 document.write(insertFT('Mon', 32));
                 document.write(insertFT('Mon', 33));
                 document.write(insertFT('Mon', 34));
-
             </script>
             <div class="row" id="MonFTAdd2"></div>
         </div>
@@ -960,7 +930,6 @@
                 document.write(insertLVAD('Tue'));
                 document.write(insertLV('Tue', 40));
                 document.write(insertLV('Tue', 41));
-
             </script>
             <hr>
             <div class="row">
@@ -1113,7 +1082,6 @@
                 document.write(insertOW('Tue', 27));
                 document.write(insertOW('Tue', 28));
                 document.write(insertOW('Tue', 29));
-
             </script>
             <div class="row" id="TueOWAdd2"></div>
             <hr>
@@ -1126,7 +1094,6 @@
                 document.write(insertFT('Tue', 32));
                 document.write(insertFT('Tue', 33));
                 document.write(insertFT('Tue', 34));
-
             </script>
             <div class="row" id="TueFTAdd2"></div>
         </div>
@@ -1168,7 +1135,6 @@
                 document.write(insertLVAD('Wed'));
                 document.write(insertLV('Wed', 40));
                 document.write(insertLV('Wed', 41));
-
             </script>
             <hr>
             <div class="row">
@@ -1321,7 +1287,6 @@
                 document.write(insertOW('Wed', 27));
                 document.write(insertOW('Wed', 28));
                 document.write(insertOW('Wed', 29));
-
             </script>
             <div class="row" id="WedOWAdd2"></div>
             <hr>
@@ -1334,7 +1299,6 @@
                 document.write(insertFT('Wed', 32));
                 document.write(insertFT('Wed', 33));
                 document.write(insertFT('Wed', 34));
-
             </script>
             <div class="row" id="WedFTAdd2"></div>
         </div>
@@ -1376,7 +1340,6 @@
                 document.write(insertLVAD('Thu'));
                 document.write(insertLV('Thu', 40));
                 document.write(insertLV('Thu', 41));
-
             </script>
             <hr>
             <div class="row">
@@ -1529,7 +1492,6 @@
                 document.write(insertOW('Thu', 27));
                 document.write(insertOW('Thu', 28));
                 document.write(insertOW('Thu', 29));
-
             </script>
             <div class="row" id="ThuOWAdd2"></div>
             <hr>
@@ -1542,7 +1504,6 @@
                 document.write(insertFT('Thu', 32));
                 document.write(insertFT('Thu', 33));
                 document.write(insertFT('Thu', 34));
-
             </script>
             <div class="row" id="ThuFTAdd2"></div>
         </div>
@@ -1584,7 +1545,6 @@
                 document.write(insertLVAD('Fri'));
                 document.write(insertLV('Fri', 40));
                 document.write(insertLV('Fri', 41));
-
             </script>
             <hr>
             <div class="row">
@@ -1737,7 +1697,6 @@
                 document.write(insertOW('Fri', 27));
                 document.write(insertOW('Fri', 28));
                 document.write(insertOW('Fri', 29));
-
             </script>
             <div class="row" id="FriOWAdd2"></div>
             <hr>
@@ -1750,7 +1709,6 @@
                 document.write(insertFT('Fri', 32));
                 document.write(insertFT('Fri', 33));
                 document.write(insertFT('Fri', 34));
-
             </script>
             <div class="row" id="FriFTAdd2"></div>
         </div>
@@ -1902,32 +1860,11 @@
             </div>
         </div>
     </div>
-    <script>
-        //Click on menu, toggle menu on and off
-        window.onclick = function(event) {
-            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
-
-            if (event.target.id !== 'navbtn') {
-                showHide("navdropdown", false);
-            } else {
-                showHide("navdropdown", bln);
-            }
-        }
-
-        window.ontouchstart = function(event) {
-            var bln = (byID("navdropdown").classList.contains("hide")) ? true : false;
-
-            if (event.target.id !== 'navbtn') {
-                showHide("navdropdown", false);
-            } else {
-                showHide("navdropdown", bln);
-            }
-        }
-    </script>
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
+    
+<!--    <script src="js/appCode.js"></script>-->
+    
+<!--    <script src="js/app.js"></script>-->
     <script src="js/code.js"></script>
-    <script src="js/app.js"></script>
-</body>
-
-</html>
+</body></html>
