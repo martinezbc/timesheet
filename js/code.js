@@ -29,105 +29,103 @@ function docObj(prop) {
     return document.querySelectorAll(prop);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    arrEach(docObj("input[type=checkbox]"), clickEvent, (e) => {
-        setObject(e.target.id)
-    });
-    arrEach(docObj("input[type=radio]"), clickEvent, (e) => {
-        storeRadioValue(e.target)
-    });
-
-    arrEach(docObj("input[type=text], input[type=number]"), 'change', (e) => {
-        textboxOnChange(e.target)
-    });
-
-    arrEach(docObj("select"), 'change', (e) => {
-        setObject(e.target.id)
-    });
-
-    arrEach(docObj("input[name='chkJ']"), clickEvent, (e) => {
-        toggleJReg(e.target)
-    });
-    arrEach(docObj("input[name='chkOJT']"), clickEvent, (e) => {
-        checkOJT(e.target)
-    });
-    arrEach(docObj("input[name='chkLV']"), clickEvent, (e) => {
-        checkLeave(e.target)
-    });
-    arrEach(docObj("input[name='chkQL']"), clickEvent, (e) => {
-        toggleQLReg(e.target)
-    });
-    arrEach(docObj("input[name='chkFTQL']"), clickEvent, getDailyTotals);
-    arrEach(docObj("input[name='txtTime']"), clickEvent, (e) => {
-        openTimeSelector(e.target)
-    });
-    arrEach(docObj("input[name='txtFT']"), clickEvent, (e) => {
-        openFTSelector(e.target)
-    });
-
-    byID('closeTime').addEventListener(clickEvent, () => {
-        showHide("timeModal", false);
-    });
-    byID('closeFT').addEventListener(clickEvent, () => {
-        showHide("ftModal", false);
-    });
-    byID('endVarious').addEventListener(clickEvent, () => {
-        showHide("variousModal", false);
-    });
-    byID('endValidate').addEventListener(clickEvent, () => {
-        showHide("validateModal", false);
-    });
-    byID('ctspan').addEventListener(clickEvent, popUpCT);
-
-    byID('goFT').addEventListener(clickEvent, storeFTVal);
-    byID('endChanges').addEventListener(clickEvent, () => {
-        showHide("changesModal", false);
-    });
-
-    byID('goTime').addEventListener(clickEvent, goTime);
-
-    arrEach(docObj("input[name='Area']"), 'change', (e) => {
-        radioAreaSelect(e.target)
-    });
-    arrEach(docObj("input[name='Position']"), 'change', positionChange);
-    arrEach(docObj("input[name='route']"), 'change', routeNameCheck);
-    arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
-        selectOWChange(e.target)
-    });
-
-    arrEach(docObj('input[name="chkJ"]'), clickEvent, (e) => {
-        toggleJReg(e.target)
-    });
-    arrEach(docObj('.up, .down, .up2, .down2'), clickEvent, timeSelectors);
-    arrEach(docObj('.addOW'), clickEvent, addOtherWork);
-    arrEach(docObj('.addFT'), clickEvent, addFieldTrip);
-    arrEach(docObj('.addLV'), clickEvent, addLeave);
-    arrEach(docObj('.fa-trash-alt'), clickEvent, removeOWFTLV);
-    arrEach(docObj('.ow'), clickEvent, popUpOW);
-    arrEach(docObj('.ft'), clickEvent, popUpFT);
-    arrEach(docObj('.fa-times'), clickEvent, clearTimeField);
-    arrEach(docObj("#Veh1, #Veh2, #Veh3, #Veh4"), 'keyup', (e) => {
-        limitCharacters(e, 4)
-    });
-    arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
-    arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
-        limitCharacters(e, 6)
-    });
-    byID('EmpInitials').addEventListener('keyup', () => {
-        limitCharacters(e, 5);
-    });
-
-    byID('divtutorial').addEventListener(clickEvent, (e) => {
-        showHide("changesModal", true)
-    });
-
-    byID('navbtn').addEventListener(clickEvent, (e) => {
-        showHide("navbtn", true)
-    });
-    byID('divpreview').addEventListener(clickEvent, completeTimesheet);
-    byID('divsupplement').addEventListener(clickEvent, openSupplement);
-    byID('clear').addEventListener(clickEvent, popUpClear);
+arrEach(docObj("input[type=checkbox]"), clickEvent, (e) => {
+    setObject(e.target.id)
 });
+arrEach(docObj("input[type=radio]"), clickEvent, (e) => {
+    storeRadioValue(e.target)
+});
+
+arrEach(docObj("input[type=text], input[type=number]"), 'change', (e) => {
+    textboxOnChange(e.target)
+});
+
+arrEach(docObj("select"), 'change', (e) => {
+    setObject(e.target.id)
+});
+
+arrEach(docObj("input[name='chkJ']"), clickEvent, (e) => {
+    toggleJReg(e.target)
+});
+arrEach(docObj("input[name='chkOJT']"), clickEvent, (e) => {
+    checkOJT(e.target)
+});
+arrEach(docObj("input[name='chkLV']"), clickEvent, (e) => {
+    checkLeave(e.target)
+});
+arrEach(docObj("input[name='chkQL']"), clickEvent, (e) => {
+    toggleQLReg(e.target)
+});
+arrEach(docObj("input[name='chkFTQL']"), clickEvent, getDailyTotals);
+arrEach(docObj("input[name='txtTime']"), clickEvent, (e) => {
+    openTimeSelector(e.target)
+});
+arrEach(docObj("input[name='txtFT']"), clickEvent, (e) => {
+    openFTSelector(e.target)
+});
+
+byID('closeTime').addEventListener(clickEvent, () => {
+    showHide("timeModal", false);
+});
+byID('closeFT').addEventListener(clickEvent, () => {
+    showHide("ftModal", false);
+});
+byID('endVarious').addEventListener(clickEvent, () => {
+    showHide("variousModal", false);
+});
+byID('endValidate').addEventListener(clickEvent, () => {
+    showHide("validateModal", false);
+});
+byID('ctspan').addEventListener(clickEvent, popUpCT);
+
+byID('goFT').addEventListener(clickEvent, storeFTVal);
+byID('endChanges').addEventListener(clickEvent, () => {
+    showHide("changesModal", false);
+});
+
+byID('goTime').addEventListener(clickEvent, goTime);
+
+arrEach(docObj("input[name='Area']"), 'change', (e) => {
+    radioAreaSelect(e.target)
+});
+arrEach(docObj("input[name='Position']"), 'change', positionChange);
+arrEach(docObj("input[name='route']"), 'change', routeNameCheck);
+arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
+    selectOWChange(e.target)
+});
+
+arrEach(docObj('input[name="chkJ"]'), clickEvent, (e) => {
+    toggleJReg(e.target)
+});
+arrEach(docObj('.up, .down, .up2, .down2'), clickEvent, timeSelectors);
+arrEach(docObj('.addOW'), clickEvent, addOtherWork);
+arrEach(docObj('.addFT'), clickEvent, addFieldTrip);
+arrEach(docObj('.addLV'), clickEvent, addLeave);
+arrEach(docObj('.fa-trash-alt'), clickEvent, removeOWFTLV);
+arrEach(docObj('.ow'), clickEvent, popUpOW);
+arrEach(docObj('.ft'), clickEvent, popUpFT);
+arrEach(docObj('.fa-times'), clickEvent, clearTimeField);
+arrEach(docObj("#Veh1, #Veh2, #Veh3, #Veh4"), 'keyup', (e) => {
+    limitCharacters(e, 4)
+});
+arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
+arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
+    limitCharacters(e, 6)
+});
+byID('EmpInitials').addEventListener('keyup', () => {
+    limitCharacters(e, 5);
+});
+
+byID('divtutorial').addEventListener(clickEvent, (e) => {
+    showHide("changesModal", true)
+});
+
+byID('navbtn').addEventListener(clickEvent, (e) => {
+    showHide("navbtn", true)
+});
+byID('divpreview').addEventListener(clickEvent, completeTimesheet);
+byID('divsupplement').addEventListener(clickEvent, openSupplement);
+byID('clear').addEventListener(clickEvent, popUpClear);
 
 
 /********************EVENT LISTENERS********************/
@@ -148,21 +146,21 @@ function openTimeSelector(e) {
         let hours = refVal.substr(0, refVal.indexOf(":"));
         let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
         let mer = refVal.substr(-2);
-        byID(`hours${optVal}`).innerHTML = hours;
-        byID(`minutes${optVal}`).innerHTML = mins;
-        byID(`meridiem${optVal}`).innerHTML = mer;
+        byID('hours').innerHTML = hours;
+        byID('minutes').innerHTML = mins;
+        byID('meridiem').innerHTML = mer;
     } else {
         if (!blnPupil) {
-            mins = round5(Number(byID(`minutes${optVal}`).innerHTML));
+            mins = round5(Number(byID('minutes').innerHTML));
             if (mins < 10 && mins > -1) {
                 mins = "0" + mins.toString();
             } else if (mins === 60) {
                 mins = "55";
             }
-            byID(`minutes${optVal}`).innerHTML = mins;
+            byID('minutes').innerHTML = mins;
         }
     }
-    showHide(`timeModal${optVal}`, true);
+    showHide('timeModal', true);
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
@@ -170,16 +168,16 @@ function timeSelectors(e) {
     let strVal = refID.substr(2);
     let operator = "";
     switch (strVal) {
-        case `up${optVal}`:
+        case 'up':
             operator = 1;
             break;
-        case `down${optVal}`:
+        case 'down':
             operator = -1;
             break;
-        case `up2${optVal}`:
+        case 'up2':
             operator = 2;
             break;
-        case `down2${optVal}`:
+        case 'down2':
             operator = -2;
             break;
     }
@@ -209,18 +207,18 @@ function changeValue(operator, clicked, refElement, optVal) {
 //CHANGE AM AND PM
 function setMeridiem(optVal) {
     let meridiemText = "";
-    const inputMeridiem = byID(`meridiem${optVal}`).innerHTML;
+    const inputMeridiem = byID('meridiem').innerHTML;
     if (inputMeridiem === "AM") {
         meridiemText = "PM";
     } else {
         meridiemText = "AM";
     }
-    byID(`meridiem${optVal}`).innerHTML = meridiemText;
+    byID('meridiem').innerHTML = meridiemText;
 }
 //CHANGE MINUTES BY 5
 function setMinutes(operator, optVal) {
     let minutesText = "";
-    const minutes = Number(byID(`minutes${optVal}`).innerHTML);
+    const minutes = Number(byID('minutes').innerHTML);
     if (operator === 1) {
         operator = 5;
     } else if (operator === 2) {
@@ -241,7 +239,7 @@ function setMinutes(operator, optVal) {
     if (minutesText < 10)
         minutesText = "0" + minutesText;
 
-    byID(`minutes${optVal}`).innerHTML = minutesText;
+    byID('minutes').innerHTML = minutesText;
 }
 //CHANGE MINUTES FOR PUPIL TIME BY 1
 function setMinutesPupil(operator) {
@@ -273,7 +271,7 @@ function setMinutesPupil(operator) {
 //CHANGE HOURS
 function setHours(operator, optVal) {
     let hoursText = "";
-    let hours = Number(byID(`hours${optVal}`).innerHTML);
+    let hours = Number(byID('hours').innerHTML);
     hoursText = hours + operator;
 
     if (hoursText === 13) {
@@ -293,16 +291,16 @@ function setHours(operator, optVal) {
     } else if (hoursText === 10 && operator === -2) {
         setMeridiem(optVal);
     }
-    byID(`hours${optVal}`).innerHTML = hoursText;
+    byID('hours').innerHTML = hoursText;
 }
 //USE SELECTED TIME
 function goTime(optVal) {
-    let timetext = byID(`hours${optVal}`).innerHTML;
-    timetext += ":" + byID(`minutes${optVal}`).innerHTML;
-    timetext += " " + byID(`meridiem${optVal}`).innerHTML;
+    let timetext = byID('hours').innerHTML;
+    timetext += ":" + byID('minutes').innerHTML;
+    timetext += " " + byID('meridiem').innerHTML;
     byID(activeID).value = timetext;
     byID(activeID).disabled = false;
-    showHide(`timeModal${optVal}`, false);
+    showHide('timeModal', false);
     timeCalculation(activeID);
     setObject(activeID);
 }
@@ -310,13 +308,13 @@ function goTime(optVal) {
 /********************LOCAL STORAGE********************/
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
-    let week = byID(`WeekOf${optVal}`).value;
+    let week = byID('WeekOf').value;
 
     localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
 }
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
-    if (refID === `WeekOf${optVal}`) return;
+    if (refID === 'WeekOf') return;
     let day = getObjDay(refID.substr(0, 3));
 
     if (byID(refID).getAttribute('type') === 'checkbox') {
@@ -337,7 +335,7 @@ function setObject(refID) {
 //SET RADIO SELECTION
 function storeRadioValue(e) {
     let parent = e.parentNode.id;
-    if (parent !== `divarea${optVal}` && parent !== `divposition${optVal}`) {
+    if (parent !== 'divarea' && parent !== 'divposition') {
         parent = e.parentNode.parentNode.id;
     }
     parent = parent.replace('div', '');
@@ -355,9 +353,9 @@ function storeRadioValue(e) {
 }
 //INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
 function textboxOnChange(e) {
-    if (e.id === `Trainee${optVal}` || e.id === `EmpName${optVal}`) {
+    if (e.id === 'Trainee' || e.id === 'EmpName') {
         e.value = properCase(e.value);
-    } else if (e.id === `EmpInitials${optVal}`) {
+    } else if (e.id === 'EmpInitials') {
         e.value = e.value.toUpperCase();
     } else if (optVal === "" && e.id.indexOf("Route") > 0) {
         routeNameTransform(e.id);
@@ -470,21 +468,21 @@ function routeNameTransform(refID) {
 /********************FIELD TRIP SELECTOR********************/
 //FIELD TRIP MODAL
 function openFTSelector(e) {
-    showHide(`ftModal${optVal}`, true);
+    showHide('ftModal', true);
     activeID = e.id;
     e.disabled = true;
-    byID(`ftselector${optVal}`).value = "";
-    byID(`fttype${optVal}`).value = "";
+    byID('ftselector').value = "";
+    byID('fttype').value = "";
 }
 
 //STORE SELECTION FROM FIELD TRIP MODAL
 function storeFTVal() {
     let ftText = "";
-    let ftselect = byID(`ftselector${optVal}`).value;
+    let ftselect = byID('ftselector').value;
     if (ftselect !== null && ftselect !== "")
-        ftText = byID(`ftselector${optVal}`).value;
+        ftText = byID('ftselector').value;
     else
-        ftText = byID(`fttype${optVal}`).value;
+        ftText = byID('fttype').value;
 
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
@@ -494,13 +492,13 @@ function storeFTVal() {
     } else {
         objThis[activeID] = ftText;
     }
-    showHide(`ftModal${optVal}`, false);
+    showHide('ftModal', false);
 }
 /********************FIELD TRIP SELECTOR********************/
 /********************TEXT UPDATES AND LIMITATIONS********************/
 //CHANGE TO PROPER CASE
 function properCase(str) {
-    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
+    return str.toLowerCase().replace(/\b[a-z]/g, (txtVal) => {
         return txtVal.toUpperCase();
     });
 }
@@ -571,9 +569,9 @@ function getObjDay(day) {
 //RESET TIME FIELDS
 function resetTime(day, num) {
     let refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
-    resetElement(`${refID}E${optVal}`);
-    resetElement(`${refID}S${optVal}`);
-    resetElement(`${refID}${optVal}`);
+    resetElement(`${refID}E`);
+    resetElement(`${refID}S`);
+    resetElement(refID);
 }
 //DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
 function disableElement(refID, bln) {
@@ -596,8 +594,8 @@ function popUpClear() {
 }
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
-    byID(`varDiv${optVal}`).innerHTML = msgVal;
-    showHide(`variousModal${optVal}`, true);
+    byID('varDiv').innerHTML = msgVal;
+    showHide('variousModal', true);
 }
 /********************MODAL POP UP MESSAGES********************/
 /********************TIME CALCULATIONS********************/
@@ -688,7 +686,12 @@ weekof.innerHTML = strHTML;
 function DateRange(offset) {
     let start = new Date();
     let end = new Date();
-    let options = {year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'America/New_York'};
+    let options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York'
+    };
     let day = start.getDay();
     let sOffset = -(day + 1) < -6 ? 0 : -(day + 1);
     let eOffset = sOffset + 6;
@@ -699,20 +702,20 @@ function DateRange(offset) {
 }
 
 //REPLACE ALL FUNCTION
-function replaceAll(text, find, replace){
-  while (text.toString().indexOf(find) != -1)
-      text = text.toString().replace(find, replace);
-  return text;
+function replaceAll(text, find, replace) {
+    while (text.toString().indexOf(find) != -1)
+        text = text.toString().replace(find, replace);
+    return text;
 }
 
 //CONVERT DATE STRING INTO STRAIGHT NUMBERS ONLY
 function dateString(strDate) {
     strDate = replaceAll(strDate, "/", "");
-    return strDate.replace(" - ","");
+    return strDate.replace(" - ", "");
 }
 
 //DECLARE VARIABLES
-const routes = document.querySelectorAll('input[name="route"]');
+const routes = docObj('input[name="route"]');
 let objThis = localStorage.getItem(`${weekof.value}Obj`);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -726,10 +729,10 @@ document.addEventListener('DOMContentLoaded', () => {
         initialLoad();
     }
 });
-              
+
 weekof.addEventListener('change', initialLoad);
-const copy = document.querySelectorAll('.fa-copy');
-Array.from(copy).forEach( (e) => {
+const copy = docObj('.fa-copy');
+Array.from(copy).forEach((e) => {
     e.addEventListener('click', copyRoutine);
 });
 
@@ -775,7 +778,7 @@ function loadRadioSelection() {
     const team = objThis.Data.Team;
     let pos = objThis.Data.Position;
     //Load area from local storage and set radio selection
-    for (const areas of document.querySelectorAll("input[name='Area']")) {
+    for (const areas of docObj("input[name='Area']")) {
         areas.checked = false;
     }
     if (area !== "") byID("area" + area).checked = true;
@@ -783,13 +786,13 @@ function loadRadioSelection() {
     loadTeamValues();
 
     //Load team from local storage and set radio selection. Only if team belongs to selected area
-    for (const teams of document.querySelectorAll('input[name="Team"]')) {
+    for (const teams of docObj('input[name="Team"]')) {
         teams.checked = false;
     }
     if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
-    
+
     //Load position from local storage and set radio selection
-    for (const positions of document.querySelectorAll('input[name="Position"]')) {
+    for (const positions of docObj('input[name="Position"]')) {
         positions.checked = false;
     }
     if (pos !== "") {
@@ -830,7 +833,7 @@ function storeWeek() {
     let week = weekof.value;
     if (localStorage.getItem(`${week}Obj`) === null) {
         objThis = objNew;
-        
+
         storeWeekDays(week);
 
         loadPrevWeek(week);
@@ -850,7 +853,7 @@ function storeWeekDays(week) {
     //Store first day of week range in y and shortened date in ny
     const startDate = week.substr(0, 2) + "/" + week.substr(2, 2) + "/" + week.substr(4, 4);
     const endDate = week.substr(8, 2) + "/" + week.substr(10, 2) + "/" + week.substr(12, 4);
-    
+
     let satDate = new Date(startDate);
 
     objThis.Data.SatDate = startDate.substr(0, 5);
@@ -897,7 +900,7 @@ function loadPrevWeek(week) {
             objThis[day][`${day}Time${i}S`] = objTemp[day][`${day}Time${i}S`];
             objThis[day][`${day}Time${i}E`] = objTemp[day][`${day}Time${i}E`];
             objThis[day][`${day}Time${i}`] = objTemp[day][`${day}Time${i}`];
-        }    
+        }
     }
 }
 
@@ -946,7 +949,7 @@ function loadOJT() {
         resetElement("Trainee");
     }
 
-    const chkOJT = document.querySelectorAll("input[name='chkOJT']");
+    const chkOJT = docObj("input[name='chkOJT']");
     for (const ojt of chkOJT) {
         if (ojt.id === "OJT") continue;
         day = ojt.id.substr(0, 3);
@@ -963,7 +966,7 @@ function loadQL() {
     let bln = routeCheck();
     let val = "";
 
-    let eql = document.querySelectorAll("input[name='chkQL']");
+    let eql = docObj("input[name='chkQL']");
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
         if (!byID(`${day}LeaveAD`).checked)
@@ -1043,7 +1046,7 @@ function toggleOWFT() {
 function toggleLeave() {
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
-                
+
         let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40`] !== "" || objThis[day][`${day}Time41`] !== "") ? true : false;
         if (bln) {
             showHide(`${day}LVDivAD`, true);
@@ -1136,12 +1139,12 @@ function posAD() {
     for (const count of counts) {
         resetElement(count.id);
     }
-    
+
     const routes = document.getElementsByName('route');
     for (const route of routes) {
         resetElement(route.id);
     }
-    
+
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
         resetElement(`${day}TimeA`);
@@ -1149,7 +1152,7 @@ function posAD() {
         resetElement(`${day}TimeC`);
         resetElement(`${day}TimeD`);
     }
-    
+
     showHide("PupilCounts", false);
 }
 
@@ -1213,7 +1216,7 @@ function routeCheck() {
     let bln = false;
     let val = "";
     for (const route of routes) {
-        if (route.value === null) continue; 
+        if (route.value === null) continue;
         bln = (route.value.lastIndexOf("L") > 3 || route.value.lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
     }
@@ -1258,7 +1261,7 @@ function removeOWFTLV(e) {
     let x = e.target.id.substr(-2);
     let type = e.target.id.substr(3, 2);
     let day = e.target.id.substr(0, 3);
-    
+
     if (type === "FT") {
         showHide(`${day}${type}Div${x}`, false);
         resetElement(`${day}To${x}`);
@@ -1337,7 +1340,7 @@ function getMissingFT(day) {
 //SHOW THE LEAVE SECTION
 function addLeave(e) {
     let dayVal = e.target.id.substr(0, 3);
-    
+
     if (!byID(`${dayVal}LVDivAD`).classList.contains('hide')) {
         resetLeave(dayVal);
     } else {
@@ -1380,18 +1383,18 @@ function toggleADLeave(refID) {
     if (bln) {
         //Uncheck Admin
         byID(`${day}J11`).checked = false;
-        
+
         //Uncheck Equipment
         byID(`${day}QL11`).checked = false;
-        
+
         //Clear Other work
         for (i = 20; i < 30; i += 1)
             byID(`${day}OWTrash${i}`).click();
-        
+
         //Clear Field Trips
         for (i = 30; i < 35; i += 1)
             byID(`${day}FTTrash${i}`).click();
-        
+
         //Clear regular run time
         for (i = 11; i < 18; i += 1) {
             resetTime(day, i);
@@ -1400,7 +1403,7 @@ function toggleADLeave(refID) {
         //Clear partial leave time
         for (i = 40; i < 42; i += 1)
             resetTime(day, i);
-        
+
         //Clear pupil counts
         for (i = 1; i < 6; i += 1) {
             resetElement(`${day}AM${i}Ct`);
@@ -1783,23 +1786,23 @@ function testStopCounts() {
 
 function testRegPupil(day, mer) {
     if (mer === 'AM' && byID(`${day}Time11`).value === "") return true;
-    if (mer === 'PM' && byID(`${day}Time12`).value === "") return true;    
+    if (mer === 'PM' && byID(`${day}Time12`).value === "") return true;
 
     let ct = 0;
     for (let i = 1; i < 6; i += 1)
-        if (byID(`${mer}Route${i}`).value !== "") ct ++;
-    
+        if (byID(`${mer}Route${i}`).value !== "") ct++;
+
     return (ct > 0) ? true : false;
 }
 
 function testRegCounts(day, mer) {
     if (mer === 'AM' && byID(`${day}Time11`).value === "") return true;
     if (mer === 'PM' && byID(`${day}Time12`).value === "") return true;
-    
+
     let ct = 0;
     for (let j = 1; j < 6; j++)
         if (byID(`${mer}Route${j}`).value !== "" && byID(`${day}${mer}${j}Ct`).value !== "") ct++;
-    
+
     return (ct > 0) ? true : false;
 }
 
@@ -1809,9 +1812,9 @@ function testSpecPupil(day, spec) {
     if (spec === 'LR' && byID(`${day}Time17`).value === "") return true;
 
     let ct = 0;
-    if (byID(`${spec}Route1`).value !== "") ct ++;
-    if (byID(`${spec}Route2`).value !== "") ct ++;
-    
+    if (byID(`${spec}Route1`).value !== "") ct++;
+    if (byID(`${spec}Route2`).value !== "") ct++;
+
     return (ct > 0) ? true : false;
 }
 
@@ -1823,7 +1826,7 @@ function testSpecCounts(day, spec) {
     let ct = 0;
     if (byID(`${spec}Route1`).value !== "" && byID(`${day}${spec}1Ct`).value !== "") ct++;
     if (byID(`${spec}Route2`).value !== "" && byID(`${day}${spec}2Ct`).value !== "") ct++;
-    
+
     return (ct > 0) ? true : false;
 }
 
@@ -2091,7 +2094,7 @@ function checkboxQL(refID) {
     let day = refID.substr(0, 3);
 
     objThis[day][refID] = byID(refID).checked;
-    
+
     dailyQL(day);
 }
 
