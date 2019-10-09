@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
-    <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="main.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="bold">Employee Name: (Last, First MI)</p>
-                    <input type="text" id="EmpName" class="empname" style="text-align: left;width:80%" placeholder="Last name,   First Name   Middle Initial...">
+                    <input type="text" id="EmpName" class="empname namesize" placeholder="Last name,   First Name   Middle Initial...">
                 </div>
             </div>
             <div class="row">
@@ -78,51 +78,526 @@
                     <p class="bold">Area:</p>
                 </div>
                 <div class="col-md-6" id="divteam">
-                    <div class="row"><p class="bold">Team:</p></div>
+                    <div class="row">
+                        <p class="bold">Team:</p>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6" id="divposition">
                     <p class="bold">Position:</p>
-                    <input type="radio" id="posDriver" name="Position" value="Driver">
-                    <label for="posDriver">Driver</label>
-                    <input type="radio" id="posDriverTrainee" name="Position" value="Driver Trainee">
-                    <label for="posDriverTrainee">Driver Trainee</label>
-                    <input type="radio" id="posSubDriver" name="Position" value="Sub Driver">
-                    <label for="posSubDriver">Sub Driver</label>
-                    <input type="radio" id="posAttendant" name="Position" value="Attendant">
-                    <label for="posAttendant">Attendant</label>
-                    <input type="radio" id="posUnassignedAttendant" name="Position" value="Unassigned Attendant">
-                    <label for="posUnassignedAttendant">Unassigned Attendant</label>
-                    <input type="radio" id="posAttendantTrainee" name="Position" value="Attendant Trainee">
-                    <label for="posAttendantTrainee">Attendant Trainee</label>
-                    <input type="radio" id="posSubAttendant" name="Position" value="Sub Attendant">
-                    <label for="posSubAttendant">Sub Attendant</label>
-                    <input type="radio" id="posActivityDriver" name="Position" value="Activity Driver">
-                    <label for="posActivityDriver">Activity Driver</label>
                 </div>
                 <div class="col-md-6">
                     <p class="bold">On-The-Job Training:</p>
-                    <input type="checkbox" name="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
-                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
+                    <input type="checkbox" class="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
+                    <input type="text" id="Trainee" class="left trainee" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
                     <p class="bold">Vehicle:</p>
-                    <input type="number" id="Veh1" style="width: 100px;" placeholder="0000">
+                    <input type="number" id="Veh1" class="vehwidth" placeholder="0000">
                 </div>
                 <div class="col-md-6">
                     <p class="bold">Spare Vehicles:<br>
-                        <input type="number" id="Veh2" style="width: 100px;" placeholder="0000">
-                        <input type="number" id="Veh3" style="width: 100px;" placeholder="0000">
-                        <input type="number" id="Veh4" style="width: 100px;" placeholder="0000"></p>
+                        <input type="number" id="Veh2" class="vehwidth" placeholder="0000">
+                        <input type="number" id="Veh3" class="vehwidth" placeholder="0000">
+                        <input type="number" id="Veh4" class="vehwidth" placeholder="0000"></p>
+                </div>
+            </div>
+        </div>
+
+        <!--        PUPIL COUNTS-->
+        <div id="PupilCounts" class="card">
+            <div class="row">
+                <div class="col-12">
+                    <p class="daily">PUPIL COUNTS<span class="fas fa-question-circle ct" id="ctspan"></span></p>
+                    <p>All drivers and attendants must include their full route names. Special equipment routes are labeled with "Q" or "L". Administratively assigned routes are labeled with "J".</p>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1 pupilcard" id="divamruns">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Morning Runs</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divAMCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" id="AMRoute1" class="routewidth route" placeholder="1st bell">&nbsp;
+                    <input type="number" id="AM1Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="AMRoute2" class="routewidth route" placeholder="2nd bell">&nbsp;
+                    <input type="number" id="AM2Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="AMRoute3" class="routewidth route" placeholder="3rd bell">&nbsp;
+                    <input type="number" id="AM3Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="AMRoute4" class="routewidth route" placeholder="4th bell">&nbsp;
+                    <input type="number" id="AM4Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="AMRoute5" class="routewidth route" placeholder="5th bell">&nbsp;
+                    <input type="number" id="AM5Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row hide" id="divAMPupilTime">
+                    <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
+                </div>
+                <div class="row hide" id="PupilTimeAM">
+                    <div class="col-11">
+                        <input id="TimeA" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                        <input id="TimeB" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearPTAM"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1 pupilcard" id="divpmruns">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divPMCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" id="PMRoute1" class="routewidth route" placeholder="1st bell">&nbsp;
+                    <input type="number" id="PM1Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="PMRoute2" class="routewidth route" placeholder="2nd bell">&nbsp;
+                    <input type="number" id="PM2Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="PMRoute3" class="routewidth route" placeholder="3rd bell">&nbsp;
+                    <input type="number" id="PM3Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="PMRoute4" class="routewidth route" placeholder="4th bell">&nbsp;
+                    <input type="number" id="PM4Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="PMRoute5" class="routewidth route" placeholder="5th bell">&nbsp;
+                    <input type="number" id="PM5Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row hide" id="divPMPupilTime">
+                    <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
+                </div>
+                <div class="row hide" id="PupilTimePM">
+                    <div class="col-11">
+                        <input id="TimeC" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                        <input id="TimeD" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearPTPM"></span></div>
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard pupilcard" id="divps">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divPSCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" id="PSRoute1" class="routewidth route" placeholder="pac/ps">&nbsp;
+                    <input type="number" id="PS1Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="PSRoute2" class="routewidth route" placeholder="pac/ps">&nbsp;
+                    <input type="number" id="PS2Ct" class="countwidth txtCt" placeholder="">
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard pupilcard" id="divsh">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Shuttles</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divSHCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" id="SHRoute1" class="routewidth route" placeholder="shuttle">&nbsp;
+                    <input type="number" id="SH1Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="SHRoute2" class="routewidth route" placeholder="shuttle">&nbsp;
+                    <input type="number" id="SH2Ct" class="countwidth txtCt" placeholder="">
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard pupilcard" id="divlr">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="category">Late Runs</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <p>Route Name</p>
+                    </div>
+                    <div class="col-5 hide" id="divLRCt">
+                        <p>Counts</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="text" id="LRRoute1" class="routewidth route" placeholder="late run">&nbsp;
+                    <input type="number" id="LR1Ct" class="countwidth txtCt" placeholder="">
+                </div>
+                <div class="row">
+                    <input type="text" id="LRRoute2" class="routewidth route" placeholder="late run">&nbsp;
+                    <input type="number" id="LR2Ct" class="countwidth txtCt" placeholder="">
+                </div>
+            </div>
+        </div>
+
+        <!--        DAILY WORK SECTION-->
+        <div id="day" class="card">
+            <div class="row">
+                <div class="col-auto">
+                    <p class="daily" id="daily_title"></p>
+                </div>
+                <div class="col-auto">
+                    <span id="copy" class="fas fa-copy font-medblue fa-lg"></span>
+                    <p class="copyfont">copy</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <input type="text" id="RunTotal" class="totalwidth nofocus" disabled>
+                    <p class="dailytotal">run time</p>
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="OtherTotal" class="totalwidth nofocus" disabled>
+                    <p class="dailytotal">other work</p>
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="FTTotal" class="totalwidth nofocus" disabled>
+                    <p class="dailytotal">field trip</p>
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="QLTotal" class="totalwidth nofocus" disabled>
+                    <p class="dailytotal">equipment</p>
+                </div>
+            </div>
+            <div id="leave">
+                <div class="row addLV">
+                    <p class="category" id="LVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
+                </div>
+                <div class="row">
+                    <p class="minitext">For all day absence, use the 'All Day' leave section. For partial absence, use the AM/PM or Other section. A leave type must be selected for each occurence of leave.</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <input name="chkQL" type="checkbox" id="QL11"><label for="QL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" name="chkJ" id="J11"><label for="J11">Admin (J)</label>
+            </div>
+            <div class="row">
+                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">Morning Runs</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time11" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG11"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">Afternoon Runs</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time12" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG12"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT13"><label for="OJT13">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time13" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG13"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">PAC/Preschool</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT14"><label for="OJT14">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time14" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG14"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">Shuttle</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT15"><label for="OJT15">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time15" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG15"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">Shuttle</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT16"><label for="OJT16">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time16" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG16"></span></div>
+                </div>
+            </div>
+            <div class="tinycard bg-teal1">
+                <div class="row">
+                    <div class="col-10">
+                        <p class="category">Late Run</p>
+                    </div>
+                    <div class="col-2">
+                        <input type="checkbox" name="chkOJT" id="OJT17"><label for="OJT17">OJT</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-11">
+                        <input id="Time17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
+                        <input id="Time17" type="text" class="total-time nofocus" disabled>
+                    </div>
+                    <div class="col-1"><span class="fas fa-times" id="ClearRG17"></span></div>
+                </div>
+            </div>
+            <hr>
+            <div id="otherwork">
+                <div class="row">
+                    <p class="category addOW" id="OWAdd"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
+                </div>
+            </div>
+            <hr>
+            <div id="fieldtrip">
+                <div class="row">
+                    <p class="category addFT" id="FTAdd"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
+                </div>
+            </div>
+        </div>
+        <div class="bottomspacer"></div>
+        <!-- The Time Selector -->
+        <div id="timeModal" class="modal hide">
+            <div class="modal-content">
+                <p class="modal-title">Time Selector<span class="close fas fa-times-circle fa-lg" id="closeTime" style="float: right;"></span></p>
+                <div style="text-align: center;">
+                    <ul>
+                        <li class="center">
+                            <span class="fas fa-angle-double-up up2" id="hrup2"></span><span class="fas fa-angle-up up" id="hrup"></span><span class="timepicker-hours" id="hours">1</span><span class="fas fa-angle-down down" id="hrdown"></span><span class="fas fa-angle-double-down down2" id="hrdown2"></span>
+                        </li>
+                        <li class="center middle">:</li>
+                        <li class="center">
+                            <span class="fas fa-angle-double-up up2" id="mnup2"></span><span class="fas fa-angle-up up" id="mnup"></span><span class="timepicker-minutes" id="minutes">00</span><span class="fas fa-angle-down down" id="mndown"></span><span class="fas fa-angle-double-down down2" id="mndown2"></span>
+                        </li>
+                        <li class="center">
+                            <span class="fas fa-angle-up up" id="mrup"></span><span class="timepicker-meridiem" id="meridiem">AM</span><span class="fas fa-angle-down down" id="mrdown"></span>
+                        </li>
+                        <li>
+                            <span class="close fas fa-check-circle fa-lg" id="goTime" style="color:green;float:right;"></span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- The Field Trip Picker -->
+        <div id="ftModal" class="modal hide">
+            <div class="modal-content" style="max-width: 600px">
+                <div class="row">
+                    <p>Type:</p><input id="fttype" type="text" style="width: 200px;text-align: left;">
+                    <p id="ftinput">Or Select:</p>
+                    <select style="width: 200px;" id="ftselector"></select>
+                    <span class="close fa fa-check-circle fa-lg" id="goFT" style="color:green;margin-top: 3px"></span>
+                    <span class="close fa fa-times-circle fa-lg" id="closeFT" style="margin-top: 3px"></span>
+                </div>
+            </div>
+        </div>
+        <!-- The Confirmation Modal -->
+        <div id="variousModal" class="modal hide">
+            <div class="modal-content">
+                <span class="close fas fa-times-circle fa-lg" id="endVarious" style="float:right;"></span>
+                <div id="varDiv"></div>
+            </div>
+        </div>
+        <!-- The Final Validation Modal -->
+        <div id="validateModal" class="modal hide" style="padding-top: 15%;">
+            <div class="modal-content" style="width: 500px;">
+                <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;"></span>
+                <p>VALIDATION SUCCESSFUL</p>
+                <p style="font-size: 11px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
+                <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"> <button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
+            </div>
+        </div>
+        <!-- The Changes Made Modal -->
+        <div id="changesModal" class="modal hide">
+            <div class="modal-freeze" style="width:90%;">
+                <div class="row bg-gold">
+                    <div class="col-10">
+                        <p class="daily bold">TUTORIAL</p>
+                    </div>
+                    <div class="col-2 right">
+                        <span class="close fas fa-times-circle fa-lg" id="endChanges"></span>
+                    </div>
+                </div>
+                <div class="row" id="slide1">
+                    <div class="col-12 center">
+                        <p class="tutorial-cat">EQUIPMENT/LIFT/ADMIN: In order to enable the equipment/lift button (Q/L) or admin button (J), you must enter in your route number as it is printed on the route sheet.</p>
+                    </div>
+                    <div class="col-12 center">
+                        <img src="img/imgQL.png" class="image" style="border: 1px black solid;" alt="Route equipment example">
+                    </div>
+                </div>
+                <div class="row hide" id="slide2">
+                    <div class="col-12 center">
+                        <p class="tutorial-cat">OTHER WORK DUTY: To add an other work duty, click on Add Other Work and complete the section. To remove the other work duty, click the trash can in the corner.</p>
+                    </div>
+                    <div class="col-12 center">
+                        <img src="img/imgOW1.png" class="img-border image" alt="Other Work example">
+                        <img src="img/imgOW2.png" class="img-border image" alt="Other Work example">
+                        <img src="img/imgOW3.png" class="img-border image" alt="Other Work example">
+                    </div>
+                </div>
+                <div class="row hide" id="slide3">
+                    <div class="col-12 center">
+                        <p class="tutorial-cat">FIELD TRIP: To add a field trip, click on Add Field Trip and complete all fields. To remove the field trip, click the trash can in the corner.</p>
+                    </div>
+                    <div class="col-12 center">
+                        <img src="img/imgFT1.png" class="img-border image" alt="Field trip example">
+                        <img src="img/imgFT2.png" class="img-border image" alt="Field trip example">
+                        <img src="img/imgFT3.png" class="img-border image" alt="Field trip example">
+                    </div>
+                </div>
+                <div class="row hide" id="slide4">
+                    <div class="col-12 center">
+                        <p class="tutorial-cat">LEAVE: To record leave taken, click on Add Leave. Leave type must be selected. <br>Enter time for partial leave or click ALL DAY if leave was taken for the entire day. Click Remove Leave to clear leave for that day.</p>
+                    </div>
+                    <div class="col-12 center">
+                        <img src="img/imgLV1.png" class="img-border image" alt="Leave example">
+                        <img src="img/imgLV2.png" class="img-border image" alt="Leave example">
+                        <img src="img/imgLV3.png" class="img-border image" alt="Leave example">
+                        <img src="img/imgLV4.png" class="img-border image" alt="Leave example">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 center">
+                        <span class="fas fa-arrow-circle-left fa-lg" id="chgLeft" style="color:#00677F" onclick="changeModalSlide('l');"></span>
+                        <span class="fas fa-arrow-circle-right fa-lg" id="chgRight" style="color:#00677F" onclick="changeModalSlide('r')"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="footer bg-burntred">
+        <div class="row justify-content-between flex-nowrap">
+            <div class="col-2">
+                <label class="footer_p" for="Total1R">Reg</label><br>
+                <input type="text" id="Total1R" class="footer-box" disabled>
+            </div>
+            <div class="col-2">
+                <label class="footer_p" for="TotalFT">FT</label><br>
+                <input type="text" id="TotalFT" class="footer-box" disabled>
+            </div>
+            <div class="col-2">
+                <label class="footer_p" for="TotalS4OJT">OJT</label><br>
+                <input type="text" id="TotalS4OJT" class="footer-box" disabled>
+            </div>
+            <div class="col-2">
+                <label class="footer_p" for="TotalS4J">Admin-J</label><br>
+                <input type="text" id="TotalS4J" class="footer-box" disabled>
+            </div>
+            <div class="col-2">
+                <label class="footer_p" for="TotalS2QL">Q/L</label><br>
+                <input type="text" id="TotalS2QL" class="footer-box" disabled>
+            </div>
+        </div>
+    </div>
 
-<script src="main.js"></script>
-</body>
-
-</html>
+    <script src="main.js"></script>
+</body></html>

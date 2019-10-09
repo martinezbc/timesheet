@@ -169,19 +169,13 @@
         font-size: 14px;
     }
     
-    .footer-box {
-        width: 100%;
-        font-size: 8px;
-    }
+
 }
 
 
 @media only screen and (min-width: 321px) {
     
-    .footer-box {
-        width: 100%;
-        font-size: 8px;
-    }
+
 
     .header__title {
         font-size: 12px;
