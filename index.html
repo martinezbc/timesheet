@@ -17,7 +17,6 @@
     <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.1/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
-<!--    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
     <style>
         .modal {
             z-index: 3000;
@@ -1860,11 +1859,20 @@
             </div>
         </div>
     </div>
+    <script>
+        let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
+
+        window.addEventListener(clickEvent, (event) => {
+            var bln = byID("navdropdown").classList.contains("hide") ? true : false;
+
+            if (event.target.id !== 'navbtn') {
+                showHide("navdropdown", false);
+            } else {
+                showHide("navdropdown", bln);
+            }
+        });
+    </script>
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
-    
-<!--    <script src="js/appCode.js"></script>-->
-    
-<!--    <script src="js/app.js"></script>-->
     <script src="js/code.js"></script>
 </body></html>

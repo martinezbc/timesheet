@@ -1,23 +1,13 @@
 let activeID = "";
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
 /********************EVENT LISTENERS********************/
-let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
 
 function byID(refID) {
     return document.getElementById(refID);
 }
-
-window.addEventListener(clickEvent, (event) => {
-    var bln = byID("navdropdown").classList.contains("hide") ? true : false;
-
-    if (event.target.id !== 'navbtn') {
-        showHide("navdropdown", false);
-    } else {
-        showHide("navdropdown", bln);
-    }
-});
 
 function arrEach(obj, event, func) {
     Array.from(obj).forEach((e) => {
@@ -29,10 +19,10 @@ function docObj(prop) {
     return document.querySelectorAll(prop);
 }
 
-arrEach(docObj("input[type=checkbox]"), clickEvent, (e) => {
+arrEach(docObj("input[type=checkbox]"), 'change', (e) => {
     setObject(e.target.id)
 });
-arrEach(docObj("input[type=radio]"), clickEvent, (e) => {
+arrEach(docObj("input[type=radio]"), 'change', (e) => {
     storeRadioValue(e.target)
 });
 
@@ -44,46 +34,46 @@ arrEach(docObj("select"), 'change', (e) => {
     setObject(e.target.id)
 });
 
-arrEach(docObj("input[name='chkJ']"), clickEvent, (e) => {
+arrEach(docObj("input[name='chkJ']"), 'click', (e) => {
     toggleJReg(e.target)
 });
-arrEach(docObj("input[name='chkOJT']"), clickEvent, (e) => {
+arrEach(docObj("input[name='chkOJT']"), 'click', (e) => {
     checkOJT(e.target)
 });
-arrEach(docObj("input[name='chkLV']"), clickEvent, (e) => {
+arrEach(docObj("input[name='chkLV']"), 'click', (e) => {
     checkLeave(e.target)
 });
-arrEach(docObj("input[name='chkQL']"), clickEvent, (e) => {
+arrEach(docObj("input[name='chkQL']"), 'click', (e) => {
     toggleQLReg(e.target)
 });
-arrEach(docObj("input[name='chkFTQL']"), clickEvent, getDailyTotals);
-arrEach(docObj("input[name='txtTime']"), clickEvent, (e) => {
+arrEach(docObj("input[name='chkFTQL']"), 'click', getDailyTotals);
+arrEach(docObj("input[name='txtTime']"), 'click', (e) => {
     openTimeSelector(e.target)
 });
-arrEach(docObj("input[name='txtFT']"), clickEvent, (e) => {
+arrEach(docObj("input[name='txtFT']"), 'click', (e) => {
     openFTSelector(e.target)
 });
 
-byID('closeTime').addEventListener(clickEvent, () => {
+byID('closeTime').addEventListener('click', () => {
     showHide("timeModal", false);
 });
-byID('closeFT').addEventListener(clickEvent, () => {
+byID('closeFT').addEventListener('click', () => {
     showHide("ftModal", false);
 });
-byID('endVarious').addEventListener(clickEvent, () => {
+byID('endVarious').addEventListener('click', () => {
     showHide("variousModal", false);
 });
-byID('endValidate').addEventListener(clickEvent, () => {
+byID('endValidate').addEventListener('click', () => {
     showHide("validateModal", false);
 });
-byID('ctspan').addEventListener(clickEvent, popUpCT);
+byID('ctspan').addEventListener('click', popUpCT);
 
-byID('goFT').addEventListener(clickEvent, storeFTVal);
-byID('endChanges').addEventListener(clickEvent, () => {
+byID('goFT').addEventListener('click', storeFTVal);
+byID('endChanges').addEventListener('click', () => {
     showHide("changesModal", false);
 });
 
-byID('goTime').addEventListener(clickEvent, goTime);
+byID('goTime').addEventListener('click', goTime);
 
 arrEach(docObj("input[name='Area']"), 'change', (e) => {
     radioAreaSelect(e.target)
@@ -94,17 +84,17 @@ arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
     selectOWChange(e.target)
 });
 
-arrEach(docObj('input[name="chkJ"]'), clickEvent, (e) => {
+arrEach(docObj('input[name="chkJ"]'), 'click', (e) => {
     toggleJReg(e.target)
 });
-arrEach(docObj('.up, .down, .up2, .down2'), clickEvent, timeSelectors);
-arrEach(docObj('.addOW'), clickEvent, addOtherWork);
-arrEach(docObj('.addFT'), clickEvent, addFieldTrip);
-arrEach(docObj('.addLV'), clickEvent, addLeave);
-arrEach(docObj('.fa-trash-alt'), clickEvent, removeOWFTLV);
-arrEach(docObj('.ow'), clickEvent, popUpOW);
-arrEach(docObj('.ft'), clickEvent, popUpFT);
-arrEach(docObj('.fa-times'), clickEvent, clearTimeField);
+arrEach(docObj('.up, .down, .up2, .down2'), 'click', timeSelectors);
+arrEach(docObj('.addOW'), 'click', addOtherWork);
+arrEach(docObj('.addFT'), 'click', addFieldTrip);
+arrEach(docObj('.addLV'), 'click', addLeave);
+arrEach(docObj('.fa-trash-alt'), 'click', removeOWFTLV);
+arrEach(docObj('.ow'), 'click', popUpOW);
+arrEach(docObj('.ft'), 'click', popUpFT);
+arrEach(docObj('.fa-times'), 'click', clearTimeField);
 arrEach(docObj("#Veh1, #Veh2, #Veh3, #Veh4"), 'keyup', (e) => {
     limitCharacters(e, 4)
 });
@@ -116,16 +106,16 @@ byID('EmpInitials').addEventListener('keyup', () => {
     limitCharacters(e, 5);
 });
 
-byID('divtutorial').addEventListener(clickEvent, (e) => {
+byID('divtutorial').addEventListener('click', (e) => {
     showHide("changesModal", true)
 });
 
-byID('navbtn').addEventListener(clickEvent, (e) => {
+byID('navbtn').addEventListener('click', (e) => {
     showHide("navbtn", true)
 });
-byID('divpreview').addEventListener(clickEvent, completeTimesheet);
-byID('divsupplement').addEventListener(clickEvent, openSupplement);
-byID('clear').addEventListener(clickEvent, popUpClear);
+byID('divpreview').addEventListener('click', completeTimesheet);
+byID('divsupplement').addEventListener('click', openSupplement);
+byID('clear').addEventListener('click', popUpClear);
 
 
 /********************EVENT LISTENERS********************/
@@ -680,8 +670,8 @@ for (let i = -21; i < 8; i += 7) {
     strHTML += `<option value="${dateString(range)}">${range}</option>`;
 }
 
-let weekof = document.getElementById("WeekOf");
-weekof.innerHTML = strHTML;
+;
+byID("WeekOf").innerHTML = strHTML;
 
 function DateRange(offset) {
     let start = new Date();
@@ -716,21 +706,21 @@ function dateString(strDate) {
 
 //DECLARE VARIABLES
 const routes = docObj('input[name="route"]');
-let objThis = localStorage.getItem(`${weekof.value}Obj`);
+let objThis = localStorage.getItem(`${byID("WeekOf").value}Obj`);
 
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem("WeekOf") !== null) {
-        weekof.value = localStorage.getItem("WeekOf");
-        if (weekof.value === null || weekof.value === undefined)
-            weekof.selectedIndex = 4;
+        byID("WeekOf").value = localStorage.getItem("WeekOf");
+        if (byID("WeekOf").value === null || byID("WeekOf").value === undefined)
+            byID("WeekOf").selectedIndex = 4;
         initialLoad();
     } else {
-        weekof.selectedIndex = 4;
+        byID("WeekOf").selectedIndex = 4;
         initialLoad();
     }
 });
 
-weekof.addEventListener('change', initialLoad);
+byID("WeekOf").addEventListener('change', initialLoad);
 const copy = docObj('.fa-copy');
 Array.from(copy).forEach((e) => {
     e.addEventListener('click', copyRoutine);
@@ -738,8 +728,8 @@ Array.from(copy).forEach((e) => {
 
 //FIRST FUNCTION TO LOAD
 function initialLoad() {
-    if (weekof.value === "") return;
-    localStorage.setItem("WeekOf", weekof.value);
+    if (byID("WeekOf").value === "") return;
+    localStorage.setItem("WeekOf", byID("WeekOf").value);
     storeWeek();
     let refDate = new Date();
     let day = refDate.getDay();
@@ -830,14 +820,14 @@ function loadStoredWeek() {
 
 //GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
 function storeWeek() {
-    let week = weekof.value;
+    let week = byID("WeekOf").value;
     if (localStorage.getItem(`${week}Obj`) === null) {
         objThis = objNew;
 
         storeWeekDays(week);
 
         loadPrevWeek(week);
-        objThis.Data.WeekOf = weekof.value;
+        objThis.Data.WeekOf = byID("WeekOf").value;
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}Obj`));
@@ -894,8 +884,7 @@ function loadPrevWeek(week) {
         if (keyArr[i].indexOf("Date") >= 0) continue;
         objThis.Data[keyArr[i]] = objTemp.Data[keyArr[i]];
     }
-    for (let k = 1; k < 6; k++) {
-        let day = days[k];
+    for (const day of weekdays) {
         for (i = 11; i < 18; i += 1) {
             objThis[day][`${day}Time${i}S`] = objTemp[day][`${day}Time${i}S`];
             objThis[day][`${day}Time${i}E`] = objTemp[day][`${day}Time${i}E`];
@@ -908,22 +897,14 @@ function loadPrevWeek(week) {
 function toggleDay(x) {
     "use strict";
     //Set prev, today, and next text values
-    if (x > 0 && x < 6) {
-        showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = `${days[x + 1]}-` + objThis.Data[`${days[x + 1]}Date`];
-    } else if (x === 0) {
-        showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x + 6]}-` + objThis.Data[`${days[x + 6]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = days[x + 1] + "-" + objThis.Data[`${days[x + 1]}Date`];
-    } else if (x === 6) {
-        showHide(fullday[x], true);
-        byID("prev").innerHTML = `${days[x - 1]}-` + objThis.Data[`${days[x - 1]}Date`];
-        byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-        byID("next").innerHTML = `${days[x - 6]}-` + objThis.Data[`${days[x - 6]}Date`];
-    }
+    let prev = (x - 1 < 0) ? 6 : x - 1;
+    let next = (x + 1 > 6) ? 0 : x + 1;
+    
+    showHide(fullday[x], true);
+    byID("prev").innerHTML = `${days[prev]}-` + objThis.Data[`${days[prev]}Date`];
+    byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
+    byID("next").innerHTML = `${days[next]}-` + objThis.Data[`${days[next]}Date`];
+    
     //Loop through all other days and set style display to none
     for (let i = 0; i < 7; i += 1) {
         //Continue if variables match
@@ -967,8 +948,7 @@ function loadQL() {
     let val = "";
 
     let eql = docObj("input[name='chkQL']");
-    for (const day of days) {
-        if (day === "Sat" || day === "Sun") continue;
+    for (const day of weekdays) {
         if (!byID(`${day}LeaveAD`).checked)
             byID(`${day}QL11`).disabled = !bln;
         else
@@ -986,8 +966,7 @@ function loadQL() {
 function loadJ() {
     let bln = routeCheckJ();
 
-    for (let day of days) {
-        if (day === "Sun" || day === "Sat") continue;
+    for (let day of weekdays) {
         if (!byID(`${day}LeaveAD`).checked)
             byID(`${day}J11`).disabled = !bln;
         else
@@ -998,10 +977,8 @@ function loadJ() {
 
 //LOAD LEAVE AND TOGGLE FIELDS IF ALL DAY LEAVE IS CHECKED
 function loadLeave() {
-    for (const day of days) {
-        if (day === "Sun" || day === "Sat") continue;
+    for (const day of weekdays)
         toggleADLeave(`${day}LeaveAD`);
-    }
 }
 
 //IF Q/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
@@ -1461,7 +1438,7 @@ function toggleADLeave(refID) {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    localStorage.removeItem(`${weekof.value}Obj`);
+    localStorage.removeItem(`${byID("WeekOf").value}Obj`);
     location.reload();
 }
 
@@ -1612,7 +1589,7 @@ function countFieldTrips(refID) {
 /********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
     showHide("navdropdown", false);
-    if (weekof.value === "") return;
+    if (byID("WeekOf").value === "") return;
     let bln = runValidations();
     if (!bln)
         return;
@@ -1632,7 +1609,7 @@ function openTimesheet() {
         getDailyTotals();
 
         //Set week value into local storage for preview and timesheet to use
-        localStorage.setItem('WeekOf', weekof.value);
+        localStorage.setItem('WeekOf', byID("WeekOf").value);
         window.open("preview.html", "_self");
     }
 }
@@ -2118,8 +2095,7 @@ function getWeeklyTotals() {
     objThis.Data.TotalHW = "";
     sumCPay();
 
-    for (const day of days) {
-        if (day === "Sat" || day === "Sun") continue;
+    for (const day of weekdays) {
         for (let j = 11; j < 18; j++) {
             sum += convertToMinutes(byID(`${day}Time${j}`).value);
         }
@@ -2164,8 +2140,8 @@ function getWeeklyTotals() {
     byID("TotalHW").value = sum;
 
     sum = 0;
-    for (const day of days) {
-        if (day !== "Sun" && day !== "Sat" && byID(`${day}QL11`).checked) {
+    for (const day of weekdays) {
+        if (byID(`${day}QL11`).checked) {
             sum += convertToMinutes(byID(`${day}Time11`).value);
             sum += convertToMinutes(byID(`${day}Time12`).value);
             sum += convertToMinutes(byID(`${day}Time13`).value);
@@ -2190,8 +2166,8 @@ function getWeeklyTotals() {
     byID("TotalS2QL").value = sum;
 
     sum = 0;
-    for (const day of days) {
-        if (day !== "Sun" && day !== "Sat" && byID(`${day}J11`).checked) {
+    for (const day of weekdays) {
+        if (byID(`${day}J11`).checked) {
             sum += convertToMinutes(byID(`${day}Time11`).value);
             sum += convertToMinutes(byID(`${day}Time12`).value);
             sum += convertToMinutes(byID(`${day}Time13`).value);
@@ -2213,15 +2189,20 @@ function getWeeklyTotals() {
 
     sum = 0;
     //If OJT Trainer is not checked then exit function
-    if (!byID("OJT").checked)
+    if (!byID("OJT").checked) {
+        setStorage();
         return;
-
-    for (const day of days) {
-        if (day === "Sun" || day === "Sat") continue;
-        for (let j = 11; j < 30; j++) {
-            if (j === 18 || j === 19) continue;
+    }
+        
+    for (const day of weekdays) {
+        for (let j = 11; j < 18; j++) {
             sum += (byID(`${day}OJT${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
         }
+        
+        for (let j = 20; j < 30; j++) {
+            sum += (byID(`${day}OJT${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
+        }
+        
         for (let j = 30; j < 35; j++) {
             sum += (byID(`${day}OJT${j}`).checked) ? (Number(byID(`${day}Time${j}`).value) * 60) : 0;
         }
