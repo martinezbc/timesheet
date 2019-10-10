@@ -539,9 +539,10 @@
             if (blnLV) {
                 let day = otherLV[i].substr(0, 3);
                 let strnum = otherLV[i].substr(-3, 2);
+                let blnAD = (otherLV[i].substr(5,2) === 'AD') ? true : false;
                 print(objThis[`Date${strnum}S`], childdiv.children[0].children[0]);
                 print(objThis[`Select${strnum}S`], childdiv.children[1].children[0]);
-                if (strnum === "AD") {
+                if (blnAD) {
                     print(`<input id="allday${strnum}" type="checkbox" checked="checked" disabled><label for="allday${strnum}">ALL DAY</label>`, childdiv.children[2]);
                 } else {
                     print(`<input type="checkbox" id="allday${strnum}" disabled><label for="allday${strnum}">ALL DAY</label>`, childdiv.children[2]);

@@ -73,24 +73,43 @@ z-index: 3000;
                     <label for="areaTCS">TC</label>
                 </div>
                 <div class="col-md-6" id="divteamS">
-                    <p class="bold">Team:</p>
-                    <script>
-                        strHTML = '';
-                        for (let j = 1; j < 5; j++) {
-                            strHTML += `<div class="hide" id="div${j}S">`;
-                            for (let i = 0; i < 8; i++)
-                                strHTML += `<input type="radio" id="team${j}${i}S" name="Team" value="${j}${i}"><label for="team${j}${i}S">${j}${i}</label>` + '&nbsp;';
-                            strHTML += '</div>';
-                        }
-                        strHTML += '<div class="hide" id="div7S">';
-                        let teams = ["ACA", "ALTM", "ALTP", "AUR", "CARD", "FCPS", "FR", "IVY", "KING", "KK", "KT", "LAB", "LOU", "MATH", "PHIL", "RIV", "SCOL"];
-                        for (const team of teams) {
-                            strHTML += `<input type="radio" id="team${team}S" name="Team" value="${team}"><label for="team${team}S">${team}</label>` + '&nbsp;';
-                        }
-                        strHTML += '</div><div class="hide" id="divTCS"><input type="radio" id="teamTCS" name="Team" value="TC"><label for="teamTCS">TC</label></div>';
-                        document.write(strHTML);
-
-                    </script>
+                    <div class="row">
+                        <p class="bold">Team:</p>
+                    </div>
+                    <div class="hide" id="div1S">
+                        <script>
+                            for (let i = 10; i < 18; i++)
+                                document.write(`<input type="radio" id="team${i}S" name="Team" value="${i}"><label for="team${i}S">${i}</label>`);
+                        </script>
+                    </div>
+                    <div class="hide" id="div2S">
+                        <script>
+                            for (let i = 20; i < 28; i++)
+                                document.write(`<input type="radio" id="team${i}S" name="Team" value="${i}"><label for="team${i}S">${i}</label>`);
+                        </script>
+                    </div>
+                    <div class="hide" id="div3S">
+                        <script>
+                            for (let i = 30; i < 38; i++)
+                                document.write(`<input type="radio" id="team${i}S" name="Team" value="${i}"><label for="team${i}S">${i}</label>`);
+                        </script>
+                    </div>
+                    <div class="hide" id="div4S">
+                        <script>
+                            for (let i = 40; i < 48; i++)
+                                document.write(`<input type="radio" id="team${i}S" name="Team" value="${i}"><label for="team${i}S">${i}</label>`);
+                        </script>
+                    </div>
+                    <div class="hide" id="div7S">
+                        <script>
+                            const area7Teams = ['ACA', 'ALTM', 'ALTP', 'AUR', 'CARD', 'FCPS', 'FR', 'IVY', 'KING', 'KK', 'KT', 'LAB', 'LOU', 'MATH', 'PHIL', 'RIV', 'SCOL'];
+                            for (const team of area7Teams)
+                                document.write(`<input type="radio" id="team${team}S" name="Team" value="${team}"><label for="team${team}S">${team}</label>`);
+                        </script>
+                    </div>
+                    <div class="hide" id="divTCS">
+                        <input type="radio" id="teamTCS" name="Team" value="TC"><label for="teamTCS">TC</label>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -407,7 +426,6 @@ z-index: 3000;
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/objectS.js"></script>
     <script src="js/codeS.js"></script>
-    <script src="js/app.js"></script>
 </body>
 
 </html>

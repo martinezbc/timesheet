@@ -1,3 +1,544 @@
+let activeID = "";
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/********************EVENT LISTENERS********************/
+
+function arrEach(obj, event, func) {
+    Array.from(obj).forEach((e) => {
+        e.addEventListener(event, func);
+    });
+}
+
+function docObj(prop) {
+    return document.querySelectorAll(prop);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    arrEach(docObj("input[type=checkbox]"), 'change', (e) => {
+        setObject(e.target.id)
+    });
+    arrEach(docObj("input[type=radio]"), 'change', (e) => {
+        storeRadioValue(e.target)
+    });
+
+    arrEach(docObj("input[type=text], input[type=number]"), 'change', (e) => {
+        textboxOnChange(e.target)
+    });
+
+    arrEach(docObj("select"), 'change', (e) => {
+        setObject(e.target.id)
+    });
+
+    arrEach(docObj("input[name='chkJ']"), 'click', (e) => {
+        toggleJReg(e.target)
+    });
+    arrEach(docObj("input[name='chkOJT']"), 'click', (e) => {
+        checkOJT(e.target)
+    });
+    arrEach(docObj("input[name='chkADLV']"), 'click', (e) => {
+        toggleLeaveTime(e.target)
+    });
+    arrEach(docObj("input[name='chkQL']"), 'click', (e) => {
+        toggleQLReg(e.target)
+    });
+    arrEach(docObj("input[name='txtTime']"), 'click', (e) => {
+        openTimeSelector(e.target)
+    });
+    arrEach(docObj("input[name='txtFT']"), 'click', (e) => {
+        openFTSelector(e.target)
+    });
+
+    document.getElementById('closeTimeS').addEventListener('click', () => {
+        showHide("timeModalS", false);
+    });
+    document.getElementById('closeFTS').addEventListener('click', () => {
+        showHide("ftModalS", false);
+    });
+    document.getElementById('endVariousS').addEventListener('click', () => {
+        showHide("variousModalS", false);
+    });
+    document.getElementById('endValidateS').addEventListener('click', () => {
+        showHide("validateModalS", false);
+    });
+    document.getElementById('goFTS').addEventListener('click', storeFTVal);
+
+    document.getElementById('goTimeS').addEventListener('click', () => {
+        goTime('S');
+    });
+
+    arrEach(docObj("input[name='Area']"), 'change', (e) => {
+        radioAreaSelect(e.target)
+    });
+    
+    arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
+        selectOWChange(e.target)
+    });
+
+    arrEach(docObj('input[name="chkJ"]'), 'click', (e) => {
+        toggleJReg(e.target)
+    });
+    arrEach(docObj('.up, .down, .up2, .down2'), 'click', timeSelectors);
+    arrEach(docObj('.addOW'), 'click', addOtherWork);
+    arrEach(docObj('.addFT'), 'click', addFieldTrip);
+    arrEach(docObj('.addLV'), 'click', addLeave);
+    arrEach(docObj('.fa-trash-alt'), 'click', removeOWFTLV);
+    arrEach(docObj('.ow'), 'click', popUpOW);
+    arrEach(docObj('.ft'), 'click', popUpFT);
+    arrEach(docObj('.fa-times'), 'click', clearTimeField);
+    arrEach(docObj("#Veh1S, #Veh2S, #Veh3S, #Veh4S"), 'keyup', (e) => {
+        limitCharacters(e, 4)
+    });
+    arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
+    arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
+        limitCharacters(e, 6)
+    });
+    document.getElementById('EmpInitialsS').addEventListener('keyup', (e) => {
+        if (e.target.value.length > 5) {
+            e.target.value = e.target.value.substr(0, 5);
+        }
+    });
+
+    document.getElementById('navbtnS').addEventListener('click', (e) => {
+        showHide("navbtnS", true)
+    });
+    
+    document.getElementById('clearS').addEventListener('click', popUpClear);
+});
+
+let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
+
+window.addEventListener(clickEvent, (event) => {
+    var bln = document.getElementById("navdropdownS").classList.contains("hide") ? true : false;
+
+    if (event.target.id !== 'navbtnS') {
+        showHide("navdropdownS", false);
+    } else {
+        showHide("navdropdownS", bln);
+    }
+});
+
+
+/********************EVENT LISTENERS********************/
+/********************TIME PICKER********************/
+//TIME SELECTOR MODAL
+function openTimeSelector(e) {
+    activeID = e.id;
+    e.disabled = true;
+
+    if (!checkOWFTDate(e.id)) return;
+
+    let refVal = e.value;
+    if (refVal === null) return;
+
+    if (refVal !== "") {
+        let hours = refVal.substr(0, refVal.indexOf(":"));
+        let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
+        let mer = refVal.substr(-2);
+        byID(`hoursS`).innerHTML = hours;
+        byID(`minutesS`).innerHTML = mins;
+        byID(`meridiemS`).innerHTML = mer;
+    } else {
+        mins = round5(Number(byID(`minutesS`).innerHTML));
+        if (mins < 10 && mins > -1) {
+            mins = "0" + mins.toString();
+        } else if (mins === 60) {
+            mins = "55";
+        }
+        byID(`minutesS`).innerHTML = mins;
+    }
+    showHide(`timeModalS`, true);
+}
+//ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
+function timeSelectors(e) {
+    const refID = e.target.id;
+    let strVal = refID.substr(2);
+    let operator = "";
+    switch (strVal) {
+        case `upS`:
+            operator = 1;
+            break;
+        case `downS`:
+            operator = -1;
+            break;
+        case `up2S`:
+            operator = 2;
+            break;
+        case `down2S`:
+            operator = -2;
+            break;
+    }
+    changeValue(operator, refID, activeID);
+}
+//TIME UPDATE STARTING FUNCTION
+function changeValue(operator, clicked, refElement) {
+    "use strict";
+    let x = refElement.substr(-1);
+    let blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
+
+    let str = clicked.substr(0, 2);
+    switch (str) {
+        case "hr":
+            setHours(operator);
+            break;
+        case "mn":
+            if (blnPupil)
+                setMinutesPupil(operator);
+            else
+                setMinutes(operator);
+            break;
+        default:
+            setMeridiem();
+    }
+}
+//CHANGE AM AND PM
+function setMeridiem() {
+    let meridiemText = "";
+    const inputMeridiem = byID(`meridiemS`).innerHTML;
+    if (inputMeridiem === "AM") {
+        meridiemText = "PM";
+    } else {
+        meridiemText = "AM";
+    }
+    byID(`meridiemS`).innerHTML = meridiemText;
+}
+//CHANGE MINUTES BY 5
+function setMinutes(operator) {
+    let minutesText = "";
+    const minutes = Number(byID(`minutesS`).innerHTML);
+    if (operator === 1) {
+        operator = 5;
+    } else if (operator === 2) {
+        operator = 15;
+    } else if (operator === -1) {
+        operator = -5;
+    } else if (operator === -2) {
+        operator = -15;
+    }
+    minutesText = minutes + operator;
+    if (minutesText > 59) {
+        minutesText = Number(minutesText) - 60;
+        setHours(1);
+    } else if (minutesText < 0) {
+        minutesText = 60 + Number(minutesText)
+        setHours(-1);
+    }
+    if (minutesText < 10)
+        minutesText = "0" + minutesText;
+
+    byID(`minutesS`).innerHTML = minutesText;
+}
+//CHANGE MINUTES FOR PUPIL TIME BY 1
+function setMinutesPupil(operator) {
+    let minutesText = "";
+    let minutes = Number(byID("minutes").innerHTML);
+    if (operator === 1) {
+        operator = 1;
+    } else if (operator === 2) {
+        operator = 10;
+    } else if (operator === -1) {
+        operator = -1;
+    } else if (operator === -2) {
+        operator = -10;
+    }
+    minutesText = minutes + operator;
+    if (minutesText < 0) {
+        minutesText = 60 + Number(minutesText);
+        setHours(-1, "");
+    } else if (minutesText > 59) {
+        minutesText = Number(minutesText) - 60;
+        setHours(1, "");
+    }
+
+    if (minutesText < 10) {
+        minutesText = "0" + minutesText;
+    }
+    byID("minutes").innerHTML = minutesText;
+}
+//CHANGE HOURS
+function setHours(operator) {
+    let hoursText = "";
+    let hours = Number(byID(`hoursS`).innerHTML);
+    hoursText = hours + operator;
+
+    if (hoursText === 13) {
+        hoursText = "1";
+        if (operator === 2) {
+            setMeridiem();
+        }
+    } else if (hoursText === 14) {
+        hoursText = "2";
+    } else if (hoursText === 0) {
+        hoursText = "12";
+    } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
+        hoursText = "11";
+        setMeridiem();
+    } else if (hoursText === 12 && operator > 0) {
+        setMeridiem();
+    } else if (hoursText === 10 && operator === -2) {
+        setMeridiem();
+    }
+    byID(`hoursS`).innerHTML = hoursText;
+}
+//USE SELECTED TIME
+function goTime() {
+    let timetext = byID(`hoursS`).innerHTML;
+    timetext += ":" + byID(`minutesS`).innerHTML;
+    timetext += " " + byID(`meridiemS`).innerHTML;
+    byID(activeID).value = timetext;
+    byID(activeID).disabled = false;
+    showHide(`timeModalS`, false);
+    timeCalculation(activeID);
+    setObject(activeID);
+}
+/********************TIME PICKER********************/
+/********************LOCAL STORAGE********************/
+//SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
+function setStorage() {
+    let week = byID(`WeekOfS`).value;
+
+    localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
+}
+//SET ELEMENT VALUE INTO OBJECTS
+function setObject(refID) {
+    if (refID === `WeekOfS`) return;
+    let day = getObjDay(refID.substr(0, 3));
+
+    if (byID(refID).getAttribute('type') === 'checkbox') {
+        objThis[refID] = (byID(refID).checked) ? true : false;
+    } else {
+        objThis[refID] = byID(refID).value;        
+    }
+    setStorage();
+}
+//SET RADIO SELECTION
+function storeRadioValue(e) {
+    let parent = e.parentNode.id;
+    if (parent !== `divareaS` && parent !== `divpositionS`) {
+        parent = e.parentNode.parentNode.id;
+    }
+    parent = parent.replace('div', '');
+    parent = parent.replace('S', '');
+    parent = properCase(parent);
+    parent += 'S';
+
+    objThis[parent] = e.value;
+    
+    getWeeklyTotals();
+    setStorage();
+}
+//INPUT NUMBER AND INPUT TEXT ON CHANGE EVENT
+function textboxOnChange(e) {
+    if (e.id === `TraineeS` || e.id === `EmpNameS`) {
+        e.value = properCase(e.value);
+    } else if (e.id === `EmpInitialsS`) {
+        e.value = e.value.toUpperCase();
+    }
+
+    setObject(e.id);
+}
+/********************LOCAL STORAGE********************/
+/********************FIELD TRIP SELECTOR********************/
+//FIELD TRIP MODAL
+function openFTSelector(e) {
+    showHide(`ftModalS`, true);
+    activeID = e.id;
+    e.disabled = true;
+    byID(`ftselectorS`).value = "";
+    byID(`fttypeS`).value = "";
+}
+
+//STORE SELECTION FROM FIELD TRIP MODAL
+function storeFTVal() {
+    let ftText = "";
+    let ftselect = byID(`ftselectorS`).value;
+    if (ftselect !== null && ftselect !== "")
+        ftText = byID(`ftselectorS`).value;
+    else
+        ftText = byID(`fttypeS`).value;
+
+    ftText = ftText.substr(0, 30);
+    byID(activeID).value = ftText;
+    byID(activeID).disabled = false;
+    objThis[activeID] = ftText;
+    
+    showHide(`ftModalS`, false);
+}
+/********************FIELD TRIP SELECTOR********************/
+/********************TEXT UPDATES AND LIMITATIONS********************/
+//CHANGE TO PROPER CASE
+function properCase(str) {
+    return str.toLowerCase().replace(/\b[a-z]/g, function (txtVal) {
+        return txtVal.toUpperCase();
+    });
+}
+//CHECK LENGTH OF ELEMENT VALUE, IF EXCEEDING NUM THEN SHOW POP UP ERROR MESSAGE
+function limitCharacters(e, num) {
+    let refVal = e.target.value;
+    if (refVal.length > num) {
+        openPopUp("<p class='letp'>Limit " + num + " characters.</p>");
+        e.target.value = refVal.substr(0, num);
+    }
+}
+/********************TEXT UPDATES AND LIMITATIONS********************/
+/********************MISCELLANEOUS FUNCTIONS********************/
+//SHORTEN DOCUMENT.GETELEMENTBYID
+function byID(id) {
+    return document.getElementById(id);
+}
+//DATEADD FUNCTION
+function addDate(date, days) {
+    let copy = new Date(Number(date))
+    copy.setDate(date.getDate() + days)
+    return copy
+}
+/********************MISCELLANEOUS FUNCTIONS********************/
+/********************ELEMENT PROPERTY UPDATE********************/
+//TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
+function showHide(refID, bln) {
+    let el = byID(refID);
+    //(Show the element) ? remove hide : add hide
+    if (bln) {
+        if (el.classList.contains("hide")) el.classList.remove("hide");
+    } else {
+        if (!el.classList.contains("hide")) el.classList.add("hide");
+    }
+}
+//RESET VALUE OF ELEMENT
+function resetElement(refID) {
+    let day = getObjDay(refID.substr(0, 3));
+    if (byID(refID).type === "checkbox") {
+        objThis[refID] = false;
+        byID(refID).checked = false;
+    } else {
+        objThis[refID] = "";
+        byID(refID).value = "";
+    }
+    setObject(refID);
+}
+//GET OBJ DAY OR RETURN DATA
+function getObjDay(day) {
+    switch (day) {
+        case "Mon":
+        case "Tue":
+        case "Wed":
+        case "Thu":
+        case "Fri":
+        case "Sat":
+        case "Sun":
+            return day;
+            break;
+        default:
+            return 'Data';
+    }
+}
+//RESET TIME FIELDS
+function resetTime(day, num) {
+    let refID = "Time" + num
+    resetElement(`${refID}ES`);
+    resetElement(`${refID}SS`);
+    resetElement(`${refID}S`);
+}
+//DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
+function disableElement(refID, bln) {
+    byID(refID).disabled = bln;
+    byID(refID).style.backgroundColor = (bln) ? "lightgrey" : "white";
+}
+/********************ELEMENT PROPERTY UPDATE********************/
+/********************MODAL POP UP MESSAGES********************/
+//POP UP OW MESSAGE
+function popUpOW() {
+    openPopUp("<p class='letp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+}
+//POP UP FT MESSAGE
+function popUpFT() {
+    openPopUp("<p class='letp'>&bull;All field trips must include the voucher number, the original location, the destination, and the time.</p><p class='letp'>&bull;Check lift if the trip required a lift.</p><p class='letp'>&bull;The start and end time must match what was recorded on the voucher.</p>");
+}
+
+function popUpClear() {
+    openPopUp('<p class="varp">You are about to clear all data from the timesheet. Are you sure you want to continue?&nbsp;<span class="fas fa-check-circle fa-lg" style="color:green;" onclick="clearFields()"></span></p>');
+}
+//OPEN POP UP MODAL FOR ERROR MESSAGES
+function openPopUp(msgVal) {
+    byID(`varDivS`).innerHTML = msgVal;
+    showHide(`variousModalS`, true);
+}
+/********************MODAL POP UP MESSAGES********************/
+/********************TIME CALCULATIONS********************/
+//CONVERT TIME COMPLETELY TO MINUTES
+function convertToMinutes(s1) {
+    "use strict";
+    if (s1 === "" || s1 === null || s1 === undefined)
+        return 0;
+
+    let h = s1.substring(0, s1.indexOf(":"));
+
+    if (h === "12" && s1.indexOf("AM") > 0)
+        h = 0;
+
+    h = h * 60;
+
+    let m = round5(Number(s1.substr(s1.indexOf(":") + 1, 2))),
+        b = m + h;
+
+    if (s1.indexOf("PM") > 0 && h !== 720)
+        b = b + 720;
+
+    return b;
+}
+//RETURN TIME AS H:MM FORMAT
+function calculateTotal(refVal) {
+    "use strict";
+    let hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min < 10) {
+        totalVal = hour + ":0" + min;
+    } else {
+        totalVal = hour + ":" + min;
+    }
+    totalVal = (totalVal === "0:00") ? "" : totalVal;
+    return totalVal;
+}
+//RETURN TIME AS H.MM FORMAT
+function convertTotal(refVal) {
+    "use strict";
+    let hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min === 0 || min === 5) {
+        min = "00";
+    } else if (min === 10 || min === 15 || min === 20) {
+        min = "25";
+    } else if (min === 25 || min === 30 || min === 35) {
+        min = "50";
+    } else if (min === 40 || min === 45 || min === 50) {
+        min = "75";
+    } else if (min === 55) {
+        min = "00";
+        hour = hour + 1;
+    }
+    totalVal = hour + "." + min;
+    totalVal = setToFixed(totalVal);
+    return totalVal;
+}
+//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
+function setToFixed(refVal) {
+    refVal = Number(refVal);
+    if (refVal === 0) {
+        return "";
+    }
+    refVal = Number(refVal).toFixed(2);
+    return refVal;
+}
+//ROUND TO THE NEAREST 5
+function round5(x) {
+    "use strict";
+    return Math.round(x / 5) * 5;
+}
+/********************TIME CALCULATIONS********************/
+
+
 const weekofS = document.getElementById("WeekOfS");
 weekofS.addEventListener('change', initialLoad);
 
@@ -566,6 +1107,14 @@ function checkOverlap(refID) {
         return;
     }
     let numVal = Number(refID.substr(-4, 2));
+    
+    for (let v = 40; v < 45; v++) {
+        if (byID(`LeaveAD${v}S`).checked && byID(`Date${numVal}S`).value == byID(`Date${v}S`).value) {
+            openPopUp("<p>All day leave was used for this day</p>");
+            byID(refID).value = "";
+            return;
+        }
+    }
 
     let max = 45;
     let i = 20;
@@ -573,6 +1122,7 @@ function checkOverlap(refID) {
     for (i; i < max; i++) {
         if (i > 34 && i < 40) continue;
         if (byID(`Date${numVal}S`).value !== byID(`Date${i}S`).value) continue;
+        
         if (i === numVal) continue;
 
         //Initialize newStart and newEnd

@@ -55,6 +55,7 @@ arrEach(docObj("input[name='txtFT']"), 'click', (e) => {
 });
 
 byID('closeTime').addEventListener('click', () => {
+    byID(activeID).disabled = false;
     showHide("timeModal", false);
 });
 byID('closeFT').addEventListener('click', () => {
@@ -102,8 +103,10 @@ arrEach(docObj("input[name='owdesc']"), 'keyup', limitOWDesc);
 arrEach(docObj("input[name='ftvoucher']"), 'keyup', (e) => {
     limitCharacters(e, 6)
 });
-byID('EmpInitials').addEventListener('keyup', () => {
-    limitCharacters(e, 5);
+byID('EmpInitials').addEventListener('keyup', (e) => {
+    if (e.target.value.length > 5) {
+        e.target.value = e.target.value.substr(0, 5);
+    }
 });
 
 byID('divtutorial').addEventListener('click', (e) => {
@@ -117,25 +120,32 @@ byID('divpreview').addEventListener('click', completeTimesheet);
 byID('divsupplement').addEventListener('click', openSupplement);
 byID('clear').addEventListener('click', popUpClear);
 
+let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
 
+window.addEventListener(clickEvent, (event) => {
+    var bln = byID("navdropdown").classList.contains("hide") ? true : false;
+
+    if (event.target.id !== 'navbtn') {
+        showHide("navdropdown", false);
+    } else {
+        showHide("navdropdown", bln);
+    }
+});
 /********************EVENT LISTENERS********************/
 /********************TIME PICKER********************/
 //TIME SELECTOR MODAL
 function openTimeSelector(e) {
     activeID = e.id;
-    e.disabled = true;
 
-    if (optVal === "S" && !checkOWFTDate(e.id)) return;
-
-    let refVal = e.value;
     if (refVal === null) return;
 
-    let blnPupil = (optVal === "" && activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
+    let blnPupil = (activeID.substr(-1) !== "S" && activeID.substr(-1) !== "E") ? true : false;
 
     if (refVal !== "") {
-        let hours = refVal.substr(0, refVal.indexOf(":"));
-        let mins = refVal.substr(refVal.indexOf(":") + 1, 2);
-        let mer = refVal.substr(-2);
+        let time = refVal.split(":");
+        let hours = time[0];
+        let mins = time[1].substr(0,2);
+        let mer = time[1].substr(-2);
         byID('hours').innerHTML = hours;
         byID('minutes').innerHTML = mins;
         byID('meridiem').innerHTML = mer;
@@ -171,10 +181,10 @@ function timeSelectors(e) {
             operator = -2;
             break;
     }
-    changeValue(operator, refID, activeID, optVal);
+    changeValue(operator, refID, activeID);
 }
 //TIME UPDATE STARTING FUNCTION
-function changeValue(operator, clicked, refElement, optVal) {
+function changeValue(operator, clicked, refElement) {
     "use strict";
     let x = refElement.substr(-1);
     let blnPupil = (x === "A" || x === "B" || x === "C" || x === "D") ? true : false;
@@ -182,20 +192,20 @@ function changeValue(operator, clicked, refElement, optVal) {
     let str = clicked.substr(0, 2);
     switch (str) {
         case "hr":
-            setHours(operator, optVal);
+            setHours(operator);
             break;
         case "mn":
             if (blnPupil)
                 setMinutesPupil(operator);
             else
-                setMinutes(operator, optVal);
+                setMinutes(operator);
             break;
         default:
-            setMeridiem(optVal);
+            setMeridiem();
     }
 }
 //CHANGE AM AND PM
-function setMeridiem(optVal) {
+function setMeridiem() {
     let meridiemText = "";
     const inputMeridiem = byID('meridiem').innerHTML;
     if (inputMeridiem === "AM") {
@@ -206,7 +216,7 @@ function setMeridiem(optVal) {
     byID('meridiem').innerHTML = meridiemText;
 }
 //CHANGE MINUTES BY 5
-function setMinutes(operator, optVal) {
+function setMinutes(operator) {
     let minutesText = "";
     const minutes = Number(byID('minutes').innerHTML);
     if (operator === 1) {
@@ -221,10 +231,10 @@ function setMinutes(operator, optVal) {
     minutesText = minutes + operator;
     if (minutesText > 59) {
         minutesText = Number(minutesText) - 60;
-        setHours(1, optVal);
+        setHours(1);
     } else if (minutesText < 0) {
         minutesText = 60 + Number(minutesText)
-        setHours(-1, optVal);
+        setHours(-1);
     }
     if (minutesText < 10)
         minutesText = "0" + minutesText;
@@ -259,7 +269,7 @@ function setMinutesPupil(operator) {
     byID("minutes").innerHTML = minutesText;
 }
 //CHANGE HOURS
-function setHours(operator, optVal) {
+function setHours(operator) {
     let hoursText = "";
     let hours = Number(byID('hours').innerHTML);
     hoursText = hours + operator;
@@ -267,7 +277,7 @@ function setHours(operator, optVal) {
     if (hoursText === 13) {
         hoursText = "1";
         if (operator === 2) {
-            setMeridiem(optVal);
+            setMeridiem();
         }
     } else if (hoursText === 14) {
         hoursText = "2";
@@ -275,16 +285,16 @@ function setHours(operator, optVal) {
         hoursText = "12";
     } else if (hoursText === -1 || (hoursText === 11 && operator < 0)) {
         hoursText = "11";
-        setMeridiem(optVal);
+        setMeridiem();
     } else if (hoursText === 12 && operator > 0) {
-        setMeridiem(optVal);
+        setMeridiem();
     } else if (hoursText === 10 && operator === -2) {
-        setMeridiem(optVal);
+        setMeridiem();
     }
     byID('hours').innerHTML = hoursText;
 }
 //USE SELECTED TIME
-function goTime(optVal) {
+function goTime() {
     let timetext = byID('hours').innerHTML;
     timetext += ":" + byID('minutes').innerHTML;
     timetext += " " + byID('meridiem').innerHTML;
@@ -308,17 +318,9 @@ function setObject(refID) {
     let day = getObjDay(refID.substr(0, 3));
 
     if (byID(refID).getAttribute('type') === 'checkbox') {
-        if (optVal === "") {
-            objThis[day][refID] = (byID(refID).checked) ? true : false;
-        } else {
-            objThis[refID] = (byID(refID).checked) ? true : false;
-        }
+        objThis[day][refID] = (byID(refID).checked) ? true : false;
     } else {
-        if (optVal === "") {
-            objThis[day][refID] = byID(refID).value;
-        } else {
-            objThis[refID] = byID(refID).value;
-        }
+        objThis[day][refID] = byID(refID).value;
     }
     setStorage();
 }
@@ -329,15 +331,9 @@ function storeRadioValue(e) {
         parent = e.parentNode.parentNode.id;
     }
     parent = parent.replace('div', '');
-    if (optVal === 'S') parent = parent.replace('S', '');
     parent = properCase(parent);
-    if (optVal === 'S') parent += 'S';
 
-    if (optVal === "") {
-        objThis.Data[parent] = e.value;
-    } else {
-        objThis[parent] = e.value;
-    }
+    objThis.Data[parent] = e.value;
     getWeeklyTotals();
     setStorage();
 }
@@ -347,7 +343,7 @@ function textboxOnChange(e) {
         e.value = properCase(e.value);
     } else if (e.id === 'EmpInitials') {
         e.value = e.value.toUpperCase();
-    } else if (optVal === "" && e.id.indexOf("Route") > 0) {
+    } else if (e.id.indexOf("Route") > 0) {
         routeNameTransform(e.id);
     }
 
@@ -477,11 +473,7 @@ function storeFTVal() {
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
     byID(activeID).disabled = false;
-    if (optVal === "") {
-        objThis[activeID.substr(0, 3)][activeID] = ftText;
-    } else {
-        objThis[activeID] = ftText;
-    }
+    objThis[activeID.substr(0, 3)][activeID] = ftText;
     showHide('ftModal', false);
 }
 /********************FIELD TRIP SELECTOR********************/
@@ -531,11 +523,7 @@ function resetElement(refID) {
         }
         byID(refID).checked = false;
     } else {
-        if (optVal === "") {
-            objThis[day][refID] = "";
-        } else {
-            objThis[refID] = "";
-        }
+        objThis[day][refID] = "";
         byID(refID).value = "";
     }
     setObject(refID);
@@ -558,7 +546,7 @@ function getObjDay(day) {
 }
 //RESET TIME FIELDS
 function resetTime(day, num) {
-    let refID = (optVal === "S") ? "Time" + num : day + "Time" + num;
+    let refID = day + "Time" + num;
     resetElement(`${refID}E`);
     resetElement(`${refID}S`);
     resetElement(refID);
@@ -572,7 +560,7 @@ function disableElement(refID, bln) {
 /********************MODAL POP UP MESSAGES********************/
 //POP UP OW MESSAGE
 function popUpOW() {
-    openPopUp("<p class='letp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, optValhuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
+    openPopUp("<p class='letp'>&bull;GARAGE TRIP: Scheduled/unscheduled maintenance and quick fixes performed at the garage or other location.<br>&bull;RUN COVERAGE: Routes covered for other drivers including middays, shuttles, and late runs.<br>&bull;RECERT: Recertification training<br>&bull;CPR/FIRST AID: CPR/First Aid training<br>&bull;MEETING: Any scheduled meeting such as team meetings, cold start meetings, meeting with mentor, etc.<br>&bull;TRAINING: Any other scheduled training other that First Aid, CPR, or Recert.<br>&bull;PHYSICAL/DRUG TEST: Yearly physical or random drug test<br>&bull;COLD START TEAM: Time worked for cold start team members<br>&bull;2 HOUR DELAY EARLY START: School opens on a 2 hour delay, employees called to work earlier than normally scheduled hours<br>&bull;ON TIME EARLY START: School opens on time, employee called to work earlier than normally scheduled hours<br>&bull;CALL BACK: Unexpectedly called back to work after business hours or on the weekend to address an emergency</p>");
 }
 //POP UP FT MESSAGE
 function popUpFT() {
@@ -752,7 +740,9 @@ function loadLocalStorage() {
         for (const [key, value] of entries) {
             if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
             if (byID(key) === null) continue;
-            if (value === true || value === false) {
+            if (byID(key).tagName === 'SPAN') {
+                byID(key).value === value;
+            } else if (byID(key).type === 'checkbox') {
                 byID(key).checked = value;
             } else {
                 byID(key).value = value;
@@ -899,12 +889,12 @@ function toggleDay(x) {
     //Set prev, today, and next text values
     let prev = (x - 1 < 0) ? 6 : x - 1;
     let next = (x + 1 > 6) ? 0 : x + 1;
-    
+
     showHide(fullday[x], true);
     byID("prev").innerHTML = `${days[prev]}-` + objThis.Data[`${days[prev]}Date`];
     byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
     byID("next").innerHTML = `${days[next]}-` + objThis.Data[`${days[next]}Date`];
-    
+
     //Loop through all other days and set style display to none
     for (let i = 0; i < 7; i += 1) {
         //Continue if variables match
@@ -1842,7 +1832,9 @@ function timeCalculation(refID) {
     //Calculate the difference in time
     calculateDiff(refID);
 
+    objThis[day][refID] = byID(refID).value;
     getDailyTotals();
+    setStorage();
 
     if (refID.substr(7, 2) > 19 && refID.substr(7, 2) < 30) {
         countOtherWork(refID);
@@ -1957,12 +1949,16 @@ function dailyRuns(day) {
     "use strict";
     if (day === "Sat" || day === "Sun") return;
 
-    let sum = 0;
-    for (let i = 11; i < 18; i += 1) {
-        sum += convertToMinutes(byID(`${day}Time${i}`).value);
-    }
+    let sum = convertToMinutes(byID(`${day}Time11`).value);
+    sum += convertToMinutes(byID(`${day}Time12`).value);
+    sum += convertToMinutes(byID(`${day}Time13`).value);
+    sum += convertToMinutes(byID(`${day}Time14`).value);
+    sum += convertToMinutes(byID(`${day}Time15`).value);
+    sum += convertToMinutes(byID(`${day}Time16`).value);
+    sum += convertToMinutes(byID(`${day}Time17`).value);
+
     sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
+    sum = (sum === "") ? "" : sum;
     byID(`${day}RunTotal`).value = sum;
     objThis[day][`${day}RunTotal`] = sum;
 }
@@ -1981,7 +1977,7 @@ function dailyOther(day) {
         sum += convertToMinutes(byID(`${day}Time${i}`).value);
     }
     sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
+    sum = (sum === "") ? "" : sum;
     byID(`${day}OtherTotal`).value = sum;
 }
 
@@ -2009,10 +2005,12 @@ function sumCPay() {
     byID("TotalC1").value = c1;
 
     sum = convertTotal(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalHW = sum;
     byID("TotalHW").value = sum;
 
     c3 = (c3 === 0) ? "" : convertTotal(c3);
+    c3 = (c3 === "") ? "" : c3;
     objThis.Data.TotalC3 = c3;
     byID("TotalC3").value = c3;
 }
@@ -2025,9 +2023,10 @@ function dailyFT(day) {
 
     for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 33) break;
-        sum += Number(byID(`${day}Time${i}`).value);
+        sum += Number(convertEmptyTime(byID(`${day}Time${i}`).value));
     }
     sum = setToFixed(sum);
+    sum = (sum === "") ? "" : sum;
     byID(`${day}FTTotal`).value = sum;
 }
 
@@ -2055,7 +2054,7 @@ function dailyQL(day) {
         sum += (byID(`${day}QL${i}`).checked) ? (Number(byID(`${day}Time${i}`).value) * 60) : 0;
     }
     sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
+    sum = (sum === "") ? "" : sum;
     byID(`${day}QLTotal`).value = sum;
 }
 
@@ -2101,7 +2100,7 @@ function getWeeklyTotals() {
         }
     }
     sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalRun = sum;
     byID("TotalRun").value = sum;
 
@@ -2115,7 +2114,7 @@ function getWeeklyTotals() {
         }
     }
     sum = calculateTotal(sum);
-    sum = (sum === "0:00") ? "" : sum;
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalOther = sum;
     byID("TotalOther").value = sum;
 
@@ -2123,19 +2122,21 @@ function getWeeklyTotals() {
     for (const day of days) {
         for (let j = 30; j < 35; j++) {
             if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += Number(byID(`${day}Time${j}`).value);
+            sum += Number(convertEmptyTime(byID(`${day}Time${j}`).value));
         }
     }
     sum = setToFixed(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalFT = sum;
     byID("TotalFT").value = sum;
 
 
     sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
-    sum = Number(convertTotal(sum));
+    sum = Number(convertEmptyTime(convertTotal(sum)));
     sum += Number(objThis.Data.TotalFT);
     sum += Number(byID("TotalHW").value);
     sum = setToFixed(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalHW = sum;
     byID("TotalHW").value = sum;
 
@@ -2158,10 +2159,11 @@ function getWeeklyTotals() {
 
         for (let j = 30; j < 35; j++) {
             if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += (byID(`${day}QL${j}`).checked) ? (Number(byID(`${day}Time${j}`).value) * 60) : 0;
+            sum += (byID(`${day}QL${j}`).checked) ? (Number(convertEmptyTime(byID(`${day}Time${j}`).value)) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalS2QL = sum;
     byID("TotalS2QL").value = sum;
 
@@ -2178,12 +2180,14 @@ function getWeeklyTotals() {
         }
     }
     sum = convertTotal(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalS4J = sum;
     byID("TotalS4J").value = sum;
 
     sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
     sum += (objThis.Data.Area === "TC") ? 0 : 15;
     sum = convertTotal(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.Total1R = sum;
     byID("Total1R").value = sum;
 
@@ -2193,21 +2197,22 @@ function getWeeklyTotals() {
         setStorage();
         return;
     }
-        
+
     for (const day of weekdays) {
         for (let j = 11; j < 18; j++) {
             sum += (byID(`${day}OJT${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
         }
-        
+
         for (let j = 20; j < 30; j++) {
             sum += (byID(`${day}OJT${j}`).checked) ? convertToMinutes(byID(`${day}Time${j}`).value) : 0;
         }
-        
+
         for (let j = 30; j < 35; j++) {
-            sum += (byID(`${day}OJT${j}`).checked) ? (Number(byID(`${day}Time${j}`).value) * 60) : 0;
+            sum += (byID(`${day}OJT${j}`).checked) ? (Number(convertEmptyTime(byID(`${day}Time${j}`).value)) * 60) : 0;
         }
     }
     sum = convertTotal(sum);
+    sum = (sum === "") ? "" : sum;
     objThis.Data.TotalS4OJT = sum;
     byID("TotalS4OJT").value = sum;
     setStorage();
