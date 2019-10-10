@@ -164,10 +164,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let week = localStorage.getItem('WeekOf') || "";
     if (week === "") {
         byID("WeekOf").selectedIndex = 4;
+        localStorage.setItem('WeekOf', byID("WeekOf").value);
     } else {
         byID("WeekOf").value = week;
-        storeWeek();
     }
+    storeWeek();
 });
 
 //GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
@@ -238,24 +239,30 @@ function toggleDay(x) {
     
     byID("daily_title").innerHTML = fulldays[x] + ` - <span id="Date">${objThis.Data[`${days[x]}Date`]}</span>`;
     
-    togglePupilCounts(x);
+//    togglePupilCounts(x);
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
 function loadLocalStorage() {
-    let objArray = [objThis.Data, objThis.Sat, objThis.Sun, objThis.Mon, objThis.Tue, objThis.Wed, objThis.Thu, objThis.Fri];
-
-    for (let j = 0; j < objArray.length; j++) {
-        let entries = Object.entries(objArray[j]);
-        for (const [key, value] of entries) {
-            if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
-            if (byID(key) === null) continue;
-            if (value === true || value === false) {
-                byID(key).checked = value;
-            } else {
-                byID(key).value = value;
-            }
+    byID("EmpName").value = objThis.Data.EmpName;
+    byID("Trainee").value = objThis.Data.Trainee;
+    byID("Veh1").value = objThis.Data.Veh1;
+    byID("Veh2").value = objThis.Data.Veh2;
+    byID("Veh3").value = objThis.Data.Veh3;
+    byID("Veh4").value = objThis.Data.Veh4;
+    byID("OJT").checked = objThis.Data.OJT;
+    const area = objThis.Data.Area;
+    byID("div" + area).checked = true;
+    
+    let entries = Object.entries(ObjThis.Data);
+    for (const [key, value] of entries) {
+        if (byID(key) === null) continue;
+        if (value === true || value === false) {
+            byID(key).checked = value;
+        } else {
+            byID(key).value = value;
         }
     }
+    
     loadRadioSelection();
 }
