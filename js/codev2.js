@@ -694,7 +694,7 @@ function dateString(strDate) {
 }
 
 //DECLARE VARIABLES
-const routes = docObj('input[name="route"]');
+const routes = ['AMRoute1', 'AMRoute2', 'AMRoute3', 'AMRoute4', 'AMRoute5', 'PMRoute1', 'PMRoute2', 'PMRoute3', 'PMRoute4', 'PMRoute5', 'PSRoute1', 'PSRoute2', 'SHRoute1', 'SHRoute2', 'LRRoute1', 'LRRoute2'];
 let objThis = localStorage.getItem(`${byID("WeekOf").value}Obj`);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -908,6 +908,7 @@ function toggleDay(x) {
 
 //LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
 function loadOJT() {
+    objThis.Data.OJT = byID("OJT").checked;
     let bln = objThis.Data.OJT;
     let day = "";
 
@@ -1108,9 +1109,8 @@ function posAD() {
         resetElement(count.id);
     }
 
-    const routes = document.getElementsByName('route');
     for (const route of routes) {
-        resetElement(route.id);
+        resetElement(route);
     }
 
     for (const day of days) {
@@ -1184,8 +1184,9 @@ function routeCheck() {
     let bln = false;
     let val = "";
     for (const route of routes) {
-        if (route.value === null) continue;
-        bln = (route.value.lastIndexOf("L") > 3 || route.value.lastIndexOf("Q") > 3) ? true : false;
+        val = objThis.Data[route];
+        if (val === null || val === "") continue;
+        bln = (val.lastIndexOf("L") > 3 || val.lastIndexOf("Q") > 3) ? true : false;
         if (bln) return bln;
     }
     if (objThis.Data.Position === "Unassigned Attendant") bln = true;
@@ -1196,9 +1197,9 @@ function routeCheck() {
 function routeCheckJ() {
     let bln = false;
     let val = "";
-    for (let i = 0; i < routes.length; i += 1) {
-        val = routes[i].value;
-        if (val === null) continue;
+    for (const route of routes) {
+        val = objThis.Data[route];
+        if (val === null || val === "") continue;
         bln = (val.lastIndexOf("J") > 3) ? true : false;
         if (bln) return bln;
     }
@@ -1308,6 +1309,7 @@ function getMissingFT(day) {
 //SHOW THE LEAVE SECTION
 function addLeave(e) {
     let dayVal = e.target.id.substr(0, 3);
+    if (dayVal === "" || dayVal === null) return;
 
     if (!byID(`${dayVal}LVDivAD`).classList.contains('hide')) {
         resetLeave(dayVal);

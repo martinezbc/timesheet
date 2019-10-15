@@ -1859,20 +1859,7 @@
             </div>
         </div>
     </div>
-    <script>
-        let clickEvent = (document.ontouchstart !== null) ? 'click' : 'touchstart';
-
-        window.addEventListener(clickEvent, (event) => {
-            var bln = byID("navdropdown").classList.contains("hide") ? true : false;
-
-            if (event.target.id !== 'navbtn') {
-                showHide("navdropdown", false);
-            } else {
-                showHide("navdropdown", bln);
-            }
-        });
-    </script>
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
-    <script src="js/code.js"></script>
+    <script src="js/codev2.js"></script>
 </body></html>

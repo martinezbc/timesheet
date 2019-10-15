@@ -356,25 +356,6 @@ z-index: 3000;
         </div>
     </div>
     <script>
-        //Click on menu, toggle menu on and off
-        window.onclick = function(event) {
-            var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
-
-            if (event.target.id !== 'navbtnS')
-                showHide("navdropdownS", false);
-            else
-                showHide("navdropdownS", bln);
-        }
-
-        window.ontouchstart = function(event) {
-            var bln = (byID("navdropdownS").classList.contains("hide")) ? true : false;
-
-            if (event.target.id !== 'navbtnS')
-                showHide("navdropdownS", false);
-            else
-                showHide("navdropdownS", bln);
-        }
-
         let r1 = DateRange(-28);
         let r2 = DateRange(-21);
         let r3 = DateRange(-14);
@@ -425,7 +406,7 @@ z-index: 3000;
     </script>
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/objectS.js"></script>
-    <script src="js/codeS.js"></script>
+    <script src="js/codeSv2.js"></script>
 </body>
 
 </html>
