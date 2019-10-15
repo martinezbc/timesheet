@@ -14,9 +14,9 @@
     <!--Stylesheet-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link href="css/css-v2.0.0/bootstrap-grid.css" rel="stylesheet" type="text/css">
-    <link href="main.css" rel="stylesheet" type="text/css">
-    <link href="css/css-v2.0.0/color.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.2/bootstrap-grid.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.2/stylesheet.css" rel="stylesheet" type="text/css">
+    <link href="css/css-v2.0.2/color.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="bold">Employee Name: (Last, First MI)</p>
-                    <input type="text" id="EmpName" class="empname namesize" placeholder="Last name,   First Name   Middle Initial...">
+                    <input type="text" id="EmpName" class="empname" style="text-align: left;width:80%" placeholder="Last name,   First Name   Middle Initial...">
                 </div>
             </div>
             <div class="row">
@@ -90,24 +90,22 @@
                 <div class="col-md-6">
                     <p class="bold">On-The-Job Training:</p>
                     <input type="checkbox" class="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
-                    <input type="text" id="Trainee" class="left trainee" placeholder="Trainee's name...">
+                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
                     <p class="bold">Vehicle:</p>
-                    <input type="number" id="Veh1" class="vehwidth" placeholder="0000">
+                    <input type="number" id="Veh1" style="width: 100px;" placeholder="0000">
                 </div>
                 <div class="col-md-6">
                     <p class="bold">Spare Vehicles:<br>
-                        <input type="number" id="Veh2" class="vehwidth" placeholder="0000">
-                        <input type="number" id="Veh3" class="vehwidth" placeholder="0000">
-                        <input type="number" id="Veh4" class="vehwidth" placeholder="0000"></p>
+                        <input type="number" id="Veh2" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh3" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh4" style="width: 100px;" placeholder="0000"></p>
                 </div>
             </div>
         </div>
-
-        <!--        PUPIL COUNTS-->
         <div id="PupilCounts" class="card">
             <div class="row">
                 <div class="col-12">
@@ -152,10 +150,10 @@
                 <div class="row hide" id="divAMPupilTime">
                     <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
-                <div class="row hide" id="PupilTimeAM">
+                <div class="row">
                     <div class="col-11">
-                        <input id="TimeA" type="text" class="timewidth txtTime" placeholder="- - : - -">
-                        <input id="TimeB" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                        <span id="TimeA" class="timewidth txtTime">- - : - -</span>
+                        <span id="TimeB" class="timewidth txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearPTAM"></span></div>
                 </div>
@@ -197,10 +195,10 @@
                 <div class="row hide" id="divPMPupilTime">
                     <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
-                <div class="row hide" id="PupilTimePM">
+                <div class="row">
                     <div class="col-11">
-                        <input id="TimeC" type="text" class="timewidth txtTime" placeholder="- - : - -">
-                        <input id="TimeD" type="text" class="timewidth txtTime" placeholder="- - : - -">
+                        <span id="TimeC" class="timewidth txtTime">- - : - -</span>
+                        <span id="TimeD" class="timewidth txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearPTPM"></span></div>
                 </div>
@@ -275,12 +273,10 @@
                 </div>
             </div>
         </div>
-
-        <!--        DAILY WORK SECTION-->
-        <div id="day" class="card">
+        <div id="dailyHours" class="card">
             <div class="row">
                 <div class="col-auto">
-                    <p class="daily" id="daily_title"></p>
+                    <p class="daily" id="dailyP"></p>
                 </div>
                 <div class="col-auto">
                     <span id="copy" class="fas fa-copy font-medblue fa-lg"></span>
@@ -289,23 +285,23 @@
             </div>
             <div class="row">
                 <div class="col-auto">
-                    <input type="text" id="RunTotal" class="totalwidth nofocus" disabled>
+                    <input type="text" id="RunTotal" class="totalwidth txtTime" disabled>
                     <p class="dailytotal">run time</p>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="OtherTotal" class="totalwidth nofocus" disabled>
+                    <input type="text" id="OtherTotal" class="totalwidth txtTime" disabled>
                     <p class="dailytotal">other work</p>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="FTTotal" class="totalwidth nofocus" disabled>
+                    <input type="text" id="FTTotal" class="totalwidth txtTime" disabled>
                     <p class="dailytotal">field trip</p>
                 </div>
                 <div class="col-auto">
-                    <input type="text" id="QLTotal" class="totalwidth nofocus" disabled>
+                    <input type="text" id="QLTotal" class="totalwidth txtTime" disabled>
                     <p class="dailytotal">equipment</p>
                 </div>
             </div>
-            <div id="leave">
+            <div id="divLVAdd">
                 <div class="row addLV">
                     <p class="category" id="LVAdd"><span class="far fa-plus-square fa-lg"></span>Add Leave</p>
                 </div>
@@ -315,8 +311,8 @@
             </div>
             <hr>
             <div class="row">
-                <input name="chkQL" type="checkbox" id="QL11"><label for="QL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" name="chkJ" id="J11"><label for="J11">Admin (J)</label>
+                <input class="chkQL" type="checkbox" id="QL11"><label for="QL11">Equipment/Lift (Q/L)</label>
+                <input type="checkbox" class="chkJ" id="J11"><label for="J11">Admin (J)</label>
             </div>
             <div class="row">
                 <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
@@ -327,14 +323,14 @@
                         <p class="category">Morning Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time11S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time11E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time11" type="text" class="total-time nofocus" disabled>
+                        <span id="Time11S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time11E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time11" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG11"></span>
                     </div>
@@ -346,14 +342,14 @@
                         <p class="category">Afternoon Runs</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time12S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time12E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time12" type="text" class="total-time nofocus" disabled>
+                        <span id="Time12S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time12E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time12" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG12"></span>
                     </div>
@@ -365,14 +361,14 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT13"><label for="OJT13">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT13"><label for="OJT13">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time13S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time13E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time13" type="text" class="total-time nofocus" disabled>
+                        <span id="Time13S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time13E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time13" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG13"></span></div>
                 </div>
@@ -383,14 +379,14 @@
                         <p class="category">PAC/Preschool</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT14"><label for="OJT14">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT14"><label for="OJT14">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time14S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time14E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time14" type="text" class="total-time nofocus" disabled>
+                        <span id="Time14S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time14E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time14" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG14"></span></div>
                 </div>
@@ -401,14 +397,14 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT15"><label for="OJT15">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT15"><label for="OJT15">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time15S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time15E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time15" type="text" class="total-time nofocus" disabled>
+                        <span id="Time15S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time15E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time15" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG15"></span></div>
                 </div>
@@ -419,14 +415,14 @@
                         <p class="category">Shuttle</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT16"><label for="OJT16">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT16"><label for="OJT16">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time16S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time16E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time16" type="text" class="total-time nofocus" disabled>
+                        <span id="Time16S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time16E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time16" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG16"></span></div>
                 </div>
@@ -437,26 +433,26 @@
                         <p class="category">Late Run</p>
                     </div>
                     <div class="col-2">
-                        <input type="checkbox" name="chkOJT" id="OJT17"><label for="OJT17">OJT</label>
+                        <input type="checkbox" class="chkOJT" id="OJT17"><label for="OJT17">OJT</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <input id="Time17S" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time17E" type="text" name="txtTime" class="timewidth" placeholder="- - : - -">
-                        <input id="Time17" type="text" class="total-time nofocus" disabled>
+                        <span id="Time17S" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time17E" class="timewidth txtTime">- - : - -</span>
+                        <span id="Time17" class="total-time txtTime">- - : - -</span>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearRG17"></span></div>
                 </div>
             </div>
             <hr>
-            <div id="otherwork">
+            <div id="divOWAdd">
                 <div class="row">
                     <p class="category addOW" id="OWAdd"><span class="far fa-plus-square fa-lg"></span>Add Other Work</p>
                 </div>
             </div>
             <hr>
-            <div id="fieldtrip">
+            <div id="divFTAdd">
                 <div class="row">
                     <p class="category addFT" id="FTAdd"><span class="far fa-plus-square fa-lg"></span>Add Field Trip</p>
                 </div>
@@ -575,29 +571,43 @@
         </div>
     </div>
     <div class="footer bg-burntred">
-        <div class="row justify-content-between flex-nowrap">
-            <div class="col-2">
-                <label class="footer_p" for="Total1R">Reg</label><br>
-                <input type="text" id="Total1R" class="footer-box" disabled>
+        <div class="row center">
+            <div class="col-3 footer_col">
+                <p class="footer_p">RUN<br><input type="text" id="TotalRun" class="footer-box" disabled></p>
             </div>
-            <div class="col-2">
-                <label class="footer_p" for="TotalFT">FT</label><br>
-                <input type="text" id="TotalFT" class="footer-box" disabled>
+            <div class="col-3 footer_col">
+                <p class="footer_p">OTHER<br><input type="text" id="TotalOther" class="footer-box" disabled></p>
             </div>
-            <div class="col-2">
-                <label class="footer_p" for="TotalS4OJT">OJT</label><br>
-                <input type="text" id="TotalS4OJT" class="footer-box" disabled>
+            <div class="col-3 footer_col">
+                <p class="footer_p">FT<br><input type="text" id="TotalFT" class="footer-box" disabled></p>
             </div>
-            <div class="col-2">
-                <label class="footer_p" for="TotalS4J">Admin-J</label><br>
-                <input type="text" id="TotalS4J" class="footer-box" disabled>
+            <div class="col-3 footer_col">
+                <p class="footer_p">WORKED<br><input type="text" id="TotalHW" class="footer-box" disabled></p>
             </div>
-            <div class="col-2">
-                <label class="footer_p" for="TotalS2QL">Q/L</label><br>
-                <input type="text" id="TotalS2QL" class="footer-box" disabled>
+        </div>
+        <div class="row center">
+            <div class="col-2 footer_col">
+                <p class="footer_p">1R</p><input type="text" id="Total1R" class="footer-box" disabled>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">S4-OJT</p><input type="text" id="TotalS4OJT" class="footer-box" disabled>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">S4-J</p><input type="text" id="TotalS4J" class="footer-box" disabled>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">S2-Q/L</p><input type="text" id="TotalS2QL" class="footer-box" disabled>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">C3</p><input type="text" id="TotalC3" class="footer-box" disabled>
+            </div>
+            <div class="col-2 footer_col">
+                <p class="footer_p">C1</p><input type="text" id="TotalC1" class="footer-box" disabled>
             </div>
         </div>
     </div>
+    <script src="js/js-v2.0.7/script.js"></script>
+    <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
-    <script src="main.js"></script>
+    <script src="js/js-v2.0.7/code.js"></script>
 </body></html>
