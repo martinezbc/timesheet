@@ -10,7 +10,7 @@ function byID(refID) {
 }
 
 function getDay() {
-    return byID('today').textContent.substr(0,3);
+    return byID('today').textContent.substr(0, 3);
 }
 
 function arrEach(obj, event, func) {
@@ -59,22 +59,22 @@ arrEach(docObj("input[name='txtFT']"), 'click', (e) => {
 });
 
 byID('closeTime').addEventListener('click', () => {
-    showHide("timeModal", false);
+    showHide(byID("timeModal"), false);
 });
 byID('closeFT').addEventListener('click', () => {
-    showHide("ftModal", false);
+    showHide(byID("ftModal"), false);
 });
 byID('endVarious').addEventListener('click', () => {
-    showHide("variousModal", false);
+    showHide(byID("variousModal"), false);
 });
 byID('endValidate').addEventListener('click', () => {
-    showHide("validateModal", false);
+    showHide(byID("validateModal"), false);
 });
 byID('ctspan').addEventListener('click', popUpCT);
 
 byID('goFT').addEventListener('click', storeFTVal);
 byID('endChanges').addEventListener('click', () => {
-    showHide("changesModal", false);
+    showHide(byID("changesModal"), false);
 });
 
 byID('goTime').addEventListener('click', goTime);
@@ -83,7 +83,7 @@ arrEach(docObj("input[name='Area']"), 'change', (e) => {
     radioAreaSelect(e.target)
 });
 arrEach(docObj("input[name='Position']"), 'change', positionChange);
-arrEach(docObj("input[name='route']"), 'change', routeNameCheck);
+arrEach(docObj(".route"), 'change', routeNameCheck);
 arrEach(docObj("input[name='selectOW']"), 'change', (e) => {
     selectOWChange(e.target)
 });
@@ -113,11 +113,11 @@ byID('EmpInitials').addEventListener('keyup', (e) => {
 });
 
 byID('divtutorial').addEventListener('click', (e) => {
-    showHide("changesModal", true)
+    showHide(byID("changesModal"), true)
 });
 
 byID('navbtn').addEventListener('click', (e) => {
-    showHide("navbtn", true)
+    showHide(byID("navbtn"), true)
 });
 byID('divpreview').addEventListener('click', completeTimesheet);
 byID('divsupplement').addEventListener('click', openSupplement);
@@ -129,9 +129,9 @@ window.addEventListener(clickEvent, (event) => {
     var bln = byID("navdropdown").classList.contains("hide") ? true : false;
 
     if (event.target.id !== 'navbtn') {
-        showHide("navdropdown", false);
+        showHide(byID("navdropdown"), false);
     } else {
-        showHide("navdropdown", bln);
+        showHide(byID("navdropdown"), bln);
     }
 });
 /********************EVENT LISTENERS********************/
@@ -148,7 +148,7 @@ function openTimeSelector(e) {
     if (refVal !== "- - : - -") {
         let time = refVal.split(":");
         let hours = time[0];
-        let mins = time[1].substr(0,2);
+        let mins = time[1].substr(0, 2);
         let mer = time[1].substr(-2);
         byID('hours').innerHTML = hours;
         byID('minutes').innerHTML = mins;
@@ -164,7 +164,7 @@ function openTimeSelector(e) {
             byID('minutes').innerHTML = mins;
         }
     }
-    showHide('timeModal', true);
+    showHide(byID('timeModal'), true);
 }
 //ADD VALUE TO UP AND DOWN ARROWS IN TIME SELECTOR THEN OPEN CHANGE VALUE FUNCTION
 function timeSelectors(e) {
@@ -303,8 +303,8 @@ function goTime() {
     timetext += ":" + byID('minutes').innerHTML;
     timetext += " " + byID('meridiem').innerHTML;
     byID(activeID).textContent = timetext;
-    showHide('timeModal', false);
-    timeCalculation(activeID);       
+    showHide(byID('timeModal'), false);
+    timeCalculation(activeID);
 }
 /********************TIME PICKER********************/
 /********************LOCAL STORAGE********************/
@@ -317,13 +317,16 @@ function setStorage() {
 function setObject(refID) {
     if (refID === 'WeekOf') return;
     const day = getDay();
+    const e = byID(refID);
 
-    if (byID(refID).tagName === 'SPAN') {
-        objThis[day][`${day}${refID}`] = (byID(refID).textContent === "- - : - -") ? "" : byID(refID).textContent;
-    } else if (byID(refID).type === 'checkbox') {
-        objThis[day][`${day}${refID}`] = (byID(refID).checked) ? true : false;
+    if (e.classList.contains("data")) {
+        objThis.Data[refID] = e.value;
+    } else if (e.tagName === 'SPAN') {
+        objThis[day][`${day}${refID}`] = (e.textContent === "- - : - -") ? "" : e.textContent;
+    } else if (e.type === 'checkbox') {
+        objThis[day][`${day}${refID}`] = (e.checked) ? true : false;
     } else {
-        objThis[day][`${day}${refID}`] = byID(refID).value;
+        objThis[day][`${day}${refID}`] = e.value;
     }
     getDailyTotals();
     setStorage();
@@ -458,7 +461,7 @@ function routeNameTransform(refID) {
 /********************FIELD TRIP SELECTOR********************/
 //FIELD TRIP MODAL
 function openFTSelector(e) {
-    showHide('ftModal', true);
+    showHide(byID('ftModal'), true);
     activeID = e.id;
     byID('ftselector').value = "";
     byID('fttype').value = "";
@@ -477,7 +480,7 @@ function storeFTVal() {
     ftText = ftText.substr(0, 30);
     byID(activeID).value = ftText;
     objThis[day][`${day}${activeID}`] = ftText;
-    showHide('ftModal', false);
+    showHide(byID('ftModal'), false);
 }
 /********************FIELD TRIP SELECTOR********************/
 /********************TEXT UPDATES AND LIMITATIONS********************/
@@ -506,8 +509,7 @@ function addDate(date, days) {
 /********************MISCELLANEOUS FUNCTIONS********************/
 /********************ELEMENT PROPERTY UPDATE********************/
 //TOGGLE HIDE CLASS ON AND OFF BY REMOVING OR ADDING
-function showHide(refID, bln) {
-    let e = byID(refID);
+function showHide(e, bln) {
     //(Show the element) ? remove hide : add hide
     if (bln) {
         if (e.classList.contains("hide")) e.classList.remove("hide");
@@ -519,12 +521,12 @@ function showHide(refID, bln) {
 function resetElement(refID) {
     let day = getDay();
     if (byID(refID).tagName === 'SPAN') {
-        objThis[day][refID] = "";
-    } else if (byID(refID).type === "checkbox") {
-        objThis[day][refID] = false;
+        objThis[day][`${day}${refID}`] = "";
+    } else if (byID(refID).getAttribute('type') === "checkbox") {
+        objThis[day][`${day}${refID}`] = false;
         byID(refID).checked = false;
     } else {
-        objThis[day][refID] = "";
+        objThis[day][`${day}${refID}`] = "";
         byID(refID).value = "";
     }
     setObject(refID);
@@ -577,7 +579,7 @@ function popUpClear() {
 //OPEN POP UP MODAL FOR ERROR MESSAGES
 function openPopUp(msgVal) {
     byID('varDiv').innerHTML = msgVal;
-    showHide('variousModal', true);
+    showHide(byID('variousModal'), true);
 }
 /********************MODAL POP UP MESSAGES********************/
 /********************TIME CALCULATIONS********************/
@@ -587,7 +589,7 @@ function convertToMinutes(s1) {
     if (s1 === "" || s1 === null || s1 === undefined || s1 === "- - : - -")
         return 0;
     let blnPM = (s1.indexOf("PM") > 0) ? true : false;
-    
+
     s1 = s1.replace(" AM", "").replace(" PM", "");
     let time = s1.split(":");
     let hour = time[0];
@@ -607,7 +609,7 @@ function calculateTotal(refVal) {
     "use strict";
     if (refVal === "" || refVal === null || refVal === undefined || refVal === "- - : - -")
         return "- - : - -";
-    
+
     let hour = Math.floor(refVal / 60),
         min = refVal - (hour * 60),
         totalVal;
@@ -729,7 +731,6 @@ function initialLoad() {
     storeWeek();
     let refDate = new Date();
     let day = refDate.getDay();
-    loadLocalStorage(day);
     toggleDay(day);
     toggleOWFT();
     toggleLeave();
@@ -741,33 +742,36 @@ function initialLoad() {
 }
 
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
-function loadLocalStorage(day) {    
-    let entries = Object.entries(objThis.Data);
-    for (const [key, value] of entries) {
-        if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
-        if (byID(key) === null) continue;
-        if (byID(key).type === 'checkbox') {
-            byID(key).checked = value;
-        } else {
-            byID(key).value = value;
-        }
-    }
-    
+function loadLocalStorage(day) {
     entries = Object.entries(objThis[day]);
     for (const [key, value] of entries) {
         const ref = key.replace(day, "");
         if (byID(ref) === null) continue;
-        
+
         if (byID(ref).tagName === 'SPAN') {
-            
-        } else if (byID(key).type === 'checkbox') {
+            byID(ref).textContent = (value === "") ? "- - : - -" : value;
+        } else if (byID(ref).getAttribute('type') === 'checkbox') {
+            byID(ref).checked = value;
+        } else {
+            byID(ref).value = value;
+        }
+    }
+
+    loadRadioSelection();
+}
+
+function loadEmpStorage() {
+    let entries = Object.entries(objThis.Data);
+    for (const [key, value] of entries) {
+        if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
+        if (byID(key) === null) continue;
+        if (byID(key).getAttribute('type') === 'checkbox') {
             byID(key).checked = value;
         } else {
             byID(key).value = value;
         }
     }
 
-    loadRadioSelection();
 }
 
 //FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
@@ -807,9 +811,9 @@ function loadTeamValues() {
     let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
     for (const div of areadiv) {
         if ("div" + area === div)
-            showHide(div, true);
+            showHide(byID(div), true);
         else
-            showHide(div, false);
+            showHide(byID(div), false);
     }
 
     if (area === "TC") {
@@ -831,9 +835,10 @@ function storeWeek() {
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}Obj`));
-
         storeWeekDays(week);
     }
+
+    loadEmpStorage();
 }
 
 function storeWeekDays(week) {
@@ -901,6 +906,7 @@ function toggleDay(x) {
     byID("next").innerHTML = `${days[next]}-` + objThis.Data[`${days[next]}Date`];
     byID("dailyP").innerHTML = fullday[x] + "-" + objThis.Data[`${days[x]}Date`];
     togglePupilCounts(x);
+    loadLocalStorage(days[x])
 }
 
 //LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
@@ -938,9 +944,9 @@ function loadQL() {
     } else {
         byID('QL11').disabled = true;
     }
-    
+
     if (!bln) resetElement('QL11');
-    
+
     for (let j = 20; j < 30; j++) {
         if ((day === "Sat" || day === "Sun") && j > 22) continue;
         disableOWFields(`Select${j}`);
@@ -954,7 +960,7 @@ function loadJ() {
         byID('J11').disabled = !bln;
     else
         byID('J11').disabled = true;
-    
+
     if (!bln) resetElement('J11');
 }
 
@@ -987,27 +993,27 @@ function toggleOWFT() {
     for (let j = 20; j < 30; j++) {
         if ((day === "Sat" || day === "Sun") && j > 22) continue;
         let bln = (objThis[day][`${day}Select${j}`] !== "" || objThis[day][`${day}Desc${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false
-        showHide(`OWDiv${j}`, bln);
+        showHide(byID(`OWDiv${j}`), bln);
     }
-    
+
     for (let j = 30; j < 35; j++) {
         if ((day === "Sat" || day === "Sun") && j > 32) continue;
         let bln = (objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}To${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false;
-        showHide(`FTDiv${j}`, bln);
+        showHide(byID(`FTDiv${j}`), bln);
     }
 }
 
 //TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
 function toggleLeave() {
     const day = getDay();
-    
+
     let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40`] !== "" || objThis[day][`${day}Time41`] !== "") ? true : false;
-        
+
     if (day === "Sat" || day === "Sun") bln = false;
     if (bln) {
-        showHide('LVDivAD', true);
-        showHide('LVDiv40', true);
-        showHide('LVDiv41', true);
+        showHide(byID('LVDivAD'), true);
+        showHide(byID('LVDiv40'), true);
+        showHide(byID('LVDiv41'), true);
     } else {
         resetElement('LeaveSelectAD');
         resetElement('LeaveSelect40');
@@ -1029,22 +1035,29 @@ function togglePupilCounts(x) {
     }
 
     let blnPos = (pos === "Driver" || pos === "Driver Trainee" || pos === "Sub Driver") ? true : false;
-    showHide("PupilCounts", !blnSS);
-    
+    showHide(byID("PupilCounts"), !blnSS);
+
+
+
     for (let i = 1; i < 6; i++) {
         byID(`AM${i}Ct`).placeholder = day;
-        showHide(`AM${i}Ct`, blnPos);
+        showHide(byID(`AM${i}Ct`).parentElement, blnPos);
         byID(`PM${i}Ct`).placeholder = day;
-        showHide(`PM${i}Ct`, blnPos);
+        showHide(byID(`PM${i}Ct`).parentElement, blnPos);
         if (i < 3) {
             byID(`PS${i}Ct`).placeholder = day;
-            showHide(`PS${i}Ct`, blnPos);
+            showHide(byID(`PS${i}Ct`).parentElement, blnPos);
             byID(`SH${i}Ct`).placeholder = day;
-            showHide(`SH${i}Ct`, blnPos);
+            showHide(byID(`SH${i}Ct`).parentElement, blnPos);
             byID(`LR${i}Ct`).placeholder = day;
-            showHide(`LR${i}Ct`, blnPos);
-        }        
+            showHide(byID(`LR${i}Ct`).parentElement, blnPos);
+        }
     }
+    showHide(byID("divAMPupilTime"), blnPos);
+    showHide(byID("divAMPupilTime").nextElementSibling, blnPos);
+    showHide(byID("divPMPupilTime"), blnPos);
+    showHide(byID("divPMPupilTime").nextElementSibling, blnPos);
+
 }
 
 //TOGGLE BETWEEN TUTORIAL SLIDES
@@ -1060,8 +1073,8 @@ function changeModalSlide(dir) {
     } else {
         j = (i - 1 === 0) ? 4 : i - 1;
     }
-    showHide(`slide${i}`, false);
-    showHide(`slide${j}`, true);
+    showHide(byID(`slide${i}`), false);
+    showHide(byID(`slide${j}`), true);
 }
 
 //TOGGLE PUPIL COUNTS ON POSITION CHANGE
@@ -1095,7 +1108,7 @@ function posAD() {
         resetElement('TimeD');
     }
 
-    showHide("PupilCounts", false);
+    showHide(byID("PupilCounts"), false);
 }
 
 //MOVE NAV BAR TO THE RIGHT
@@ -1176,7 +1189,7 @@ function addOtherWork(e) {
     if (!countOtherWork()) return;
     let countOW = getMissingOW();
     if (countOW === 30) return;
-    showHide(`OWDiv${countOW}`, true);
+    showHide(byID(`OWDiv${countOW}`), true);
 }
 
 //TOGGLE FIELD TRIP FIELDS
@@ -1186,7 +1199,7 @@ function addFieldTrip(e) {
 
     //Exit function if count is 5
     if (countFT === 35) return;
-    showHide(`FTDiv${countFT}`, true);
+    showHide(byID(`FTDiv${countFT}`), true);
 }
 
 //TOGGLE OTHER WORK AND FIELD TRIP FIELDS OFF
@@ -1196,14 +1209,14 @@ function removeOWFTLV(e) {
     let day = getDay();
 
     if (type === "FT") {
-        showHide(`${type}Div${x}`, false);
+        showHide(byID(`${type}Div${x}`), false);
         resetElement(`To${x}`);
         resetElement(`From${x}`);
         resetElement(`Voucher${x}`);
         resetElement(`QL${x}`);
         if (day !== "Sat" && day !== "Sun") resetElement(`OJT${x}`);
     } else if (type === "OW") {
-        showHide(`${type}Div${x}`, false);
+        showHide(byID(`${type}Div${x}`), false);
         resetElement(`Select${x}`);
         resetElement(`Desc${x}`);
         byID(`QL${x}`).disabled = true;
@@ -1280,18 +1293,18 @@ function addLeave() {
         resetLeave(dayVal);
     } else {
         byID('LVAdd').innerHTML = '<span class="far fa-minus-square fa-lg"></span>Remove Leave</p>'
-        showHide('LVDivAD', true);
-        showHide('LVDiv40', true);
-        showHide('LVDiv41', true);
+        showHide(byID('LVDivAD'), true);
+        showHide(byID('LVDiv40'), true);
+        showHide(byID('LVDiv41'), true);
     }
 }
 
 //SEPARATE FUNCTION FOR RESETTING LEAVE
 function resetLeave(day) {
     byID('LVAdd').innerHTML = '<span class="far fa-plus-square fa-lg"></span>Add Leave</p>'
-    showHide('LVDivAD', false);
-    showHide('LVDiv40', false);
-    showHide('LVDiv41', false);
+    showHide(byID('LVDivAD'), false);
+    showHide(byID('LVDiv40'), false);
+    showHide(byID('LVDiv41'), false);
     resetTime(40);
     resetTime(41);
     resetElement('LeaveSelectAD');
@@ -1313,8 +1326,8 @@ function toggleADLeave(refID) {
     let bln = (byID(refID).checked) ? true : false;
     let i = 0;
 
-    showHide('OWAdd', !bln);
-    showHide('FTAdd', !bln);
+    showHide(byID('OWAdd'), !bln);
+    showHide(byID('FTAdd'), !bln);
     if (bln) {
         //Uncheck Admin
         byID('J11').checked = false;
@@ -1402,7 +1415,7 @@ function clearFields() {
 
 //OPEN SUPPLEMENT IN SAME WINDOW
 function openSupplement() {
-    showHide("navdropdown", false);
+    showHide(byID("navdropdown"), false);
     window.open("index2.html", "_self");
 }
 
@@ -1417,7 +1430,7 @@ function selectOWChange(e) {
 }
 
 function disableOWFields(refID) {
-    const day = byID('today').textContent.substr(0,3);
+    const day = byID('today').textContent.substr(0, 3);
     let refVal = byID(refID).value;
     let x = refID.substr(-2);
     let bln = (refVal === "FYI") ? true : false;
@@ -1445,38 +1458,37 @@ function copyRoutine(e) {
 
 //COPY REGULAR RUN TIME TO OTHER DAYS
 function runCopyRoutine() {
-    showHide("variousModal", false);
+    showHide(byID("variousModal"), false);
     let k = 0;
     let bln = false;
     let str = "";
     let i = 0;
 
     for (i = 1; i < 5; i += 1) {
-        k = (byID("today").innerHTML.substr(0, 3) === days[i]) ? i : 0;
+        k = (getDay() === days[i]) ? i : 0;
         if (k === i) break;
     }
-
+    const day = getDay();
     k++;
     for (k; k < 6; k++) {
-        let day = days[k];
-        bln = (byID('LeaveAD').checked || byID(`Time40`).value !== '' || byID(`Time41`).value !== '') ? true : false;
+        let day2 = days[k];
+        bln = (objThis[day2][`${day2}LeaveAD`] || objThis[day2][`${day2}Time40`] !== '' || objThis[day2][`${day2}Time41`] !== '') ? true : false;
         if (bln) continue;
         for (let j = 11; j < 18; j++) {
-            byID(`Time${j}S`).value = byID(`${days[i]}Time${j}S`).value;
-            setObject(`Time${j}S`);
-            byID(`Time${j}E`).value = byID(`${days[i]}Time${j}E`).value;
-            setObject(`Time${j}E`);
-            timeCalculation(`Time${j}E`);
+            objThis[day2][`${day2}Time${j}S`] = objThis[day][`${day}Time${j}S`]
+            objThis[day2][`${day2}Time${j}E`] = objThis[day][`${day}Time${j}E`];
+            objThis[day2][`${day2}Time${j}`] = objThis[day][`${day}Time${j}`];
         }
-        str += ", " + days[k];
+        str += ", " + day2;
     }
+    getWeeklyTotals();
     str = (str !== "") ? str.substr(2) : "";
     return str;
 }
 
 //COPY PUPIL TIME TO OTHER DAYS
 function runPupilCopyRoutine() {
-    showHide("variousModal", false);
+    showHide(byID("variousModal"), false);
     let k = 0;
     let str = "";
     let i = 0;
@@ -1549,13 +1561,13 @@ function countFieldTrips() {
 
 /********************VALIDATION AND COMPLETION********************/
 function completeTimesheet() {
-    showHide("navdropdown", false);
+    showHide(byID("navdropdown"), false);
     if (byID("WeekOf").value === "") return;
     let bln = runValidations();
     if (!bln)
         return;
 
-    showHide("validateModal", true);
+    showHide(byID("validateModal"), true);
     byID("validateModal").focus();
 }
 
@@ -1565,7 +1577,7 @@ function openTimesheet() {
     emp = emp.toUpperCase();
     objThis.Data.EmpInitials = emp;
 
-    showHide("validateModal", false);
+    showHide(byID("validateModal"), false);
     if (emp !== "") {
         getDailyTotals();
 
@@ -1902,7 +1914,7 @@ function calculateDiff(refID) {
             byID(totalID).textContent = calculateTotal(timeDiff);
     }
     //Set value of total into storage
-    objThis[day][totalID] = (byID(totalID).textContent === '- - : - -') ? "" : byID(totalID).textContent;
+    objThis[day][`${day}${totalID}`] = (byID(totalID).textContent === '- - : - -') ? "" : byID(totalID).textContent;
 }
 
 //CALCULATE DAILY RUN TIME
@@ -2046,7 +2058,7 @@ function getDailyTotals() {
     dailyOther(day);
     dailyFT(day);
     dailyQL(day);
-    
+
     getWeeklyTotals();
 }
 

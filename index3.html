@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="bold">Employee Name: (Last, First MI)</p>
-                    <input type="text" id="EmpName" class="empname" style="text-align: left;width:80%" placeholder="Last name,   First Name   Middle Initial...">
+                    <input type="text" id="EmpName" class="empname data" style="text-align: left;width:80%" placeholder="Last name,   First Name   Middle Initial...">
                 </div>
             </div>
             <div class="row">
@@ -90,19 +90,19 @@
                 <div class="col-md-6">
                     <p class="bold">On-The-Job Training:</p>
                     <input type="checkbox" class="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
-                    <input type="text" id="Trainee" class="left" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
+                    <input type="text" id="Trainee" class="left data" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
                     <p class="bold">Vehicle:</p>
-                    <input type="number" id="Veh1" style="width: 100px;" placeholder="0000">
+                    <input type="number" id="Veh1" class="data" style="width: 100px;" placeholder="0000">
                 </div>
                 <div class="col-md-6">
                     <p class="bold">Spare Vehicles:<br>
-                        <input type="number" id="Veh2" style="width: 100px;" placeholder="0000">
-                        <input type="number" id="Veh3" style="width: 100px;" placeholder="0000">
-                        <input type="number" id="Veh4" style="width: 100px;" placeholder="0000"></p>
+                        <input type="number" id="Veh2" class="data" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh3" class="data" style="width: 100px;" placeholder="0000">
+                        <input type="number" id="Veh4" class="data" style="width: 100px;" placeholder="0000"></p>
                 </div>
             </div>
         </div>
@@ -128,26 +128,46 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="AMRoute1" class="routewidth route" placeholder="1st bell">&nbsp;
-                    <input type="number" id="AM1Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="AMRoute1" class="routewidth route data" placeholder="1st bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="AM1Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="AMRoute2" class="routewidth route" placeholder="2nd bell">&nbsp;
-                    <input type="number" id="AM2Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="AMRoute2" class="routewidth route data" placeholder="2nd bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="AM2Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="AMRoute3" class="routewidth route" placeholder="3rd bell">&nbsp;
-                    <input type="number" id="AM3Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="AMRoute3" class="routewidth route data" placeholder="3rd bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="AM3Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="AMRoute4" class="routewidth route" placeholder="4th bell">&nbsp;
-                    <input type="number" id="AM4Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="AMRoute4" class="routewidth route data" placeholder="4th bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="AM4Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="AMRoute5" class="routewidth route" placeholder="5th bell">&nbsp;
-                    <input type="number" id="AM5Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="AMRoute5" class="routewidth route data" placeholder="5th bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="AM5Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
-                <div class="row hide" id="divAMPupilTime">
+                <div class="row" id="divAMPupilTime">
                     <p class="category">Pupil Time<span id="AMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
                 <div class="row">
@@ -173,26 +193,46 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PMRoute1" class="routewidth route" placeholder="1st bell">&nbsp;
-                    <input type="number" id="PM1Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PMRoute1" class="routewidth route data" placeholder="1st bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PM1Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PMRoute2" class="routewidth route" placeholder="2nd bell">&nbsp;
-                    <input type="number" id="PM2Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PMRoute2" class="routewidth route data" placeholder="2nd bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PM2Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PMRoute3" class="routewidth route" placeholder="3rd bell">&nbsp;
-                    <input type="number" id="PM3Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PMRoute3" class="routewidth route data" placeholder="3rd bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PM3Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PMRoute4" class="routewidth route" placeholder="4th bell">&nbsp;
-                    <input type="number" id="PM4Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PMRoute4" class="routewidth route data" placeholder="4th bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PM4Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PMRoute5" class="routewidth route" placeholder="5th bell">&nbsp;
-                    <input type="number" id="PM5Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PMRoute5" class="routewidth route data" placeholder="5th bell">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PM5Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
-                <div class="row hide" id="divPMPupilTime">
+                <div class="row" id="divPMPupilTime">
                     <p class="category">Pupil Time<span id="PMPupilcopy" class="fas fa-copy"></span></p>
                 </div>
                 <div class="row">
@@ -218,12 +258,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PSRoute1" class="routewidth route" placeholder="pac/ps">&nbsp;
-                    <input type="number" id="PS1Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PSRoute1" class="routewidth route data" placeholder="pac/ps">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PS1Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="PSRoute2" class="routewidth route" placeholder="pac/ps">&nbsp;
-                    <input type="number" id="PS2Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="PSRoute2" class="routewidth route data" placeholder="pac/ps">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="PS2Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
             </div>
             <div class="bg-teal1 tinycard pupilcard" id="divsh">
@@ -241,12 +289,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="SHRoute1" class="routewidth route" placeholder="shuttle">&nbsp;
-                    <input type="number" id="SH1Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="SHRoute1" class="routewidth route data" placeholder="shuttle">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="SH1Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="SHRoute2" class="routewidth route" placeholder="shuttle">&nbsp;
-                    <input type="number" id="SH2Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="SHRoute2" class="routewidth route data" placeholder="shuttle">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="SH2Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
             </div>
             <div class="bg-teal1 tinycard pupilcard" id="divlr">
@@ -264,12 +320,20 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="LRRoute1" class="routewidth route" placeholder="late run">&nbsp;
-                    <input type="number" id="LR1Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="LRRoute1" class="routewidth route data" placeholder="late run">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="LR1Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
                 <div class="row">
-                    <input type="text" id="LRRoute2" class="routewidth route" placeholder="late run">&nbsp;
-                    <input type="number" id="LR2Ct" class="countwidth txtCt" placeholder="">
+                    <div class="col-7">
+                        <input type="text" id="LRRoute2" class="routewidth route data" placeholder="late run">
+                    </div>
+                    <div class="col-5">
+                        <input type="number" id="LR2Ct" class="countwidth txtCt" placeholder="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -610,4 +674,6 @@
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
     <script src="js/js-v2.0.7/code.js"></script>
-</body></html>
+</body>
+
+</html>
