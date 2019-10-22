@@ -64,7 +64,7 @@
             <div class="row" id="divWeekOf">
                 <div class="col-12">
                     <p class="bold">Pay Week:</p>
-                    <select id="WeekOf"></select>
+                    <select id="WeekOf" class="data"></select>
                 </div>
             </div>
             <div class="row">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="col-md-6">
                     <p class="bold">On-The-Job Training:</p>
-                    <input type="checkbox" class="chkOJT" id="OJT"><label for="OJT">OJT Trainer</label>
+                    <input type="checkbox" class="chkOJT data" id="OJT"><label for="OJT">OJT Trainer</label>
                     <input type="text" id="Trainee" class="left data" style="text-align: left;padding-left: 5px;width: 80%" placeholder="Trainee's name...">
                 </div>
             </div>
@@ -172,8 +172,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <span id="TimeA" class="timewidth txtTime">- - : - -</span>
-                        <span id="TimeB" class="timewidth txtTime">- - : - -</span>
+                        <input id="TimeA" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                        <input id="TimeB" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearPTAM"></span></div>
                 </div>
@@ -237,8 +237,8 @@
                 </div>
                 <div class="row">
                     <div class="col-11">
-                        <span id="TimeC" class="timewidth txtTime">- - : - -</span>
-                        <span id="TimeD" class="timewidth txtTime">- - : - -</span>
+                        <input id="TimeC" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                        <input id="TimeD" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
                     </div>
                     <div class="col-1"><span class="fas fa-times" id="ClearPTPM"></span></div>
                 </div>
@@ -342,7 +342,7 @@
                 <div class="col-auto">
                     <p class="daily" id="dailyP"></p>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto" id="dailyCopy">
                     <span id="copy" class="fas fa-copy font-medblue fa-lg"></span>
                     <p class="copyfont">copy</p>
                 </div>
@@ -374,139 +374,141 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <input class="chkQL" type="checkbox" id="QL11"><label for="QL11">Equipment/Lift (Q/L)</label>
-                <input type="checkbox" class="chkJ" id="J11"><label for="J11">Admin (J)</label>
-            </div>
-            <div class="row">
-                <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
-            </div>
-            <div class="tinycard bg-teal1">
+            <div id="divRegRuns">
                 <div class="row">
-                    <div class="col-10">
-                        <p class="category">Morning Runs</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
-                    </div>
+                    <input class="chkQL" type="checkbox" id="QL11"><label for="QL11">Equipment/Lift (Q/L)</label>
+                    <input type="checkbox" class="chkJ" id="J11"><label for="J11">Admin (J)</label>
                 </div>
                 <div class="row">
-                    <div class="col-11">
-                        <span id="Time11S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time11E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time11" class="total-time txtTime">- - : - -</span>
+                    <p class="minitext">&nbsp;If buttons are enabled, click daily to calculate additional pay categories.</p>
+                </div>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">Morning Runs</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
+                        </div>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG11"></span>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time11S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time11E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time11" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG11"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">Afternoon Runs</p>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">Afternoon Runs</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time12S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time12E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time12" class="total-time txtTime">- - : - -</span>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG12"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">PAC/Preschool</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT13"><label for="OJT13">OJT</label>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time12S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time12E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time12" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG12"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time13S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time13E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time13" class="total-time txtTime">- - : - -</span>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">PAC/Preschool</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT13"><label for="OJT13">OJT</label>
+                        </div>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG13"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">PAC/Preschool</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT14"><label for="OJT14">OJT</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time14S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time14E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time14" class="total-time txtTime">- - : - -</span>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG14"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">Shuttle</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT15"><label for="OJT15">OJT</label>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time13S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time13E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time13" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG13"></span></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time15S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time15E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time15" class="total-time txtTime">- - : - -</span>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">PAC/Preschool</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT14"><label for="OJT14">OJT</label>
+                        </div>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG15"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">Shuttle</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT16"><label for="OJT16">OJT</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time16S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time16E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time16" class="total-time txtTime">- - : - -</span>
-                    </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG16"></span></div>
-                </div>
-            </div>
-            <div class="tinycard bg-teal1">
-                <div class="row">
-                    <div class="col-10">
-                        <p class="category">Late Run</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="checkbox" class="chkOJT" id="OJT17"><label for="OJT17">OJT</label>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time14S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time14E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time14" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG14"></span></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-11">
-                        <span id="Time17S" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time17E" class="timewidth txtTime">- - : - -</span>
-                        <span id="Time17" class="total-time txtTime">- - : - -</span>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">Shuttle</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT15"><label for="OJT15">OJT</label>
+                        </div>
                     </div>
-                    <div class="col-1"><span class="fas fa-times" id="ClearRG17"></span></div>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time15S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time15E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time15" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG15"></span></div>
+                    </div>
+                </div>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">Shuttle</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT16"><label for="OJT16">OJT</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time16S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time16E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time16" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG16"></span></div>
+                    </div>
+                </div>
+                <div class="tinycard bg-teal1">
+                    <div class="row">
+                        <div class="col-10">
+                            <p class="category">Late Run</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="checkbox" class="chkOJT" id="OJT17"><label for="OJT17">OJT</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-11">
+                            <input id="Time17S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time17E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+                            <input id="Time17" type="text" class="total-time txtTime" data-disable-touch-keyboard>
+                        </div>
+                        <div class="col-1"><span class="fas fa-times" id="ClearRG17"></span></div>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -572,7 +574,7 @@
                 <span class="close fas fa-times-circle fa-lg" id="endValidate" style="float:right;"></span>
                 <p>VALIDATION SUCCESSFUL</p>
                 <p style="font-size: 11px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
-                <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"> <button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
+                <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"><button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
             </div>
         </div>
         <!-- The Changes Made Modal -->
@@ -670,10 +672,8 @@
             </div>
         </div>
     </div>
-    <script src="js/js-v2.0.7/script.js"></script>
+    <script src="js/js-v2.0.8/script.js"></script>
     <script src="js/fieldtripSelect.js"></script>
     <script src="js/object.js"></script>
-    <script src="js/js-v2.0.7/code.js"></script>
-</body>
-
-</html>
+    <script src="js/js-v2.0.8/code.js"></script>
+</body></html>

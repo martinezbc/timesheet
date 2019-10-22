@@ -781,7 +781,7 @@
         for (const day of weekdays) {
             childdiv = byID(`divp${day}`);   
             
-            print(objThis[day][`${day}Date`], childdiv.children[0]);
+            print(objThis.Data[`${day}Date`], childdiv.children[0]);
             
             if (objThis[day][`${day}QL11`])
                 print(`<input id="chk${day}QL" type="checkbox" checked="checked" disabled><label for="chk${day}QL">Equipment/Lift</label>` + '&nbsp;', childdiv.children[1]);

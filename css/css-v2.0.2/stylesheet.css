@@ -57,20 +57,6 @@ input[type=text] {
     text-align: center;
 }
 
-span.txtTime {
-    font-family: 'Roboto', 'Helvetica', 'Verdana', sans-serif;
-    display: inline-block;
-    background-color: white;
-    height: 26px;
-    font-size: 16px;
-    box-sizing: border-box;
-    outline: none;
-    border: 1px solid lightgray;
-    border-radius: 3px;
-    transition: all 0.1s ease-out;
-    text-align: center;
-}
-
 input[type=radio],
 input[type=checkbox],
 input[type=button]{

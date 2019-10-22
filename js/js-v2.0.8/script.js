@@ -83,9 +83,9 @@ function insertOW(i) {
         <input id="Desc${i}" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes..." spellcheck="true" autocorrect="on">
         </div></div>
         <div class="row"><div class="col-11">
-        <span id="Time${i}S" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}E" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}" class="total-time txtTime">- - : - -</span></div>
+        <input id="Time${i}S" text="text" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}E" text="text" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}" text="text" type="text" class="total-time txtTime" data-disable-touch-keyboard></div>
         <div class="col-1"><span class="fas fa-times" id="ClearOW${i}"></span></div></div></div>`;
 }
 
@@ -109,17 +109,16 @@ function insertFT(i) {
         <div class="col-6">
         <input id="Voucher${i}" type="text" class="voucherwidth" placeholder="Voucher" name="ftvoucher"></div>
         <div class="col-6 center"><input type="checkbox" class="chkOJT" id="OJT${i}"><label class="lblBtnFalse" for="OJT${i}">OJT</label>
-        <input type="checkbox" name="chkFTQL" id="QL${i}"><label class="lblBtnFalse" for="QL${i}">Q/L</label></div></div>
+        <input type="checkbox" class="chkFTQL" id="QL${i}"><label class="lblBtnFalse" for="QL${i}">Q/L</label></div></div>
         <div class="row"><div class="col-12">
-        <input id="From${i}" type="text" name="txtFT" placeholder="Origin..." style="text-align:left;" class="ftwidth"></div></div>
+        <input id="From${i}" type="text" class="ftwidth txtFT" placeholder="Origin..." data-disable-touch-keyboard></div></div>
         <div class="row"><div class="col-12">
-        <input id="To${i}" type="text" name="txtFT" placeholder="Destination..." style="text-align:left;" class="ftwidth"></div></div>
+        <input id="To${i}" type="text" class="ftwidth txtFT" placeholder="Destination..." data-disable-touch-keyboard></div></div>
         <div class="row"><div class="col-11">
-        <span id="Time${i}S" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}E" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}" class="total-time txtTime">- - : - -</span>
-        <div class="col-1">
-        <span class="fas fa-times" id="ClearFT${i}"></span></div></div></div>`;
+        <input id="Time${i}S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}" type="text" class="total-time txtTime" data-disable-touch-keyboard></div>
+        <div class="col-1"><span class="fas fa-times" id="ClearFT${i}"></span></div></div></div>`;
 }
 
 /******
@@ -143,7 +142,7 @@ function insertLVAD() {
         <option value="SICK-FMLA">FMLA</option>
         <option value="SICK-INJ">Injury</option>
         </select></div>
-        <div class="col-4"><input type="checkbox" name="chkLV" id="LeaveAD"><label for="LeaveAD">ALL DAY</label></div>
+        <div class="col-4"><input type="checkbox" class="chkLV" id="LeaveAD"><label for="LeaveAD">ALL DAY</label></div>
         </div></div>`;
 }
 
@@ -162,9 +161,9 @@ function insertLV(i) {
         <option value="CIVIL">Civil</option>
         <option value="SICK-FMLA">FMLA</option>
         <option value="SICK-INJ">Injury</option>
-        </select></div></div><div class="row">
-        <span id="Time${i}S" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}E" class="timewidth txtTime">- - : - -</span>
-        <span id="Time${i}" class="total-time txtTime">- - : - -</span>
+        </select></div></div><div class="row"><div class="col-12">
+        <input id="Time${i}S" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
+        <input id="Time${i}" type="text" class="total-time txtTime" data-disable-touch-keyboard></div>
         </div></div>`;
 }
