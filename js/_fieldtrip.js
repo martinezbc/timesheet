@@ -664,4 +664,4 @@ strHTML += '<option value="Regal Theater">Regal Theater</option>';
 strHTML += '<option value="Synetic Theatre">Synetic Theatre</option>';
 strHTML += '<option value="University Mall Theater">University Mall Theater</option>';
 strHTML += '</opgroup>'
-document.getElementById(`ftselector${optVal}`).innerHTML = strHTML;
+document.getElementById('ftselector').innerHTML = strHTML;

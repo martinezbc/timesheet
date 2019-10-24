@@ -62,7 +62,7 @@ function insertOW(i) {
         <input type="checkbox" id="QL${i}" disabled>
         <label class="lblBtnFalse" for="QL${i}">Q/L</label></div></div>
         <div class="row"><div class="col-12">
-        <select name="selectOW" id="Select${i}" class="selectwidth">
+        <select id="Select${i}" class="selectwidth selectOW">
         <option value="">--Select work--</option>
         <option value="FYI">FYI</option>
         <option value="OTHR">Other</option>
@@ -80,7 +80,7 @@ function insertOW(i) {
         <option value="ES0">On Time - Early start</option>
         <option value="CBK">Call back</option></select></div></div>
         <div class="row"><div class="col-12">
-        <input id="Desc${i}" type="text" name="owdesc" class="descwidth" style="text-align: left;" placeholder="Additional notes..." spellcheck="true" autocorrect="on">
+        <input id="Desc${i}" type="text" class="descwidth owdesc" style="text-align: left;" placeholder="Additional notes..." spellcheck="true" autocorrect="on">
         </div></div>
         <div class="row"><div class="col-11">
         <input id="Time${i}S" text="text" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
@@ -97,6 +97,7 @@ byID("divFTAdd").innerHTML += insertFT(31);
 byID("divFTAdd").innerHTML += insertFT(32);
 byID("divFTAdd").innerHTML += insertFT(33);
 byID("divFTAdd").innerHTML += insertFT(34);
+
 function insertFT(i) {
     return `
         <div class="tinycard bg-teal3 hide" id="FTDiv${i}">
@@ -107,7 +108,7 @@ function insertFT(i) {
         <span class="fas fa-trash-alt" id="FTTrash${i}"></span></div></div>
         <div class="row">
         <div class="col-6">
-        <input id="Voucher${i}" type="text" class="voucherwidth" placeholder="Voucher" name="ftvoucher"></div>
+        <input id="Voucher${i}" type="text" class="voucherwidth ftvoucher" placeholder="Voucher"></div>
         <div class="col-6 center"><input type="checkbox" class="chkOJT" id="OJT${i}"><label class="lblBtnFalse" for="OJT${i}">OJT</label>
         <input type="checkbox" class="chkFTQL" id="QL${i}"><label class="lblBtnFalse" for="QL${i}">Q/L</label></div></div>
         <div class="row"><div class="col-12">
@@ -127,6 +128,7 @@ INSERT OTHER WORK FIELDS
 byID("divLVAdd").innerHTML += insertLVAD();
 byID("divLVAdd").innerHTML += insertLV(40);
 byID("divLVAdd").innerHTML += insertLV(41);
+
 function insertLVAD() {
     return `
         <div class="tinycard bg-gold hide" id="LVDivAD"><div class="row"><div class="col-11">
@@ -166,4 +168,41 @@ function insertLV(i) {
         <input id="Time${i}E" type="text" class="timewidth txtTime" placeholder="- - : - -" data-disable-touch-keyboard>
         <input id="Time${i}" type="text" class="total-time txtTime" data-disable-touch-keyboard></div>
         </div></div>`;
+}
+
+function DateRange(offset) {
+    let start = new Date();
+    let end = new Date();
+    let options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'America/New_York'
+    };
+    let day = start.getDay();
+    let sOffset = -(day + 1) < -6 ? 0 : -(day + 1);
+    let eOffset = sOffset + 6;
+    start.setDate(start.getDate() + (sOffset + offset));
+    end.setDate(end.getDate() + (eOffset + offset));
+
+    return start.toLocaleDateString("en-US", options) + ' - ' + end.toLocaleDateString("en-US", options);
+}
+
+//REPLACE ALL FUNCTION
+function replaceAll(text, find, replace) {
+    while (text.toString().indexOf(find) != -1)
+        text = text.toString().replace(find, replace);
+    return text;
+}
+
+//CONVERT DATE STRING INTO STRAIGHT NUMBERS ONLY
+function dateString(strDate) {
+    strDate = replaceAll(strDate, "/", "");
+    return strDate.replace(" - ", "");
+}
+
+byID("WeekOf").innerHTML += '<option value="">--Select Week--</option>';
+for (let i = -21; i < 8; i += 7) {
+    const range = DateRange(i);
+    byID("WeekOf").innerHTML += `<option value="${dateString(range)}">${range}</option>`;
 }
