@@ -81,11 +81,27 @@ function initialLoad() {
     if (byID("WeekOf").value === "") return;
     localStorage.setItem("WeekOfS", byID("WeekOf").value);
     storeWeek();
-    let refDate = new Date();
+    updateWeekAll();
     loadLocalStorage();
     loadRadioSelection();
 }
 
+function updateWeekAll() {    
+    let strHTML = 
+                `<option value="">Select Date...</option>
+                <option value="${objThis.SatDate}">${objThis.SatDate}</option>
+                <option value="${objThis.SunDate}">${objThis.SunDate}</option>
+                <option value="${objThis.MonDate}">${objThis.MonDate}</option>
+                <option value="${objThis.TueDate}">${objThis.TueDate}</option>
+                <option value="${objThis.WedDate}">${objThis.WedDate}</option>
+                <option value="${objThis.ThuDate}">${objThis.ThuDate}</option>
+                <option value="${objThis.FriDate}">${objThis.FriDate}</option>`;
+
+    for (let i = 20; i < 45; i++) {
+        i = (i === 35) ? 40 : i;
+        byID(`Date${i}`).innerHTML = strHTML;
+    }
+}
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
 function loadLocalStorage() {
     let entries = Object.entries(objThis);
@@ -237,105 +253,105 @@ function radioAreaSelect(e) {
     loadTeamValues();
 }
 
-//FIGURE OUT WHICH FT FIELD IS NEXT TO SHOW
-function addLeave() {
-    for (let i = 40; i < 45; i += 1) {
+//TOGGLE OTHER WORK FIELDS
+function addLeave(e) {
+    let countLV = getMissingLV();
+    if (countLV === 45) return;
+    showHide(byID(`LVDiv${countLV}`), true);
+}
+
+function getMissingLV() {
+    for (let i = 40; i < 45; i++) {
         if (byID(`LVDiv${i}`).classList.contains("hide")) {
             return i;
         }
     }
-    //if statement didn't find a match, return 35
+    //If statement didnt' find a match, return 45
     return 45;
 }
 
-function getWeeklyTotals() {
-    //Declare variables and initialize the values
-    let sum = 0;
+//CHECK FOR OVERLAPPING TIME VALUES
+function checkOverlap(refID) {
+	"use strict";
 
-    //Clear Hours worked
-    byID("TotalHW").value = "";
-    setDataKeyValue("TotalHW", "");
-    sumCPay();
-
-    for (let j = 11; j < 18; j++) {
-        sum += convertToMinutes(objThis[`Time${j}`]);
-    }
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalRun", sum);
-
-    sum = 0;
-    for (let j = 20; j < 30; j++) {
-        let selectVal = objThis[`Select${j}`];
-        if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-        sum += convertToMinutes(objThis[`Time${j}`]);
-    }
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalOther", sum);
-    byID("TotalOther").value = sum;
-
-    sum = 0;
-    for (let j = 30; j < 35; j++) {
-        sum += Number(objThis[`Time${j}`]);
-    }
-
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalFT", sum);
-    byID("TotalFT").value = sum;
-
-
-    sum = convertToMinutes(objThis.TotalRun) + convertToMinutes(objThis.TotalOther);
-    sum = convertTotal(sum);
-    sum = (sum === "") ? 0 : Number(sum);
-    sum += Number(objThis.TotalFT);
-    sum += Number(byID("TotalHW").value);
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalHW", sum);
-    byID("TotalHW").value = sum;
-
-    sum = 0;
-
-    for (let j = 20; j < 30; j++) {
-        sum += (objThis[`QL${j}`]) ? convertToMinutes(objThis[`Time${j}`]) : 0;
-    }
-
-    for (let j = 30; j < 35; j++) {
-        sum += (objThis[`QL${j}`]) ? (Number(objThis[`Time${j}`]) * 60) : 0;
-    }
-
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS2QL", sum);
-    byID("TotalS2QL").value = sum;
-
-    sum = 0;
-    setDataKeyValue("TotalS4J", sum);
-    byID("TotalS4J").value = sum;
-
-    sum = convertToMinutes(objThis.TotalRun) + convertToMinutes(objThis.TotalOther);
-    sum += (objThis.Area === "TC") ? 0 : 15;
-    sum = convertTotal(sum);
-    setDataKeyValue("Total1R", sum);
-    byID("Total1R").value = sum;
-
-    sum = 0;
-    //If OJT Trainer is not checked then exit function
-    if (!objThis.OJT) {
-        setStorage();
+    //Define variables
+    let bln = false;
+    
+    //If element has no value then return
+    if (byID(refID).value === "")
+        return;
+    
+    let numVal = Number(refID.substr(-3, 2));
+    if (byID(`Date${numVal}`).value === "") {
+        openPopUp("<p>Date must be selected first.</p>");
+        byID(refID).value = "";
         return;
     }
-
-    for (let j = 20; j < 30; j++) {
-        sum += (objThis[`OJT${j}`]) ? convertToMinutes(objThis[`Time${j}`]) : 0;
+    
+    if (byID(`Select${numVal}`).value === "") {
+        openPopUp("<p>Work type must be selected first.</p>");
+        byID(refID).value = "";
+        return;
+    }
+    
+    //Initialize variables
+    let thisStart = (refID.substr(-2) === "S")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "S").value);
+    let thisEnd = (refID.substr(-2) === "E")  ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0,6) + "E").value);
+    if (thisStart === thisEnd) {
+        openPopUp("<p>Start time cannot match end time.</p>");
+        byID(refID).value = "";
+        return;
+    }
+    
+    for (let v = 40; v < 45; v++) {
+        if (byID(`LeaveAD${v}`).checked && byID(`Date${numVal}`).value == byID(`Date${v}`).value) {
+            openPopUp("<p>All day leave was used for this day</p>");
+            byID(refID).value = "";
+            return;
+        }
     }
 
-    for (let j = 30; j < 35; j++) {
-        sum += (objThis[`OJT${j}`]) ? (Number(objThis[`Time${j}`]) * 60) : 0;
+    let max = 45;
+    let i = 20;
+
+    for (i; i < max; i++) {
+        if (i > 34 && i < 40) continue;
+        if (byID(`Date${numVal}`).value !== byID(`Date${i}`).value) continue;
+        
+        if (i === numVal) continue;
+
+        //Initialize newStart and newEnd
+        const newStart = convertToMinutes(byID(`Time${i}S`).value);
+        //If newStart is blank then move to next i
+        if (newStart === 0) continue;
+
+        const newEnd = convertToMinutes(byID(`Time${i}E`).value);
+        if (newEnd === 0) continue;
+        
+        if (newStart === thisStart) {
+            bln = true;
+        } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
+            bln = true;
+        } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
+            bln = true;
+        } else if (thisStart === newStart) {
+            bln = true;
+        } else if (thisEnd === newEnd) {
+            bln = true;
+        } else if (thisStart < newStart && thisEnd > newEnd) {
+            bln = true;
+        }
+        if (bln) break;
     }
 
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS4OJT", sum);
-    byID("TotalS4OJT").value = sum;
-    setStorage();
+    //If bln is true then there is an overlap
+    if (bln) {
+        openPopUp("<p>Overlap error</p>");
+        byID(refID).value = "";
+    }
 }
+
+
 
 //CALCULATE CALLBACK TIME
 function sumCPay() {
@@ -364,4 +380,10 @@ function sumCPay() {
     c3 = (c3 === 0) ? "" : convertTotal(c3);
     objThis.TotalC3 = c3;
     byID("TotalC3").value = c3;
+}
+
+//CLEAR TIME FIELDS
+function clearTimeField(e) {
+    resetTime(e.target.id.substr(-2));
+    getWeeklyTotals();
 }

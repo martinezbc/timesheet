@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     byID('divpreview').addEventListener('click', completeTimesheet);
     byID('divsupplement').addEventListener('click', openSupplement);
+    arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);
 });
 
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
@@ -182,6 +183,48 @@ function resetElement(refID) {
         objThis[day][`${day}${refID}`] = "";
         e.value = "";
     }
+}
+
+//CLEAR TIME FIELDS
+function clearTimeField(e) {
+    const day = getDay();
+    let i = e.target.id.substr(-2);
+
+    if (i === "41") {
+        resetElement(`LeaveSelect${i}`);
+        resetTime(i);
+    } else if (i === "40") {
+        resetElement(`LeaveSelect${i}`);
+        resetTime(i);
+        resetElement(`LeaveAD`);
+        toggleADLeave();
+    } else if (i === "AM") {
+        resetElement(`TimeA`);
+        resetElement('TimeB');
+    } else if (i === "PM") {
+        resetElement('TimeC');
+        resetElement('TimeD');
+    } else {
+        resetTime(i);
+        if (day !== "Sun" && day !== "Sat") resetElement(`OJT${i}`)
+    }
+    getDailyTotals();
+}
+
+//Daily leave checkboxes
+function checkLeaveToggle(refID) {
+    "use strict";
+    const day = getDay();
+    checkAllDayLeave(day);
+}
+
+//Toggle lift checkboxes on/off, set them in storage and run totals
+function checkboxQL(refID) {
+    const day = getDay();
+
+    objThis[day][`${day}${refID}`] = byID(refID).checked;
+
+    dailyQL(day);
 }
 
 //DECLARE VARIABLES
@@ -388,161 +431,4 @@ function resetLeave(day) {
     resetElement('LeaveSelect41');
     resetElement('LeaveAD');
     toggleADLeave();
-}
-
-function getWeeklyTotals() {
-    //Declare variables and initialize the values
-    let sum = 0;
-
-    //Clear Hours worked
-    byID("TotalHW").value = "";
-    setDataKeyValue("TotalHW", "");
-    sumCPay();
-
-    for (const day of weekdays) {
-        for (let j = 11; j < 18; j++) {
-            sum += convertToMinutes(objThis[day][`${day}Time${j}`]);
-        }
-    }
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalRun", sum);
-    byID("TotalRun").value = sum;
-
-    sum = 0;
-    for (const day of days) {
-        for (let j = 20; j < 30; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            let selectVal = objThis[day][`${day}Select${j}`];
-            if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-            sum += convertToMinutes(objThis[day][`${day}Time${j}`]);
-        }
-    }
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalOther", sum);
-    byID("TotalOther").value = sum;
-
-    sum = 0;
-    for (const day of days) {
-        for (let j = 30; j < 35; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += Number(objThis[day][`${day}Time${j}`]);
-        }
-    }
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalFT", sum);
-    byID("TotalFT").value = sum;
-
-
-    sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
-    sum = convertTotal(sum);
-    sum = (sum === "") ? 0 : Number(sum);
-    sum += Number(objThis.Data.TotalFT);
-    sum += Number(byID("TotalHW").value);
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalHW", sum);
-    byID("TotalHW").value = sum;
-
-    sum = 0;
-    for (const day of weekdays) {
-        if (objThis[day][`${day}QL11`]) {
-            sum += convertToMinutes(objThis[day][`${day}Time11`]);
-            sum += convertToMinutes(objThis[day][`${day}Time12`]);
-            sum += convertToMinutes(objThis[day][`${day}Time13`]);
-            sum += convertToMinutes(objThis[day][`${day}Time14`]);
-            sum += convertToMinutes(objThis[day][`${day}Time15`]);
-            sum += convertToMinutes(objThis[day][`${day}Time16`]);
-            sum += convertToMinutes(objThis[day][`${day}Time17`]);
-        }
-
-        for (let j = 20; j < 30; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            sum += (objThis[day][`${day}QL${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-
-        for (let j = 30; j < 35; j++) {
-            if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += (objThis[day][`${day}QL${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
-        }
-    }
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS2QL", sum);
-    byID("TotalS2QL").value = sum;
-
-    sum = 0;
-    for (const day of weekdays) {
-        if (objThis[day][`${day}J11`]) {
-            sum += convertToMinutes(objThis[day][`${day}Time11`]);
-            sum += convertToMinutes(objThis[day][`${day}Time12`]);
-            sum += convertToMinutes(objThis[day][`${day}Time13`]);
-            sum += convertToMinutes(objThis[day][`${day}Time14`]);
-            sum += convertToMinutes(objThis[day][`${day}Time15`]);
-            sum += convertToMinutes(objThis[day][`${day}Time16`]);
-            sum += convertToMinutes(objThis[day][`${day}Time17`]);
-        }
-    }
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS4J", sum);
-    byID("TotalS4J").value = sum;
-
-    sum = convertToMinutes(objThis.Data.TotalRun) + convertToMinutes(objThis.Data.TotalOther);
-    sum += (objThis.Data.Area === "TC") ? 0 : 15;
-    sum = convertTotal(sum);
-    setDataKeyValue("Total1R", sum);
-    byID("Total1R").value = sum;
-
-    sum = 0;
-    //If OJT Trainer is not checked then exit function
-    if (!objThis.Data.OJT) {
-        setStorage();
-        return;
-    }
-
-    for (const day of weekdays) {
-        for (let j = 11; j < 18; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-
-        for (let j = 20; j < 30; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-
-        for (let j = 30; j < 35; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
-        }
-    }
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS4OJT", sum);
-    byID("TotalS4OJT").value = sum;
-    setStorage();
-}
-//CALCULATE CALLBACK TIME
-function sumCPay() {
-    "use strict";
-    let c1 = 0;
-    let c3 = 0;
-    let sum = 0;
-    let selectVal;
-
-    for (const day of days) {
-        for (let j = 20; j < 30; j++) {
-            if ((day === "Sat" || day === "Sun") && j === 23) break;
-            selectVal = objThis[day][`${day}Select${j}`];
-            c1 += (selectVal === "CBK") ? 240 : 0;
-            c3 += (selectVal === "ES0") ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-            c3 += (selectVal === "ES2") ? convertToMinutes(objThis[day][`${day}Time${j}`]) + 120 : 0;
-            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-    }
-
-    c1 = (c1 === 0) ? "" : convertTotal(c1);
-    objThis.Data.TotalC1 = c1;
-    byID("TotalC1").value = c1;
-
-    sum = convertTotal(sum);
-    objThis.Data.TotalHW = sum;
-    byID("TotalHW").value = sum;
-
-    c3 = (c3 === 0) ? "" : convertTotal(c3);
-    objThis.Data.TotalC3 = c3;
-    byID("TotalC3").value = c3;
 }

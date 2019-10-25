@@ -48,7 +48,7 @@ function insertLV(j) {
             <div class="category col-11">Leave</div><div class="col-1 center">
             <span class="fas fa-trash-alt" id="LVTrash${j}"></span></div></div>
             <div class="row"><div class="col-6">
-            <select id="Date${j}"><option value="" id="After${j}">Select Date...</option></select>
+            <select id="Date${j}"></select>
             </div><div class="col-6">
             <input type="checkbox" class="chkADLV" id="LeaveAD${j}"><label for="LeaveAD${j}">All Day</label>
             </div></div><div class="row"><div class="col-12">
@@ -86,7 +86,7 @@ function insertOW(j) {
             </div><div class="col-1 center">
             <span class="fas fa-trash-alt" id="OWTrash${j}"></span></div></div>
             <div class="row"><div class="col-6">
-            <select id="Date${j}"><option value="" id="After${j}">Select Date...</option></select>
+            <select id="Date${j}"></select>
             </div><div class="col-6">
             <input type="checkbox" class="chkOJT" id="OJT${j}" disabled><label for="OJT${j}">OJT</label>&nbsp;
             <input type="checkbox" class="chkQL" id="QL${j}" disabled><label for="QL${j}">Q/L</label>
