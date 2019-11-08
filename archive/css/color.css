@@ -1,0 +1,375 @@
+.bg-medblue {
+    background-color: #68D2DF;
+}
+
+.font-medblue {
+    color: #68D2DF;
+}
+
+.bg-teal {
+    background-color: #00AEC7;
+}
+
+.bg-teal1 {
+    background-color: hsl(186,65%,64%);
+}
+
+.bg-teal2 {
+    background-color: hsl(186,65%,44%);
+}
+
+.bg-teal3 {
+    background-color: hsl(186,65%,34%);
+    color: white;
+}
+
+.bg-darkteal {
+    background-color: #00677F;
+    color: white;
+}
+
+.border-blue {
+    border-color: #0e657d;
+    border-width: 2px;
+}
+
+.border-grey {
+    border-color: darkgrey;
+}
+
+.bg-darkblue {
+    background-color: #001A70;
+    color: white;
+}
+
+.darkbluefont {
+    color: #0e657d;
+}
+
+.bg-gold {
+    background-color: #FFB500;
+}
+
+.goldfont {
+    color: #FFB500;
+}
+
+.bg-ws {
+    background-color: #e6e6e6;
+}
+
+.bg-neutral {
+    background-color: #EED484;
+}
+
+.bg-grey {
+    background-color: #75787B;
+    color: white;
+}
+
+.bg-greyblue {
+    background-color: #abc6cd;
+}
+
+.bg-greyteal {
+    background-color: #aedbe2;
+}
+
+.bg-burntred {
+    background-image: linear-gradient(to bottom right, hsl(12,73%,46%), hsl(12,73%,35%));
+    color: white;
+}
+
+.burntredfont {
+    color: #CF4520;
+}
+
+.bg-greyish {
+    background-color: rgb(240, 240, 240);
+}
+
+.bg-green {
+    background-color: #319B42;
+    color: white;
+}
+
+.bg-olive {
+    background-image: linear-gradient(to bottom right, hsl(62,100%,37%), hsl(62,100%,30%));
+}
+
+@media (max-width: 320px) {
+    
+    .card {
+        padding: 2px;
+        margin: 5px;
+    }
+
+    .header__title {
+        font-size: 10px;
+    }
+
+    .footer_p {
+        font-size: 9px;
+        letter-spacing: normal;
+    }
+
+    .total_col span {
+        font-size: 10px;
+    }
+    
+    .modal-content li span {
+        margin: 0px;
+        padding: 15px 5px;
+    }
+
+    .totalwidth {
+        width: 70px;
+    }
+
+    .dailytotal {
+        text-align: center;
+        width: 70px;
+        font-size: 12px;
+        margin: -2px 4px 0 0;
+    }
+    
+    .tutorial-cat {
+        font-size: 10px;
+    }
+    
+    .image {
+        width: 115px;
+    }
+
+    .routewidth {
+        width: 80px;
+    }
+    
+    .modal-content p {
+        font-size: 12px;
+    }
+    
+    .modal-content {
+        padding: 5px;
+        max-width: 70%;
+    }
+    
+    .varp {
+        font-size: 12px;
+    }
+    
+    #greynav {
+        font-size: 12px;
+    }
+    .daily {
+        font-size: 24px;
+    }
+    
+    .dropdown-content div {
+        font-size: 14px;
+    }
+    
+
+}
+
+
+@media only screen and (min-width: 321px) {
+    
+
+
+    .header__title {
+        font-size: 12px;
+    }
+    
+    .dropdown-content div {
+        font-size: 14px;
+    }
+
+    .footer_p {
+        font-size: 9px;
+        letter-spacing: normal;
+    }
+
+    .total_col span {
+        font-size: 10px;
+    }
+    
+    .tutorial-cat {
+        font-size: 12px;
+    }
+    
+    .image {
+        width: 130px;
+    }
+    .modal-content li span {
+        margin: 0px;
+        padding: 15px 5px;
+    }
+
+    .totalwidth {
+        width: 70px;
+    }
+
+    .dailytotal {
+        text-align: center;
+        width: 70px;
+        font-size: 12px;
+        margin: -2px 4px 0 0;
+    }
+
+    .routewidth {
+        width: 80px;
+    }
+    
+    .modal-content {
+        padding: 5px;
+        max-width: 60%;
+    }
+    
+    .varp {
+        font-size: 12px;
+    }
+    
+     #greynav {
+        font-size: 12px;
+    }
+    
+    .daily {
+        font-size: 24px;
+    }
+}
+
+
+@media only screen and (min-width: 400px) {
+
+    .header__title {
+        font-size: 15px;
+        padding-top: 2px;
+    }
+
+    .footer_p {
+        font-size: 10px;
+        letter-spacing: normal;
+    }
+
+    .total_col span {
+        font-size: 10px;
+    }
+    
+    .tutorial-cat {
+        font-size: 13px;
+    }
+    
+    .image {
+        width: 150px;
+    }
+    
+    .modal-content li span {
+        margin: 0px;
+        padding: 10px 5px;
+    }
+
+    .totalwidth {
+        width: 80px;
+    }
+
+    .dailytotal {
+        text-align: center;
+        width: 80px;
+        font-size: 12px;
+        margin: -2px 4px 0 0;
+        letter-spacing: 1px;
+    }
+
+    .routewidth {
+        width: 100px;
+    }
+    
+     #greynav {
+        font-size: 14px;
+    }
+    
+    .daily {
+        font-size: 26px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    
+    .dropdown-content div {
+        font-size: 16px;
+    }
+    .header__title {
+        font-size: 16px;
+    }
+
+    .footer_p {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .total_col span {
+        font-size: 12px;
+    }
+    
+    .tutorial-cat {
+        font-size: 15px;
+    }
+    
+    .image {
+        width: 200px;
+    }
+
+    .totalwidth {
+        width: 100px;
+        font-size: 14px;
+    }
+
+    .dailytotal {
+        text-align: center;
+        width: 100px;
+        font-size: 14px;
+        margin: -2px 4px 0 0;
+        letter-spacing: 1px;
+    }
+
+    .modal-content {
+        max-width: 40%;
+    }
+    
+     #greynav {
+        font-size: 16px;
+    }
+    
+    .daily {
+        font-size: 28px;
+    }
+    
+    .empname {
+        width: 60%;
+    }
+    
+    .varp {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 980px) {
+
+}
+
+@media only screen and (min-width: 1250px) {
+
+    .tutorial-cat {
+        font-size: 18px;
+    }
+    
+    .image {
+        width: 300px;
+    }
+
+    .header__title {
+        font-size: 22px;
+        padding-top: 8px;
+    }
+}

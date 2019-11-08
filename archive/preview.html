@@ -1,0 +1,924 @@
+
+<!DOCType html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Transportation Weekly Report</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto|Rubik" rel="stylesheet">
+    <script>
+        document.write("<link href='css/bootstrap-grid.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
+        document.write("<link href='css/stylesheet.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
+        document.write("<link href='css/color.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
+    </script>
+    <script src="https://kit.fontawesome.com/a0f6dbab9e.js" crossorigin="anonymous"></script>
+    <style>
+        .bold {
+            font-weight: bold;
+        }
+
+        .bold-lg {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .section__header {
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: -2px;
+        }
+
+        p {
+            font-family: 'Rubik';
+            text-transform: none;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="header__title">TRANSPORTATION WEEKLY REPORT</h1>
+        <div id="navbarmodal" class="dropdown">
+            <span class="fas fa-bars dropbtn fa-lg" id="tsbtn"></span>
+            <div class="dropdown-content hide" id="tsdropdown">
+                <div class="row" onclick="downloadTimesheet();"><span class="fas fa-file-download"></span>&nbsp;Download</div>
+                <div class="row" onclick="location.href='index.html';"><span class="fas fa-backward"></span>&nbsp;Go Back</div>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="topspacer"></div>
+        <div class="card bg-burntred">
+            <div style="font-size: 20px">TIMESHEET PREVIEW - After reviewing data, click on download from the menu bar to create the PDF.</div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">Employee Data</p>
+            </div>
+            <div class="row">
+                <div class="col-6" id="divpweek">
+                    <p><b>Week Range: </b></p>
+                </div>
+                <div class="col-6" id="divpemp">
+                    <p><b>Name: </b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4" id="divparea">
+                    <p><b>Area: </b></p>
+                </div>
+                <div class="col-4" id="divpteam">
+                    <p><b>Team: </b></p>
+                </div>
+                <div class="col-4" id="divpposition">
+                    <p><b>Position: </b></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2" id="divpojt">
+                    <p><b>OJT Trainer: </b></p>
+                </div>
+                <div class="col-4" id="divptrainee">
+                    <p><b>Trainee: </b></p>
+                </div>
+                <div class="col-2" id="divpveh1">
+                    <p><b>Vehicle: </b></p>
+                </div>
+                <div class="col-4" id="divpspares">
+                    <p><b>Spares: </b></p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">PUPIL COUNTS</p>
+            </div>
+            <div class="bg-teal1 tinycard" id="divpamruns">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">Morning</div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>AM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>AM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>AM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>AM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>AM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard" id="divppmruns">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">Afternoon</div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PM: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                    <div class="col"><p></p><p></p></div>
+                </div>
+            </div>
+            <div class="bg-teal1 tinycard" id="divppsshlr">
+                <div class="row section__header bg-medblue">
+                    <div class="col-12 bold-lg daily">PS / SH / LR</div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PS: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>PS: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>SH: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>SH: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                   <div class="col-sm-4">
+                      <p><b>LR: </b></p>
+                   </div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                   <div class="col"><p></p></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p><b>LR: </b></p>
+                    </div>
+                    <div class="col"><p></p></div>
+                    <div class="col"><p></p></div>
+                    <div class="col"><p></p></div>
+                    <div class="col"><p></p></div>
+                    <div class="col"><p></p></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">Route Time</p>
+            </div>
+            <div class="bg-medblue tinycard" id="divpMon">
+                <p class="category">MONDAY-</p>
+                <div class="row"></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>LR: </b></p></div>
+            </div>
+            <div class="bg-medblue tinycard" id="divpTue">
+                <p class="category">TUESDAY-</p>
+                <div class="row"></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>LR: </b></p></div>
+            </div>
+            <div class="bg-medblue tinycard" id="divpWed">
+                <p class="category">WEDNESDAY-</p>
+                <div class="row"></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>LR: </b></p></div>
+            </div>
+            <div class="bg-medblue tinycard" id="divpThu">
+                <p class="category">THURSDAY-</p>
+                <div class="row"></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>LR: </b></p></div>
+            </div>
+            <div class="bg-medblue tinycard" id="divpFri">
+                <p class="category">FRIDAY-</p>
+                <div class="row"></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>RG: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>PS: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>SH: </b></p></div>
+                <div class="row"><p><b>LR: </b></p></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">OTHER WORK</p>
+            </div>
+            <div class="row hide" id="divpow0">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow1">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow2">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow3">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow4">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow5">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow6">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow7">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow8">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpow9">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><p><b>Type: </b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">field trips</p>
+            </div>
+            <div class="row hide" id="divpft0">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p><b>From:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>To:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>Voucher:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>                
+            </div>
+            <div class="row hide" id="divpft1">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p><b>From:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>To:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>Voucher:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpft2">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p><b>From:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>To:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>Voucher:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpft3">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p><b>From:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>To:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>Voucher:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divpft4">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p><b>From:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>To:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p><b>Voucher:&nbsp;</b></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-2"><p></p></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">LEAVE</p>
+            </div>
+            <div class="row hide" id="divplv0">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv1">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv2">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv3">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv4">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv5">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv6">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv7">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv8">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+            <div class="row hide" id="divplv9">
+                <div class="row">
+                    <div class="col-sm-1"><p></p></div>
+                    <div class="col-sm-2"><p><b>Type: </b></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"><p></p></div>
+                    <div class="col-sm-6"><p></p></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                <p class="daily">TOTALS</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-3" id="divptotalrun">
+                    <p class="bold-lg">REGULAR:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalother">
+                    <p class="bold-lg">OTHER:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalft">
+                    <p class="bold-lg">FIELD TRIP:&nbsp;</p>
+                </div>
+                <div class="col-sm-3" id="divptotalhw">
+                    <p class="bold-lg">HOURS WORKED:&nbsp;</p>
+                </div>
+            </div>
+            <hr class="border-grey">
+            <div class="row">
+                <div class="col-sm-2" id="divptotal1r">
+                    <p class="bold-lg">1R (Regular):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals4ojt">
+                    <p class="bold-lg">S4 (OJT):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals4j">
+                    <p class="bold-lg">S4 (J):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotals2ql">
+                    <p class="bold-lg">S2 (Q/L):&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotalc3">
+                    <p class="bold-lg">C3:&nbsp;</p>
+                </div>
+                <div class="col-sm-2" id="divptotalc1">
+                    <p class="bold-lg">C1:&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+        const week = localStorage.getItem('WeekOf');
+        const objThis = JSON.parse(localStorage.getItem(week + "Obj"));
+
+        //GET ELEMENT BY ID
+        function byID(refID) {
+            return document.getElementById(refID);
+        }
+
+        //GO TO THE TIMESHEET
+        function downloadTimesheet() {
+            window.open("timesheet.html", "_self");
+        }
+
+        //CONVERT WEEK DATE INTO READABLE STRING
+        function dateString(strDate) {
+            var str = strDate.substr(0, 2) + "/" + strDate.substr(2, 2) + "/" + strDate.substr(4, 4) + " - ";
+            str += strDate.substr(8, 2) + "/" + strDate.substr(10, 2) + "/" + strDate.substr(12, 4);
+            return str
+        }
+
+        //SHOW OR HIDE AN ELEMENT
+        function showHide(refID, bln) {
+            let el = byID(refID);
+            //(Show the element) ? remove hide : add hide
+            if (bln) {
+                if (el.classList.contains("hide")) el.classList.remove("hide");
+            } else {
+                if (!el.classList.contains("hide")) el.classList.add("hide");
+            }
+        }
+        
+        //WINDOW ON TOUCH CLICK. SHOW HIDE MENU
+        window.onclick = function(event) {
+            const bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'tsbtn')
+                showHide("tsdropdown", false);
+            else
+                showHide("tsdropdown", bln);
+        }
+
+        //WINDOW ON TOUCH EVENT. SHOW HIDE MENU
+        window.ontouchstart = function(event) {
+            const bln = (byID("tsdropdown").classList.contains("hide")) ? true : false;
+
+            if (event.target.id !== 'tsbtn')
+                showHide("tsdropdown", false);
+            else
+                showHide("tsdropdown", bln);
+        }
+
+        //PRINT STRING INTO ELEMENT
+        function print(strHTML, element) {
+            element.innerHTML += strHTML;
+        }
+
+        //********************DIV EMP DATA********************//
+        print(dateString(objThis.Data.WeekOf), byID("divpweek").children[0]);
+        print(objThis.Data.EmpName, byID("divpemp").children[0]);
+        print(objThis.Data.Area, byID("divparea").children[0]);
+        print(objThis.Data.Team, byID("divpteam").children[0]);
+        print(objThis.Data.Position, byID("divpposition").children[0]);
+        if (objThis.Data.OJT) {
+            print('<input id="chkboxojt" type="checkbox" checked="checked" disabled><label for="chkboxojt">OJT</label>', byID("divpojt").children[0]);
+        } else {
+            print('<input id="chkboxojt" type="checkbox" disabled><label for="chkboxojt">OJT</label>', byID("divpojt").children[0]);
+        }
+        print(objThis.Data.Trainee, byID("divptrainee").children[0]);
+        print(objThis.Data.Veh1, byID("divpveh1").children[0]);
+        let strHTML = ((objThis.Data.Veh2 !== "") ? objThis.Data.Veh2 : "") + ((objThis.Data.Veh3 !== "") ? "/" + objThis.Data.Veh3 : "") + ((objThis.Data.Veh4 !== "") ? "/" + objThis.Data.Veh4 : "");
+        print(strHTML, byID("divpspares").children[0]);
+        //********************DIV EMP DATA********************//
+
+        //********************DIV AM RUNS********************//
+        let childdiv = byID("divpamruns");
+        print(objThis.Data.AMRoute1, childdiv.children[1].children[0].children[0]);
+        print(objThis.Data.AMRoute2, childdiv.children[2].children[0].children[0]);        
+        print(objThis.Data.AMRoute3, childdiv.children[3].children[0].children[0]);        
+        print(objThis.Data.AMRoute4, childdiv.children[4].children[0].children[0]);        
+        print(objThis.Data.AMRoute5, childdiv.children[5].children[0].children[0]);
+        for (let i = 1; i < 6; i++) {
+            let day = days[i];
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}AM1Ct`]}`, childdiv.children[1].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}AM2Ct`]}`, childdiv.children[2].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}AM3Ct`]}`, childdiv.children[3].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}AM4Ct`]}`, childdiv.children[4].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}AM5Ct`]}`, childdiv.children[5].children[i].children[0]);
+            print(objThis[day][`${day}TimeA`].replace(' AM', '').replace(' PM', ''), childdiv.children[6].children[i].children[0]);
+            print(objThis[day][`${day}TimeB`].replace(' AM', '').replace(' PM', ''), childdiv.children[6].children[i].children[1]);
+        }
+        //********************DIV AM RUNS********************//
+
+        //********************DIV PM RUNS********************//
+        childdiv = byID("divppmruns");
+        print(objThis.Data.PMRoute1, childdiv.children[1].children[0].children[0]);
+        print(objThis.Data.PMRoute2, childdiv.children[2].children[0].children[0]);        
+        print(objThis.Data.PMRoute3, childdiv.children[3].children[0].children[0]);        
+        print(objThis.Data.PMRoute4, childdiv.children[4].children[0].children[0]);        
+        print(objThis.Data.PMRoute5, childdiv.children[5].children[0].children[0]);
+        for (let i = 1; i < 6; i++) {
+            let day = days[i];
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PM1Ct`]}`, childdiv.children[1].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PM2Ct`]}`, childdiv.children[2].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PM3Ct`]}`, childdiv.children[3].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PM4Ct`]}`, childdiv.children[4].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PM5Ct`]}`, childdiv.children[5].children[i].children[0]);
+            print(objThis[day][`${day}TimeC`].replace(' AM', '').replace(' PM', ''), childdiv.children[6].children[i].children[0]);
+            print(objThis[day][`${day}TimeD`].replace(' AM', '').replace(' PM', ''), childdiv.children[6].children[i].children[1]);
+        }
+        //********************DIV PM RUNS********************//
+
+        //********************DIV PS/SH/LR RUNS********************//
+        childdiv = byID("divppsshlr");
+        print(objThis.Data.PSRoute1, childdiv.children[1].children[0].children[0]);
+        print(objThis.Data.PSRoute2, childdiv.children[2].children[0].children[0]);
+        print(objThis.Data.SHRoute1, childdiv.children[3].children[0].children[0]);
+        print(objThis.Data.SHRoute2, childdiv.children[4].children[0].children[0]);
+        print(objThis.Data.LRRoute1, childdiv.children[5].children[0].children[0]);
+        print(objThis.Data.LRRoute2, childdiv.children[6].children[0].children[0]);
+        for (let i = 1; i < 6; i++) {
+            let day = days[i];
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PS1Ct`]}`, childdiv.children[1].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}PS2Ct`]}`, childdiv.children[2].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}SH1Ct`]}`, childdiv.children[3].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}SH2Ct`]}`, childdiv.children[4].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}LR1Ct`]}`, childdiv.children[5].children[i].children[0]);
+            print(`${day.substr(0,1)}: ${objThis[day][`${day}LR2Ct`]}`, childdiv.children[6].children[i].children[0]);
+        }
+        //********************DIV PS/SH/LR RUNS********************//
+
+        //********************DIV MONDAY-FRIDAY********************//
+        for (const day of weekdays) {
+            childdiv = byID(`divp${day}`);   
+            
+            print(objThis[day][`${day}Date`], childdiv.children[0]);
+            
+            if (objThis[day][`${day}QL11`])
+                print(`<input id="chk${day}QL" type="checkbox" checked="checked" disabled><label for="chk${day}QL">Equipment/Lift</label>` + '&nbsp;', childdiv.children[1]);
+            else
+                print(`<input id="chk${day}QL" type="checkbox" disabled><label for="chk${day}QL">Equipment/Lift</label>` + '&nbsp;', childdiv.children[1]);
+            
+            if (objThis[day][`${day}J11`])
+                print(`<input id="chk${day}J" type="checkbox" checked="checked" disabled><label for="chk${day}J">Admin</label>`, childdiv.children[1]);
+            else
+                print(`<input id="chk${day}J" type="checkbox" disabled><label for="chk${day}J">Admin</label>`, childdiv.children[1]);
+            
+            for (let i = 11; i < 18; i++) {
+                print(objThis[day][`${day}Time${i}S`] + '-' + objThis[day][`${day}Time${i}E`], childdiv.children[i - 9].children[0]);
+                if (objThis[day][`${day}OJT${i}`]) {
+                    print('&nbsp;&nbsp;<u>**' + objThis[day][`${day}Time${i}`] + '**</u>', childdiv.children[i - 9].children[0]);
+                } else {
+                    print('&nbsp;&nbsp;<u>' + `${objThis[day][`${day}Time${i}`]}</u>`, childdiv.children[i - 9].children[0]);
+                }
+            }
+        }
+        //********************DIV MONDAY-FRIDAY********************//
+
+        //********************DIV OTHER WORK********************//
+        let otherWork = ["OW0", "OW1", "OW2", "OW3", "OW4", "OW5", "OW6", "OW7", "OW8", "OW9"];
+        let j = 0;
+        for (const day of days) {
+            for (let k = 20; k < 30; k++) {
+                if ((day === "Sun" || day === "Sat") && k > 22) continue;
+                if (objThis[day][`${day}Select${k}`] !== "") {
+                    otherWork[j] = `${day}Time${k}`;
+                    j++;
+                }
+            }
+        }
+        for (let i = 0; i < 10; i++) {
+            let childdiv = byID(`divpow${i}`).children[0];
+            let blnOW = (otherWork[i] !== `OW${i}`) ? true : false;
+            if (blnOW) {
+                let day = otherWork[i].substr(0, 3);
+                let strnum = otherWork[i].substr(7);
+                print(objThis.Data[`${day}Date`], childdiv.children[0].children[0]);
+                if (objThis[day][`${day}QL${strnum}`]) {
+                    print(`<input id="chkboxow${strnum}" type="checkbox" checked="checked" disabled><label for="chkboxow${strnum}">Q/L</label>`, childdiv.children[1]);
+                } else {
+                    print(`<input id="chkboxow${strnum}" type="checkbox" disabled><label for="chkboxow${strnum}">Q/L</label>`, childdiv.children[1]);
+                }
+                print(objThis[day][`${day}Select${strnum}`] + '-' + objThis[day][`${day}Desc${strnum}`], childdiv.children[2].children[0]);
+                print(objThis[day][`${otherWork[i]}S`] + ' - ' + objThis[day][`${otherWork[i]}E`], childdiv.children[3].children[0]);
+                print(`<u>${objThis[day][otherWork[i]]}</u>`, childdiv.children[4].children[0]);
+            }
+            if (blnOW) showHide(`divpow${i}`, true);
+        }
+        //********************DIV OTHER WORK********************//
+        //********************DIV FIELD TRIPS********************//
+        let otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
+        j = 0;
+        for (const day of days) {
+            for (let k = 30; k < 35; k++) {
+                if ((day === "Sun" || day === "Sat") && k > 32) continue;
+                if (objThis[day][`${day}Time${k}`] !== "") {
+                    otherFT[j] = `${day}Time${k}`;
+                    j++;
+                }
+            }
+        }
+        for (let i = 0; i < 5; i++) {
+            let childdiv = byID(`divpft${i}`).children[0];
+            let blnFT = (otherFT[i] !== `FT${i}`) ? true : false;
+            if (blnFT) {
+                let day = otherFT[i].substr(0, 3);
+                let strnum = otherFT[i].substr(7);
+                print(objThis.Data[`${day}Date`], childdiv.children[0].children[0]);
+                if (objThis[day][`${day}QL${strnum}`])
+                    print(`<input id="chkboxft${strnum}" type="checkbox" checked="checked" disabled><label for="chkboxft${strnum}">Q/L</label>`, childdiv.children[1]);
+                else
+                    print(`<input id="chkboxft${strnum}" type="checkbox" disabled><label for="chkboxft${strnum}">Q/L</label>`, childdiv.children[1]);
+                print(objThis[day][`${day}From${strnum}`], childdiv.children[2].children[0]);
+                print(objThis[day][`${day}To${strnum}`], childdiv.children[3].children[0]);
+                print(objThis[day][`${day}Voucher${strnum}`], childdiv.children[4].children[0]);
+                print(objThis[day][`${otherFT[i]}S`] + ' - ' + objThis[day][`${otherFT[i]}E`], childdiv.children[5].children[0]);
+                print(`<u>${objThis[day][otherFT[i]]}</u>`, childdiv.children[6].children[0]);
+            }
+            if (blnFT) showHide(`divpft${i}`, true);
+        }
+        //********************DIV FIELD TRIPS********************//
+        //********************DIV LEAVE********************//
+        let otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
+        j = 0;
+        for (const day of weekdays) {
+            if (objThis[day][`${day}Time41`] !== "") {
+                otherLV[j] = `${day}Time41`;
+                j++;
+            }
+            if (objThis[day][`${day}Time40`] !== "" && objThis[day][`${day}Time40`] !== undefined) {
+                otherLV[j] = `${day}Time40`;
+                j++;
+            }
+            if (objThis[day][`${day}LeaveAD`]) {
+                otherLV[j] = `${day}LeaveAD`;
+                j++;
+            }
+        }
+        for (let i = 0; i < 10; i++) {
+            let childdiv = byID(`divplv${i}`).children[0];
+            let blnLV = (otherLV[i] !== `LV${i}`) ? true : false;
+            if (blnLV) {
+                let day = otherLV[i].substr(0, 3);
+                let strnum = otherLV[i].substr(-2);
+                print(objThis.Data[`${day}Date`], childdiv.children[0].children[0]);
+                print(objThis[day][`${day}LeaveSelect${strnum}`], childdiv.children[1].children[0]);
+                if (strnum === "AD") {
+                    print(`<input id="allday${strnum}" type="checkbox" checked="checked" disabled><label for="allday${strnum}">ALL DAY</label>`, childdiv.children[2]);
+                } else {
+                    print(`<input type="checkbox" id="allday${strnum}" disabled><label for="allday${strnum}">ALL DAY</label>`, childdiv.children[2]);
+                    print(objThis[day][otherLV[i] + "S"] + ' - ' + objThis[day][otherLV[i] + "E"], childdiv.children[3].children[0]);
+                    print(`<u>${objThis[day][otherLV[i]]}</u>`, childdiv.children[4].children[0]);
+                }
+            }
+            if (blnLV) showHide(`divplv${i}`, true);
+        }
+        //********************DIV LEAVE********************//
+        //********************DIV TOTALS********************//
+        print(objThis.Data.TotalRun, byID("divptotalrun").children[0]);
+        print(objThis.Data.TotalOther, byID("divptotalother").children[0]);
+        print(objThis.Data.TotalFT, byID("divptotalft").children[0]);
+        print(objThis.Data.TotalHW, byID("divptotalhw").children[0]);
+        print(objThis.Data.Total1R, byID("divptotal1r").children[0]);
+        print(objThis.Data.TotalS4OJT, byID("divptotals4ojt").children[0]);
+        print(objThis.Data.TotalS4J, byID("divptotals4j").children[0]);
+        print(objThis.Data.TotalS2QL, byID("divptotals2ql").children[0]);
+        print(objThis.Data.TotalC3, byID("divptotalc3").children[0]);
+        print(objThis.Data.TotalC1, byID("divptotalc1").children[0]);
+        //********************DIV TOTALS********************//
+
+    </script>
+</body>
+
+</html>
