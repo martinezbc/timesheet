@@ -18,7 +18,7 @@
         document.write("<link href='css/stylesheet.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
         document.write("<link href='css/color.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
     </script>
-    
+
 </head>
 
 <body>
@@ -32,7 +32,6 @@
                 <div class="dropdown-content hide" id="navdropdown">
                     <div class="row" id="divpreview"><span class="fas fa-check-circle"></span>Preview</div>
                     <div class="row" id="divsupplement"><span class="fas fa-file-alt"></span>Supplement</div>
-                    <div class="row" id="divtutorial"><span class="fas fa-info-circle"></span>Tutorial</div>
                     <div class="row" id="clear"><span class="fas fa-trash"></span>Clear</div>
                 </div>
             </div>
@@ -577,64 +576,6 @@
                 <p>VALIDATION SUCCESSFUL</p>
                 <p style="font-size: 11px">I certify that I have performed school duties on the vehicle with number shown on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendantendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)</p>
                 <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"><button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
-            </div>
-        </div>
-        <!-- The Changes Made Modal -->
-        <div id="changesModal" class="modal hide">
-            <div class="modal-freeze" style="width:90%;">
-                <div class="row bg-gold">
-                    <div class="col-10">
-                        <p class="daily bold">TUTORIAL</p>
-                    </div>
-                    <div class="col-2 right">
-                        <span class="close fas fa-times-circle fa-lg" id="endChanges"></span>
-                    </div>
-                </div>
-                <div class="row" id="slide1">
-                    <div class="col-12 center">
-                        <p class="tutorial-cat">EQUIPMENT/LIFT/ADMIN: In order to enable the equipment/lift button (Q/L) or admin button (J), you must enter in your route number as it is printed on the route sheet.</p>
-                    </div>
-                    <div class="col-12 center">
-                        <img src="img/imgQL.png" class="image" style="border: 1px black solid;" alt="Route equipment example">
-                    </div>
-                </div>
-                <div class="row hide" id="slide2">
-                    <div class="col-12 center">
-                        <p class="tutorial-cat">OTHER WORK DUTY: To add an other work duty, click on Add Other Work and complete the section. To remove the other work duty, click the trash can in the corner.</p>
-                    </div>
-                    <div class="col-12 center">
-                        <img src="img/imgOW1.png" class="img-border image" alt="Other Work example">
-                        <img src="img/imgOW2.png" class="img-border image" alt="Other Work example">
-                        <img src="img/imgOW3.png" class="img-border image" alt="Other Work example">
-                    </div>
-                </div>
-                <div class="row hide" id="slide3">
-                    <div class="col-12 center">
-                        <p class="tutorial-cat">FIELD TRIP: To add a field trip, click on Add Field Trip and complete all fields. To remove the field trip, click the trash can in the corner.</p>
-                    </div>
-                    <div class="col-12 center">
-                        <img src="img/imgFT1.png" class="img-border image" alt="Field trip example">
-                        <img src="img/imgFT2.png" class="img-border image" alt="Field trip example">
-                        <img src="img/imgFT3.png" class="img-border image" alt="Field trip example">
-                    </div>
-                </div>
-                <div class="row hide" id="slide4">
-                    <div class="col-12 center">
-                        <p class="tutorial-cat">LEAVE: To record leave taken, click on Add Leave. Leave type must be selected. <br>Enter time for partial leave or click ALL DAY if leave was taken for the entire day. Click Remove Leave to clear leave for that day.</p>
-                    </div>
-                    <div class="col-12 center">
-                        <img src="img/imgLV1.png" class="img-border image" alt="Leave example">
-                        <img src="img/imgLV2.png" class="img-border image" alt="Leave example">
-                        <img src="img/imgLV3.png" class="img-border image" alt="Leave example">
-                        <img src="img/imgLV4.png" class="img-border image" alt="Leave example">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 center">
-                        <span class="fas fa-arrow-circle-left fa-lg" id="chgLeft" style="color:#00677F" onclick="changeModalSlide('l');"></span>
-                        <span class="fas fa-arrow-circle-right fa-lg" id="chgRight" style="color:#00677F" onclick="changeModalSlide('r')"></span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

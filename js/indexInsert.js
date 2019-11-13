@@ -64,21 +64,24 @@ function insertOW(i) {
         <div class="row"><div class="col-12">
         <select id="Select${i}" class="selectwidth selectOW">
         <option value="">--Select work--</option>
+        <optgroup label="Work Categories">
         <option value="FYI">FYI</option>
         <option value="OTHR">Other</option>
         <option value="GT">Garage trip</option>
         <option value="FUEL">Fuel</option>
-        <option value="RC">Run coverage</option>
+        <option value="RC">Run Coverage</option>
         <option value="Q/L">Q/L Coverage</option>
         <option value="CPR">CPR/First Aid</option>
         <option value="RCRT">Recertification</option>
-        <option value="MTNG">Meeting</option>
+        <option value="MTNG">Meeting (Team, Mentor, etc)</option>
         <option value="TRNG">Training</option>
         <option value="MED">Physical/Drug Test</option>
-        <option value="CS">Cold start team</option>
-        <option value="ES2">2 Hr Delay - Early start</option>
-        <option value="ES0">On Time - Early start</option>
-        <option value="CBK">Call back</option></select></div></div>
+        <option value="CST">Cold Start Team</option>
+        </optgroup><optgroup label="**Require Admin Approval">
+        <option value="ES2">**2 Hr Delay - Early start</option>
+        <option value="ES0">**On Time - Early start</option>
+        <option value="CBK">**Call back</option></select>
+        </optgroup></div></div>
         <div class="row"><div class="col-12">
         <input id="Desc${i}" type="text" class="descwidth owdesc" style="text-align: left;" placeholder="Additional notes..." spellcheck="true" autocorrect="on">
         </div></div>
