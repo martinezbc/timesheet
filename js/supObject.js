@@ -178,12 +178,12 @@ const objNew = {
         SupTime44S: "",
         SupTime44E: "",
         SupTime44: "",
-        SupSatDate: "",
-        SupSunDate: "",
-        SupMonDate: "",
-        SupTueDate: "",
-        SupWedDate: "",
-        SupThuDate: "",
-        SupFriDate: ""
+        SatDate: "",
+        SunDate: "",
+        MonDate: "",
+        TueDate: "",
+        WedDate: "",
+        ThuDate: "",
+        FriDate: ""
     }
 };

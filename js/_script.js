@@ -1,13 +1,8 @@
 let activeID = "";
 
-if (optVal === "") {
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-} else {
-    const days = ["Sup"];
-    const weekdays = ["Sup"];
-}
+const days = (optVal === "") ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["Sup"];
+const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
 /********************EVENT LISTENERS********************/
 
@@ -551,6 +546,56 @@ function loadPrevWeek(week) {
     }
 }
 
+//FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
+function loadRadioSelection() {
+    const key = (optVal === "") ? "Data" : "Sup"
+    const area = objThis[key]["Area"];
+    const team = objThis[key]["Team"];
+    let pos = objThis[key]["Position"];
+    //Load area from local storage and set radio selection
+    for (const areas of docObj("input[name='Area']")) {
+        areas.checked = false;
+    }
+    if (area !== "") byID("area" + area).checked = true;
+
+    loadTeamValues();
+
+    //Load team from local storage and set radio selection. Only if team belongs to selected area
+    for (const teams of docObj('input[name="Team"]')) {
+        teams.checked = false;
+    }
+    if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
+
+    //Load position from local storage and set radio selection
+    for (const positions of docObj('input[name="Position"]')) {
+        positions.checked = false;
+    }
+    if (pos !== "") {
+        pos = pos.replace(" ", "");
+        byID("pos" + pos).checked = true;
+    }
+}
+
+//LOADS TEAM VALUES INTO #Team USING AREA SELECTION
+function loadTeamValues() {
+    "use strict";
+    const key = (optVal === "") ? "Data" : "Sup"
+    const area = objThis[key]["Area"];
+
+    let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
+    for (const div of areadiv) {
+        if ("div" + area === div)
+            showHide(byID(div), true);
+        else
+            showHide(byID(div), false);
+    }
+
+    if (area === "TC") {
+        byID("teamTC").checked = true;
+        objThis.Sup.Team = "TC";
+    }
+}
+
 //CHANGE NAV BAR VALUES DEPENDING ON THE DAY
 function toggleDay(x) {
     "use strict";
@@ -570,32 +615,6 @@ function toggleDay(x) {
     loadOJT();
     loadQL();
     loadJ();
-}
-
-//LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
-function loadOJT() {
-    setDataKeyValue("OJT", byID("OJT").checked);
-    let bln = byID("OJT").checked;
-
-    if (bln) {
-        byID('Trainee').disabled = false;
-        byID('Trainee').style.backgroundColor = "white";
-    } else {
-        byID('Trainee').disabled = true;
-        byID('Trainee').style.backgroundColor = "lightgrey";
-        byID('Trainee').value = ""
-        setObject("Trainee");
-    }
-
-    const chkOJT = docObj(".chkOJT");
-    for (const ojt of chkOJT) {
-        if (ojt.id === "OJT") continue;
-        if (!byID('LeaveAD').checked)
-            ojt.disabled = !bln;
-        else
-            ojt.disabled = true;
-        if (!bln) resetElement(ojt.id);
-    }
 }
 
 //LOAD Q/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
@@ -896,65 +915,6 @@ function getMissingFT() {
     return 35;
 }
 
-//GET ALL DAY LEAVE ON EVENT CLICK
-function checkLeave() {
-    toggleADLeave();
-    getDailyTotals();
-}
-
-//TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
-function toggleADLeave() {
-    let day = getDay();
-    let bln = (byID('LeaveAD').checked) ? true : false;
-    let i = 0;
-
-    showHide(byID('OWAdd'), !bln);
-    showHide(byID('FTAdd'), !bln);
-
-    disableElement('J11', routeCheckJ() ? bln : true);
-    disableElement('QL11', routeCheck() ? bln : true);
-
-    if (bln) {
-        //Clear Other work
-        for (i = 20; i < 30; i += 1)
-            byID(`OWTrash${i}`).click();
-
-        //Clear Field Trips
-        for (i = 30; i < 35; i += 1)
-            byID(`FTTrash${i}`).click();
-    }
-
-    //Clear regular run time
-    for (i = 11; i < 18; i += 1) {
-        disableElement(`Time${i}S`, bln);
-        disableElement(`Time${i}E`, bln);
-        disableElement(`Time${i}`, bln);
-        disableElement(`OJT${i}`, bln);
-    }
-    //Clear partial leave time
-    for (i = 40; i < 42; i += 1) {
-        disableElement(`Time${i}S`, bln);
-        disableElement(`Time${i}E`, bln);
-        disableElement(`Time${i}`, bln);
-        disableElement(`LeaveSelect${i}`, bln);
-    }
-
-    //Clear pupil counts
-    for (i = 1; i < 6; i += 1) {
-        disableElement(`AM${i}Ct`, bln);
-        disableElement(`PM${i}Ct`, bln);
-        if (i < 3) {
-            disableElement(`PS${i}Ct`, bln);
-            disableElement(`SH${i}Ct`, bln);
-            disableElement(`LR${i}Ct`, bln);
-        }
-    }
-    disableElement('TimeA', bln);
-    disableElement('TimeB', bln);
-    disableElement('TimeC', bln);
-    disableElement('TimeD', bln);
-}
-
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
     if (optVal === "") 
@@ -980,80 +940,8 @@ function disableOWFields(refID) {
 
     bln = (refVal === "Q/L") ? true : false;
     byID(`QL${x}`).checked = bln;
-    byID(`QL${x}`).disabled = !bln;
     
-    objThis[day][`${day}QL${x}`] = bln;
-}
-
-//COPY ROUTINE FOR REGULAR WORK HOURS
-function copyRoutine(e) {
-    activeID = e.target.id;
-    if (e.target.id === "AMPupilcopy" || e.target.id === "PMPupilcopy") {
-        let str = runPupilCopyRoutine();
-        openPopUp('<p class="varp">Pupil time copied to the following day(s): ' + str + '.</p>');
-    } else {
-        let str = runCopyRoutine();
-        openPopUp('<p class="varp">Regular work hours copied to the following day(s): ' + str + '.</p>');
-    }
-}
-
-//COPY REGULAR RUN TIME TO OTHER DAYS
-function runCopyRoutine() {
-    showHide(byID("variousModal"), false);
-    let k = 0;
-    let bln = false;
-    let str = "";
-    let i = 0;
-
-    for (i = 1; i < 5; i += 1) {
-        k = (getDay() === days[i]) ? i : 0;
-        if (k === i) break;
-    }
-    const day = getDay();
-    k++;
-    for (k; k < 6; k++) {
-        let day2 = days[k];
-        bln = (objThis[day2][`${day2}LeaveAD`] || objThis[day2][`${day2}Time40`] !== '' || objThis[day2][`${day2}Time41`] !== '') ? true : false;
-        if (bln) continue;
-        for (let j = 11; j < 18; j++) {
-            objThis[day2][`${day2}Time${j}S`] = objThis[day][`${day}Time${j}S`]
-            objThis[day2][`${day2}Time${j}E`] = objThis[day][`${day}Time${j}E`];
-            objThis[day2][`${day2}Time${j}`] = objThis[day][`${day}Time${j}`];
-        }
-        dailyRuns(day2);
-        str += ", " + day2;
-    }
-    getWeeklyTotals();
-    str = (str !== "") ? str.substr(2) : "";
-    return str;
-}
-
-//COPY PUPIL TIME TO OTHER DAYS
-function runPupilCopyRoutine() {
-    showHide(byID("variousModal"), false);
-    let k = 0;
-    let str = "";
-    let i = 0;
-
-    for (i = 1; i < 5; i += 1) {
-        k = (getDay() === days[i]) ? i : 0;
-        if (k === i) break;
-    }
-    const day2 = days[i];
-    k++;
-    for (k; k < 6; k++) {
-        const day = days[k];
-        const bln = (byID('LeaveAD').checked) ? true : false;
-        if (bln) continue;
-        objThis[day][`${day}TimeA`] = objThis[day2][`${day2}TimeA`];
-        objThis[day][`${day}TimeB`] = objThis[day2][`${day2}TimeB`];
-        objThis[day][`${day}TimeC`] = objThis[day2][`${day2}TimeC`];
-        objThis[day][`${day}TimeD`] = objThis[day2][`${day2}TimeD`];
-        str += ", " + day;
-    }
-    setStorage();
-    str = (str !== "") ? str.substr(2) : "";
-    return str;
+    setObject(`QL${x}`);
 }
 
 //CHECK NUMBER OF OTHER WORK ENTRIES, IF MORE THAN 10 THEN GIVE POP UP ERROR MESSAGE
@@ -1105,3 +993,68 @@ function setDataKeyValue(key, value) {
         objThis.Sup[key] = value;
 }
 /********************CALCULATIONS********************/
+
+//STORE SELECTION FROM FIELD TRIP MODAL
+function storeFTVal() {
+    const day = getDay();
+    let ftText = "";
+    let ftselect = byID('ftselector').value;
+    if (ftselect !== null && ftselect !== "")
+        ftText = byID('ftselector').value;
+    else
+        ftText = byID('fttype').value;
+
+    ftText = ftText.substr(0, 30);
+    byID(activeID).value = ftText;
+    objThis[day][`${day}${activeID}`] = ftText;
+    showHide(byID('ftModal'), false);
+    setStorage();
+}
+
+//RESET VALUE OF ELEMENT
+function resetElement(refID) {
+    const day = getDay();
+    const e = byID(refID);
+    if (e.type === "checkbox") {
+        objThis[day][`${day}${refID}`] = false;
+        e.checked = false;
+    } else {
+        objThis[day][`${day}${refID}`] = "";
+        e.value = "";
+    }
+}
+
+//SET RADIO SELECTION
+function storeRadioValue(e) {
+    let parent = e.parentNode.id;
+    if (parent !== 'divarea' && parent !== 'divposition') {
+        parent = e.parentNode.parentNode.id;
+    }
+    parent = parent.replace('div', '');
+    parent = properCase(parent);
+
+    const key = (optVal === "") ? "Data" : "Sup";
+    objThis[key][parent] = e.value;
+    getWeeklyTotals();
+    setStorage();
+}
+
+//SET ELEMENT VALUE INTO OBJECTS
+function setObject(refID) {
+    if (refID === 'WeekOf') return;
+    const day = getDay();
+    const e = byID(refID);
+    const key = (optVal === "") ? "Data" : "Sup";
+
+    if (e.classList.contains("data")) {
+        objThis[key][refID] = e.value;
+    } else if (refID === "OJT") {
+        objThis[key][refID] = (e.checked) ? true : false; 
+    } else if (e.type === 'checkbox') {
+        objThis[day][`${day}${refID}`] = (e.checked) ? true : false;
+    } else {
+        objThis[day][`${day}${refID}`] = e.value;
+    }
+    getDailyTotals();
+    setStorage();
+}

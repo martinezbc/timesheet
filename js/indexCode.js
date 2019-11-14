@@ -10,35 +10,6 @@ function setStorage() {
     let week = byID('WeekOf').value;
     localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
 }
-//SET ELEMENT VALUE INTO OBJECTS
-function setObject(refID) {
-    if (refID === 'WeekOf') return;
-    const day = getDay();
-    const e = byID(refID);
-
-    if (e.classList.contains("data")) {
-        objThis.Data[refID] = e.value;
-    } else if (e.type === 'checkbox') {
-        objThis[day][`${day}${refID}`] = (e.checked) ? true : false;
-    } else {
-        objThis[day][`${day}${refID}`] = e.value;
-    }
-    getDailyTotals();
-    setStorage();
-}
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    let parent = e.parentNode.id;
-    if (parent !== 'divarea' && parent !== 'divposition') {
-        parent = e.parentNode.parentNode.id;
-    }
-    parent = parent.replace('div', '');
-    parent = properCase(parent);
-
-    objThis.Data[parent] = e.value;
-    getWeeklyTotals();
-    setStorage();
-}
 
 //UPDATE THE WAY THE ROUTE NAME LOOKS
 function routeNameTransform(refID) {
@@ -149,36 +120,6 @@ function routeNameTransform(refID) {
     byID(refID).value = (refVal === "-") ? "" : refVal;
 }
 
-//STORE SELECTION FROM FIELD TRIP MODAL
-function storeFTVal() {
-    const day = getDay();
-    let ftText = "";
-    let ftselect = byID('ftselector').value;
-    if (ftselect !== null && ftselect !== "")
-        ftText = byID('ftselector').value;
-    else
-        ftText = byID('fttype').value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    objThis[day][`${day}${activeID}`] = ftText;
-    showHide(byID('ftModal'), false);
-    setStorage();
-}
-
-//RESET VALUE OF ELEMENT
-function resetElement(refID) {
-    const day = getDay();
-    const e = byID(refID);
-    if (e.type === "checkbox") {
-        objThis[day][`${day}${refID}`] = false;
-        e.checked = false;
-    } else {
-        objThis[day][`${day}${refID}`] = "";
-        e.value = "";
-    }
-}
-
 //CLEAR TIME FIELDS
 function clearTimeField(e) {
     const day = getDay();
@@ -278,6 +219,32 @@ function loadLocalStorage(day) {
     }
 }
 
+//LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
+function loadOJT() {
+    setDataKeyValue("OJT", byID("OJT").checked);
+    let bln = byID("OJT").checked;
+
+    if (bln) {
+        byID('Trainee').disabled = false;
+        byID('Trainee').style.backgroundColor = "white";
+    } else {
+        byID('Trainee').disabled = true;
+        byID('Trainee').style.backgroundColor = "lightgrey";
+        byID('Trainee').value = ""
+        setObject("Trainee");
+    }
+
+    const chkOJT = docObj(".chkOJT");
+    for (const ojt of chkOJT) {
+        if (ojt.id === "OJT") continue;
+        if (!byID('LeaveAD').checked)
+            ojt.disabled = !bln;
+        else
+            ojt.disabled = true;
+        if (!bln) resetElement(ojt.id);
+    }
+}
+
 function showHideWeekend(day) {
     const blnWeekend = (day === "Sat" || day === "Sun") ? true : false;
     showHide(byID('divLVAdd'), !blnWeekend);
@@ -335,55 +302,6 @@ function storeWeekDays(week) {
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
         objThis.Data[`${days[i]}Date`] = sm + "/" + sd;
-    }
-}
-
-
-//FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
-function loadRadioSelection() {
-    const area = objThis.Data.Area;
-    const team = objThis.Data.Team;
-    let pos = objThis.Data.Position;
-    //Load area from local storage and set radio selection
-    for (const areas of docObj("input[name='Area']")) {
-        areas.checked = false;
-    }
-    if (area !== "") byID("area" + area).checked = true;
-
-    loadTeamValues();
-
-    //Load team from local storage and set radio selection. Only if team belongs to selected area
-    for (const teams of docObj('input[name="Team"]')) {
-        teams.checked = false;
-    }
-    if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
-
-    //Load position from local storage and set radio selection
-    for (const positions of docObj('input[name="Position"]')) {
-        positions.checked = false;
-    }
-    if (pos !== "") {
-        pos = pos.replace(" ", "");
-        byID("pos" + pos).checked = true;
-    }
-}
-
-//LOADS TEAM VALUES INTO #Team USING AREA SELECTION
-function loadTeamValues() {
-    "use strict";
-    const area = objThis.Data.Area;
-
-    let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
-    for (const div of areadiv) {
-        if ("div" + area === div)
-            showHide(byID(div), true);
-        else
-            showHide(byID(div), false);
-    }
-
-    if (area === "TC") {
-        byID("teamTC").checked = true;
-        objThis.Data.Team = "TC";
     }
 }
 
@@ -690,4 +608,200 @@ function testTimeComplete() {
         }
     }
     return val;
+}
+
+//COPY ROUTINE FOR REGULAR WORK HOURS
+function copyRoutine(e) {
+    activeID = e.target.id;
+    if (e.target.id === "AMPupilcopy" || e.target.id === "PMPupilcopy") {
+        let str = runPupilCopyRoutine();
+        openPopUp('<p class="varp">Pupil time copied to the following day(s): ' + str + '.</p>');
+    } else {
+        let str = runCopyRoutine();
+        openPopUp('<p class="varp">Regular work hours copied to the following day(s): ' + str + '.</p>');
+    }
+}
+
+//COPY REGULAR RUN TIME TO OTHER DAYS
+function runCopyRoutine() {
+    showHide(byID("variousModal"), false);
+    let k = 0;
+    let bln = false;
+    let str = "";
+    let i = 0;
+
+    for (i = 1; i < 5; i += 1) {
+        k = (getDay() === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+    const day = getDay();
+    k++;
+    for (k; k < 6; k++) {
+        let day2 = days[k];
+        bln = (objThis[day2][`${day2}LeaveAD`] || objThis[day2][`${day2}Time40`] !== '' || objThis[day2][`${day2}Time41`] !== '') ? true : false;
+        if (bln) continue;
+        for (let j = 11; j < 18; j++) {
+            objThis[day2][`${day2}Time${j}S`] = objThis[day][`${day}Time${j}S`]
+            objThis[day2][`${day2}Time${j}E`] = objThis[day][`${day}Time${j}E`];
+            objThis[day2][`${day2}Time${j}`] = objThis[day][`${day}Time${j}`];
+        }
+        dailyRuns(day2);
+        str += ", " + day2;
+    }
+    getWeeklyTotals();
+    str = (str !== "") ? str.substr(2) : "";
+    return str;
+}
+
+//COPY PUPIL TIME TO OTHER DAYS
+function runPupilCopyRoutine() {
+    showHide(byID("variousModal"), false);
+    let k = 0;
+    let str = "";
+    let i = 0;
+
+    for (i = 1; i < 5; i += 1) {
+        k = (getDay() === days[i]) ? i : 0;
+        if (k === i) break;
+    }
+    const day2 = days[i];
+    k++;
+    for (k; k < 6; k++) {
+        const day = days[k];
+        const bln = (byID('LeaveAD').checked) ? true : false;
+        if (bln) continue;
+        objThis[day][`${day}TimeA`] = objThis[day2][`${day2}TimeA`];
+        objThis[day][`${day}TimeB`] = objThis[day2][`${day2}TimeB`];
+        objThis[day][`${day}TimeC`] = objThis[day2][`${day2}TimeC`];
+        objThis[day][`${day}TimeD`] = objThis[day2][`${day2}TimeD`];
+        str += ", " + day;
+    }
+    setStorage();
+    str = (str !== "") ? str.substr(2) : "";
+    return str;
+}
+
+//CHECK FOR OVERLAPPING TIME VALUES
+function checkOverlap(refID) {
+    "use strict";
+
+    //Define variables
+    let bln = false;
+    let newStart;
+    let newEnd;
+
+    //If element has no value then return
+    if (byID(refID).value === "")
+        return;
+
+    //Initialize variables
+    let thisStart = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "S").value);
+    let thisEnd = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "E").value);
+    if (thisStart === thisEnd) {
+        openPopUp("<p>Start time cannot match end time.</p>");
+        byID(refID).value = "";
+        return;
+    }
+    let numVal = Number(refID.substr(-3, 2));
+    let day = getDay();
+
+    let max = (day === "Sat" || day === "Sun") ? 33 : 42;
+    let i = (day === "Sat" || day === "Sun") ? 20 : 11;
+
+    for (i; i < max; i += 1) {
+        if ((day === "Sat" || day === "Sun") && i > 22 && i < 30) continue;
+        if ((day === "Sat" || day === "Sun") && i > 32 && i < 35) continue;
+        if (i === 18 || i === 19) continue;
+        if (i > 34 && i < 40) continue;
+        if (i === numVal) continue;
+
+        //Initialize newStart and newEnd
+        newStart = convertToMinutes(byID(`Time${i}S`).value);
+        //If newStart is blank then move to next i
+        if (newStart === 0) continue;
+
+        newEnd = convertToMinutes(byID(`Time${i}E`).value);
+        if (newEnd === 0) continue;
+        if (newStart > 900 && newEnd < 120) newEnd += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
+
+        if (newStart === thisStart) {
+            bln = true;
+        } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
+            bln = true;
+        } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
+            bln = true;
+        } else if (thisStart === newStart) {
+            bln = true;
+        } else if (thisEnd === newEnd) {
+            bln = true;
+        } else if (thisStart < newStart && thisEnd > newEnd) {
+            bln = true;
+        }
+        if (bln) break;
+    }
+
+    //If bln is true then there is an overlap
+    if (bln) {
+        openPopUp("<p>Overlap error</p>");
+        byID(refID).value = "";
+    }
+}
+
+//GET ALL DAY LEAVE ON EVENT CLICK
+function checkLeave() {
+    toggleADLeave();
+    getDailyTotals();
+}
+
+//TOGGLE LEAVE AND ELEMENTS FOR ALL DAY LEAVE
+function toggleADLeave() {
+    let day = getDay();
+    let bln = (byID('LeaveAD').checked) ? true : false;
+    let i = 0;
+
+    showHide(byID('OWAdd'), !bln);
+    showHide(byID('FTAdd'), !bln);
+
+    disableElement('J11', routeCheckJ() ? bln : true);
+    disableElement('QL11', routeCheck() ? bln : true);
+
+    if (bln) {
+        //Clear Other work
+        for (i = 20; i < 30; i += 1)
+            byID(`OWTrash${i}`).click();
+
+        //Clear Field Trips
+        for (i = 30; i < 35; i += 1)
+            byID(`FTTrash${i}`).click();
+    }
+
+    //Clear regular run time
+    for (i = 11; i < 18; i += 1) {
+        disableElement(`Time${i}S`, bln);
+        disableElement(`Time${i}E`, bln);
+        disableElement(`Time${i}`, bln);
+        disableElement(`OJT${i}`, bln);
+    }
+    //Clear partial leave time
+    for (i = 40; i < 42; i += 1) {
+        disableElement(`Time${i}S`, bln);
+        disableElement(`Time${i}E`, bln);
+        disableElement(`Time${i}`, bln);
+        disableElement(`LeaveSelect${i}`, bln);
+    }
+
+    //Clear pupil counts
+    for (i = 1; i < 6; i += 1) {
+        disableElement(`AM${i}Ct`, bln);
+        disableElement(`PM${i}Ct`, bln);
+        if (i < 3) {
+            disableElement(`PS${i}Ct`, bln);
+            disableElement(`SH${i}Ct`, bln);
+            disableElement(`LR${i}Ct`, bln);
+        }
+    }
+    disableElement('TimeA', bln);
+    disableElement('TimeB', bln);
+    disableElement('TimeC', bln);
+    disableElement('TimeD', bln);
 }

@@ -3,59 +3,6 @@ function setStorage() {
     let week = byID('WeekOf').value;
     localStorage.setItem(`${week}ObjS`, JSON.stringify(objThis));
 }
-//SET ELEMENT VALUE INTO OBJECTS
-function setObject(refID) {
-    if (refID === 'WeekOf') return;
-    const e = byID(refID);
-
-    if (e.type === 'checkbox') {
-        objThis[refID] = (e.checked) ? true : false;
-    } else {
-        objThis[refID] = e.value;
-    }
-    setStorage();
-}
-//SET RADIO SELECTION
-function storeRadioValue(e) {
-    let parent = e.parentNode.id;
-    if (parent !== 'divarea' && parent !== 'divposition') {
-        parent = e.parentNode.parentNode.id;
-    }
-    parent = parent.replace('div', '');
-    parent = properCase(parent);
-
-    objThis[parent] = e.value;
-    getWeeklyTotals();
-    setStorage();
-}
-
-//STORE SELECTION FROM FIELD TRIP MODAL
-function storeFTVal() {
-    let ftText = "";
-    let ftselect = byID('ftselector').value;
-    if (ftselect !== null && ftselect !== "")
-        ftText = byID('ftselector').value;
-    else
-        ftText = byID('fttype').value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    objThis[activeID] = ftText;
-    showHide(byID('ftModal'), false);
-    setStorage();
-}
-
-//RESET VALUE OF ELEMENT
-function resetElement(refID) {
-    const e = byID(refID);
-    if (e.type === "checkbox") {
-        objThis[refID] = false;
-        e.checked = false;
-    } else {
-        objThis[refID] = "";
-        e.value = "";
-    }
-}
 
 let objThis = localStorage.getItem(`${byID("WeekOf").value}ObjS`);
 
@@ -63,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const readOnly = docObj('[data-disable-touch-keyboard]');
     Array.from(readOnly).forEach((e) => {
         e.readOnly = true;
+    });
+    arrEach(docObj(".chkADLV"), 'click', (e) => {
+        checkADLeave(e);
     });
 
     if (localStorage.getItem("WeekOfS") !== null) {
@@ -84,18 +34,21 @@ function initialLoad() {
     updateWeekAll();
     loadLocalStorage();
     loadRadioSelection();
+    loadOJT();
+    toggleOWFT();
+    toggleSupLeave();
 }
 
 function updateWeekAll() {    
     let strHTML = 
                 `<option value="">Select Date...</option>
-                <option value="${objThis.SatDate}">${objThis.SatDate}</option>
-                <option value="${objThis.SunDate}">${objThis.SunDate}</option>
-                <option value="${objThis.MonDate}">${objThis.MonDate}</option>
-                <option value="${objThis.TueDate}">${objThis.TueDate}</option>
-                <option value="${objThis.WedDate}">${objThis.WedDate}</option>
-                <option value="${objThis.ThuDate}">${objThis.ThuDate}</option>
-                <option value="${objThis.FriDate}">${objThis.FriDate}</option>`;
+                <option value="${objThis.Sup.SatDate}">${objThis.Sup.SatDate}</option>
+                <option value="${objThis.Sup.SunDate}">${objThis.Sup.SunDate}</option>
+                <option value="${objThis.Sup.MonDate}">${objThis.Sup.MonDate}</option>
+                <option value="${objThis.Sup.TueDate}">${objThis.Sup.TueDate}</option>
+                <option value="${objThis.Sup.WedDate}">${objThis.Sup.WedDate}</option>
+                <option value="${objThis.Sup.ThuDate}">${objThis.Sup.ThuDate}</option>
+                <option value="${objThis.Sup.FriDate}">${objThis.Sup.FriDate}</option>`;
 
     for (let i = 20; i < 45; i++) {
         i = (i === 35) ? 40 : i;
@@ -104,10 +57,10 @@ function updateWeekAll() {
 }
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
 function loadLocalStorage() {
-    let entries = Object.entries(objThis);
+    let entries = Object.entries(objThis.Sup);
     for (const [key, value] of entries) {
         if (key === "Area" || key === "Team" || key === "Position" || key === "Total1R") continue;
-        const e = byID(key);
+        const e = byID(key.replace("Sup",""));
         if (e === null) continue;
         if (e.type === 'checkbox') {
             e.checked = value;
@@ -115,22 +68,6 @@ function loadLocalStorage() {
             e.value = value;
         }
     }
-}
-
-//STORE SELECTION FROM FIELD TRIP MODAL
-function storeFTVal() {
-    let ftText = "";
-    let ftselect = byID('ftselector').value;
-    if (ftselect !== null && ftselect !== "")
-        ftText = byID('ftselector').value;
-    else
-        ftText = byID('fttype').value;
-
-    ftText = ftText.substr(0, 30);
-    byID(activeID).value = ftText;
-    objThis[activeID] = ftText;
-    showHide(byID('ftModal'), false);
-    setStorage();
 }
 
 //GET DAY FROM LOCAL STORAGE OR CREATE A NEW WEEK IN LOCAL STORAGE
@@ -141,20 +78,11 @@ function storeWeek() {
 
         storeWeekDays(week);
 
-        objThis.WeekOf = byID("WeekOf").value;
+        objThis.Sup.WeekOf = byID("WeekOf").value;
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}ObjS`));
         storeWeekDays(week);
-    }
-
-    if (objThis.AreaS !== null) { //Add this bit to ensure the old object format is cleared from local storage
-        localStorage.removeItem(`${week}ObjS`);
-        objThis = objNew;
-        storeWeekDays(week);
-
-        objThis.WeekOf = byID("WeekOf").value;
-        setStorage();
     }
 }
 
@@ -165,72 +93,28 @@ function storeWeekDays(week) {
 
     let satDate = new Date(startDate);
 
-    objThis.SatDate = startDate.substr(0, 5);
-    objThis.FriDate = endDate.substr(0, 5);
-
-    for (let i = 4; i >= 0; i--) {
-        let newDay = addDate(satDate, i + 1);
-        let sm = newDay.getMonth() + 1;
-        let sd = newDay.getDate();
-        sm = (sm.toString().length === 1) ? "0" + sm : sm;
-        sd = (sd.toString().length === 1) ? "0" + sd : sd;
-        objThis[`${days[i]}Date`] = sm + "/" + sd;
-    }
+    objThis.Sup.SatDate = startDate.substr(0, 5);
+    objThis.Sup.FriDate = endDate.substr(0, 5);
+    objThis.Sup.SunDate = createDate(satDate, 0)
+    objThis.Sup.MonDate = createDate(satDate, 1)
+    objThis.Sup.TueDate = createDate(satDate, 2)
+    objThis.Sup.WedDate = createDate(satDate, 3)
+    objThis.Sup.ThuDate = createDate(satDate, 4)    
 }
 
-
-//FIND STORED VALUE FOR AREA, TEAM, POSITION, WEEKOF AND LOAD INTO RADIO SELECTION
-function loadRadioSelection() {
-    const area = objThis.Area;
-    const team = objThis.Team;
-    let pos = objThis.Position;
-    //Load area from local storage and set radio selection
-    for (const areas of docObj("input[name='Area']")) {
-        areas.checked = false;
-    }
-    if (area !== "") byID("area" + area).checked = true;
-
-    loadTeamValues();
-
-    //Load team from local storage and set radio selection. Only if team belongs to selected area
-    for (const teams of docObj('input[name="Team"]')) {
-        teams.checked = false;
-    }
-    if (team !== "" && (team.substr(0, 1) === area || area === '7')) byID("team" + team).checked = true;
-
-    //Load position from local storage and set radio selection
-    for (const positions of docObj('input[name="Position"]')) {
-        positions.checked = false;
-    }
-    if (pos !== "") {
-        pos = pos.replace(" ", "");
-        byID("pos" + pos).checked = true;
-    }
-}
-
-//LOADS TEAM VALUES INTO #Team USING AREA SELECTION
-function loadTeamValues() {
-    "use strict";
-    const area = objThis.Area;
-
-    let areadiv = ["div1", "div2", "div3", "div4", "div7", "divTC"];
-    for (const div of areadiv) {
-        if ("div" + area === div)
-            showHide(byID(div), true);
-        else
-            showHide(byID(div), false);
-    }
-
-    if (area === "TC") {
-        byID("teamTC").checked = true;
-        objThis.Team = "TC";
-    }
+function createDate(satDate, i) {
+    let newDay = addDate(satDate, i + 1);
+    let sm = newDay.getMonth() + 1;
+    let sd = newDay.getDate();
+    sm = (sm.toString().length === 1) ? "0" + sm : sm;
+    sd = (sd.toString().length === 1) ? "0" + sd : sd;
+    return sm + "/" + sd;
 }
 
 //LOAD OJT AND TRAINEE DATA; DISABLE/ENABLE ALL OTHER OJT CHECKBOXES
 function loadOJT() {
-    objThis.OJT = byID("OJT").checked;
-    let bln = objThis.OJT;
+    objThis.Sup.OJT = byID("OJT").checked;
+    let bln = objThis.Sup.OJT;
 
     if (bln) {
         disableElement('Trainee', false);
@@ -245,12 +129,6 @@ function loadOJT() {
         ojt.disabled = !bln;
         if (!bln) resetElement(ojt.id);
     }
-}
-
-//SET AREA SELECTION AND THEN LOAD TEAM RADIO SELECTIONS
-function radioAreaSelect(e) {
-    objThis.Team = "";
-    loadTeamValues();
 }
 
 //TOGGLE OTHER WORK FIELDS
@@ -351,39 +229,26 @@ function checkOverlap(refID) {
     }
 }
 
-
-
-//CALCULATE CALLBACK TIME
-function sumCPay() {
-    "use strict";
-    let c1 = 0;
-    let c3 = 0;
-    let sum = 0;
-    let selectVal;
-
-        for (let j = 20; j < 30; j++) {
-            selectVal = objThis[`Select${j}`];
-            c1 += (selectVal === "CBK") ? 240 : 0;
-            c3 += (selectVal === "ES0") ? convertToMinutes(objThis[`Time${j}`]) : 0;
-            c3 += (selectVal === "ES2") ? convertToMinutes(objThis[`Time${j}`]) + 120 : 0;
-            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(objThis[`Time${j}`]) : 0;
-        }
-
-    c1 = (c1 === 0) ? "" : convertTotal(c1);
-    objThis.TotalC1 = c1;
-    byID("TotalC1").value = c1;
-
-    sum = convertTotal(sum);
-    objThis.TotalHW = sum;
-    byID("TotalHW").value = sum;
-
-    c3 = (c3 === 0) ? "" : convertTotal(c3);
-    objThis.TotalC3 = c3;
-    byID("TotalC3").value = c3;
-}
-
 //CLEAR TIME FIELDS
 function clearTimeField(e) {
     resetTime(e.target.id.substr(-2));
     getWeeklyTotals();
+}
+
+//TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
+function toggleSupLeave() {
+    for (let i = 40; i < 45; i++) {
+        let bln = (objThis.Sup[`SupLeaveAD${i}`] || objThis.Sup[`SupTime${i}`] !== "") ? true : false;
+
+        showHide(byID(`LVDiv${i}`), bln);
+    }
+}
+
+function checkADLeave(e) {
+    const refID = e.target.id;
+    let num = refID.substr(-2);
+    
+    const bln = e.checked;
+    
+    byID(`SupTime${num}`)
 }

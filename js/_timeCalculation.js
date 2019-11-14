@@ -38,72 +38,6 @@ function timeCalculation(refID) {
     setObject(refID);
 }
 
-//CHECK FOR OVERLAPPING TIME VALUES
-function checkOverlap(refID) {
-    "use strict";
-
-    //Define variables
-    let bln = false;
-    let newStart;
-    let newEnd;
-
-    //If element has no value then return
-    if (byID(refID).value === "")
-        return;
-
-    //Initialize variables
-    let thisStart = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "S").value);
-    let thisEnd = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "E").value);
-    if (thisStart === thisEnd) {
-        openPopUp("<p>Start time cannot match end time.</p>");
-        byID(refID).value = "";
-        return;
-    }
-    let numVal = Number(refID.substr(-3, 2));
-    let day = getDay();
-
-    let max = (day === "Sat" || day === "Sun") ? 33 : 42;
-    let i = (day === "Sat" || day === "Sun") ? 20 : 11;
-
-    for (i; i < max; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i > 22 && i < 30) continue;
-        if ((day === "Sat" || day === "Sun") && i > 32 && i < 35) continue;
-        if (i === 18 || i === 19) continue;
-        if (i > 34 && i < 40) continue;
-        if (i === numVal) continue;
-
-        //Initialize newStart and newEnd
-        newStart = convertToMinutes(byID(`Time${i}S`).value);
-        //If newStart is blank then move to next i
-        if (newStart === 0) continue;
-
-        newEnd = convertToMinutes(byID(`Time${i}E`).value);
-        if (newEnd === 0) continue;
-        if (newStart > 900 && newEnd < 120) newEnd += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
-
-        if (newStart === thisStart) {
-            bln = true;
-        } else if (thisStart > 0 && thisStart > newStart && thisStart < newEnd) {
-            bln = true;
-        } else if (thisEnd > 0 && thisEnd > newStart && thisEnd < newEnd) {
-            bln = true;
-        } else if (thisStart === newStart) {
-            bln = true;
-        } else if (thisEnd === newEnd) {
-            bln = true;
-        } else if (thisStart < newStart && thisEnd > newEnd) {
-            bln = true;
-        }
-        if (bln) break;
-    }
-
-    //If bln is true then there is an overlap
-    if (bln) {
-        openPopUp("<p>Overlap error</p>");
-        byID(refID).value = "";
-    }
-}
-
 //CALCULATE DIFFERENCE BETWEEN START AND END TIME
 function calculateDiff(refID) {
     "use strict";
@@ -216,9 +150,9 @@ function calculateOtherTime(day) {
 
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;
-        selectVal = (optVal === "") ? objThis[day][`Select${i}`] : objThis[`Select${i}`];
+        selectVal = objThis[day][`${day}Select${i}`];
         if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-        sum += (optVal === "") ? convertToMinutes(objThis[day][`Time${i}`]) : convertToMinutes(objThis[`Time${i}`]);
+        sum += convertToMinutes(objThis[day][`${day}Time${i}`]);
     }
     return sum;
 }
@@ -228,7 +162,7 @@ function calculateFieldTrip(day) {
 
     for (let j = 30; j < 35; j += 1) {
         if ((day === "Sat" || day === "Sun") && j === 33) break;
-        sum += (optVal === "") ? Number(objThis[day][`${day}Time${j}`]) : Number(objThis[`Time${j}`]);
+        sum += Number(objThis[day][`${day}Time${j}`]);
     }
     return sum;
 }
@@ -236,11 +170,11 @@ function calculateFieldTrip(day) {
 function calculateEquipment() {
     let sum = 0;
 
-    for (const day of weekdays) {
-        if (objThis[day][`${day}QL11`]) {
-            for (let i = 11; i < 18; i++) {
-                sum += (optVal === "") ? convertToMinutes(objThis[day][`${day}Time${i}`]) : convertToMinutes(objThis[`${day}Time${i}`]);
-            }
+    for (const day of days) {
+        
+        for (let i = 11; i < 18; i++) {
+            if (day === "Sat" || day === "Sun" || day === "Sup") continue;
+            sum += (objThis[day][`${day}QL11`]) ? convertToMinutes(objThis[day][`${day}Time${i}`]) : 0;
         }
 
         for (let j = 20; j < 30; j++) {
@@ -258,11 +192,30 @@ function calculateEquipment() {
 
 function calculateAdmin() {
     let sum = 0;
-    for (const day of weekdays) {
-        if (objThis[day][`${day}J11`]) {
-            for (let i = 11; i < 18; i++) {
-                sum += convertToMinutes(objThis[day][`${day}Time${i}`]);
-            }
+    for (const day of days) {
+        
+        for (let i = 11; i < 18; i++) {
+            if (day === "Sat" || day === "Sun" || day === "Sup") continue;
+            sum += (objThis[day][`${day}J11`]) ? convertToMinutes(objThis[day][`${day}Time${i}`]) : 0;
+        }
+    }
+    return sum;
+}
+
+function calculateOJT() {
+    let sum = 0;
+    for (const day of days) {
+        for (let j = 11; j < 18; j++) {
+            if (day === "Sat" || day === "Sun" || day === "Sup") continue;
+            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+        }
+
+        for (let j = 20; j < 30; j++) {
+            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+        }
+
+        for (let j = 30; j < 35; j++) {
+            sum += (objThis[day][`${day}OJT${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
         }
     }
     return sum;
@@ -278,12 +231,14 @@ function getWeeklyTotals() {
     sumCPay();
 
     //CALCULATE RUN TIME
-    for (const day of weekdays)
-            sum += calculateRunTime(day);
+    if (optVal === "") {
+        for (const day of weekdays)
+                sum += calculateRunTime(day);
+    }
 
     sum = calculateTotal(sum);
     setDataKeyValue("TotalRun", sum);
-    byID("TotalRun").value = sum;
+    if (optVal === "") byID("TotalRun").value = sum;
 
     //CALCULATE OTHER WORK
     sum = 0;
@@ -344,19 +299,7 @@ function getWeeklyTotals() {
         return;
     }
 
-    for (const day of weekdays) {
-        for (let j = 11; j < 18; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-
-        for (let j = 20; j < 30; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-        }
-
-        for (let j = 30; j < 35; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
-        }
-    }
+    sum = calculateOJT();
     sum = convertTotal(sum);
     setDataKeyValue("TotalS4OJT", sum);
     byID("TotalS4OJT").value = sum;
@@ -380,16 +323,18 @@ function sumCPay() {
             sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
         }
     }
+    
+    const key = (optVal === "") ? "Data" : "Sup";
 
     c1 = (c1 === 0) ? "" : convertTotal(c1);
-    objThis.Data.TotalC1 = c1;
+    objThis[key]["TotalC1"] = c1;
     byID("TotalC1").value = c1;
 
     sum = convertTotal(sum);
-    objThis.Data.TotalHW = sum;
+    objThis[key]["TotalHW"] = sum;
     byID("TotalHW").value = sum;
 
     c3 = (c3 === 0) ? "" : convertTotal(c3);
-    objThis.Data.TotalC3 = c3;
+    objThis[key]["TotalC3"] = c3;
     byID("TotalC3").value = c3;
 }
