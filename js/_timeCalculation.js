@@ -53,7 +53,7 @@ function calculateDiff(refID) {
     let totalID = refID.substr(0, refID.length - 1);
 
     //If end time is less than start time then pop up error message
-    if (startTime > 900 && endTime < 120) endTime += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
+    if (startTime > 900 && (endTime < 120 && endTime !== 0)) endTime += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
     if ((endTime < startTime) && (endTime !== 0)) {
         openPopUp("<p>End time is less than start time</p>");
         byID(refID).value = "";

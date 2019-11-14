@@ -592,7 +592,7 @@ function loadTeamValues() {
 
     if (area === "TC") {
         byID("teamTC").checked = true;
-        objThis.Sup.Team = "TC";
+        objThis[key]["Team"] = "TC";
     }
 }
 
@@ -619,22 +619,24 @@ function toggleDay(x) {
 
 //LOAD Q/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
 function loadQL() {
-    let bln = routeCheck();
-    let val = "";
-    const day = getDay();
+    if (optVal === "") {
+        let bln = routeCheck();
+        let val = "";
+        const day = getDay();
 
-    let eql = docObj(".chkQL");
-    if (!byID('LeaveAD').checked) {
-        byID('QL11').disabled = !bln;
-    } else {
-        byID('QL11').disabled = true;
-    }
+        let eql = docObj(".chkQL");
+        if (!byID('LeaveAD').checked) {
+            byID('QL11').disabled = !bln;
+        } else {
+            byID('QL11').disabled = true;
+        }
 
-    if (!bln) resetElement('QL11');
+        if (!bln) resetElement('QL11');
 
-    for (let j = 20; j < 30; j++) {
-        if ((day === "Sat" || day === "Sun") && j > 22) continue;
-        disableOWFields(`Select${j}`);
+        for (let j = 20; j < 30; j++) {
+            if ((day === "Sat" || day === "Sun") && j > 22) continue;
+            disableOWFields(`Select${j}`);
+        }
     }
 }
 
@@ -652,9 +654,11 @@ function loadJ() {
 //IF Q/L 11-17 IS CHECKED, THEN CHECK ALL OF THEM
 function toggleQLReg(e) {
     let bln = (e.checked) ? true : false;
-
-    byID('QL11').checked = bln;
-    setObject('QL11');
+    let num = e.id.substr(-2);
+    if (num < 18) {
+        byID('QL11').checked = bln;
+        setObject('QL11');
+    }
     loadQL();
 }
 
@@ -1057,4 +1061,31 @@ function setObject(refID) {
     }
     getDailyTotals();
     setStorage();
+}
+
+function completeTimesheet() {
+    showHide(byID("navdropdown"), false);
+    if (byID("WeekOf").value === "") return;
+    let bln = runValidations();
+    if (!bln)
+        return;
+
+    showHide(byID("validateModal"), true);
+    byID("validateModal").focus();
+}
+
+function runValidations() {
+    let val = "";
+
+    val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
+    if (optVal === "" && objThis.Data.Area !== "TC") {
+        val += testStopCounts();
+    }
+
+    if (val !== "") {
+        openPopUp(val);
+        return false;
+    } else {
+        return true;
+    }
 }
