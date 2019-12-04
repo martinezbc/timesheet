@@ -37,6 +37,7 @@ function initialLoad() {
     loadOJT();
     toggleOWFT();
     toggleSupLeave();
+    getWeeklyTotals();
 }
 
 function updateWeekAll() {
@@ -136,6 +137,7 @@ function addLeave(e) {
     let countLV = getMissingLV();
     if (countLV === 45) return;
     showHide(byID(`LVDiv${countLV}`), true);
+    byID(`Time${countLV}`).value = convertTotal(calculateDiff("Sup", countLV));
 }
 
 function getMissingLV() {
@@ -242,7 +244,7 @@ function toggleSupLeave() {
         if (bln)
             toggleADLeave(bln, i);
         else
-            bln = (objThis.Sup[`SupTime${i}`] !== "") ? true : false;
+            bln = (objThis.Sup[`SupTime${i}S`] !== "") ? true : false;
 
         showHide(byID(`LVDiv${i}`), bln);
     }
@@ -273,7 +275,7 @@ function openTimesheet() {
     emp = byID("EmpInitials").value;
     emp = emp.toUpperCase();
     objThis.Sup.EmpInitials = emp;
-    setStorage();
+    setObject("EmpInitials");
 
     showHide(byID("validateModal"), false);
     if (emp !== "") {
@@ -313,7 +315,7 @@ function testFieldTrip() {
 
     //Check field trips
     for (let j = 30; j < 35; j++) {
-        blnTime = (objThis.Sup[`SupTime${j}`] !== "") ? true : false;
+        blnTime = (objThis.Sup[`SupTime${j}S`] !== "") ? true : false;
         if (blnTime && (objThis.Sup[`SupVoucher${j}`] === "" || objThis.Sup[`SupFrom${j}`] === "" || objThis.Sup[`SupTo${j}`] === ""))
             val += "<p class='varp'>&bull;Field Trip: Voucher, From and To fields cannot be blank.</p>";
 
@@ -329,10 +331,10 @@ function testOtherWork() {
 
 
     for (let j = 20; j < 30; j++) {
-        if (objThis.Sup[`SupTime${j}`] === "" && objThis.Sup[`SupSelect${j}`] !== "" && objThis.Sup[`SupSelect${j}`] !== "FYI")
+        if (objThis.Sup[`SupTime${j}S`] === "" && objThis.Sup[`SupSelect${j}`] !== "" && objThis.Sup[`SupSelect${j}`] !== "FYI")
             val += "<p class='varp'>&bull;Other Work: No time entered.</p>";
 
-        if (objThis.Sup[`SupTime${j}`] !== "" && objThis.Sup[`SupSelect${j}`] === "")
+        if (objThis.Sup[`SupTime${j}S`] !== "" && objThis.Sup[`SupSelect${j}`] === "")
             val += "<p class='varp'>&bull;Other Work: Category is required.</p>";
 
         if ((objThis.Sup[`SupSelect${j}`] === "OT" || objThis.Sup[`SupSelect${j}`] === "FYI") && objThis.Sup[`SupDesc${j}`] === "")
@@ -345,7 +347,7 @@ function testLeave() {
     let val = "";
 
     for (let j = 40; j < 45; j++) {
-        if (objThis.Sup[`SupTime${j}`] !== "") {
+        if (objThis.Sup[`SupTime${j}S`] !== "") {
             if (objThis.Sup[`SupSelect${j}`] === "")
                 val += "<p class='varp'>&bull;Leave: Type of leave is required.</p>";
         } else {

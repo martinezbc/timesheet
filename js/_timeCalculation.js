@@ -1,13 +1,102 @@
+const url = window.location.pathname;
+const filename = url.substring(url.lastIndexOf('/') + 1);
+const optVal = (filename === "index2.html" || filename === "previewsup.html" || filename === "supplement.html") ? "Sup" : ""
+
+const days = (optVal === "") ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["Sup"];
+const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const weekdays = (optVal === "") ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] : ["Sup"];
+
+function byID(refID) {
+    return document.getElementById(refID);
+}
+
 function getDailyTotals() {
-    if (optVal !== "S") {
+    if (optVal !== "Sup") {
         const day = getDay();
         dailyRuns(day);
         dailyOther(day);
         dailyFT(day);
         dailyQL(day);
+        dailyTotals(day);
     }
 
     getWeeklyTotals();
+}
+
+//CONVERT TIME COMPLETELY TO MINUTES
+function convertToMinutes(s1) {
+    "use strict";
+    if (s1 === "" || s1 === null || s1 === undefined || s1 === "")return 0;
+    let blnTimeFormat = s1.endsWith("AM") || s1.endsWith("PM") ? true : false;
+    let blnPM = (s1.endsWith("PM")) ? true : false;
+    
+    let temp = s1.replace(" AM", "").replace(" PM", "");
+    let time = temp.split(":");
+    let hour = time[0];
+
+    if (hour === "12" && !blnPM && blnTimeFormat) hour = 0; //If hour is 12 and it's not a PM and it IS in time format
+
+    hour = hour * 60;
+
+    let min = round5(Number(time[1])) + hour;
+
+    if (blnPM && hour !== 720) min += 720;
+
+    return min;
+}
+//RETURN TIME AS H:MM FORMAT
+function calculateTotal(refVal) {
+    "use strict";
+    if (refVal === "" || refVal === null || refVal === undefined || refVal === "")
+        return "";
+
+    let hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min < 10) {
+        totalVal = hour + ":0" + min;
+    } else {
+        totalVal = hour + ":" + min;
+    }
+    totalVal = (totalVal === "0:00") ? "" : totalVal;
+    return totalVal;
+}
+
+//RETURN TIME AS H.MM FORMAT
+function convertTotal(refVal) {
+    "use strict";
+    let hour = Math.floor(refVal / 60),
+        min = refVal - (hour * 60),
+        totalVal;
+    if (min === 0 || min === 5) {
+        min = "00";
+    } else if (min === 10 || min === 15 || min === 20) {
+        min = "25";
+    } else if (min === 25 || min === 30 || min === 35) {
+        min = "50";
+    } else if (min === 40 || min === 45 || min === 50) {
+        min = "75";
+    } else if (min === 55) {
+        min = "00";
+        hour = hour + 1;
+    }
+    totalVal = hour + "." + min;
+    totalVal = setToFixed(totalVal);
+    return totalVal;
+}
+//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
+function setToFixed(refVal) {
+    refVal = Number(refVal);
+    if (refVal === 0) {
+        return "";
+    }
+    refVal = Number(refVal).toFixed(2);
+    return refVal;
+}
+//ROUND TO THE NEAREST 5
+function round5(x) {
+    "use strict";
+    return Math.round(x / 5) * 5;
 }
 
 //TEXTBOX UPDATE FUNCTION. CHECK FOR OVERLAPPING TIME AND THEN CALCULATE TOTAL TIME
@@ -31,82 +120,65 @@ function timeCalculation(refID) {
     }
     //Check for overlapping times
     checkOverlap(refID);
+    
+    setObject(refID);
 
     //Calculate the difference in time
-    calculateDiff(refID);
-
-    setObject(refID);
+    byID(`Time${num}`).value = (num > 29) ? convertTotal(calculateDiff(day, num)) : calculateTotal(calculateDiff(day, num));
 }
 
 //CALCULATE DIFFERENCE BETWEEN START AND END TIME
-function calculateDiff(refID) {
-    "use strict";
-    //If refID is null or undefined then exit function
-    if (refID === null || refID === undefined) return;
-    let day = getDay();
-
+function calculateDiff(day, i) {
     //Declare variables and initialize values
-    let startTime = (refID.substr(-1) === "S") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "S").value);
-    let endTime = (refID.substr(-1) === "E") ? convertToMinutes(byID(refID).value) : convertToMinutes(byID(refID.substr(0, 6) + "E").value);
-    let num = Number(refID.substr(-3, 2));
+    let startTime = convertToMinutes(objThis[day][`${day}Time${i}S`]);
+    let endTime = convertToMinutes(objThis[day][`${day}Time${i}E`]);
     let timeDiff = 0;
-    let totalID = refID.substr(0, refID.length - 1);
 
     //If end time is less than start time then pop up error message
     if (startTime > 900 && (endTime < 120 && endTime !== 0)) endTime += 1440; //If start time is more than 3:00 PM and end time overlaps past midnight, add 24 hours to end time
     if ((endTime < startTime) && (endTime !== 0)) {
         openPopUp("<p>End time is less than start time</p>");
-        byID(refID).value = "";
+        resetTime(i);
     } else {
         if (endTime === 0) endTime = startTime;
 
         timeDiff = endTime - startTime;
-
-        if (num > 29)
-            byID(totalID).value = convertTotal(timeDiff);
-        else
-            byID(totalID).value = calculateTotal(timeDiff);
+        return timeDiff;
     }
-    //Set value of total into storage
-    objThis[day][`${day}${totalID}`] = byID(totalID).value;
 }
 
 //CALCULATE DAILY RUN TIME
 function dailyRuns(day) {
-    "use strict";
     if (day === "Sat" || day === "Sun") return;
-
     const sum = calculateTotal(calculateRunTime(day));
-
     byID(`RunTotal`).value = sum;
-    objThis[day][`${day}RunTotal`] = sum;
 }
 
 //CALCULATE DAILY OTHER WORK TIME
 function dailyOther(day) {
-    "use strict";
-    //Declare variables and initialize values
-
     const sum = calculateTotal(calculateOtherTime(day));
     byID(`OtherTotal`).value = sum;
 }
 
 //CALCULATE DAILY FIELD TRIP TIME
 function dailyFT(day) {
-    "use strict";
-    //Declare variables and initialize values
-    let sum = 0;
-
-    for (let i = 30; i < 35; i += 1) {
-        if ((day === "Sat" || day === "Sun") && i === 33) break;
-        sum += Number(getBlankTime(`Time${i}`));
-    }
-    sum = setToFixed(sum);
+    const sum = convertTotal(calculateFieldTrip(day));
     byID(`FTTotal`).value = sum;
 }
 
-function getBlankTime(refID) {
-    return byID(refID).value === "" ? 0 : byID(refID).value;
+function dailyTotals(day) {
+    for (let j = 11; j < 18; j++) {
+        byID(`Time${j}`).value = calculateTotal(calculateDiff(day, j));
+    }
+    for (let j = 20; j < 30; j++) {
+        byID(`Time${j}`).value = calculateTotal(calculateDiff(day, j));
+    }
+    for (let j = 30; j < 35; j++) {
+        byID(`Time${j}`).value = convertTotal(calculateDiff(day, j));
+    }
+    for (let j = 40; j < 42; j++) {
+        byID(`Time${j}`).value = convertTotal(calculateDiff(day, j));
+    }
 }
 
 //CALCULATE DAILY Q/L TIME
@@ -117,20 +189,20 @@ function dailyQL(day) {
     //If Q/L is checked, total up run, pac, shuttles, late run time
     if (day !== "Sat" && day !== "Sun" && byID('QL11').checked) {
         for (let i = 11; i < 18; i += 1) {
-            sum += convertToMinutes(byID(`Time${i}`).value);
+            sum += calculateDiff(day, i);
         }
     }
 
     //If Other Work Q/L is checked, add the time
     for (let i = 20; i < 30; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 22) continue;
-        sum += (byID(`QL${i}`).checked) ? convertToMinutes(byID(`Time${i}`).value) : 0;
+        sum += (byID(`QL${i}`).checked) ? calculateDiff(day, i) : 0;
     }
 
     //If Q/L is checked for field trips, add time
     for (let i = 30; i < 35; i += 1) {
         if ((day === "Sat" || day === "Sun") && i > 32) continue;
-        sum += (byID(`QL${i}`).checked) ? (Number(getBlankTime(`Time${i}`)) * 60) : 0;
+        sum += (byID(`QL${i}`).checked) ? convertTotal(calculateDiff(day, i)) * 60 : 0;
     }
     sum = calculateTotal(sum);
     byID(`QLTotal`).value = sum;
@@ -139,7 +211,7 @@ function dailyQL(day) {
 function calculateRunTime(day) {
     let sum = 0;
     for (let j = 11; j < 18; j++) {
-        sum += convertToMinutes(objThis[day][`${day}Time${j}`]);
+        sum += calculateDiff(day, j);
     }
     return sum;
 }
@@ -152,7 +224,7 @@ function calculateOtherTime(day) {
         if ((day === "Sat" || day === "Sun") && i === 23) break;
         selectVal = objThis[day][`${day}Select${i}`];
         if (selectVal === "CBK" || selectVal === "ES0" || selectVal === "ES2" || selectVal === "") continue;
-        sum += convertToMinutes(objThis[day][`${day}Time${i}`]);
+        sum += calculateDiff(day, i);
     }
     return sum;
 }
@@ -162,7 +234,7 @@ function calculateFieldTrip(day) {
 
     for (let j = 30; j < 35; j += 1) {
         if ((day === "Sat" || day === "Sun") && j === 33) break;
-        sum += Number(objThis[day][`${day}Time${j}`]);
+        sum += calculateDiff(day, j);
     }
     return sum;
 }
@@ -171,20 +243,20 @@ function calculateEquipment() {
     let sum = 0;
 
     for (const day of days) {
-        
-        for (let i = 11; i < 18; i++) {
+
+        for (let j = 11; j < 18; j++) {
             if (day === "Sat" || day === "Sun" || day === "Sup") continue;
-            sum += (objThis[day][`${day}QL11`]) ? convertToMinutes(objThis[day][`${day}Time${i}`]) : 0;
+            sum += (objThis[day][`${day}QL11`]) ? calculateDiff(day, j) : 0;
         }
 
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j > 22) continue;
-            sum += (objThis[day][`${day}QL${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+            sum += (objThis[day][`${day}QL${j}`]) ? calculateDiff(day, j) : 0;
         }
 
         for (let j = 30; j < 35; j++) {
             if ((day === "Sat" || day === "Sun") && j > 32) continue;
-            sum += (objThis[day][`${day}QL${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
+            sum += (objThis[day][`${day}QL${j}`]) ? convertTotal(calculateDiff(day, j)) * 60 : 0;
         }
     }
     return sum;
@@ -193,10 +265,10 @@ function calculateEquipment() {
 function calculateAdmin() {
     let sum = 0;
     for (const day of days) {
-        
+
         for (let i = 11; i < 18; i++) {
             if (day === "Sat" || day === "Sun" || day === "Sup") continue;
-            sum += (objThis[day][`${day}J11`]) ? convertToMinutes(objThis[day][`${day}Time${i}`]) : 0;
+            sum += (objThis[day][`${day}J11`]) ? calculateDiff(day, i) : 0;
         }
     }
     return sum;
@@ -207,109 +279,64 @@ function calculateOJT() {
     for (const day of days) {
         for (let j = 11; j < 18; j++) {
             if (day === "Sat" || day === "Sun" || day === "Sup") continue;
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+            sum += (objThis[day][`${day}OJT${j}`]) ? calculateDiff(day, j) : 0;
         }
 
         for (let j = 20; j < 30; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+            sum += (objThis[day][`${day}OJT${j}`]) ? calculateDiff(day, j) : 0;
         }
 
         for (let j = 30; j < 35; j++) {
-            sum += (objThis[day][`${day}OJT${j}`]) ? (Number(objThis[day][`${day}Time${j}`]) * 60) : 0;
+            sum += (objThis[day][`${day}OJT${j}`]) ? convertTotal(calculateDiff(day, j)) * 60 : 0;
         }
     }
     return sum;
 }
 
-function getWeeklyTotals() {
-    //Declare variables and initialize the values
+function calculateHoursWorked() {
     let sum = 0;
 
-    //Clear Hours worked
-    byID("TotalHW").value = "";
-    setDataKeyValue("TotalHW", "");
-    sumCPay();
-
-    //CALCULATE RUN TIME
-    if (optVal === "") {
-        for (const day of weekdays)
-                sum += calculateRunTime(day);
+    for (const day of days) {
+        for (let j = 11; j < 30; j++) {
+            if (j === 18 || j === 19) continue;
+            if ((day === "Sat" || day === "Sun") && j === 23) continue;
+            sum += calculateDiff(day, j);
+        }
+        
+        for (let j = 30; j < 35; j++) {
+            sum += convertTotal(calculateDiff(day, j)) * 60;
+        }
     }
+    if (optVal === "") {
+        if (objThis.Data.Area !== "TC") sum += 15;
+    }
+    return sum;
+}
 
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalRun", sum);
-    if (optVal === "") byID("TotalRun").value = sum;
+function weeklyRunTime() {
+    let sum = 0;
+    for (const day of weekdays)
+            sum += calculateRunTime(day);
+    return sum;
+}
 
-    //CALCULATE OTHER WORK
-    sum = 0;
+function weeklyOtherTime() {
+    let sum = 0;
     for (const day of days) {
         sum += calculateOtherTime(day);
     }
-    
-    sum = calculateTotal(sum);
-    setDataKeyValue("TotalOther", sum);
-    byID("TotalOther").value = sum;
+    return sum;
+}
 
-    //CALCULATE FIELD TRIPS
-    sum = 0;
-    
+function weeklyFieldTripTime() {
+    let sum = 0;
     for (const day of days) {
         sum += calculateFieldTrip(day);
     }
-    
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalFT", sum);
-    byID("TotalFT").value = sum;
-
-    //CALCULATE HOURS WORKED
-    const key = (optVal === "") ? "Data" : "Sup";
-    sum = convertToMinutes(objThis[key]["TotalRun"]) + convertToMinutes(objThis[key]["TotalOther"]);
-    if (optVal === "" && objThis.Data.Area !== "TC") sum += 15;
-
-    sum = convertTotal(sum);
-    sum = (sum === "") ? 0 : Number(sum);
-    sum += Number(objThis[key]["TotalFT"]);
-    sum += Number(objThis[key]["TotalHW"]);
-    sum = setToFixed(sum);
-    setDataKeyValue("TotalHW", sum);
-    byID("TotalHW").value = sum;
-
-    //CALCULATE EQUIPMENT
-    sum = calculateEquipment();
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS2QL", sum);
-    byID("TotalS2QL").value = sum;
-
-    //CALCULATE ADMIN
-    sum = calculateAdmin();
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS4J", sum);
-    byID("TotalS4J").value = sum;
-
-    //CALCULATE 1R
-    sum = convertToMinutes(objThis[key]["TotalRun"]) + convertToMinutes(objThis[key]["TotalOther"]);
-    sum = convertTotal(sum);
-    setDataKeyValue("Total1R", sum);
-    byID("Total1R").value = sum;
-
-    sum = 0;
-    //If OJT Trainer is not checked then exit function
-    if (!objThis[key]["OJT"]) {
-        setStorage();
-        return;
-    }
-
-    sum = calculateOJT();
-    sum = convertTotal(sum);
-    setDataKeyValue("TotalS4OJT", sum);
-    byID("TotalS4OJT").value = sum;
-    setStorage();
+    return sum;
 }
-//CALCULATE CALLBACK TIME
-function sumCPay() {
-    "use strict";
-    let c1 = 0;
-    let c3 = 0;
+
+function weeklyC1Time() {
     let sum = 0;
     let selectVal;
 
@@ -317,24 +344,66 @@ function sumCPay() {
         for (let j = 20; j < 30; j++) {
             if ((day === "Sat" || day === "Sun") && j === 23) break;
             selectVal = objThis[day][`${day}Select${j}`];
-            c1 += (selectVal === "CBK") ? 240 : 0;
-            c3 += (selectVal === "ES0") ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
-            c3 += (selectVal === "ES2") ? convertToMinutes(objThis[day][`${day}Time${j}`]) + 120 : 0;
-            sum += (selectVal === "CBK" || selectVal === "ES2" || selectVal === "ES0") ? convertToMinutes(objThis[day][`${day}Time${j}`]) : 0;
+            sum += (selectVal === "CBK") ? 240 : 0;
         }
     }
-    
+    return sum;
+}
+
+function weeklyC3Time() {
+    let sum = 0;
+    let selectVal;
+
+    for (const day of days) {
+        for (let j = 20; j < 30; j++) {
+            if ((day === "Sat" || day === "Sun") && j === 23) break;
+            selectVal = objThis[day][`${day}Select${j}`];
+            sum += (selectVal === "ES0") ? calculateDiff(day, j) : 0;
+            sum += (selectVal === "ES2") ? calculateDiff(day, j) + 120 : 0;
+        }
+    }
+    return sum;
+}
+
+function getWeeklyTotals() {
+    //Declare variables and initialize the values
     const key = (optVal === "") ? "Data" : "Sup";
 
-    c1 = (c1 === 0) ? "" : convertTotal(c1);
-    objThis[key]["TotalC1"] = c1;
-    byID("TotalC1").value = c1;
+    byID("TotalC1").value = convertTotal(weeklyC1Time());
 
-    sum = convertTotal(sum);
-    objThis[key]["TotalHW"] = sum;
-    byID("TotalHW").value = sum;
+    byID("TotalC3").value = convertTotal(weeklyC3Time());
 
-    c3 = (c3 === 0) ? "" : convertTotal(c3);
-    objThis[key]["TotalC3"] = c3;
-    byID("TotalC3").value = c3;
+    //CALCULATE RUN TIME
+    if (optVal === "") {
+        const runTime = calculateTotal(weeklyRunTime());
+        byID("TotalRun").value = runTime;
+    }
+
+    //CALCULATE OTHER WORK
+    const otherTime = calculateTotal(weeklyOtherTime());
+    byID("TotalOther").value = otherTime;
+
+    //CALCULATE FIELD TRIPS
+    const ftTime = convertTotal(weeklyFieldTripTime());
+    byID("TotalFT").value = ftTime;
+
+    //CALCULATE HOURS WORKED
+    byID("TotalHW").value = convertTotal(calculateHoursWorked());
+
+    //CALCULATE EQUIPMENT
+    byID("TotalS2QL").value = convertTotal(calculateEquipment());
+
+    //CALCULATE ADMIN
+    byID("TotalS4J").value = convertTotal(calculateAdmin());
+
+    //CALCULATE 1R
+    byID("Total1R").value = convertTotal(weeklyRunTime() + weeklyOtherTime());
+
+    //If OJT Trainer is not checked then exit function
+    if (objThis[key]["OJT"]) {
+        byID("TotalS4OJT").value = convertTotal(calculateOJT());    
+    }
+    
+    //Set all data to storage
+    setStorage();
 }

@@ -17,11 +17,9 @@
         document.write("<link href='css/bootstrap-grid.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
         document.write("<link href='css/stylesheet.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
         document.write("<link href='css/color.css?v=" + Date.now() + "' rel='stylesheet' type='text/css'>");
-
+        document.write("<script src='js/_timeCalculation.js?v=" + Date.now() + "'><\/script>");
     </script>
     <script src="https://kit.fontawesome.com/a0f6dbab9e.js" crossorigin="anonymous"></script>
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>-->
-    <!--   <script src="js/jspdf.js"></script>-->
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
     <style>
         .full {
@@ -89,8 +87,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             try {
                 let pdf = jsPDF("p", "pt", "letter");
-                const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-                const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
                 let margin = 20,
                     vOffset = 0,
@@ -137,11 +133,11 @@
                 pdf.setLineWidth(1);
                 pdf.line(margin, vOffset + 7, 592, vOffset + 7);
                 pdf.setLineDash([2, 2, 4, 2]);
-                pdf.line(margin, vOffset + 24, 592, vOffset + 24);
+                pdf.line(margin, vOffset + 20.5, 592, vOffset + 20.5);
                 pdf.setLineDash();
 
                 //********FIRST LINE********//
-                vOffset += 20;
+                vOffset += 18;
                 hOffset = margin + 5;
 
                 pdf.setFontSize(10);
@@ -184,9 +180,9 @@
                 pdf.text(hOffset, vOffset, x || "");
                 pdf.setFontSize(10);
 
-                vOffset += 16;
+                //********SECOND LINE********//
+                vOffset += 14;
                 hOffset = margin + 5;
-
                 pdf.setFontStyle("normal");
                 pdf.text(hOffset, vOffset, "Position:");
                 pdf.setFontStyle("bold");
@@ -237,12 +233,12 @@
                 pdf.setFontSize(10);
 
                 //********ROUTE COUNTS********//
-                vOffset += 13;
+                vOffset += 12;
                 let routeOffset = vOffset - 9
                 hOffset = margin;
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(0, 103, 127);
-                pdf.rect(margin, vOffset - 9, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 9, 572, 12, "FD");
                 pdf.setFontSize(9);
                 pdf.setTextColor(0);
                 hOffset += 130;
@@ -258,7 +254,7 @@
                 hOffset += 52;
                 pdf.text(hOffset, vOffset, "Late Run");
 
-                vOffset += 13;
+                vOffset += 12;
                 hOffset = margin;
                 pdf.setTextColor(0);
                 pdf.setDrawColor(0, 0, 0);
@@ -599,7 +595,7 @@
                 hOffset = margin + 15;
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(0, 103, 127);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
                 pdf.setTextColor("white");
@@ -614,44 +610,45 @@
                 hOffset += 85;
                 pdf.text(hOffset, vOffset, "Daily");
 
-                vOffset += 13;
+                vOffset += 12;
                 hOffset = margin;
                 pdf.setTextColor(0);
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(209, 241, 245);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontSize(9);
                 hOffset += 38;
                 pdf.setTextColor("black");
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 48;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 hOffset += 37;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 48;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 hOffset += 37;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 48;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 hOffset += 37;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 48;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 hOffset += 39;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 pdf.setFontStyle("normal");
 
+                vOffset -= 2;
                 for (const day of weekdays) {
-                    vOffset += 15;
+                    vOffset += 14;
                     hOffset = margin;
                     pdf.setDrawColor(0, 0, 0);
                     if (day === "Tue" || day === "Thu") {
@@ -659,7 +656,7 @@
                     } else {
                         pdf.setFillColor(255, 255, 255);
                     }
-                    pdf.rect(margin, vOffset - 12, 534, 15, "FD");
+                    pdf.rect(margin, vOffset - 11, 534, 14, "FD");
                     pdf.setFontStyle("bold");
 
                     hOffset += 2;
@@ -675,7 +672,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time11E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time11`] || "";
+                    x = calculateTotal(calculateDiff(day, 11));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -697,7 +694,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time13E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time13`] || "";
+                    x = calculateTotal(calculateDiff(day, 13));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -718,7 +715,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time15E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time15`] || "";
+                    x = calculateTotal(calculateDiff(day, 15));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -777,7 +774,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time12E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time12`] || "";
+                    x = calculateTotal(calculateDiff(day, 12));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -798,7 +795,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time14E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time14`] || "";
+                    x = calculateTotal(calculateDiff(day, 14));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -819,7 +816,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time16E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time16`] || "";
+                    x = calculateTotal(calculateDiff(day, 16));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -840,7 +837,7 @@
                     hOffset += 40;
                     x = objThis[day][`${day}Time17E`] || "";
                     pdf.text(hOffset, vOffset, x || "");
-                    x = objThis[day][`${day}Time17`] || "";
+                    x = calculateTotal(calculateDiff(day, 17));
                     hOffset += 42;
                     pdf.setFontSize(9);
                     pdf.setFontStyle("bold");
@@ -857,23 +854,23 @@
                     } else {
                         pdf.setFillColor(255, 255, 255);
                     }
-                    pdf.rect(552, vOffset - 27, 40, 30, "FD");
+                    pdf.rect(552, vOffset - 26, 40, 30, "FD");
                     hOffset += 38;
                     pdf.setFontSize(10);
-                    x = objThis[day][`${day}RunTotal`] || "";
+                    x = calculateTotal(calculateRunTime(day));
                     pdf.text(hOffset, vOffset - 8, x || "");
                 }
 
                 pdf.setDrawColor(0, 0, 0);
-                pdf.line(55, vOffset + 6, 55, vTimeStart);
-                pdf.line(138, vOffset + 6, 138, vTimeStart + 12);
-                pdf.line(178, vOffset + 6, 178, vTimeStart);
-                pdf.line(263, vOffset + 6, 263, vTimeStart + 12);
-                pdf.line(303, vOffset + 6, 303, vTimeStart);
-                pdf.line(388, vOffset + 6, 388, vTimeStart + 12);
-                pdf.line(428, vOffset + 6, 428, vTimeStart);
-                pdf.line(512, vOffset + 6, 512, vTimeStart + 12);
-                pdf.line(552, vOffset + 6, 552, vTimeStart);
+                pdf.line(55, vOffset + 6, 55, vTimeStart - 1);
+                pdf.line(138, vOffset + 6, 138, vTimeStart + 11);
+                pdf.line(178, vOffset + 6, 178, vTimeStart - 1);
+                pdf.line(263, vOffset + 6, 263, vTimeStart + 11);
+                pdf.line(303, vOffset + 6, 303, vTimeStart - 1);
+                pdf.line(388, vOffset + 6, 388, vTimeStart + 11);
+                pdf.line(428, vOffset + 6, 428, vTimeStart - 1);
+                pdf.line(512, vOffset + 6, 512, vTimeStart + 11);
+                pdf.line(552, vOffset + 6, 552, vTimeStart - 1);
 
                 vOffset += 14;
                 hOffset = margin;
@@ -886,7 +883,7 @@
                 pdf.text(hOffset, vOffset + 1.5, "ASSIGNED RUNS SUB TOTAL");
                 hOffset += 137;
                 pdf.setFontSize(13);
-                pdf.text(hOffset + 5, vOffset + 2, objThis.Data.TotalRun || "");
+                pdf.text(hOffset + 5, vOffset + 2, calculateTotal(weeklyRunTime()));
 
                 //OTHER WORK SECTION
                 vOffset += 17;
@@ -894,7 +891,7 @@
                 hOffset = margin;
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(0, 103, 127);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
                 pdf.setTextColor("white");
@@ -902,38 +899,38 @@
                 pdf.text(hOffset, vOffset, "Other Work Duties");
                 pdf.text(hOffset + 300, vOffset, "Leave Used");
 
-                vOffset += 13;
+                vOffset += 12;
                 hOffset = margin;
                 pdf.setTextColor(0);
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(209, 241, 245);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
                 hOffset += 5;
-                pdf.text(hOffset, vOffset, "Date");
+                pdf.text(hOffset, vOffset - 1, "Date");
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, "Q/L");
+                pdf.text(hOffset, vOffset - 1, "Q/L");
                 hOffset += 26;
-                pdf.text(hOffset, vOffset, "Description");
+                pdf.text(hOffset, vOffset - 1, "Description");
                 hOffset += 175;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 42;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 45;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "Date");
+                pdf.text(hOffset, vOffset - 1, "Date");
                 hOffset += 28;
-                pdf.text(hOffset, vOffset, "Type");
+                pdf.text(hOffset, vOffset - 1, "Type");
                 hOffset += 48;
-                pdf.text(hOffset, vOffset, "All");
+                pdf.text(hOffset, vOffset - 1, "All");
                 hOffset += 17;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 40;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 45;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 pdf.setFontStyle("normal");
 
 
@@ -955,11 +952,11 @@
                 let leave = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
                 j = 0;
                 for (const day of weekdays) {
-                    if (objThis[day][`${day}Time40`] !== "" && objThis[day][`${day}Time40`] !== undefined) {
+                    if (objThis[day][`${day}Time40S`] !== "") {
                         leave[j] = `${day}Time40`;
                         j++;
                     }
-                    if (objThis[day][`${day}Time41`] !== "") {
+                    if (objThis[day][`${day}Time41S`] !== "") {
                         leave[j] = `${day}Time41`;
                         j++;
                     }
@@ -973,7 +970,9 @@
                 let blnOW = false;
                 let blnLV = false;
 
+                vOffset -= 2;
                 for (let i = 0; i < 10; i++) {
+                    pdf.setFontStyle("normal");
                     vOffset += 14;
                     hOffset = margin;
                     pdf.setDrawColor(0, 0, 0);
@@ -988,7 +987,7 @@
                     if (blnOW) {
                         pdf.setFontSize(9);
                         let day = otherWork[i].substr(0, 3);
-                        let b = otherWork[i].substr(7);
+                        let b = otherWork[i].substr(-2);
                         let c = objThis[day][`${day}Select${b}`] || "";
                         if (c === "ES0" || c === "ES2" || c === "CBK") {
                             pdf.setDrawColor(0, 0, 0);
@@ -1009,8 +1008,8 @@
                             pdf.setTextColor(0, 0, 0);
                         }
                         pdf.setFontSize(7);
-                        pdf.text(hOffset + 1.5, vOffset - 2, 'Q');
-                        pdf.text(hOffset + 7.5, vOffset - 2, 'L');
+                        pdf.text(hOffset + 1.5, vOffset - 1.5, 'Q');
+                        pdf.text(hOffset + 7.5, vOffset - 1.5, 'L');
                         pdf.setTextColor(0, 0, 0);
                         pdf.setFontStyle('normal');
                         hOffset += 26;
@@ -1025,7 +1024,7 @@
                         hOffset += 42;
                         x = objThis[day][`${otherWork[i]}E`] || "";
                         pdf.text(hOffset, vOffset, x || "");
-                        x = objThis[day][otherWork[i]];
+                        x = calculateTotal(calculateDiff(day, b));
                         hOffset += 48;
                         pdf.setFontStyle("bold");
                         if (objThis[day][`${day}OJT${b}`]) {
@@ -1043,6 +1042,7 @@
                     hOffset += 28;
                     //LEAVE
                     pdf.setDrawColor(0, 0, 0);
+                    pdf.setFontStyle("normal");
                     if (i % 2 === 0) { //alternate color backgrounds
                         pdf.setFillColor(255, 255, 255);
                     } else {
@@ -1052,6 +1052,7 @@
 
                     blnLV = (leave[i] !== `LV${i}`) ? true : false;
                     if (blnLV === true) {
+                        hOffset += 5;
                         let day = leave[i].substr(0, 3);
                         let b = leave[i].substr(-2);
                         x = getDateField(leave[i]);
@@ -1083,7 +1084,7 @@
                             hOffset += 45;
                             pdf.setFontStyle("bold");
                             pdf.setFontSize(9);
-                            x = objThis[day][leave[i]] || "";
+                            x = convertTotal(calculateDiff(day, b));
                             pdf.text(hOffset, vOffset, x || "");
                         }
                     }
@@ -1100,7 +1101,7 @@
                 pdf.setFontStyle("bold");
                 pdf.text(hOffset - 160, vOffset + 1.5, "OTHER WORK DUTIES SUB TOTAL");
                 pdf.setFontSize(13);
-                pdf.text(hOffset + 3, vOffset + 2, objThis.Data.TotalOther || "");
+                pdf.text(hOffset + 3, vOffset + 2, calculateTotal(weeklyOtherTime()));
 
                 pdf.setFillColor(209, 241, 245);
                 pdf.rect(hOffset + 39, vOffset - 39, 215, 44, "FD");
@@ -1116,8 +1117,6 @@
                 pdf.line(377, vOffset, 377, vTimeStart);
                 pdf.line(552, vOffset - 40, 552, vTimeStart);
 
-
-                //FIELD TRIP
                 //FIELD TRIP
                 vOffset += 17;
                 vTimeStart = vOffset - 9; //Needed for the lines used later
@@ -1126,7 +1125,7 @@
                 pdf.setFontSize(9);
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(0, 103, 127);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontStyle("bold");
                 pdf.setTextColor("white");
                 pdf.text(hOffset + 270, vOffset, "Field Trips");
@@ -1137,38 +1136,39 @@
                 for (const day of days) {
                     for (let k = 30; k < 35; k++) {
                         if ((day === "Sat" || day === "Sun") && k > 32) continue;
-                        if (objThis[day][`${day}Time${k}`] !== "") {
+                        if (objThis[day][`${day}Time${k}S`] !== "") {
                             fieldTrip[j] = `${day}Time${k}`;
                             j++;
                         }
                     }
                 }
 
-                vOffset += 13;
+                vOffset += 12;
                 hOffset = margin;
                 pdf.setTextColor(0);
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(209, 241, 245);
-                pdf.rect(margin, vOffset - 10, 572, 13, "FD");
+                pdf.rect(margin, vOffset - 10, 572, 12, "FD");
                 pdf.setFontSize(9);
                 hOffset += 10;
-                pdf.text(hOffset, vOffset, "Date");
+                pdf.text(hOffset, vOffset - 1, "Date");
                 hOffset += 30;
-                pdf.text(hOffset, vOffset, "Q/L");
+                pdf.text(hOffset, vOffset - 1, "Q/L");
                 hOffset += 30;
-                pdf.text(hOffset, vOffset, "From");
+                pdf.text(hOffset, vOffset - 1, "From");
                 hOffset += 150;
-                pdf.text(hOffset, vOffset, "To");
+                pdf.text(hOffset, vOffset - 1, "To");
                 hOffset += 150;
-                pdf.text(hOffset, vOffset, "Voucher");
+                pdf.text(hOffset, vOffset - 1, "Voucher");
                 hOffset += 55;
-                pdf.text(hOffset, vOffset, "Start");
+                pdf.text(hOffset, vOffset - 1, "Start");
                 hOffset += 55;
-                pdf.text(hOffset, vOffset, "End");
+                pdf.text(hOffset, vOffset - 1, "End");
                 hOffset += 58;
-                pdf.text(hOffset, vOffset, "Total");
+                pdf.text(hOffset, vOffset - 1, "Total");
                 pdf.setFontStyle("normal");
 
+                vOffset -= 2;
                 for (let i = 0; i < 5; i++) {
                     vOffset += 14;
                     hOffset = margin;
@@ -1225,7 +1225,7 @@
                         hOffset += 58;
                         pdf.setFontStyle("bold");
                         pdf.setFontSize(10);
-                        x = objThis[day][fieldTrip[i]] || "";
+                        x = convertTotal(calculateDiff(day, b));
                         pdf.text(hOffset, vOffset, x || "");
                         pdf.setFontStyle("normal");
                         pdf.setFontSize(9);
@@ -1243,25 +1243,29 @@
                 pdf.setFontStyle("bold");
                 pdf.text(hOffset - 115, vOffset + 1.5, "FIELD TRIPS SUB TOTAL");
                 pdf.setFontSize(13);
-                pdf.text(hOffset + 5, vOffset + 2, objThis.Data.TotalFT || "");
+                pdf.text(hOffset + 5, vOffset + 2, convertTotal(weeklyFieldTripTime()));
                 pdf.line(552, vOffset, 552, vTimeStart + 11);
 
                 vOffset += 17;
                 hOffset = margin;
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(209, 241, 245);
-                pdf.rect(hOffset, vOffset - 10, 572, 44, "FD");
-                pdf.setFontSize(7);
+                pdf.rect(hOffset, vOffset - 10, 572, 49, "FD");
+                pdf.setFontSize(7.5);
                 pdf.setFontStyle("normal");
                 hOffset += 2;
-                x = "I certify that I have performed school duties on the vehicle with number shown above on all runs as entered hereon and if driver, I have performed daily pretrip inspection as required. ";
-                x += "\nIn accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with Time and Attendance \nReporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)"
+                x = "I certify that I have performed school duties on the vehicle with number shown above on all runs as entered hereon and if driver, I have performed daily pretrip inspection \nas required. ";
+                x += "In accordance with regulations and policies of the school board, I have accurately recorded all of the hours I worked. I understand that failure to comply with \nTime and Attendance Reporting policies will be just cause for discipline up to, and including, separation from FCPS. (Regulation 4293)"
                 pdf.text(hOffset, vOffset - 2, x || "");
 
-                vOffset += 30;
-                pdf.setFontSize(8);
-                pdf.setFontStyle("bold");
+                vOffset += 34;
                 hOffset = margin + 5;
+                pdf.setFontSize(8);
+                pdf.setTextColor("black");
+                pdf.setFontStyle("bold");
+
+
+
                 pdf.text(hOffset, vOffset, "Employee Initials: ");
                 hOffset += 75;
                 pdf.setFontSize(12);
@@ -1272,27 +1276,30 @@
                 pdf.text(hOffset, vOffset, "Supervisor Signature:");
 
 
+                vOffset += 16;
                 const blnTC = (objThis.Data.Area === "TC") ? true : false;
-                vOffset += 15;
+
                 vTimeStart = vOffset - 9; //Needed for the lines used later
                 hOffset = margin;
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setFillColor(104, 210, 223);
-                pdf.rect(margin, vOffset - 9, 286, 35, "FD");
-                pdf.setFillColor(180, 180, 180);
-                pdf.rect(306, vOffset - 9, 286, 35, "FD");
+                pdf.rect(margin, vOffset - 9, 572, 45, "FD");
                 pdf.setFontSize(8);
                 hOffset += 3;
                 pdf.setFontSize(7);
-                pdf.text(hOffset, vOffset - 1, (blnTC) ? "Assigned Runs" : "Assigned Runs\n+ Other Work");
+                pdf.setFillColor(209, 241, 245);
+                pdf.rect(hOffset - 3, vOffset - 9, 114.4, 45, "FD");
+                pdf.text(hOffset, vOffset - 1, "Assigned Runs\n+ Other Work");
                 hOffset += 57.2;
-                pdf.text(hOffset + 3, vOffset - 1, (blnTC) ? "Other Work" : "**Timesheet \nPreparation**");
+                pdf.text(hOffset + 3, vOffset - 1, (blnTC) ? "" : "**Timesheet \nPreparation**");
                 pdf.setFontSize(8);
                 hOffset += 57.2;
-                pdf.text(hOffset + 5, vOffset - 1, "Sub Total");
+                pdf.text(hOffset, vOffset - 1, "1R: Sub Total");
                 hOffset += 57.2;
-                pdf.text(hOffset + 5, vOffset - 1, "Field Trip");
+                pdf.text(hOffset, vOffset - 1, "FT: Field Trip");
                 hOffset += 57.2;
+                pdf.setFillColor(209, 241, 245);
+                pdf.rect(hOffset - 3, vOffset - 9, 57.2, 45, "FD");
                 pdf.text(hOffset, vOffset - 1, "Time Worked");
                 hOffset = 306;
                 hOffset += 5;
@@ -1309,66 +1316,61 @@
 
 
 
-                vOffset += 24;
+                vOffset += 32;
                 vTimeStart = vOffset - 9; //Needed for the lines used later
                 hOffset = margin;
                 hOffset += 8;
                 pdf.setFontSize(12);
-                pdf.text(hOffset, vOffset, (blnTC) ? (objThis.Data.TotalRun || "") : (objThis.Data.Total1R || ""));
+                x = convertTotal(weeklyRunTime() + weeklyOtherTime());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                pdf.text(hOffset, vOffset, (blnTC) ? (objThis.Data.TotalOther || "") : "0.25");
+                pdf.text(hOffset, vOffset, (blnTC) ? "" : "0.25");
                 hOffset += 57.2;
                 pdf.setFontSize(14);
-                x = (blnTC) ? (objThis.Data.Total1R || "") : addPrepTime(objThis.Data.Total1R);
+                x = (objThis.Data.Area !== "TC") ? addPrepTime(x) : x;
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalFT;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(weeklyFieldTripTime());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalHW;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(calculateHoursWorked());
+                pdf.text(hOffset, vOffset, x);
                 hOffset = 306;
                 hOffset += 8;
-                x = objThis.Data.TotalS4OJT;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(calculateOJT());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalS4J;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(calculateAdmin());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalS2QL;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(calculateEquipment());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalC3;
-                pdf.text(hOffset, vOffset, x || "");
+                x = convertTotal(weeklyC3Time());
+                pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = objThis.Data.TotalC1;
-                pdf.text(hOffset, vOffset, x || "");
-
-                hOffset = margin;
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-                hOffset += 57.2;
-                pdf.line(hOffset, vOffset + 3, hOffset, vOffset - 33);
-
-                vOffset += 12;
-                hOffset = margin;
-                pdf.setFontSize(8);
-                x = (objThis.Data.Area !== "TC") ? '**Add 15 minutes for timesheet preparation' : '';
+                x = convertTotal(weeklyC1Time());
                 pdf.text(hOffset, vOffset, x);
 
+                hOffset = margin;
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
+                hOffset += 57.2;
+                pdf.line(hOffset, vOffset + 4, hOffset, vOffset - 41);
 
                 x = objThis.Data.Team;
 

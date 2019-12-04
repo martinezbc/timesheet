@@ -102,7 +102,7 @@ for (let i = 0; i < 10; i++) {
 let otherFT = ["FT0", "FT1", "FT2", "FT3", "FT4"];
 j = 0;
 for (let k = 30; k < 35; k++) {
-    if (objThis.Sup[`SupTime${k}`] !== "") {
+    if (objThis.Sup[`SupTime${k}S`] !== "") {
         otherFT[j] = `SupTime${k}`;
         j++;
     }
@@ -131,7 +131,7 @@ for (let i = 0; i < 5; i++) {
 let otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4"];
 j = 0;
 for (let k = 40; k < 45; k++) {
-    if (objThis.Sup[`SupTime${k}`] !== "") {
+    if (objThis.Sup[`SupTime${k}S`] !== "") {
         otherLV[j] = `SupTime${k}`;
         j++;
     } else if (objThis.Sup[`SupLeaveAD${k}`]) {
@@ -159,14 +159,14 @@ for (let i = 0; i < 5; i++) {
 }
 //********************DIV LEAVE********************//
 //********************DIV TOTALS********************//
-print(objThis.Sup.TotalRun, byID("divptotalrun").children[0]);
-print(objThis.Sup.TotalOther, byID("divptotalother").children[0]);
-print(objThis.Sup.TotalFT, byID("divptotalft").children[0]);
-print(objThis.Sup.TotalHW, byID("divptotalhw").children[0]);
-print(objThis.Sup.Total1R, byID("divptotal1r").children[0]);
-print(objThis.Sup.TotalS4OJT, byID("divptotals4ojt").children[0]);
-print(objThis.Sup.TotalS4J, byID("divptotals4j").children[0]);
-print(objThis.Sup.TotalS2QL, byID("divptotals2ql").children[0]);
-print(objThis.Sup.TotalC3, byID("divptotalc3").children[0]);
-print(objThis.Sup.TotalC1, byID("divptotalc1").children[0]);
+print("", byID("divptotalrun").children[0]);
+print(calculateTotal(weeklyOtherTime()), byID("divptotalother").children[0]);
+print(convertTotal(weeklyFieldTripTime()), byID("divptotalft").children[0]);
+print(convertTotal(calculateHoursWorked()), byID("divptotalhw").children[0]);
+print(convertTotal(weeklyOtherTime()), byID("divptotal1r").children[0]);
+print(convertTotal(calculateOJT()), byID("divptotals4ojt").children[0]);
+print(convertTotal(calculateAdmin()), byID("divptotals4j").children[0]);
+print(convertTotal(calculateEquipment()), byID("divptotals2ql").children[0]);
+print(convertTotal(weeklyC3Time()), byID("divptotalc3").children[0]);
+print(convertTotal(weeklyC1Time()), byID("divptotalc1").children[0]);
 //********************DIV TOTALS********************//

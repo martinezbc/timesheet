@@ -1,14 +1,6 @@
 let activeID = "";
 
-const days = (optVal === "") ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["Sup"];
-const fullday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-
 /********************EVENT LISTENERS********************/
-
-function byID(refID) {
-    return document.getElementById(refID);
-}
 
 function getDay() {
     return (optVal === "") ? byID('today').textContent.substr(0, 3) : "Sup";
@@ -362,7 +354,6 @@ function resetTime(num) {
     let refID = "Time" + num;
     resetElement(`${refID}E`);
     resetElement(`${refID}S`);
-    resetElement(refID);
 }
 //DISABLE ELEMENTS AND CHANGE BACKGROUND COLOR
 function disableElement(refID, bln) {
@@ -390,82 +381,6 @@ function openPopUp(msgVal) {
     showHide(byID('variousModal'), true);
 }
 /********************MODAL POP UP MESSAGES********************/
-/********************TIME CALCULATIONS********************/
-//CONVERT TIME COMPLETELY TO MINUTES
-function convertToMinutes(s1) {
-    "use strict";
-    if (s1 === "" || s1 === null || s1 === undefined || s1 === "")
-        return 0;
-    let blnPM = (s1.endsWith("PM")) ? true : false;
-
-    s1 = s1.replace(" AM", "").replace(" PM", "");
-    let time = s1.split(":");
-    let hour = time[0];
-
-    if (hour === "12" && !blnPM) hour = 0;
-
-    hour = hour * 60;
-
-    let min = round5(Number(time[1])) + hour;
-
-    if (blnPM && hour !== 720) min += 720;
-
-    return min;
-}
-//RETURN TIME AS H:MM FORMAT
-function calculateTotal(refVal) {
-    "use strict";
-    if (refVal === "" || refVal === null || refVal === undefined || refVal === "")
-        return "";
-
-    let hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min < 10) {
-        totalVal = hour + ":0" + min;
-    } else {
-        totalVal = hour + ":" + min;
-    }
-    totalVal = (totalVal === "0:00") ? "" : totalVal;
-    return totalVal;
-}
-//RETURN TIME AS H.MM FORMAT
-function convertTotal(refVal) {
-    "use strict";
-    let hour = Math.floor(refVal / 60),
-        min = refVal - (hour * 60),
-        totalVal;
-    if (min === 0 || min === 5) {
-        min = "00";
-    } else if (min === 10 || min === 15 || min === 20) {
-        min = "25";
-    } else if (min === 25 || min === 30 || min === 35) {
-        min = "50";
-    } else if (min === 40 || min === 45 || min === 50) {
-        min = "75";
-    } else if (min === 55) {
-        min = "00";
-        hour = hour + 1;
-    }
-    totalVal = hour + "." + min;
-    totalVal = setToFixed(totalVal);
-    return totalVal;
-}
-//SET TO FIXED TO 2 DECIMALS SO THAT A ZERO DECIMAL WILL DISPLAY AS .00
-function setToFixed(refVal) {
-    refVal = Number(refVal);
-    if (refVal === 0) {
-        return "";
-    }
-    refVal = Number(refVal).toFixed(2);
-    return refVal;
-}
-//ROUND TO THE NEAREST 5
-function round5(x) {
-    "use strict";
-    return Math.round(x / 5) * 5;
-}
-/********************TIME CALCULATIONS********************/
 
 byID("WeekOf").addEventListener('change', initialLoad);
 
@@ -596,27 +511,6 @@ function loadTeamValues() {
     }
 }
 
-//CHANGE NAV BAR VALUES DEPENDING ON THE DAY
-function toggleDay(x) {
-    "use strict";
-    //Set prev, today, and next text values
-    let prev = (x - 1 < 0) ? 6 : x - 1;
-    let next = (x + 1 > 6) ? 0 : x + 1;
-
-    byID("prev").innerHTML = `${days[prev]}-` + objThis.Data[`${days[prev]}Date`];
-    byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
-    byID("next").innerHTML = `${days[next]}-` + objThis.Data[`${days[next]}Date`];
-    byID("dailyP").innerHTML = fullday[x] + "-" + objThis.Data[`${days[x]}Date`];
-    togglePupilCounts(x);
-    loadLocalStorage(days[x])
-    getDailyTotals();
-    toggleOWFT();
-    toggleLeave();
-    loadOJT();
-    loadQL();
-    loadJ();
-}
-
 //LOAD Q/L CHECKBOXES, DISABLE/ENABLE THEM IF ROUTE HAS EQ OR L
 function loadQL() {
     if (optVal === "") {
@@ -677,12 +571,14 @@ function toggleOWFT() {
     for (let j = 20; j < 30; j++) {
         if ((day === "Sat" || day === "Sun") && j > 22) continue;
         let bln = (objThis[day][`${day}Select${j}`] !== "" || objThis[day][`${day}Desc${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false
+        byID(`Time${j}`).value = calculateTotal(calculateDiff(day, j));
         showHide(byID(`OWDiv${j}`), bln);
     }
 
     for (let j = 30; j < 35; j++) {
         if ((day === "Sat" || day === "Sun") && j > 32) continue;
         let bln = (objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}To${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false;
+        byID(`Time${j}`).value = convertTotal(calculateDiff(day, j));
         showHide(byID(`FTDiv${j}`), bln);
     }
 }
@@ -692,7 +588,7 @@ function toggleLeave() {
     toggleADLeave();
     const day = getDay();
 
-    let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40`] !== "" || objThis[day][`${day}Time41`] !== "") ? true : false;
+    let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40S`] !== "" || objThis[day][`${day}Time41S`] !== "") ? true : false;
 
     if (day === "Sat" || day === "Sun") bln = false;
     if (bln) {

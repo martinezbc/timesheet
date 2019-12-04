@@ -1,6 +1,3 @@
-const url = window.location.pathname;
-const filename = url.substring(url.lastIndexOf('/') + 1);
-const optVal = (filename === "index2.html") ? "S" : "";
 strHTML = '<option value="">--Select Location--</option>';
 strHTML += '<optgroup label="Center">';
 strHTML += '<option value="Bryant ALC">Bryant ALC</option>';

@@ -1,5 +1,3 @@
-const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 const week = localStorage.getItem('WeekOf');
 const objThis = JSON.parse(localStorage.getItem(week + "Obj"));
 
@@ -194,7 +192,7 @@ j = 0;
 for (const day of days) {
     for (let k = 30; k < 35; k++) {
         if ((day === "Sun" || day === "Sat") && k > 32) continue;
-        if (objThis[day][`${day}Time${k}`] !== "") {
+        if (objThis[day][`${day}Time${k}S`] !== "") {
             otherFT[j] = `${day}Time${k}`;
             j++;
         }
@@ -224,11 +222,11 @@ for (let i = 0; i < 5; i++) {
 let otherLV = ["LV0", "LV1", "LV2", "LV3", "LV4", "LV5", "LV6", "LV7", "LV8", "LV9"];
 j = 0;
 for (const day of weekdays) {
-    if (objThis[day][`${day}Time41`] !== "") {
+    if (objThis[day][`${day}Time41S`] !== "") {
         otherLV[j] = `${day}Time41`;
         j++;
     }
-    if (objThis[day][`${day}Time40`] !== "" && objThis[day][`${day}Time40`] !== undefined) {
+    if (objThis[day][`${day}Time40S`] !== "" && objThis[day][`${day}Time40`] !== undefined) {
         otherLV[j] = `${day}Time40`;
         j++;
     }
@@ -257,14 +255,14 @@ for (let i = 0; i < 10; i++) {
 }
 //********************DIV LEAVE********************//
 //********************DIV TOTALS********************//
-print(objThis.Data.TotalRun, byID("divptotalrun").children[0]);
-print(objThis.Data.TotalOther, byID("divptotalother").children[0]);
-print(objThis.Data.TotalFT, byID("divptotalft").children[0]);
-print(objThis.Data.TotalHW, byID("divptotalhw").children[0]);
-print(objThis.Data.Total1R, byID("divptotal1r").children[0]);
-print(objThis.Data.TotalS4OJT, byID("divptotals4ojt").children[0]);
-print(objThis.Data.TotalS4J, byID("divptotals4j").children[0]);
-print(objThis.Data.TotalS2QL, byID("divptotals2ql").children[0]);
-print(objThis.Data.TotalC3, byID("divptotalc3").children[0]);
-print(objThis.Data.TotalC1, byID("divptotalc1").children[0]);
+print(calculateTotal(weeklyRunTime()), byID("divptotalrun").children[0]);
+print(calculateTotal(weeklyOtherTime()), byID("divptotalother").children[0]);
+print(convertTotal(weeklyFieldTripTime()), byID("divptotalft").children[0]);
+print(convertTotal(calculateHoursWorked()), byID("divptotalhw").children[0]);
+print(convertTotal(weeklyRunTime() + weeklyOtherTime() + (objThis.Data.Area !== "TC" ? 15 : 0)), byID("divptotal1r").children[0]);
+print(convertTotal(calculateOJT()), byID("divptotals4ojt").children[0]);
+print(convertTotal(calculateAdmin()), byID("divptotals4j").children[0]);
+print(convertTotal(calculateEquipment()), byID("divptotals2ql").children[0]);
+print(convertTotal(weeklyC3Time()), byID("divptotalc3").children[0]);
+print(convertTotal(weeklyC1Time()), byID("divptotalc1").children[0]);
 //********************DIV TOTALS********************//

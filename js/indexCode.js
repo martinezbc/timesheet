@@ -197,6 +197,27 @@ function initialLoad() {
     loadRadioSelection();
 }
 
+//CHANGE NAV BAR VALUES DEPENDING ON THE DAY
+function toggleDay(x) {
+    "use strict";
+    //Set prev, today, and next text values
+    let prev = (x - 1 < 0) ? 6 : x - 1;
+    let next = (x + 1 > 6) ? 0 : x + 1;
+
+    byID("prev").innerHTML = `${days[prev]}-` + objThis.Data[`${days[prev]}Date`];
+    byID("today").innerHTML = `${days[x]}-` + objThis.Data[`${days[x]}Date`];
+    byID("next").innerHTML = `${days[next]}-` + objThis.Data[`${days[next]}Date`];
+    byID("dailyP").innerHTML = fullday[x] + "-" + objThis.Data[`${days[x]}Date`];
+    togglePupilCounts(x);
+    loadLocalStorage(days[x])
+    getDailyTotals();
+    toggleOWFT();
+    toggleLeave();
+    loadOJT();
+    loadQL();
+    loadJ();
+}
+
 //LOAD ALL ELEMENTS INTO LOCAL STORAGE AND THEN PULL VALUES
 function loadLocalStorage(day) {
     //Clear all fields first
@@ -330,6 +351,8 @@ function addLeave() {
         showHide(byID('LVDivAD'), true);
         showHide(byID('LVDiv40'), true);
         showHide(byID('LVDiv41'), true);
+        byID(`Time40`).value = convertTotal(calculateDiff(day, 40));
+        byID(`Time41`).value = convertTotal(calculateDiff(day, 41));
     }
 }
 
@@ -572,25 +595,14 @@ function openTimesheet() {
     emp = byID("EmpInitials").value;
     emp = emp.toUpperCase();
     objThis.Data.EmpInitials = emp;
-
+    setObject("EmpInitials");
     showHide(byID("validateModal"), false);
+    
     if (emp !== "") {
-        lastChanceMath();        
-
         //Set week value into local storage for preview and timesheet to use
         localStorage.setItem('WeekOf', byID("WeekOf").value);
         window.open("preview.html", "_self");
-        
     }
-}
-
-function lastChanceMath () {
-    for (const day of days) {
-        const sum = calculateTotal(calculateRunTime(day));
-        objThis[day][`${day}RunTotal`] = sum;
-    }
-            
-    getWeeklyTotals();
 }
 
 function testEmpData() {
@@ -621,10 +633,10 @@ function testFieldTrip() {
 
     //Check field trips
     for (let i = 0; i < 7; i += 1) {
-        day = days[i];
+        let day = days[i];
         for (let j = 30; j < 35; j++) {
             if ((i === 0 || i === 6) && j > 32) continue;
-            blnTime = (objThis[day][`${day}Time${j}`] !== "") ? true : false;
+            blnTime = (objThis[day][`${day}Time${j}S`] !== "") ? true : false;
             if (blnTime && (objThis[day][`${day}Voucher${j}`] === "" || objThis[day][`${day}From${j}`] === "" || objThis[day][`${day}To${j}`] === ""))
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Field Trip: Voucher, From and To fields cannot be blank.</p>";
 
@@ -642,10 +654,10 @@ function testOtherWork() {
         let day = days[i];
         for (let j = 20; j < 30; j++) {
             if ((i === 0 || i === 6) && j > 22) continue;
-            if (objThis[day][`${day}Time${j}`] === "" && objThis[day][`${day}Select${j}`] !== "" && objThis[day][`${day}Select${j}`] !== "FYI")
+            if (objThis[day][`${day}Time${j}S`] === "" && objThis[day][`${day}Select${j}`] !== "" && objThis[day][`${day}Select${j}`] !== "FYI")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: No time entered.</p>";
 
-            if (objThis[day][`${day}Time${j}`] !== "" && objThis[day][`${day}Select${j}`] === "")
+            if (objThis[day][`${day}Time${j}S`] !== "" && objThis[day][`${day}Select${j}`] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + "-Other Work: Category is required.</p>";
 
             if ((objThis[day][`${day}Select${j}`] === "OT" || objThis[day][`${day}Select${j}`] === "FYI") && objThis[day][`${day}Desc${j}`] === "")
@@ -661,18 +673,18 @@ function testLeave() {
     for (let i = 1; i < 6; i += 1) {
         let day = days[i];
         for (let j = 40; j < 42; j++) {
-            if (byID(`Time${j}`).value !== "") {
-                if (byID(`LeaveSelect${j}`).value === "")
+            if (objThis[day][`${day}Time${j}S`] !== "") {
+                if (objThis[day][`${day}LeaveSelect${j}`] === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID(`LeaveSelect${j}`).value !== "")
+                if (objThis[day][`${day}LeaveSelect${j}`] !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Leave type selected but no time was entered.</p>";
             }
-            if (byID('LeaveAD').checked) {
-                if (byID(`LeaveSelectAD`).value === "")
+            if (objThis[day][`${day}LeaveAD`]) {
+                if (objThis[day][`${day}LeaveSelectAD`] === "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: Type of leave is required.</p>";
             } else {
-                if (byID(`LeaveSelectAD`).value !== "")
+                if (objThis[day][`${day}LeaveSelectAD`] !== "")
                     val += "<p class='varp'>&bull;" + fullday[i] + "-Leave: All day leave type selected but checkbox left unchecked.</p>";
             }
         }
@@ -725,47 +737,47 @@ function testStopCounts() {
 }
 
 function testRegPupil(day, mer) {
-    if (mer === 'AM' && byID(`Time11`).value === "") return true;
-    if (mer === 'PM' && byID(`Time12`).value === "") return true;
+    if (mer === 'AM' && objThis[day][`${day}Time11S`] === "") return true;
+    if (mer === 'PM' && objThis[day][`${day}Time12S`] === "") return true;
 
     let ct = 0;
     for (let i = 1; i < 6; i += 1)
-        if (byID(`${mer}Route${i}`).value !== "") ct++;
+        if (objThis[day][`${day}${mer}${i}Ct`] !== "") ct++;
 
     return (ct > 0) ? true : false;
 }
 
 function testRegCounts(day, mer) {
-    if (mer === 'AM' && byID(`Time11`).value === "") return true;
-    if (mer === 'PM' && byID(`Time12`).value === "") return true;
+    if (mer === 'AM' && objThis[day][`${day}Time11S`] === "") return true;
+    if (mer === 'PM' && objThis[day][`${day}Time12S`] === "") return true;
 
     let ct = 0;
     for (let j = 1; j < 6; j++)
-        if (byID(`${mer}Route${j}`).value !== "" && byID(`${mer}${j}Ct`).value !== "") ct++;
+        if (objThis.Data[`${mer}Route${j}`] !== "" && objThis[day][`${day}${mer}${j}Ct`] !== "") ct++;
 
     return (ct > 0) ? true : false;
 }
 
 function testSpecPupil(day, spec) {
-    if (spec === 'PS' && byID(`Time13`).value === "" && byID(`Time14`).value === "") return true;
-    if (spec === 'SH' && byID(`Time15`).value === "" && byID(`Time16`).value === "") return true;
-    if (spec === 'LR' && byID(`Time17`).value === "") return true;
+    if (spec === 'PS' && objThis[day][`${day}Time13S`] === "" && objThis[day][`${day}Time14S`] === "") return true;
+    if (spec === 'SH' && objThis[day][`${day}Time15S`] === "" && objThis[day][`${day}Time16S`] === "") return true;
+    if (spec === 'LR' && objThis[day][`${day}Time17S`] === "") return true;
 
     let ct = 0;
-    if (byID(`${spec}Route1`).value !== "") ct++;
-    if (byID(`${spec}Route2`).value !== "") ct++;
+    if (objThis.Data[`${spec}Route1`] !== "") ct++;
+    if (objThis.Data[`${spec}Route2`] !== "") ct++;
 
     return (ct > 0) ? true : false;
 }
 
 function testSpecCounts(day, spec) {
-    if (spec === 'PS' && byID(`Time13`).value === "" && byID(`Time14`).value === "") return true;
-    if (spec === 'SH' && byID(`Time15`).value === "" && byID(`Time16`).value === "") return true;
-    if (spec === 'LR' && byID(`Time17`).value === "") return true;
+    if (spec === 'PS' && objThis[day][`${day}Time13S`] === "" && objThis[day][`${day}Time14S`] === "") return true;
+    if (spec === 'SH' && objThis[day][`${day}Time15S`] === "" && objThis[day][`${day}Time16S`] === "") return true;
+    if (spec === 'LR' && objThis[day][`${day}Time17S`] === "") return true;
 
     let ct = 0;
-    if (byID(`${spec}Route1`).value !== "" && byID(`${spec}1Ct`).value !== "") ct++;
-    if (byID(`${spec}Route2`).value !== "" && byID(`${spec}2Ct`).value !== "") ct++;
+    if (objThis.Data[`${spec}Route1`] !== "" && objThis[day][`${day}${spec}1Ct`] !== "") ct++;
+    if (objThis.Data[`${spec}Route2`] !== "" && objThis[day][`${day}${spec}2Ct`] !== "") ct++;
 
     return (ct > 0) ? true : false;
 }
@@ -775,7 +787,7 @@ function testTimeComplete() {
     for (let i = 1; i < 6; i += 1) {
         let day = days[i];
         for (let j = 11; j < 17; j++) {
-            if (byID(`Time${j}S`).value !== "" && byID(`Time${j}E`).value === "")
+            if (objThis[day][`${day}Time${j}S`] !== "" && objThis[day][`${day}Time${j}E`] === "")
                 val += "<p class='varp'>&bull;" + fullday[i] + ": Time not completed.</p>";
         }
     }
