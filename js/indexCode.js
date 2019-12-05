@@ -73,7 +73,7 @@ function routeNameTransform(refID) {
     }
 
     //Let shuttle number be whatever they type in
-    if (refID === "SHRoute1" || refID === "SHRoute2") {
+    if ((refID === "SHRoute1" || refID === "SHRoute2") && objThis.Data.Area !== "7") {
         refVal = (blnJ) ? refVal + " J" : refVal;
         refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
         refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
@@ -211,8 +211,7 @@ function toggleDay(x) {
     togglePupilCounts(x);
     loadLocalStorage(days[x])
     getDailyTotals();
-    toggleOWFT();
-    toggleLeave();
+    toggleOWFTLV();
     loadOJT();
     loadQL();
     loadJ();
@@ -343,17 +342,16 @@ function popUpCT() {
 //SHOW THE LEAVE SECTION
 function addLeave() {
     const day = getDay();
-
-    if (!byID('LVDivAD').classList.contains('hide')) {
-        resetLeave(day);
-    } else {
-        byID('LVAdd').innerHTML = '<span class="far fa-minus-square fa-lg"></span>Remove Leave</p>'
-        showHide(byID('LVDivAD'), true);
-        showHide(byID('LVDiv40'), true);
-        showHide(byID('LVDiv41'), true);
-        byID(`Time40`).value = convertTotal(calculateDiff(day, 40));
-        byID(`Time41`).value = convertTotal(calculateDiff(day, 41));
-    }
+    let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40S`] !== "" || objThis[day][`${day}Time41S`] !== "") ? true : false;
+    bln = (!bln && byID('LVAdd').innerHTML.endsWith("Remove Leave")) ? true : bln;
+    toggleADLeave();
+    
+    byID('LVAdd').innerHTML = (!bln) ? '<span class="far fa-minus-square fa-lg"></span>Remove Leave' : '<span class="far fa-plus-square fa-lg"></span>Add Leave';
+    showHide(byID('LVDivAD'), !bln);
+    showHide(byID('LVDiv40'), !bln);
+    showHide(byID('LVDiv41'), !bln);
+    
+    if (bln) resetLeave(day);
 }
 
 //SEPARATE FUNCTION FOR RESETTING LEAVE
@@ -564,7 +562,7 @@ function toggleADLeave() {
         disableElement(`Time${i}S`, bln);
         disableElement(`Time${i}E`, bln);
         disableElement(`Time${i}`, bln);
-        disableElement(`OJT${i}`, bln);
+        disableElement(`OJT${i}`, byID('OJT').checked ? bln : true);
     }
     //Clear partial leave time
     for (i = 40; i < 42; i += 1) {
@@ -597,7 +595,7 @@ function openTimesheet() {
     objThis.Data.EmpInitials = emp;
     setObject("EmpInitials");
     showHide(byID("validateModal"), false);
-    
+
     if (emp !== "") {
         //Set week value into local storage for preview and timesheet to use
         localStorage.setItem('WeekOf', byID("WeekOf").value);

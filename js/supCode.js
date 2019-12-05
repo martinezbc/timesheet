@@ -35,7 +35,7 @@ function initialLoad() {
     loadLocalStorage();
     loadRadioSelection();
     loadOJT();
-    toggleOWFT();
+    toggleOWFTLV();
     toggleSupLeave();
     getWeeklyTotals();
 }

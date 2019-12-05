@@ -566,7 +566,7 @@ function toggleJReg(e) {
 }
 
 //TOGGLE OW AND FT BOXES SO THAT THEY SHOW IF THEY HAVE VALUES
-function toggleOWFT() {
+function toggleOWFTLV() {
     const day = getDay();
     for (let j = 20; j < 30; j++) {
         if ((day === "Sat" || day === "Sun") && j > 22) continue;
@@ -581,20 +581,16 @@ function toggleOWFT() {
         byID(`Time${j}`).value = convertTotal(calculateDiff(day, j));
         showHide(byID(`FTDiv${j}`), bln);
     }
-}
 
-//TOGGLE LEAVE IF THERE IS LEAVE FILLED OUT
-function toggleLeave() {
-    toggleADLeave();
-    const day = getDay();
-
-    let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40S`] !== "" || objThis[day][`${day}Time41S`] !== "") ? true : false;
-
-    if (day === "Sat" || day === "Sun") bln = false;
-    if (bln) {
-        addLeave();
-    } else {
-        resetLeave(day);
+    if (day !== "Sup") {
+        toggleADLeave();
+        let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40S`] !== "" || objThis[day][`${day}Time41S`] !== "") ? true : false;
+        byID('LVAdd').innerHTML = (bln) ? '<span class="far fa-minus-square fa-lg"></span>Remove Leave' : '<span class="far fa-plus-square fa-lg"></span>Add Leave';
+        showHide(byID('LVDivAD'), bln);
+        showHide(byID('LVDiv40'), bln);
+        showHide(byID('LVDiv41'), bln);
+        byID(`Time40`).value = convertTotal(calculateDiff(day, 40));
+        byID(`Time41`).value = convertTotal(calculateDiff(day, 41));
     }
 }
 
@@ -773,14 +769,14 @@ function removeOWFTLV(e) {
             resetElement(`Select${x}`);
         }
     }
-    
+
     if (x !== 'AD') {
         resetTime(x);
     } else {
         resetElement(`LeaveAD`);
         toggleADLeave();
     }
-    
+
     if (optVal === "") {
         getDailyTotals();
     } else {
@@ -817,7 +813,7 @@ function getMissingFT() {
 
 //CLEAR LOCAL STORAGE AND RELOAD PAGE
 function clearFields() {
-    if (optVal === "") 
+    if (optVal === "")
         localStorage.removeItem(`${byID("WeekOf").value}Obj`);
     else
         localStorage.removeItem(`${byID("WeekOf").value}ObjS`);
@@ -840,7 +836,7 @@ function disableOWFields(refID) {
 
     bln = (refVal === "Q/L") ? true : false;
     byID(`QL${x}`).checked = bln;
-    
+
     setObject(`QL${x}`);
 }
 
@@ -949,7 +945,7 @@ function setObject(refID) {
     if (e.classList.contains("data")) {
         objThis[key][refID] = e.value;
     } else if (refID === "OJT") {
-        objThis[key][refID] = (e.checked) ? true : false; 
+        objThis[key][refID] = (e.checked) ? true : false;
     } else if (e.type === 'checkbox') {
         objThis[day][`${day}${refID}`] = (e.checked) ? true : false;
     } else {
