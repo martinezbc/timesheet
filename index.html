@@ -385,10 +385,11 @@
                 </div>
                 <div class="tinycard bg-teal1">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-8">
                             <p class="category">Morning Runs</p>
                         </div>
-                        <div class="col-2">
+                        <div class="col-4">
+                           <input type="checkbox" class="chkRC" id="RC11"><label for="RC11">RC</label>
                             <input type="checkbox" class="chkOJT" id="OJT11"><label for="OJT11">OJT</label>
                         </div>
                     </div>
@@ -404,10 +405,11 @@
                 </div>
                 <div class="tinycard bg-teal1">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-8">
                             <p class="category">Afternoon Runs</p>
                         </div>
-                        <div class="col-2">
+                        <div class="col-4">
+                           <input type="checkbox" class="chkRC" id="RC12"><label for="RC12">RC</label>
                             <input type="checkbox" class="chkOJT" id="OJT12"><label for="OJT12">OJT</label>
                         </div>
                     </div>
@@ -578,6 +580,40 @@
                 <p>INITIALS: <input type="text" style="width: 30%;" id="EmpInitials"><button id="goConfirm" onclick="openTimesheet();">CONFIRM</button>
             </div>
         </div>
+        <!-- Run Coverage Modal -->
+        <div id="runcoverModal" class="modal hide" style="padding-top: 15%;">
+            <div class="modal-content" style="width: 220px;background-color:rgba(204,238,243);">
+                <p class="modal-title">Route Coverage<span class="close fas fa-times-circle fa-lg" id="endcover" style="float:right;"></span></p>
+                <br>
+                <p class="category" id="rctitle">Morning Runs</p>
+                <br>
+                <div class="row" id="divRoute1">
+                    <input type="text" class="routewidth" id="RC1">
+                    <input class="" type="checkbox" id="QLRC1"><label for="QLRC1">Q/L</label>
+                    <input type="checkbox" class="" id="JRC1"><label for="JRC1">J</label>
+                </div>
+                <div class="row" id="divRoute2">
+                    <input type="text" class="routewidth" id="RC2">
+                    <input class="" type="checkbox" id="QLRC2"><label for="QLRC2">Q/L</label>
+                    <input type="checkbox" class="" id="JRC2"><label for="JRC2">J</label>
+                </div>
+                <div class="row" id="divRoute3">
+                    <input type="text" class="routewidth" id="RC3">
+                    <input class="" type="checkbox" id="QLRC3"><label for="QLRC3">Q/L</label>
+                    <input type="checkbox" class="" id="JRC3"><label for="JRC3">J</label>
+                </div>
+                <div class="row" id="divRoute4">
+                    <input type="text" class="routewidth" id="RC4">
+                    <input class="" type="checkbox" id="QLRC4"><label for="QLRC4">Q/L</label>
+                    <input type="checkbox" class="" id="JRC4"><label for="JRC4">J</label>
+                </div>
+                <div class="row" id="divRoute5">
+                    <input type="text" class="routewidth" id="RC5">
+                    <input class="" type="checkbox" id="QLRC5"><label for="QLRC5">Q/L</label>
+                    <input type="checkbox" class="" id="JRC5"><label for="JRC5">J</label>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="footer bg-burntred">
         <div class="row center">
@@ -620,9 +656,7 @@
         document.write("<script src='js/indexInsert.js?v=" + Date.now() + "'><\/script>");
         document.write("<script src='js/_fieldtrip.js?v=" + Date.now() + "'><\/script>");
         document.write("<script src='js/indexObject.js?v=" + Date.now() + "'><\/script>");
-        document.write("<script src='js/indexCode.js?v=" + Date.now() + "'><\/script>");        
+        document.write("<script src='js/indexCode.js?v=" + Date.now() + "'><\/script>");
         document.write("<script src='js/_script.js?v=" + Date.now() + "'><\/script>");
     </script>
-</body>
-
-</html>
+</body></html>

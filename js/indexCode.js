@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     byID('ctspan').addEventListener('click', popUpCT);
     byID('divpreview').addEventListener('click', completeTimesheet);
     byID('divsupplement').addEventListener('click', openSupplement);
+    byID('endcover').addEventListener('click', closeRunCoverage);
     arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);
+    arrEach(docObj(".chkRC"), 'click', openRunCoverage);
 });
 
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
@@ -123,6 +125,61 @@ function routeNameTransform(refID) {
     byID(refID).value = (refVal === "-") ? "" : refVal;
 }
 
+function toggleRC() {
+    const day = getDay();
+    let bln = false;
+    
+    if (day === "Sat" || day === "Sun") return;
+    
+    for (let i = 1; i < 6; i++) {
+        bln = (objThis[day][`${day}RC${i}AM`] !== "") ? true : false;
+        if (bln) break;
+    }
+    byID("RC11").checked = bln;
+    
+    bln = false;
+    for (let i = 1; i < 6; i++) {
+        bln = (objThis[day][`${day}RC${i}PM`] !== "") ? true : false;
+        if (bln) break;
+    }
+    byID("RC12").checked = bln;
+}
+
+function openRunCoverage(e) {
+    const refID = e.target.id;
+    const day = getDay();
+    const mer = (refID === "RC11") ? "AM" : "PM";
+    
+    showHide(byID("runcoverModal"), true);
+
+    byID("rctitle").textContent = (refID === "RC11") ? "Morning Runs" : "Afternoon Runs";
+    byID('RC1').value = objThis.Data[`${mer}Route1`] || objThis[day][`${day}RC1${mer}`] || "";
+    byID('RC2').value = objThis.Data[`${mer}Route2`] || objThis[day][`${day}RC2${mer}`] || "";
+    byID('RC3').value = objThis.Data[`${mer}Route3`] || objThis[day][`${day}RC3${mer}`] || "";
+    byID('RC4').value = objThis.Data[`${mer}Route4`] || objThis[day][`${day}RC4${mer}`] || "";
+    byID('RC5').value = objThis.Data[`${mer}Route5`] || objThis[day][`${day}RC5${mer}`] || "";
+    
+    byID('RC1').disabled = (byID('RC1').value === objThis.Data[`${mer}Route1`] && byID('RC1').value !== "") ? true : false;
+    byID('RC2').disabled = (byID('RC2').value === objThis.Data[`${mer}Route2`] && byID('RC2').value !== "") ? true : false;
+    byID('RC3').disabled = (byID('RC3').value === objThis.Data[`${mer}Route3`] && byID('RC3').value !== "") ? true : false;
+    byID('RC4').disabled = (byID('RC4').value === objThis.Data[`${mer}Route4`] && byID('RC4').value !== "") ? true : false;
+    byID('RC5').disabled = (byID('RC5').value === objThis.Data[`${mer}Route5`] && byID('RC5').value !== "") ? true : false;
+}
+
+function closeRunCoverage() {
+    showHide(byID('runcoverModal'), false);
+    const day = getDay();
+    const mer = (byID("rctitle").textContent === "Morning Runs") ? "AM" : "PM";
+
+    objThis[day][`${day}RC1${mer}`] = (byID('RC1').value === objThis.Data[`${mer}Route1`]) ? "" : byID('RC1').value;
+    objThis[day][`${day}RC2${mer}`] = (byID('RC2').value === objThis.Data[`${mer}Route2`]) ? "" : byID('RC2').value;
+    objThis[day][`${day}RC3${mer}`] = (byID('RC3').value === objThis.Data[`${mer}Route3`]) ? "" : byID('RC3').value;
+    objThis[day][`${day}RC4${mer}`] = (byID('RC4').value === objThis.Data[`${mer}Route4`]) ? "" : byID('RC4').value;
+    objThis[day][`${day}RC5${mer}`] = (byID('RC5').value === objThis.Data[`${mer}Route5`]) ? "" : byID('RC5').value;
+    setStorage();
+    toggleRC();
+}
+
 //CLEAR TIME FIELDS
 function clearTimeField(e) {
     const day = getDay();
@@ -212,6 +269,7 @@ function toggleDay(x) {
     loadLocalStorage(days[x])
     getDailyTotals();
     toggleOWFTLV();
+    toggleRC();
     loadOJT();
     loadQL();
     loadJ();
@@ -345,12 +403,12 @@ function addLeave() {
     let bln = (objThis[day][`${day}LeaveAD`] || objThis[day][`${day}Time40S`] !== "" || objThis[day][`${day}Time41S`] !== "") ? true : false;
     bln = (!bln && byID('LVAdd').innerHTML.endsWith("Remove Leave")) ? true : bln;
     toggleADLeave();
-    
+
     byID('LVAdd').innerHTML = (!bln) ? '<span class="far fa-minus-square fa-lg"></span>Remove Leave' : '<span class="far fa-plus-square fa-lg"></span>Add Leave';
     showHide(byID('LVDivAD'), !bln);
     showHide(byID('LVDiv40'), !bln);
     showHide(byID('LVDiv41'), !bln);
-    
+
     if (bln) resetLeave(day);
 }
 
