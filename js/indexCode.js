@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     byID('endcover').addEventListener('click', closeRunCoverage);
     arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);
     arrEach(docObj(".chkRC"), 'click', openRunCoverage);
+    arrEach(docObj(".rc"), 'change', checkRCRoute);
+    arrEach(docObj(".chkQLRC"), 'click', checkRCRoute);
+    arrEach(docObj(".chkJRC"), 'click', checkRCRoute);
 });
 
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
@@ -128,15 +131,15 @@ function routeNameTransform(refID) {
 function toggleRC() {
     const day = getDay();
     let bln = false;
-    
+
     if (day === "Sat" || day === "Sun") return;
-    
+
     for (let i = 1; i < 6; i++) {
         bln = (objThis[day][`${day}RC${i}AM`] !== "") ? true : false;
         if (bln) break;
     }
     byID("RC11").checked = bln;
-    
+
     bln = false;
     for (let i = 1; i < 6; i++) {
         bln = (objThis[day][`${day}RC${i}PM`] !== "") ? true : false;
@@ -149,21 +152,37 @@ function openRunCoverage(e) {
     const refID = e.target.id;
     const day = getDay();
     const mer = (refID === "RC11") ? "AM" : "PM";
-    
+
     showHide(byID("runcoverModal"), true);
 
+    const chkRC = document.querySelectorAll('.chkQLRC, .chkJRC');
+    for (const chk of chkRC) {
+        chk.disabled = true;
+    }
+
+    const bln1 = (objThis.Data[`${mer}Route1`] === "") ? false : true;
+    const bln2 = (objThis.Data[`${mer}Route2`] === "") ? false : true;
+    const bln3 = (objThis.Data[`${mer}Route3`] === "") ? false : true;
+    const bln4 = (objThis.Data[`${mer}Route4`] === "") ? false : true;
+    const bln5 = (objThis.Data[`${mer}Route5`] === "") ? false : true;
+
     byID("rctitle").textContent = (refID === "RC11") ? "Morning Runs" : "Afternoon Runs";
-    byID('RC1').value = objThis.Data[`${mer}Route1`] || objThis[day][`${day}RC1${mer}`] || "";
-    byID('RC2').value = objThis.Data[`${mer}Route2`] || objThis[day][`${day}RC2${mer}`] || "";
-    byID('RC3').value = objThis.Data[`${mer}Route3`] || objThis[day][`${day}RC3${mer}`] || "";
-    byID('RC4').value = objThis.Data[`${mer}Route4`] || objThis[day][`${day}RC4${mer}`] || "";
-    byID('RC5').value = objThis.Data[`${mer}Route5`] || objThis[day][`${day}RC5${mer}`] || "";
-    
-    byID('RC1').disabled = (byID('RC1').value === objThis.Data[`${mer}Route1`] && byID('RC1').value !== "") ? true : false;
-    byID('RC2').disabled = (byID('RC2').value === objThis.Data[`${mer}Route2`] && byID('RC2').value !== "") ? true : false;
-    byID('RC3').disabled = (byID('RC3').value === objThis.Data[`${mer}Route3`] && byID('RC3').value !== "") ? true : false;
-    byID('RC4').disabled = (byID('RC4').value === objThis.Data[`${mer}Route4`] && byID('RC4').value !== "") ? true : false;
-    byID('RC5').disabled = (byID('RC5').value === objThis.Data[`${mer}Route5`] && byID('RC5').value !== "") ? true : false;
+    byID('RC1').value = bln1 ? objThis.Data[`${mer}Route1`] : objThis[day][`${day}RC1${mer}`] || "";
+    byID('RC2').value = bln2 ? objThis.Data[`${mer}Route2`] : objThis[day][`${day}RC2${mer}`] || "";
+    byID('RC3').value = bln3 ? objThis.Data[`${mer}Route3`] : objThis[day][`${day}RC3${mer}`] || "";
+    byID('RC4').value = bln4 ? objThis.Data[`${mer}Route4`] : objThis[day][`${day}RC4${mer}`] || "";
+    byID('RC5').value = bln5 ? objThis.Data[`${mer}Route5`] : objThis[day][`${day}RC5${mer}`] || "";
+
+    byID('RC1').disabled = bln1;
+    byID('RC2').disabled = bln2;
+    byID('RC3').disabled = bln3;
+    byID('RC4').disabled = bln4;
+    byID('RC5').disabled = bln5;
+
+    for (let i = 1; i < 6; i++) {
+        enabledQLJRC(i);
+    }
+
 }
 
 function closeRunCoverage() {
@@ -178,6 +197,97 @@ function closeRunCoverage() {
     objThis[day][`${day}RC5${mer}`] = (byID('RC5').value === objThis.Data[`${mer}Route5`]) ? "" : byID('RC5').value;
     setStorage();
     toggleRC();
+}
+
+function enabledQLJRC(i) {
+    const refVal = byID(`RC${i}`).value;
+
+    let blnJ = (refVal.lastIndexOf("J") > 3) ? true : false;
+    let blnL = (refVal.lastIndexOf("L") > 3) ? true : false;
+    let blnQ = (refVal.lastIndexOf("Q") > 3) ? true : false;
+
+    byID(`QLRC${i}`).checked = (blnQ || blnL) ? true : false;
+    byID(`QLRC${i}`).disabled = (blnQ || blnL) ? false : true;
+    byID(`JRC${i}`).checked = blnJ;
+    byID(`JRC${i}`).disabled = !blnJ;
+}
+
+function checkRCRoute(e) {
+    let refVal = e.target.value;
+    refVal = refVal.toUpperCase();
+
+    let i = 0;
+
+    let blnJ = (refVal.lastIndexOf("J") > 3) ? true : false;
+    let blnL = (refVal.lastIndexOf("L") > 3) ? true : false;
+    let blnQ = (refVal.lastIndexOf("Q") > 3) ? true : false;
+
+    //Remove AM & PM
+    if (refVal.lastIndexOf("AM") > 2)
+        refVal = refVal.replace("AM", "");
+    if (refVal.lastIndexOf("PM") > 2)
+        refVal = refVal.replace("PM", "");
+
+    refVal = refVal.trim();
+
+    //Remove -
+    refVal = refVal.replace("-", "");
+
+    //Remove Q, L and J
+    if (refVal.lastIndexOf("L") > 3) {
+        i = refVal.lastIndexOf("L");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
+    }
+    if (refVal.lastIndexOf("Q") > 3) {
+        i = refVal.lastIndexOf("Q");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
+    }
+    if (refVal.lastIndexOf("J") > 3) {
+        i = refVal.lastIndexOf("J");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
+    }
+
+    if (refVal.lastIndexOf("V") > 3) {
+        i = refVal.lastIndexOf("V");
+        refVal = refVal.substr(0, i) + refVal.substr(i + 1);
+        refVal = refVal.trim();
+    }
+
+    //If the route length is less than 3 then they didn't completely type in the route name
+    if (refVal.length < 3 && refVal !== '') {
+        openPopUp('<p>Invalid route name.</p>');
+        refVal = "";
+    }
+
+    let routeName = ''
+    let routeNum = '';
+    let count = 0;
+    for (let i = refVal.length; i >= 0; i--) {
+        if (isNaN(refVal.substr(i, 1)) && routeNum !== '') {
+            routeName = refVal.substr(i, 1) + routeName;
+        } else if (!isNaN(refVal.substr(i, 1))) {
+            routeNum = refVal.substr(i, 1) + routeNum;
+        }
+    }
+    routeNum = (routeNum.length === 1) ? "0" + routeNum : routeNum;
+
+    if (routeName.indexOf("AIM") > -1 || routeName.indexOf("TSRC") > -1) {
+        routeName = routeName + routeNum.substr(0, 1);
+        routeNum = routeNum.substr(1);
+    }
+
+    //Rebuild route number with dash, J, L, and Q if needed
+    refVal = routeName + "-" + routeNum;
+    refVal = (blnJ) ? refVal + " J" : refVal;
+    refVal = (blnQ && blnJ) ? refVal + "Q" : (blnQ && !blnJ) ? refVal + " Q" : refVal;
+    refVal = (blnL && (blnJ || blnQ)) ? refVal + "L" : (blnL && !blnJ && !blnQ) ? refVal + " L" : refVal;
+
+    //Set new string into element unless it's only a dash
+    e.target.value = (refVal === "-") ? "" : refVal;
+    enabledQLJRC(e.target.id.substr(-1));
 }
 
 //CLEAR TIME FIELDS
@@ -360,6 +470,7 @@ function storeWeek() {
         setStorage();
     } else {
         objThis = JSON.parse(localStorage.getItem(`${week}Obj`));
+        recheckObject();
         storeWeekDays(week);
     }
 
@@ -383,6 +494,26 @@ function storeWeekDays(week) {
         sm = (sm.toString().length === 1) ? "0" + sm : sm;
         sd = (sd.toString().length === 1) ? "0" + sd : sd;
         objThis.Data[`${days[i]}Date`] = sm + "/" + sd;
+    }
+}
+
+function recheckObject() {
+    //Added function so that if IndexObject is updated, the missing objects will be added to the existing week object.
+    let entries = Object.entries(objNew.Data);
+
+    for (const [key, value] of entries) {
+        if (!objThis.Data[key]) {
+            objThis.Data[key] = objNew.Data[key];
+        }
+    }
+
+    for (const day of days) {
+        entries = Object.entries(objNew[day]);
+        for (const [key, value] of entries) {
+            if (!objThis[day][key]) {
+                objThis[day][key] = objNew[day][key];
+            }
+        }
     }
 }
 

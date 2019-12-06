@@ -26,10 +26,10 @@ function getDailyTotals() {
 //CONVERT TIME COMPLETELY TO MINUTES
 function convertToMinutes(s1) {
     "use strict";
-    if (s1 === "" || s1 === null || s1 === undefined || s1 === "")return 0;
+    if (s1 === "" || s1 === null || s1 === undefined || s1 === "") return 0;
     let blnTimeFormat = s1.endsWith("AM") || s1.endsWith("PM") ? true : false;
     let blnPM = (s1.endsWith("PM")) ? true : false;
-    
+
     let temp = s1.replace(" AM", "").replace(" PM", "");
     let time = temp.split(":");
     let hour = time[0];
@@ -120,7 +120,7 @@ function timeCalculation(refID) {
     }
     //Check for overlapping times
     checkOverlap(refID);
-    
+
     setObject(refID);
 
     //Calculate the difference in time
@@ -187,10 +187,12 @@ function dailyQL(day) {
     let sum = 0;
 
     //If Q/L is checked, total up run, pac, shuttles, late run time
-    if (day !== "Sat" && day !== "Sun" && byID('QL11').checked) {
-        for (let i = 11; i < 18; i += 1) {
-            sum += calculateDiff(day, i);
-        }
+    if (day !== "Sat" && day !== "Sun") {
+        sum += (byID('QL11').checked || chkQLRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
+        sum += (byID('QL11').checked || chkQLRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
+
+        for (let i = 13; i < 18; i += 1)
+            sum += byID('QL11').checked ? calculateDiff(day, i) : 0;
     }
 
     //If Other Work Q/L is checked, add the time
@@ -206,6 +208,20 @@ function dailyQL(day) {
     }
     sum = calculateTotal(sum);
     byID(`QLTotal`).value = sum;
+}
+
+function chkQLRC(day, mer) {
+    if (objThis[day][`${day}QLRC1${mer}`] || objThis[day][`${day}QLRC2${mer}`] || objThis[day][`${day}QLRC3${mer}`] || objThis[day][`${day}QLRC4${mer}`] || objThis[day][`${day}QLRC5${mer}`])
+        return true;
+    else
+        return false;
+}
+
+function chkJRC(day, mer) {
+    if (objThis[day][`${day}JRC1${mer}`] || objThis[day][`${day}JRC2${mer}`] || objThis[day][`${day}JRC3${mer}`] || objThis[day][`${day}JRC4${mer}`] || objThis[day][`${day}JRC5${mer}`])
+        return true;
+    else
+        return false;
 }
 
 function calculateRunTime(day) {
@@ -265,11 +281,12 @@ function calculateEquipment() {
 function calculateAdmin() {
     let sum = 0;
     for (const day of days) {
+        if (day === "Sat" || day === "Sun") continue;
+        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
+        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
 
-        for (let i = 11; i < 18; i++) {
-            if (day === "Sat" || day === "Sun" || day === "Sup") continue;
-            sum += (objThis[day][`${day}J11`]) ? calculateDiff(day, i) : 0;
-        }
+        for (let i = 13; i < 18; i += 1)
+            sum += objThis[day][`${day}J11`] ? calculateDiff(day, i) : 0;
     }
     return sum;
 }
@@ -302,7 +319,7 @@ function calculateHoursWorked() {
             if ((day === "Sat" || day === "Sun") && j === 23) continue;
             sum += calculateDiff(day, j);
         }
-        
+
         for (let j = 30; j < 35; j++) {
             sum += convertTotal(calculateDiff(day, j)) * 60;
         }
@@ -316,7 +333,7 @@ function calculateHoursWorked() {
 function weeklyRunTime() {
     let sum = 0;
     for (const day of weekdays)
-            sum += calculateRunTime(day);
+        sum += calculateRunTime(day);
     return sum;
 }
 
@@ -401,9 +418,9 @@ function getWeeklyTotals() {
 
     //If OJT Trainer is not checked then exit function
     if (objThis[key]["OJT"]) {
-        byID("TotalS4OJT").value = convertTotal(calculateOJT());    
+        byID("TotalS4OJT").value = convertTotal(calculateOJT());
     }
-    
+
     //Set all data to storage
     setStorage();
 }
