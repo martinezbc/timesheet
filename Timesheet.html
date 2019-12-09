@@ -302,13 +302,11 @@
                 pdf.text(hOffset, vOffset, objThis.Data.AMRoute5 || "");
                 hOffset += 57.5;
                 pdf.setFontStyle("bold");
-                pdf.setFontSize(9);
-                pdf.text(hOffset - 3, vOffset, "AM First P/U");
+                pdf.text(hOffset - 1, vOffset, "First Pickup");
                 hOffset += 57.5;
-                pdf.text(hOffset - 3, vOffset, "PM First P/U");
+                pdf.text(hOffset - 3, vOffset, "Last Drop Off");
                 hOffset += 54;
                 pdf.setFontStyle("normal");
-                pdf.setFontSize(8);
                 pdf.text(hOffset, vOffset, objThis.Data.PSRoute1 || "");
                 hOffset += 54;
                 pdf.text(hOffset, vOffset, objThis.Data.SHRoute1 || "");
@@ -339,13 +337,11 @@
                 hOffset += 54;
                 pdf.text(hOffset, vOffset, objThis.Data.PMRoute5 || "");
                 hOffset += 57.5;
-                pdf.setFontSize(9);
                 pdf.setFontStyle("bold");
-                pdf.text(hOffset - 3, vOffset, "AM Last D/O");
+                pdf.text(hOffset - 1, vOffset, "First Pickup");
                 hOffset += 57.5;
-                pdf.text(hOffset - 3, vOffset, "PM Last D/O");
+                pdf.text(hOffset - 3, vOffset, "Last Drop Off");
                 hOffset += 54;
-                pdf.setFontSize(8);
                 pdf.setFontStyle("normal");
                 pdf.text(hOffset, vOffset, objThis.Data.PSRoute2 || "");
                 hOffset += 54;
@@ -387,10 +383,10 @@
                 hOffset += 57.5;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 6, vOffset - 16);
                 pdf.text(hOffset - 3, vOffset - 7, objThis.Mon.MonTimeA.replace(" AM", "").replace(" PM", "") || "");
-                pdf.text(hOffset + 25, vOffset, objThis.Mon.MonTimeB.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset + 25, vOffset, objThis.Mon.MonTimeC.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 57.5;
                 pdf.line(hOffset - 64.5, vOffset + 2, hOffset - 6, vOffset - 16);
-                pdf.text(hOffset - 3, vOffset - 7, objThis.Mon.MonTimeC.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset - 3, vOffset - 7, objThis.Mon.MonTimeB.replace(" AM", "").replace(" PM", "") || "");
                 pdf.text(hOffset + 25, vOffset, objThis.Mon.MonTimeD.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 54;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 3, vOffset - 16);
@@ -440,10 +436,10 @@
                 hOffset += 57.5;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 6, vOffset - 16);
                 pdf.text(hOffset - 3, vOffset - 7, objThis.Tue.TueTimeA.replace(" AM", "").replace(" PM", "") || "");
-                pdf.text(hOffset + 25, vOffset, objThis.Tue.TueTimeB.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset + 25, vOffset, objThis.Tue.TueTimeC.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 57.5;
                 pdf.line(hOffset - 64.5, vOffset + 2, hOffset - 6, vOffset - 16);
-                pdf.text(hOffset - 3, vOffset - 7, objThis.Tue.TueTimeC.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset - 3, vOffset - 7, objThis.Tue.TueTimeB.replace(" AM", "").replace(" PM", "") || "");
                 pdf.text(hOffset + 25, vOffset, objThis.Tue.TueTimeD.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 54;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 3, vOffset - 16);
@@ -493,10 +489,10 @@
                 hOffset += 57.5;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 6, vOffset - 16);
                 pdf.text(hOffset - 3, vOffset - 7, objThis.Wed.WedTimeA.replace(" AM", "").replace(" PM", "") || "");
-                pdf.text(hOffset + 25, vOffset, objThis.Wed.WedTimeB.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset + 25, vOffset, objThis.Wed.WedTimeC.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 57.5;
                 pdf.line(hOffset - 64.5, vOffset + 2, hOffset - 6, vOffset - 16);
-                pdf.text(hOffset - 3, vOffset - 7, objThis.Wed.WedTimeC.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset - 3, vOffset - 7, objThis.Wed.WedTimeB.replace(" AM", "").replace(" PM", "") || "");
                 pdf.text(hOffset + 25, vOffset, objThis.Wed.WedTimeD.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 54;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 3, vOffset - 16);
@@ -546,10 +542,10 @@
                 hOffset += 57.5;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 6, vOffset - 16);
                 pdf.text(hOffset - 3, vOffset - 7, objThis.Thu.ThuTimeA.replace(" AM", "").replace(" PM", "") || "");
-                pdf.text(hOffset + 25, vOffset, objThis.Thu.ThuTimeB.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset + 25, vOffset, objThis.Thu.ThuTimeC.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 57.5;
                 pdf.line(hOffset - 64.5, vOffset + 2, hOffset - 6, vOffset - 16);
-                pdf.text(hOffset - 3, vOffset - 7, objThis.Thu.ThuTimeC.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset - 3, vOffset - 7, objThis.Thu.ThuTimeB.replace(" AM", "").replace(" PM", "") || "");
                 pdf.text(hOffset + 25, vOffset, objThis.Thu.ThuTimeD.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 54;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 3, vOffset - 16);
@@ -599,10 +595,10 @@
                 hOffset += 57.5;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 6, vOffset - 16);
                 pdf.text(hOffset - 3, vOffset - 7, objThis.Fri.FriTimeA.replace(" AM", "").replace(" PM", "") || "");
-                pdf.text(hOffset + 25, vOffset, objThis.Fri.FriTimeB.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset + 25, vOffset, objThis.Fri.FriTimeC.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 57.5;
                 pdf.line(hOffset - 64.5, vOffset + 2, hOffset - 6, vOffset - 16);
-                pdf.text(hOffset - 3, vOffset - 7, objThis.Fri.FriTimeC.replace(" AM", "").replace(" PM", "") || "");
+                pdf.text(hOffset - 3, vOffset - 7, objThis.Fri.FriTimeB.replace(" AM", "").replace(" PM", "") || "");
                 pdf.text(hOffset + 25, vOffset, objThis.Fri.FriTimeD.replace(" AM", "").replace(" PM", "") || "");
                 hOffset += 54;
                 pdf.line(hOffset - 60.5, vOffset + 2, hOffset - 3, vOffset - 16);
@@ -1046,15 +1042,15 @@
                         pdf.setFillColor(0, 0, 0);
                         pdf.setFontStyle('bold');
                         if (objThis[day][`${day}QL${b}`]) {
-                            pdf.rect(hOffset, vOffset - 7.5, 13, 9, 'FD');
+                            pdf.rect(hOffset, vOffset - 9.5, 13, 9, 'FD');
                             pdf.setTextColor(255, 255, 255);
                         } else {
-                            pdf.rect(hOffset, vOffset - 7.5, 13, 9);
+                            pdf.rect(hOffset, vOffset - 9.5, 13, 9);
                             pdf.setTextColor(0, 0, 0);
                         }
                         pdf.setFontSize(7);
-                        pdf.text(hOffset + 1.5, vOffset - 1.5, 'Q');
-                        pdf.text(hOffset + 7.5, vOffset - 1.5, 'L');
+                        pdf.text(hOffset + 1.5, vOffset - 2.5, 'Q');
+                        pdf.text(hOffset + 7.5, vOffset - 2.5, 'L');
                         pdf.setTextColor(0, 0, 0);
                         pdf.setFontStyle('normal');
                         hOffset += 26;
@@ -1111,10 +1107,10 @@
                             pdf.setFontStyle('bold');
                             pdf.setDrawColor(0);
                             pdf.setFillColor(0, 0, 0);
-                            pdf.rect(hOffset - 2, vOffset - 9, 18, 10, 'FD');
+                            pdf.rect(hOffset - 2, vOffset - 9.5, 18, 9, 'FD');
                             pdf.setTextColor(255, 255, 255);
                             pdf.setFontSize(7);
-                            pdf.text(hOffset, vOffset - 1.5, 'ALL');
+                            pdf.text(hOffset, vOffset - 2.5, 'ALL');
                             pdf.setTextColor(0, 0, 0);
                             pdf.setFontStyle('normal');
                         }
@@ -1239,15 +1235,15 @@
                         pdf.setFillColor(0, 0, 0);
                         pdf.setFontStyle('bold');
                         if (objThis[day][`${day}QL${b}`]) {
-                            pdf.rect(hOffset, vOffset - 8.5, 13, 9, 'FD');
+                            pdf.rect(hOffset, vOffset - 9.5, 13, 9, 'FD');
                             pdf.setTextColor(255, 255, 255);
                         } else {
-                            pdf.rect(hOffset, vOffset - 8.5, 13, 9);
+                            pdf.rect(hOffset, vOffset - 9.5, 13, 9);
                             pdf.setTextColor(0, 0, 0);
                         }
                         pdf.setFontSize(7);
-                        pdf.text(hOffset + 1.5, vOffset - 1.5, 'Q');
-                        pdf.text(hOffset + 7.5, vOffset - 1.5, 'L');
+                        pdf.text(hOffset + 1.5, vOffset - 2.5, 'Q');
+                        pdf.text(hOffset + 7.5, vOffset - 2.5, 'L');
                         pdf.setTextColor(0, 0, 0);
                         pdf.setFontStyle('normal');
                         pdf.setFontSize(9);
@@ -1353,9 +1349,6 @@
                 hOffset += 57.2;
                 pdf.text(hOffset, vOffset - 1, "C1: Callback");
 
-
-
-
                 vOffset += 32;
                 vTimeStart = vOffset - 9; //Needed for the lines used later
                 hOffset = margin;
@@ -1434,7 +1427,7 @@
                 let iframe = document.getElementById("tsframe")
                 iframe.src = string;
 
-                //                pdf.save(fileName + ".pdf");
+                pdf.save(fileName + ".pdf");
             } catch (error) {
                 console.log(error.message);
             }

@@ -188,8 +188,10 @@ function dailyQL(day) {
 
     //If Q/L is checked, total up run, pac, shuttles, late run time
     if (day !== "Sat" && day !== "Sun") {
-        sum += (byID('QL11').checked || chkQLRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
-        sum += (byID('QL11').checked || chkQLRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
+//        sum += (byID('QL11').checked || chkQLRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
+        sum += (byID('QL11').checked) ? calculateDiff(day, 11) : 0;
+//        sum += (byID('QL11').checked || chkQLRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
+        sum += (byID('QL11').checked) ? calculateDiff(day, 12) : 0;
 
         for (let i = 13; i < 18; i += 1)
             sum += byID('QL11').checked ? calculateDiff(day, i) : 0;
@@ -210,19 +212,19 @@ function dailyQL(day) {
     byID(`QLTotal`).value = sum;
 }
 
-function chkQLRC(day, mer) {
-    if (objThis[day][`${day}QLRC1${mer}`] || objThis[day][`${day}QLRC2${mer}`] || objThis[day][`${day}QLRC3${mer}`] || objThis[day][`${day}QLRC4${mer}`] || objThis[day][`${day}QLRC5${mer}`])
-        return true;
-    else
-        return false;
-}
-
-function chkJRC(day, mer) {
-    if (objThis[day][`${day}JRC1${mer}`] || objThis[day][`${day}JRC2${mer}`] || objThis[day][`${day}JRC3${mer}`] || objThis[day][`${day}JRC4${mer}`] || objThis[day][`${day}JRC5${mer}`])
-        return true;
-    else
-        return false;
-}
+//function chkQLRC(day, mer) {
+//    if (objThis[day][`${day}QLRC1${mer}`] || objThis[day][`${day}QLRC2${mer}`] || objThis[day][`${day}QLRC3${mer}`] || objThis[day][`${day}QLRC4${mer}`] || objThis[day][`${day}QLRC5${mer}`])
+//        return true;
+//    else
+//        return false;
+//}
+//
+//function chkJRC(day, mer) {
+//    if (objThis[day][`${day}JRC1${mer}`] || objThis[day][`${day}JRC2${mer}`] || objThis[day][`${day}JRC3${mer}`] || objThis[day][`${day}JRC4${mer}`] || objThis[day][`${day}JRC5${mer}`])
+//        return true;
+//    else
+//        return false;
+//}
 
 function calculateRunTime(day) {
     let sum = 0;
@@ -282,8 +284,10 @@ function calculateAdmin() {
     let sum = 0;
     for (const day of days) {
         if (day === "Sat" || day === "Sun") continue;
-        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
-        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
+//        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'AM')) ? calculateDiff(day, 11) : 0;
+        sum += (objThis[day][`${day}J11`]) ? calculateDiff(day, 11) : 0;
+//        sum += (objThis[day][`${day}J11`] || chkJRC(day, 'PM')) ? calculateDiff(day, 12) : 0;
+        sum += (objThis[day][`${day}J11`]) ? calculateDiff(day, 12) : 0;
 
         for (let i = 13; i < 18; i += 1)
             sum += objThis[day][`${day}J11`] ? calculateDiff(day, i) : 0;
