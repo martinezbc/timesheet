@@ -1283,7 +1283,7 @@
                 pdf.setFontStyle("bold");
                 pdf.text(hOffset - 115, vOffset - 1.5, "FIELD TRIPS SUB TOTAL");
                 pdf.setFontSize(13);
-                pdf.text(hOffset + 5, vOffset, convertTotal(weeklyFieldTripTime()));
+                pdf.text(hOffset + 5, vOffset, weeklyFieldTripTime());
                 pdf.line(552, vOffset, 552, vTimeStart + 11);
                 vOffset += 2;
 
@@ -1363,7 +1363,7 @@
                 x = (objThis.Data.Area !== "TC") ? addPrepTime(x) : x;
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
-                x = convertTotal(weeklyFieldTripTime());
+                x = weeklyFieldTripTime();
                 pdf.text(hOffset, vOffset, x);
                 hOffset += 57.2;
                 x = convertTotal(calculateHoursWorked());

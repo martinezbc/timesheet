@@ -162,8 +162,8 @@ function dailyOther(day) {
 
 //CALCULATE DAILY FIELD TRIP TIME
 function dailyFT(day) {
-    const sum = convertTotal(calculateFieldTrip(day));
-    byID(`FTTotal`).value = sum;
+    const sum = calculateFieldTrip(day);
+    byID(`FTTotal`).value = setToFixed(sum);
 }
 
 function dailyTotals(day) {
@@ -249,10 +249,12 @@ function calculateOtherTime(day) {
 
 function calculateFieldTrip(day) {
     let sum = 0;
+    let diff = 0;
 
     for (let j = 30; j < 35; j += 1) {
         if ((day === "Sat" || day === "Sun") && j === 33) break;
-        sum += calculateDiff(day, j);
+        diff = Number(convertTotal(calculateDiff(day, j)));
+        sum += diff;
     }
     return sum;
 }
@@ -354,7 +356,7 @@ function weeklyFieldTripTime() {
     for (const day of days) {
         sum += calculateFieldTrip(day);
     }
-    return sum;
+    return setToFixed(sum);
 }
 
 function weeklyC1Time() {
@@ -405,7 +407,7 @@ function getWeeklyTotals() {
     byID("TotalOther").value = otherTime;
 
     //CALCULATE FIELD TRIPS
-    const ftTime = convertTotal(weeklyFieldTripTime());
+    const ftTime = weeklyFieldTripTime();
     byID("TotalFT").value = ftTime;
 
     //CALCULATE HOURS WORKED
