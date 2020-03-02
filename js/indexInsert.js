@@ -73,7 +73,7 @@ function insertOW(i) {
         <option value="Q/L">Q/L Coverage</option>
         <option value="CPR">CPR/First Aid</option>
         <option value="RCRT">Recertification</option>
-        <option value="MTNG">Meeting (Team, Mentor, etc)</option>
+        <option value="MTNG">Meeting</option>
         <option value="TRNG">Training</option>
         <option value="MED">Physical/Drug Test</option>
         <option value="CST">Cold Start Team</option>
@@ -106,7 +106,7 @@ function insertFT(i) {
         <div class="tinycard bg-teal3 hide" id="FTDiv${i}">
         <div class="row">
         <div class="category col-11">Field Trip
-        <span class="fas fa-question-circle ft"></span></div>
+        <span class="fas fa-question-circle ft"></span><input type="checkbox" class="btnNSD" id="NSD${i}"><label class="lblBtnFalse btnNSD" for="NSD${i}">Non-School Day</label></div>
         <div class="col-1 center">
         <span class="fas fa-trash-alt" id="FTTrash${i}"></span></div></div>
         <div class="row">

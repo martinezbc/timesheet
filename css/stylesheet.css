@@ -759,3 +759,16 @@ input[type=checkbox]:hover {
     font-family: 'Rubik', 'Helvetica', 'Verdana', sans-serif;
 }
 
+input[type=checkbox] + label.btnNSD {
+    letter-spacing: -0.5px;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.small-pic {
+    width: 20px;
+}
+
+.small-pic:hover {
+    cursor: pointer;
+}

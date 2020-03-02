@@ -579,6 +579,10 @@ function toggleOWFTLV() {
         if ((day === "Sat" || day === "Sun") && j > 32) continue;
         let bln = (objThis[day][`${day}Voucher${j}`] !== "" || objThis[day][`${day}To${j}`] !== "" || objThis[day][`${day}From${j}`] !== "" || objThis[day][`${day}Time${j}`] !== "") ? true : false;
         byID(`Time${j}`).value = convertTotal(calculateDiff(day, j));
+        if (day === "Sat" || day === "Sun") 
+            byID(`NSD${j}`).checked = true;
+        else
+            byID(`NSD${j}`).checked = objThis[day][`${day}NSD${j}`];
         showHide(byID(`FTDiv${j}`), bln);
     }
 

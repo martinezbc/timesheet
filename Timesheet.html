@@ -1228,6 +1228,11 @@
                     if (blnFT) {
                         let day = fieldTrip[i].substr(0, 3);
                         let b = fieldTrip[i].substr(7);
+                        if (objThis[day][`${day}NSD${b}`]) {
+                            pdf.setDrawColor(0, 0, 0);
+                            pdf.setFillColor(221, 160, 221);
+                            pdf.rect(margin, vOffset - 12, 572, 14, "FD");
+                        }
                         x = getDateField(fieldTrip[i]);
                         pdf.text(hOffset, vOffset, x || "");
                         hOffset += 33;
