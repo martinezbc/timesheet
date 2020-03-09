@@ -75,6 +75,7 @@ function insertOW(i) {
         <option value="RCRT">Recertification</option>
         <option value="MTNG">Meeting</option>
         <option value="TRNG">Training</option>
+        <option value="MNTR">Mentor</option>
         <option value="MED">Physical/Drug Test</option>
         <option value="CST">Cold Start Team</option>
         </optgroup><optgroup label="**Require Admin Approval">

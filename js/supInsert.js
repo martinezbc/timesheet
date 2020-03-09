@@ -101,6 +101,7 @@ function insertOW(j) {
             <option value="Q/L">Q/L Coverage</option>
             <option value="MTNG">Meeting</option>
             <option value="TRNG">Training</option>
+            <option value="MNTR">Mentor</option>
             <option value="MED">Physical/Drug Test</option>
             <option value="CS">Cold start team</option>
             <option value="CBK">Call back</option>
