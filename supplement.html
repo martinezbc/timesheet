@@ -21,7 +21,7 @@
 
     </script>
     <script src="https://kit.fontawesome.com/a0f6dbab9e.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+    <script src="js/jspdf.js"></script>
     <style>
         .full {
             width: 100%;
@@ -96,9 +96,9 @@
                 pdf.setDrawColor(0, 0, 0);
                 pdf.setLineWidth(1);
                 pdf.line(margin, vOffset + 7, 592, vOffset + 7);
-                pdf.setLineDash([2, 2, 4, 2]);
+                pdf.setLineWidth(0.5);
                 pdf.line(margin, vOffset + 22, 592, vOffset + 22);
-                pdf.setLineDash();
+                pdf.setLineWidth(1);
 
                 //********FIRST LINE********//
                 vOffset += 19;
