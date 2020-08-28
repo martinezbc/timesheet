@@ -330,9 +330,10 @@ function calculateHoursWorked() {
             sum += convertTotal(calculateDiff(day, j)) * 60;
         }
     }
-    if (optVal === "") {
-        if (objThis.Data.Area !== "TC") sum += 15;
-    }
+    //SUSPEND UNTIL AFTER DISTANCE LEARNING
+//    if (optVal === "") {
+//        if (objThis.Data.Area !== "TC") sum += 15;
+//    }
     return sum;
 }
 

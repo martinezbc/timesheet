@@ -2,18 +2,96 @@ document.addEventListener('DOMContentLoaded', () => {
     byID('ctspan').addEventListener('click', popUpCT);
     byID('divpreview').addEventListener('click', completeTimesheet);
     byID('divsupplement').addEventListener('click', openSupplement);
-//    byID('endcover').addEventListener('click', closeRunCoverage);
-//    arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);
-//    arrEach(docObj(".chkRC"), 'click', openRunCoverage);
-//    arrEach(docObj(".rc"), 'change', checkRCRoute);
-//    arrEach(docObj(".chkQLRC"), 'click', checkRCRoute);
-//    arrEach(docObj(".chkJRC"), 'click', checkRCRoute);
+    byID('dailyHrs').addEventListener('click', addDailyHours);
+
+    //    byID('endcover').addEventListener('click', closeRunCoverage);
+    //    arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);
+    //    arrEach(docObj(".chkRC"), 'click', openRunCoverage);
+    //    arrEach(docObj(".rc"), 'change', checkRCRoute);
+    //    arrEach(docObj(".chkQLRC"), 'click', checkRCRoute);
+    //    arrEach(docObj(".chkJRC"), 'click', checkRCRoute);
 });
 
 //SET VALUE INTO LOCAL STORAGE BY ELEMENT ID
 function setStorage() {
     let week = byID('WeekOf').value;
     localStorage.setItem(`${week}Obj`, JSON.stringify(objThis));
+}
+
+//ADD DAILY HOURS TO DAY
+function addDailyHours() {
+    const hrs = objThis.Data.Dailyhours;
+    if (hrs === "" || hrs === undefined) {
+        openPopUp("Daily hours must be selected first");
+    } else {
+        const day = getDay();
+        byID("Time11S").value = "6:00 AM";
+        setObject("Time11S");
+        byID("Time11E").value = getEndAMHrs();
+        timeCalculation("Time11E");
+        byID("Time12S").value = "12:00 PM"
+        setObject("Time12S");
+        byID("Time12E").value = getEndPMHrs();
+        timeCalculation("Time12E");
+    }
+    setTimeout(() => {
+        byID("dailyHrs").checked = false;
+    }, 200);
+
+}
+
+function getEndAMHrs() {
+    const hrs = objThis.Data.Dailyhours;
+
+    switch (hrs) {
+        case "8.0":
+            return "10:00 AM";
+            break;
+        case "7.5":
+            return "9:45 AM";
+            break;
+        case "7.0":
+            return "9:30 AM";
+            break;
+        case "6.5":
+            return "9:15 AM";
+            break;
+        case "6.0":
+            return "9:00 AM";
+            break;
+        case "5.5":
+            return "8:45 AM";
+            break;
+        case "5.0":
+            return "8:30 AM";
+    }
+}
+
+function getEndPMHrs() {
+    const hrs = objThis.Data.Dailyhours;
+
+    switch (hrs) {
+        case "8.0":
+            return "4:00 PM";
+            break;
+        case "7.5":
+            return "3:45 PM";
+            break;
+        case "7.0":
+            return "3:30 PM";
+            break;
+        case "6.5":
+            return "3:15 PM";
+            break;
+        case "6.0":
+            return "3:00 PM";
+            break;
+        case "5.5":
+            return "2:45 PM";
+            break;
+        case "5.0":
+            return "2:30 PM";
+    }
 }
 
 //UPDATE THE WAY THE ROUTE NAME LOOKS
@@ -379,7 +457,7 @@ function toggleDay(x) {
     loadLocalStorage(days[x])
     getDailyTotals();
     toggleOWFTLV();
-//    toggleRC();
+    //    toggleRC();
     loadOJT();
     loadQL();
     loadJ();

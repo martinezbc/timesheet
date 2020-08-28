@@ -71,6 +71,9 @@ arrEach(docObj("input[name='Area']"), 'change', (e) => {
     radioAreaSelect(e.target)
 });
 arrEach(docObj("input[name='Position']"), 'change', positionChange);
+arrEach(docObj("input[name='Dailyhours']"), 'change', (e) => {
+    dailyHoursSelect(e.target)
+});
 arrEach(docObj(".route"), 'change', routeNameCheck);
 arrEach(docObj(".selectOW"), 'change', (e) => {
     selectOWChange(e.target)
@@ -467,6 +470,7 @@ function loadRadioSelection() {
     const area = objThis[key]["Area"];
     const team = objThis[key]["Team"];
     let pos = objThis[key]["Position"];
+    let hrs = objThis[key]["Dailyhours"];
     //Load area from local storage and set radio selection
     for (const areas of docObj("input[name='Area']")) {
         areas.checked = false;
@@ -488,6 +492,16 @@ function loadRadioSelection() {
     if (pos !== "") {
         pos = pos.replace(" ", "");
         byID("pos" + pos).checked = true;
+    }
+    
+    //Load daily hours
+    //Load position from local storage and set radio selection
+    for (const dhours of docObj('input[name="Dailyhours"]')) {
+        dhours.checked = false;
+    }
+    if (hrs !== "" && hrs !== undefined) {
+        hrs = hrs.replace('.','');
+        byID("hrs" + hrs).checked = true;
     }
 }
 
@@ -682,6 +696,14 @@ function moveLeftNavBar() {
 function radioAreaSelect(e) {
     setDataKeyValue("Team", "");
     loadTeamValues();
+}
+
+//SET DAILY HOURS
+function dailyHoursSelect(e) {
+    const key = (optVal === "") ? "Data" : "Sup"
+    let hrs = e.value;
+    objThis[key]["Dailyhours"] = hrs;
+    setStorage();
 }
 
 //OJT CHECKBOX CLICK
@@ -885,7 +907,7 @@ function countFieldTrips() {
     }
 }
 
-//Run calculations for the whole week and set the values into local storage
+//Set the values into local storage
 function setDataKeyValue(key, value) {
     if (optVal === "")
         objThis.Data[key] = value;
@@ -927,7 +949,7 @@ function resetElement(refID) {
 //SET RADIO SELECTION
 function storeRadioValue(e) {
     let parent = e.parentNode.id;
-    if (parent !== 'divarea' && parent !== 'divposition') {
+    if (parent !== 'divarea' && parent !== 'divposition' && parent !== 'divDailyhours') {
         parent = e.parentNode.parentNode.id;
     }
     parent = parent.replace('div', '');
@@ -941,6 +963,7 @@ function storeRadioValue(e) {
 
 //SET ELEMENT VALUE INTO OBJECTS
 function setObject(refID) {
+    if (refID === 'dailyHrs') return;
     if (refID === 'WeekOf') return;
     const day = getDay();
     const e = byID(refID);
@@ -974,9 +997,10 @@ function runValidations() {
     let val = "";
 
     val = testEmpData() + testOtherWork() + testFieldTrip() + testLeave() + testTimeComplete();
-    if (optVal === "" && objThis.Data.Area !== "TC") {
-        val += testStopCounts();
-    }
+    //REMOVE STOP COUNT VALIDATION DURING COVID
+//    if (optVal === "" && objThis.Data.Area !== "TC") {
+//        val += testStopCounts();
+//    }
 
     if (val !== "") {
         openPopUp(val);

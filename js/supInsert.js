@@ -21,10 +21,12 @@ for (let area = 1; area < 5; area++) {
     }
 }
 byID('divteam').innerHTML += '<div class="hide" id="div7"></div>';
-const area7Teams = ['ACA', 'ALTM', 'ALTP', 'AUR', 'CARD', 'FCPS', 'FR', 'IVY', 'KING', 'KK', 'KT', 'LAB', 'LOU', 'MATH', 'PHIL', 'RIV', 'SCOL'];
-for (const team of area7Teams) {
-    byID('div7').innerHTML += `<input type="radio" id="team${team}" name="Team" value="${team}"><label for="team${team}">${team}</label>`;
-}
+//const area7Teams = ['ACA', 'ALTM', 'ALTP', 'AUR', 'CARD', 'FCPS', 'FR', 'IVY', 'KING', 'KK', 'KT', 'LAB', 'LOU', 'MATH', 'PHIL', 'RIV', 'SCOL'];
+//for (const team of area7Teams) {
+//    byID('div7').innerHTML += `<input type="radio" id="team${team}" name="Team" value="${team}"><label for="team${team}">${team}</label>`;
+//}
+byID('div7').innerHTML += '<input type="radio" id="team72" name="Team" value="72"><label for="team72">72</label>';
+byID('div7').innerHTML += '<input type="radio" id="team73" name="Team" value="73"><label for="team73">73</label>';
 byID('divteam').innerHTML += '<div class="hide" id="divTC"></div>';
 byID('divTC').innerHTML += '<input type="radio" id="teamTC" name="Team" value="TC"><label for="teamTC">TC</label>';
 

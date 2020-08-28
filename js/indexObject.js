@@ -37,7 +37,8 @@ const objNew = {
         TotalC3: "",
         TotalC1: "",
         Total1R: "",
-        WeekOf: ""
+        WeekOf: "",
+        Hours: ""
     },
     Sat: {
         SatDate: "",
