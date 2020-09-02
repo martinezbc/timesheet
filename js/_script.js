@@ -71,9 +71,9 @@ arrEach(docObj("input[name='Area']"), 'change', (e) => {
     radioAreaSelect(e.target)
 });
 arrEach(docObj("input[name='Position']"), 'change', positionChange);
-arrEach(docObj("input[name='Dailyhours']"), 'change', (e) => {
-    dailyHoursSelect(e.target)
-});
+//arrEach(docObj("input[name='Dailyhours']"), 'change', (e) => {
+//    dailyHoursSelect(e.target)
+//});
 arrEach(docObj(".route"), 'change', routeNameCheck);
 arrEach(docObj(".selectOW"), 'change', (e) => {
     selectOWChange(e.target)

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     byID('ctspan').addEventListener('click', popUpCT);
     byID('divpreview').addEventListener('click', completeTimesheet);
     byID('divsupplement').addEventListener('click', openSupplement);
-    byID('dailyHrs').addEventListener('click', addDailyHours);
+//    byID('dailyHrs').addEventListener('click', addDailyHours);
 
     //    byID('endcover').addEventListener('click', closeRunCoverage);
     //    arrEach(docObj(".chkFTQL"), 'click', getDailyTotals);

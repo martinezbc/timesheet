@@ -40,13 +40,13 @@ for (const position of positions) {
 /******
 INSERT SCHEDULED HOURS
 ******/
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs80" name="Dailyhours" value="8.0"><label for="hrs80">8.0</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs75" name="Dailyhours" value="7.5"><label for="hrs75">7.5</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs70" name="Dailyhours" value="7.0"><label for="hrs70">7.0</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs65" name="Dailyhours" value="6.5"><label for="hrs65">6.5</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs60" name="Dailyhours" value="6.0"><label for="hrs60">6.0</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs55" name="Dailyhours" value="5.5"><label for="hrs55">5.5</label>';
-byID('divDailyhours').innerHTML += '<input type="radio" id="hrs50" name="Dailyhours" value="5.0"><label for="hrs50">5.0</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs80" name="Dailyhours" value="8.0"><label for="hrs80">8.0</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs75" name="Dailyhours" value="7.5"><label for="hrs75">7.5</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs70" name="Dailyhours" value="7.0"><label for="hrs70">7.0</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs65" name="Dailyhours" value="6.5"><label for="hrs65">6.5</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs60" name="Dailyhours" value="6.0"><label for="hrs60">6.0</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs55" name="Dailyhours" value="5.5"><label for="hrs55">5.5</label>';
+//byID('divDailyhours').innerHTML += '<input type="radio" id="hrs50" name="Dailyhours" value="5.0"><label for="hrs50">5.0</label>';
 
 /******
 INSERT OTHER WORK FIELDS
